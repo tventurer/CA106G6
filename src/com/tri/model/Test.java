@@ -24,12 +24,12 @@ public class Test extends HttpServlet {
        
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-//------´ú¸ÕTrip------
+//------è¡Œç¨‹Trip------
 		
 //		TriDAO tdao = new TriDAO();
 //		TriVO t1 = new TriVO();
 //		t1.setMemno("MEM000001");
-//		t1.setTriname("®ç¶é¦n¦nª±3");
+//		t1.setTriname("æ¡ƒåœ’å¥½å¥½3");
 //		t1.setTribegdate(Date.valueOf("2019-11-11"));
 //		t1.setTrienddate(Date.valueOf("2019-11-12"));
 //		t1.setTristat(0);
@@ -39,7 +39,7 @@ public class Test extends HttpServlet {
 		
 //		TriVO t2 = dao.findByPk("TRI000004");
 //		
-//		t2.setTriname("¾Á¤B123");
+//		t2.setTriname("å¢¾ä¸123");
 //		t2.setTristat(1);
 //		
 //		tdao.update(t2);
@@ -58,17 +58,17 @@ public class Test extends HttpServlet {
 //			System.out.println(trip.getTriremark());
 //		}
 		
-//------´ú¸ÕSpot------
+//------æ™¯é»Spot------
 		
 		SpoDAO sdao = new SpoDAO();
 //		SpoVO s1 = new SpoVO();
-//		s1.setSponame("²H¤ô¦Ñµó");
-//		s1.setSpoclass("´ºÂI");
-//		s1.setSpocon("¥xÆW");
-//		s1.setSpocity("¥x¥_¥«");
+//		s1.setSponame("æ·¡æ°´");
+//		s1.setSpoclass("æ™¯é»");
+//		s1.setSpocon("å°ç£");
+//		s1.setSpocity("æ–°åŒ—å¸‚");
 //		s1.setSpolat(121.3258);
 //		s1.setSpolong(23.5542);
-//		s1.setSpoaddr("²H¤ô");
+//		s1.setSpoaddr("tset123");
 //		File file = new File("D:/pic/123.jpg");
 //		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 //		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -85,12 +85,12 @@ public class Test extends HttpServlet {
 //		sdao.add(s1);
 		
 //		SpoVO s2 = sdao.findByPk("SPO000022");
-//		s2.setSponame("²H¤ô¦Ñµó2");
+//		s2.setSponame("2");
 //		s2.setSpocon("Taiwan");
 		
 //		sdao.update(s2);
 		
-		List<SpoVO> s3 = sdao.findByCity("¥x¥_¥«");
+		List<SpoVO> s3 = sdao.findByCity("å°åŒ—å¸‚");
 		for(SpoVO spo : s3) {
 			System.out.println(spo.getSpono());
 			System.out.println(spo.getSponame());
@@ -103,9 +103,9 @@ public class Test extends HttpServlet {
 			System.out.println(spo.getSpoattribute());
 		}
 		
-		System.out.println("----------´ºÂI·j´M----------");
+		System.out.println("----------æ™¯é»----------");
 		
-		List<SpoVO> s4 = sdao.findByClass("´ºÂI");
+		List<SpoVO> s4 = sdao.findByClass("æ™¯é»");
 		for(SpoVO spot : s4) {
 			System.out.println(spot.getSpono());
 			System.out.println(spot.getSponame());
