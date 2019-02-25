@@ -9,10 +9,21 @@ import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class SpoDAO implements SpoDAO_interface {
 
+	private static DataSource ds =null;
+	static {
+		try{
+			Context ctx = new InitialContext();
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/TV");
+		} catch(NamingException ne) {
+			ne.printStackTrace();
+		}
+	}
+	
 	private static final String ADD_STMT = "INSERT INTO SPOT (SPONO, SPONAME, SPOCLASS, SPOCON, SPOCITY, SPOLAT, SPOLONG, SPOADDR, SPOCONTENT, SPOPIC, SPOATTRIBUTE) VALUES ('SPO'||LPAD(TO_CHAR(SPO_SEQ.NEXTVAL),6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE SPOT SET SPONAME=?, SPOCLASS=?, SPOCON=?, SPOCITY=?, SPOLAT=?, SPOLONG=?, SPOADDR=?, SPOCONTENT=?, SPOPIC=?, SPOATTRIBUTE=? WHERE SPONO=?";
 	private static final String DELETE_STMT = "DELETE FROM SPOT WHERE SPONO=?";
@@ -27,8 +38,6 @@ public class SpoDAO implements SpoDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TV");
 			con = ds.getConnection();
 			String[] cols = { "SPONO" };
 			pstmt = con.prepareStatement(ADD_STMT, cols);
@@ -46,8 +55,8 @@ public class SpoDAO implements SpoDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -74,8 +83,6 @@ public class SpoDAO implements SpoDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TV");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
@@ -93,8 +100,8 @@ public class SpoDAO implements SpoDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -121,8 +128,6 @@ public class SpoDAO implements SpoDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TV");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE_STMT);
 
@@ -130,8 +135,8 @@ public class SpoDAO implements SpoDAO_interface {
 
 			pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -159,8 +164,6 @@ public class SpoDAO implements SpoDAO_interface {
 		SpoVO spot = new SpoVO();
 
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TV");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDBYCITY_STMT);
 
@@ -181,8 +184,8 @@ public class SpoDAO implements SpoDAO_interface {
 			spot.setSpopic(rs.getBytes(10));
 			spot.setSpoattribute(rs.getInt(11));
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -219,8 +222,6 @@ public class SpoDAO implements SpoDAO_interface {
 		List<SpoVO> list = new ArrayList<SpoVO>();
 
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TV");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDBYCITY_STMT);
 
@@ -244,8 +245,8 @@ public class SpoDAO implements SpoDAO_interface {
 				list.add(spot);
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -282,8 +283,6 @@ public class SpoDAO implements SpoDAO_interface {
 		List<SpoVO> list = new ArrayList<SpoVO>();
 
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TV");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDBYCLASS_STMT);
 
@@ -307,8 +306,8 @@ public class SpoDAO implements SpoDAO_interface {
 				list.add(spot);
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -345,8 +344,6 @@ public class SpoDAO implements SpoDAO_interface {
 		List<SpoVO> list = new ArrayList<SpoVO>();
 
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TV");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GETALL_STMT);
 
@@ -368,8 +365,8 @@ public class SpoDAO implements SpoDAO_interface {
 				list.add(spot);
 			}
 
-		} catch (Exception se) {
-			se.printStackTrace();
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {

@@ -1,4 +1,4 @@
-package com.tri.model;
+package com.tod.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,12 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.sql.DataSource;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-public class TriDAO implements TriDAO_interface{
+public class TodDAO implements TodDAO_interface{
 	
 	private static DataSource ds = null;
 	static {
@@ -23,33 +24,31 @@ public class TriDAO implements TriDAO_interface{
 		}
 	}
 	
-	private static final String ADD_STMT = "INSERT INTO TRIP (TRINO, MEMNO, TRINAME, TRIBEGDATE, TRIENDDATE, TRIPEONUM, TRISTAT, TRIREMARK) VALUES ('TRI'||LPAD(TO_CHAR(TRI_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_STMT = "UPDATE TRIP SET TRINAME=?, TRIBEGDATE=?, TRIENDDATE=?, TRIPEONUM=?, TRISTAT=?, TRIREMARK=? WHERE TRINO=?";
-	private static final String DELETE_STMT = "DELETE FROM TRIP WHERE TRINO=?";
-	private static final String FINDBYPK_STMT = "SELECT * FROM TRIP WHERE TRINO=?";
-	private static final String GETALL_STMT = "SELECT * FROM TRIP";
+	private static final String ADD_STMT = "INSERT INTO TRIPORDER (TODNO, MEMNO, TRINO, EMPNO, TODQUO, TODDDL, TODDATE, TODREMARK, TODSTAT) VALUES ('TOD'||LPAD(TO_CHAR(TOD_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String UPDATE_STMT = "UPDATE TRIPORDER SET EMPNO=?, TODQUO=?, TODDDL=?, TODDATE=?, TODREMARK=?, TODSTAT=? WHERE TODNO=?";
+	private static final String DELETE_STMT = "DELETE FROM TRIPORDER WHERE TODNO=?";
+	private static final String FINDBYPK_STMT = "SELECT * FROM TRIPORDER WHERE TODNO=?";
+	private static final String GETALL_STMT = "SELECT * FROM TRIPORDER";
 	
 	@Override
-	public void add(TriVO trip) {
-		
+	public void add(TodVO tod) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = ds.getConnection();
-			String[] cols = {"TRINO"};
-			pstmt = con.prepareStatement(ADD_STMT, cols);
+			pstmt = con.prepareStatement(ADD_STMT);
 			
-			pstmt.setString(1, trip.getMemno());
-			pstmt.setString(2, trip.getTriname());
-			pstmt.setDate(3, trip.getTribegdate());
-			pstmt.setDate(4, trip.getTrienddate());
-			pstmt.setObject(5, trip.getTripeonum());
-			pstmt.setInt(6, trip.getTristat());
-			pstmt.setString(7, trip.getTriremark());
+			pstmt.setString(1, tod.getMemno());
+			pstmt.setString(2, tod.getTrino());
+			pstmt.setString(3, tod.getEmpno());
+			pstmt.setInt(4, tod.getTodquo());
+			pstmt.setDate(5, tod.getTodddl());
+			pstmt.setDate(6, tod.getToddate());
+			pstmt.setString(7, tod.getTodremark());
+			pstmt.setInt(8, tod.getTodstat());
 			
 			pstmt.executeUpdate();
-			
 			
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
@@ -69,11 +68,11 @@ public class TriDAO implements TriDAO_interface{
 				}
 			}
 		}
+		
 	}
 
 	@Override
-	public void update(TriVO trip) {
-		
+	public void update(TodVO tod) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -81,13 +80,13 @@ public class TriDAO implements TriDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 			
-			pstmt.setString(1, trip.getTriname());
-			pstmt.setDate(2, trip.getTribegdate());
-			pstmt.setDate(3, trip.getTrienddate());
-			pstmt.setObject(4, trip.getTripeonum());
-			pstmt.setInt(5, trip.getTristat());
-			pstmt.setString(6, trip.getTriremark());
-			pstmt.setString(7, trip.getTrino());
+			pstmt.setString(1, tod.getEmpno());
+			pstmt.setInt(2, tod.getTodquo());
+			pstmt.setDate(3, tod.getTodddl());
+			pstmt.setDate(4, tod.getToddate());
+			pstmt.setString(5, tod.getTodremark());
+			pstmt.setInt(6, tod.getTodstat());
+			pstmt.setString(7, tod.getTodno());
 			
 			pstmt.executeUpdate();
 			
@@ -114,68 +113,68 @@ public class TriDAO implements TriDAO_interface{
 	}
 
 	@Override
-	public void delete(String trino) {
+	public void delete(String todno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
 		
-			Connection con = null;
-			PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE_STMT);
 			
-			try {
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(DELETE_STMT);
-				
-				pstmt.setString(1, trino);
-				
-				pstmt.executeUpdate();
-				
-			} catch(SQLException se) {
-				throw new RuntimeException(se.getMessage());
-			} finally {
-				if(pstmt != null) {
-					try {
-						pstmt.close();
-					} catch(SQLException se) {
-						se.printStackTrace();
-					}
-				}
-				if(con != null) {
-					try {
-						con.close();
-					} catch(SQLException se) {
-						se.printStackTrace();
-					}
+			pstmt.setString(1, todno);
+			
+			pstmt.executeUpdate();
+			
+		} catch(SQLException se) {
+			throw new RuntimeException(se.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
 				}
 			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
 		
 	}
 
 	@Override
-	public TriVO findByPk(String trino) {
-		
+	public TodVO findByPk(String todno) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		TriVO trip = new TriVO();
+		TodVO tod = new TodVO();
 		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(FINDBYPK_STMT);
 			
-			pstmt.setString(1, trino);
+			pstmt.setString(1, todno);
 			
 			rs = pstmt.executeQuery();
-			
+
 			rs.next();
-			trip.setTrino(rs.getString(1));
-			trip.setMemno(rs.getString(2));
-			trip.setTriname(rs.getString(3));
-			trip.setTribegdate(rs.getDate(4));
-			trip.setTrienddate(rs.getDate(5));
-			trip.setTripeonum(rs.getInt(6));
-			trip.setTristat(rs.getInt(7));
-			trip.setTriremark(rs.getString(8));
+			tod.setTodno(rs.getString(1));
+			tod.setMemno(rs.getString(2));
+			tod.setTrino(rs.getString(3));
+			tod.setEmpno(rs.getString(4));
+			tod.setTodquo(rs.getInt(5));
+			tod.setTodddl(rs.getDate(6));
+			tod.setToddate(rs.getDate(7));
+			tod.setTodremark(rs.getString(8));
+			tod.setTodstat(rs.getInt(9));
 			
 		} catch(SQLException se) {
-			throw new RuntimeException(se.getMessage());
+			se.printStackTrace();
+//			throw new RuntimeException(se.getMessage());
 		} finally {
 			if(rs != null) {
 				try{
@@ -199,16 +198,15 @@ public class TriDAO implements TriDAO_interface{
 				}
 			}
 		}
-		return trip;
+		return tod;
 	}
 
 	@Override
-	public List<TriVO> getAll() {
-		
+	public List<TodVO> getAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<TriVO> list = new ArrayList<TriVO>();
+		List<TodVO> list = new ArrayList<TodVO>();
 		
 		try {
 			con = ds.getConnection();
@@ -217,16 +215,17 @@ public class TriDAO implements TriDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				TriVO trip = new TriVO();
-				trip.setTrino(rs.getString(1));
-				trip.setMemno(rs.getString(2));
-				trip.setTriname(rs.getString(3));
-				trip.setTribegdate(rs.getDate(4));
-				trip.setTrienddate(rs.getDate(5));
-				trip.setTripeonum(rs.getInt(6));
-				trip.setTristat(rs.getInt(7));
-				trip.setTriremark(rs.getString(8));
-				list.add(trip);
+				TodVO tod = new TodVO();
+				tod.setTodno(rs.getString(1));
+				tod.setMemno(rs.getString(2));
+				tod.setTrino(rs.getString(3));
+				tod.setEmpno(rs.getString(4));
+				tod.setTodquo(rs.getInt(5));
+				tod.setTodddl(rs.getDate(6));
+				tod.setToddate(rs.getDate(7));
+				tod.setTodremark(rs.getString(8));
+				tod.setTodstat(rs.getInt(9));
+				list.add(tod);
 			}
 		} catch(SQLException se) {
 			throw new RuntimeException(se.getMessage());
