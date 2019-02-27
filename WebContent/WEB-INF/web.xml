@@ -9,4 +9,46 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/TV</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  
+  <servlet>
+    <servlet-name>EmpServlet</servlet-name>
+    <servlet-class>com.emp.controller.EmpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmpServlet</servlet-name>
+    <url-pattern>/backend/emp/emp</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EmrServlet</servlet-name>
+    <servlet-class>com.emr.controller.EmrServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmrServlet</servlet-name>
+    <url-pattern>/backend/emr/emr</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EmaServlet</servlet-name>
+    <servlet-class>com.ema.controller.EmaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmaServlet</servlet-name>
+    <url-pattern>/backend/ema/ema</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MemAnServlet</servlet-name>
+    <servlet-class>android.com.mem.controller.MemAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemAnServlet</servlet-name>
+    <url-pattern>/memAn</url-pattern>
+  </servlet-mapping>
 </web-app>
