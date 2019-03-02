@@ -5,7 +5,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    PacService pacSvc = new PacService();
+	PacService pacSvc = new PacService();
     List<PacVO> list = pacSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
