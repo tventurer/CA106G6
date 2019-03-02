@@ -51,6 +51,8 @@
     <servlet-name>MemAnServlet</servlet-name>
     <url-pattern>/memAn</url-pattern>
   </servlet-mapping>
+  
+<!-- 廖育麟的部分 -->
   <servlet>
     <servlet-name>PacJNDIDAO</servlet-name>
     <servlet-class>com.pac.model.PacJNDIDAO</servlet-class>
@@ -58,6 +60,56 @@
   <servlet-mapping>
     <servlet-name>PacJNDIDAO</servlet-name>
     <url-pattern>/PacJNDIDAO</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PacJNDIimpl_servlet</servlet-name>
+    <servlet-class>com.pac.model.PacJNDIDAO</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PacJNDIimpl_servlet</servlet-name>
+    <url-pattern>/PacJNDIDAO</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PacServlet</servlet-name>
+    <servlet-class>com.pac.controller.PacServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PacServlet</servlet-name>
+    <url-pattern>/backend/pac/pac</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PtpServlet</servlet-name>
+    <servlet-class>com.ptp.controller.PtpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PtpServlet</servlet-name>
+    <url-pattern>/backend/ptp/ptp</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PcdServlet</servlet-name>
+    <servlet-class>com.pcd.controller.PcdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PcdServlet</servlet-name>
+    <url-pattern>/backend/pcd/pcd</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DBGifReader</servlet-name>
+    <servlet-class>com.pac.controller.DBGifReader</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DBGifReader</servlet-name>
+    <url-pattern>/DBGifReader</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Test</servlet-name>
+    <servlet-class>com.pac.model.Test</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Test</servlet-name>
+    <url-pattern>/Test123</url-pattern>
   </servlet-mapping>
   
 </web-app>
