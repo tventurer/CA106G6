@@ -55,7 +55,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/pac/pac" >
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" >
         <b>輸入套裝行程編號 (如PAC000001):</b>
         <input type="text" name="pacno">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -66,7 +66,7 @@
   <jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService" />
    
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>backend/pac/pac">
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac">
        <b>選擇套裝行程編號:</b>
        <select size="1" name="pacno">
          <c:forEach var="pacVO" items="${pacSvc.all}" > 
@@ -79,7 +79,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>backend/pac/pac" >
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" >
        <b>選擇套裝行程名稱:</b>
        <select size="1" name="pacno">
          <c:forEach var="pacVO" items="${pacSvc.all}" > 
