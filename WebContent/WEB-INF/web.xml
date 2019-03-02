@@ -51,4 +51,13 @@
     <servlet-name>MemAnServlet</servlet-name>
     <url-pattern>/memAn</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>PacJNDIDAO</servlet-name>
+    <servlet-class>com.pac.model.PacJNDIDAO</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PacJNDIDAO</servlet-name>
+    <url-pattern>/PacJNDIDAO</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
