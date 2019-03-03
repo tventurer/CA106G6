@@ -53,15 +53,7 @@
   </servlet-mapping>
   
 <!-- 廖育麟的部分 -->
-  <servlet>
-    <servlet-name>PacJNDIDAO</servlet-name>
-    <servlet-class>com.pac.model.PacJNDIDAO</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PacJNDIDAO</servlet-name>
-    <url-pattern>/PacJNDIDAO</url-pattern>
-  </servlet-mapping>
-  
+    
   <servlet>
     <servlet-name>PacJNDIimpl_servlet</servlet-name>
     <servlet-class>com.pac.model.PacJNDIDAO</servlet-class>
