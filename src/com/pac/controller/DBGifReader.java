@@ -35,7 +35,7 @@ public class DBGifReader extends HttpServlet {
 				
 		} catch (Exception e) {
 			//System.out.println(e);
-			InputStream in = getServletContext().getResourceAsStream("/NoData/null2.jpg");
+			InputStream in = getServletContext().getResourceAsStream("/backend/NoData/null2.jpg");
 			byte[] buf = new byte[in.available()];
 			in.read(buf);
 			out.write(buf);
