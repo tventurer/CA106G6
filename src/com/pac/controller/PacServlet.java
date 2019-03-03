@@ -7,8 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import com.pac.model.*;
-import com.pac.model.PacService;
-import com.pac.model.PacVO;
+
 
 @MultipartConfig
 public class PacServlet extends HttpServlet {
@@ -134,11 +133,11 @@ public class PacServlet extends HttpServlet {
 					errorMsgs.add("管理員編號: 只能是加上EMP接六碼數字");
 	            }
 				String pacname = req.getParameter("pacname");
-				String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,120}$";
 				if (pacname == null || pacname.trim().length() == 0) {
 					errorMsgs.add("套裝行程名稱: 請勿空白");
 				} else if(!pacname.trim().matches(pacnameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+					errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到120之間");
 	            }
 				String paccountryReg = "^[(\u4e00-\u9fa5)(a-zA-Z)\\D]{2,60}$";
 				String paccountry = req.getParameter("paccountry");
@@ -194,7 +193,7 @@ public class PacServlet extends HttpServlet {
 				if (pacdiv == null || pacdiv.trim().length() == 0) {
 					errorMsgs.add("特色標籤: 請勿空白");
 				} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到20之間");
+					errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到60之間");
 	            }
 				
 				String paccontent = req.getParameter("paccontent");
@@ -312,7 +311,7 @@ public class PacServlet extends HttpServlet {
 						errorMsgs.add("管理員編號: 只能是加上EMP接六碼數字");
 		            }
 					String pacname = req.getParameter("pacname");
-					String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+					String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,120}$";
 					if (pacname == null || pacname.trim().length() == 0) {
 						errorMsgs.add("套裝行程名稱: 請勿空白");
 					} else if(!pacname.trim().matches(pacnameReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -363,7 +362,7 @@ public class PacServlet extends HttpServlet {
 					}
 					
 					String pacdiv = req.getParameter("pacdiv");
-					String pacdivReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,60}$";
+					String pacdivReg = "^[(\u4e00-\u9fa5)+,+97.?(a-zA-Z0-9_)]{2,60}$";
 					if (pacdiv == null || pacdiv.trim().length() == 0) {
 						errorMsgs.add("特色標籤: 請勿空白");
 					} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
