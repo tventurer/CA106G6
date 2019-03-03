@@ -48,7 +48,7 @@ public class PacServlet extends HttpServlet {
 								
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/select_page.jsp");
+							.getRequestDispatcher("/backend/pac/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -62,14 +62,14 @@ public class PacServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/select_page.jsp");
+							.getRequestDispatcher("/backend/pac/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pacVO", pacVO); // 資料庫取出的pacVO物件,存入req
-				String url = "/pac/listOnePac.jsp";
+				String url = "/backend/pac/listOnePac.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOnePac.jsp
 				successView.forward(req, res);
 
@@ -77,7 +77,7 @@ public class PacServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/pac/select_page.jsp");
+						.getRequestDispatcher("/backend/pac/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -97,7 +97,7 @@ public class PacServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("pacVO", pacVO);         // 資料庫取出的pacVO物件,存入req
-				String url = "/pac/update_pac_input.jsp";
+				String url = "/backend/pac/update_pac_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_pac_input.jsp
 				successView.forward(req, res);
 				
@@ -105,7 +105,7 @@ public class PacServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/pac/listAllPac.jsp");
+						.getRequestDispatcher("/backend/pac/listAllPac.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -116,7 +116,7 @@ public class PacServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String pacno =req.getParameter("pacno");
 				String pacnoReg= "^[P][A][C]000\\d\\d\\d$";
@@ -271,7 +271,7 @@ public class PacServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("pacVO", pacVO); // 含有輸入格式錯誤的pacVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/update_pac_input.jsp");
+							.getRequestDispatcher("/backend/pac/update_pac_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -282,17 +282,17 @@ public class PacServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pacVO", pacVO); // 資料庫update成功後,正確的的pacVO物件,存入req
-				String url = "/pac/listOnePac.jsp";
+				String url = "/backend/pac/listOnePac.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOnePac.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/pac/update_pac_input.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/pac/update_pac_input.jsp");
+				failureView.forward(req, res);
+			}
 		}	
 		 if ("insert".equals(action)) { // 來自addPac.jsp的請求  
 				
@@ -433,7 +433,7 @@ public class PacServlet extends HttpServlet {
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("pacVO", pacVO); // 含有輸入格式錯誤的pacVO物件,也存入req
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/pac/addPac.jsp");
+								.getRequestDispatcher("/backend/pac/addPac.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -446,7 +446,7 @@ public class PacServlet extends HttpServlet {
 
 					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
-					String url = "/pac/listAllPac.jsp";
+					String url = "/backend/pac/listAllPac.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllPac.jsp
 					successView.forward(req, res);				
 					
@@ -454,7 +454,7 @@ public class PacServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add(e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/addPac.jsp");
+							.getRequestDispatcher("/backend/pac/addPac.jsp");
 					failureView.forward(req, res);
 				}
 			}
@@ -477,7 +477,7 @@ public class PacServlet extends HttpServlet {
 					pacSvc.deletePac(pacno);
 					
 					/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-					String url = "/pac/listAllPac.jsp";
+					String url = "/backend/pac/listAllPac.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 					successView.forward(req, res);
 					
@@ -485,7 +485,7 @@ public class PacServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add("刪除資料失敗:"+e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/listAllPac.jsp");
+							.getRequestDispatcher("/backend/pac/listAllPac.jsp");
 					failureView.forward(req, res);
 				}
 			}
