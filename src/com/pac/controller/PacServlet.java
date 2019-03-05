@@ -7,8 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import com.pac.model.*;
-import com.pac.model.PacService;
-import com.pac.model.PacVO;
+
 
 @MultipartConfig
 public class PacServlet extends HttpServlet {
@@ -48,7 +47,7 @@ public class PacServlet extends HttpServlet {
 								
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/select_page.jsp");
+							.getRequestDispatcher("/backend/pac/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -62,14 +61,14 @@ public class PacServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/select_page.jsp");
+							.getRequestDispatcher("/backend/pac/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pacVO", pacVO); // 資料庫取出的pacVO物件,存入req
-				String url = "/pac/listOnePac.jsp";
+				String url = "/backend/pac/listOnePac.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOnePac.jsp
 				successView.forward(req, res);
 
@@ -77,7 +76,7 @@ public class PacServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/pac/select_page.jsp");
+						.getRequestDispatcher("/backend/pac/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -97,7 +96,7 @@ public class PacServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("pacVO", pacVO);         // 資料庫取出的pacVO物件,存入req
-				String url = "/pac/update_pac_input.jsp";
+				String url = "/backend/pac/update_pac_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_pac_input.jsp
 				successView.forward(req, res);
 				
@@ -105,7 +104,7 @@ public class PacServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/pac/listAllPac.jsp");
+						.getRequestDispatcher("/backend/pac/listAllPac.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -116,7 +115,7 @@ public class PacServlet extends HttpServlet {
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 		
-//			try {
+			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String pacno =req.getParameter("pacno");
 				String pacnoReg= "^[P][A][C]000\\d\\d\\d$";
@@ -134,11 +133,11 @@ public class PacServlet extends HttpServlet {
 					errorMsgs.add("管理員編號: 只能是加上EMP接六碼數字");
 	            }
 				String pacname = req.getParameter("pacname");
-				String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,120}$";
 				if (pacname == null || pacname.trim().length() == 0) {
 					errorMsgs.add("套裝行程名稱: 請勿空白");
 				} else if(!pacname.trim().matches(pacnameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+					errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到120之間");
 	            }
 				String paccountryReg = "^[(\u4e00-\u9fa5)(a-zA-Z)\\D]{2,60}$";
 				String paccountry = req.getParameter("paccountry");
@@ -194,7 +193,7 @@ public class PacServlet extends HttpServlet {
 				if (pacdiv == null || pacdiv.trim().length() == 0) {
 					errorMsgs.add("特色標籤: 請勿空白");
 				} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到20之間");
+					errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到60之間");
 	            }
 				
 				String paccontent = req.getParameter("paccontent");
@@ -271,7 +270,7 @@ public class PacServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("pacVO", pacVO); // 含有輸入格式錯誤的pacVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/update_pac_input.jsp");
+							.getRequestDispatcher("/backend/pac/update_pac_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -282,17 +281,17 @@ public class PacServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pacVO", pacVO); // 資料庫update成功後,正確的的pacVO物件,存入req
-				String url = "/pac/listOnePac.jsp";
+				String url = "/backend/pac/listOnePac.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOnePac.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("修改資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/pac/update_pac_input.jsp");
-//				failureView.forward(req, res);
-//			}
+			} catch (Exception e) {
+				errorMsgs.add("修改資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/pac/update_pac_input.jsp");
+				failureView.forward(req, res);
+			}
 		}	
 		 if ("insert".equals(action)) { // 來自addPac.jsp的請求  
 				
@@ -312,7 +311,7 @@ public class PacServlet extends HttpServlet {
 						errorMsgs.add("管理員編號: 只能是加上EMP接六碼數字");
 		            }
 					String pacname = req.getParameter("pacname");
-					String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+					String pacnameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,120}$";
 					if (pacname == null || pacname.trim().length() == 0) {
 						errorMsgs.add("套裝行程名稱: 請勿空白");
 					} else if(!pacname.trim().matches(pacnameReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -363,7 +362,7 @@ public class PacServlet extends HttpServlet {
 					}
 					
 					String pacdiv = req.getParameter("pacdiv");
-					String pacdivReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,60}$";
+					String pacdivReg = "^[(\u4e00-\u9fa5)+,+97.?(a-zA-Z0-9_)]{2,60}$";
 					if (pacdiv == null || pacdiv.trim().length() == 0) {
 						errorMsgs.add("特色標籤: 請勿空白");
 					} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -433,7 +432,7 @@ public class PacServlet extends HttpServlet {
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("pacVO", pacVO); // 含有輸入格式錯誤的pacVO物件,也存入req
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/pac/addPac.jsp");
+								.getRequestDispatcher("/backend/pac/addPac.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -446,7 +445,7 @@ public class PacServlet extends HttpServlet {
 
 					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
-					String url = "/pac/listAllPac.jsp";
+					String url = "/backend/pac/listAllPac.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllPac.jsp
 					successView.forward(req, res);				
 					
@@ -454,7 +453,7 @@ public class PacServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add(e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/addPac.jsp");
+							.getRequestDispatcher("/backend/pac/addPac.jsp");
 					failureView.forward(req, res);
 				}
 			}
@@ -477,7 +476,7 @@ public class PacServlet extends HttpServlet {
 					pacSvc.deletePac(pacno);
 					
 					/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-					String url = "/pac/listAllPac.jsp";
+					String url = "/backend/pac/listAllPac.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 					successView.forward(req, res);
 					
@@ -485,7 +484,7 @@ public class PacServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add("刪除資料失敗:"+e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/pac/listAllPac.jsp");
+							.getRequestDispatcher("/backend/pac/listAllPac.jsp");
 					failureView.forward(req, res);
 				}
 			}
