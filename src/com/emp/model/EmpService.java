@@ -65,6 +65,10 @@ public class EmpService {
 		return dao.getAll();
 	}
 	
+	public EmpVO checkIn(String empmail) {
+		return dao.checkIn(empmail);
+	}
+	
 	
 	
 }

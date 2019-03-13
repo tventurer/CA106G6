@@ -7,5 +7,6 @@ public interface EmpDAO_interface {
 	public void update(EmpVO empVO);
 	public void delete(String empno);
 	public EmpVO findByPrimaryKey(String empno);
+	public EmpVO checkIn(String empmail);
 	public List<EmpVO> getAll();
 }

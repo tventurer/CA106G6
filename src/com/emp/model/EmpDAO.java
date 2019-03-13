@@ -20,6 +20,7 @@ public class EmpDAO implements EmpDAO_interface{
 	private final String UPDATE_STMT = "UPDATE EMPLOYEE SET empname=?, emppwd=?, empgen=?, empphone=?, empcell=?, empmail=?, empdept=?, empposi=?, empsal=?, empdoe=?, emppic=? WHERE empno = ?";
 	private final String GET_ONE_STMT = "SELECT empno, empname, emppwd, empgen, empphone, empcell, empmail, empdept, empposi, empsal, empdoe, emppic FROM EMPLOYEE WHERE empno = ?";
 	private final String GET_ALL_STMT = "SELECT * FROM EMPLOYEE";
+	private final String GET_CHECK_STMT = "SELECT * FROM EMPLOYEE WHERE EMPMAIL = ?";
 	
 	private static DataSource ds = null;
 	static {
@@ -271,6 +272,65 @@ public class EmpDAO implements EmpDAO_interface{
 		}
 		
 		return list;
+	}
+
+	@Override
+	public EmpVO checkIn(String empmail) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		EmpVO empVO = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_CHECK_STMT);
+			
+			pstmt.setString(1,  empmail);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				empVO = new EmpVO();
+				empVO.setEmpno(rs.getString(1));
+				empVO.setEmpname(rs.getString(2));
+				empVO.setEmppwd(rs.getString(3));
+				empVO.setEmpgen(rs.getInt(4));
+				empVO.setEmpphone(rs.getString(5));
+				empVO.setEmpcell(rs.getString(6));
+				empVO.setEmpmail(rs.getString(7));
+				empVO.setEmpdept(rs.getString(8));
+				empVO.setEmpposi(rs.getString(9));
+				empVO.setEmpsal(rs.getInt(10));
+				empVO.setEmpdoe(rs.getDate(11));
+				empVO.setEmppic(rs.getBytes(12)); //照片
+			}
+			
+		}catch(SQLException sqle) {
+			throw new RuntimeException("A database error occured." + sqle.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException sqle) {
+					sqle.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException sqle) {
+					sqle.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException sqle) {
+					sqle.printStackTrace(System.err);
+				}
+			}
+		}
+		return empVO;
 	}
 	
 }

@@ -104,4 +104,42 @@
     <url-pattern>/Test123</url-pattern>
   </servlet-mapping>
   
+  <!-- 代購 -->
+  <servlet>
+    <servlet-name>AcrServlet</servlet-name>
+    <servlet-class>com.acr.controller.AcrServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcrServlet</servlet-name>
+    <url-pattern>/frontend/acr/acr</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PurServlet</servlet-name>
+    <servlet-class>com.pur.controller.PurServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PurServlet</servlet-name>
+    <url-pattern>/frontend/pur/pur</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>PorServlet</servlet-name>
+    <servlet-class>com.por.controller.PorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PorServlet</servlet-name>
+    <url-pattern>/frontend/por/por</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>PreServlet</servlet-name>
+    <servlet-class>com.pre.controller.PreServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PreServlet</servlet-name>
+    <url-pattern>/frontend/pre/pre</url-pattern>
+  </servlet-mapping>
+  <!-- 代購 -->
+  
 </web-app>

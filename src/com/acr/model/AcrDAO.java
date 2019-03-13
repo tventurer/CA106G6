@@ -30,12 +30,17 @@ public class AcrDAO implements AcrDAO_interface{
 		private static final String UPDATE = 
 			"UPDATE ACCOUNTRECORD set MEMNO=?, ACRTIME=sysdate, ACRPRICE=?, ACRSOURCE=?, ACREND=?, ACRTOTAL=? where ACRID = ?";
 		
+		private static final String GET_MEM_ALLACR = 
+				"select sum(ACRPRICE) as tatolacr from accountrecord where memno=?";
+		
+		private static final String GET_MEMALL_STMT = 
+				"SELECT * FROM ACCOUNTRECORD where MEMNO=? order by ACRTIME";
+
 		@Override
 		public void insert(AcrVO acrVO) {
 			// TODO Auto-generated method stub
 			Connection con = null;
 			PreparedStatement pstmt = null;
-
 			try {
 
 				con = ds.getConnection();
@@ -51,8 +56,9 @@ public class AcrDAO implements AcrDAO_interface{
 
 				// Handle any SQL errors
 			} catch (SQLException se) {
-				throw new RuntimeException("A database error occured. "
-						+ se.getMessage());
+//				throw new RuntimeException("A database error occured. "
+//						+ se.getMessage());
+				se.printStackTrace();
 				// Clean up JDBC resources
 			} finally {
 				if (pstmt != null) {
@@ -268,5 +274,115 @@ public class AcrDAO implements AcrDAO_interface{
 				}
 			}
 			return list;
+		}
+		@Override
+		public List<AcrVO> getMemAll(String memno) {
+			// TODO Auto-generated method stub
+			List<AcrVO> list = new ArrayList<AcrVO>();
+			AcrVO acrVO = null;
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_MEMALL_STMT);
+				pstmt.setString(1, memno);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// acrVO 也稱為 Domain objects
+					acrVO = new AcrVO();
+					acrVO.setAcrid(rs.getString("acrid"));
+					acrVO.setMemno(rs.getString("memno"));
+					acrVO.setAcrtime(rs.getTimestamp("acrtime"));
+					acrVO.setAcrprice(rs.getInt("acrprice"));
+					acrVO.setAcrsource(rs.getInt("acrsource"));
+					acrVO.setAcrend(rs.getString("acrend"));
+					acrVO.setAcrtotal(rs.getInt("acrtotal"));
+					list.add(acrVO); // Store the row in the list
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
+		@Override
+		public Integer getMemacrtotal(String memno) {
+			// TODO Auto-generated method stub
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			Integer acrtatol=0;
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_MEM_ALLACR);
+				pstmt.setString(1, memno);
+				rs = pstmt.executeQuery();
+				
+				
+				while (rs.next()) {
+					// acrVO 也稱為 Domain objects
+					acrtatol =rs.getInt("tatolacr");
+				}
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return acrtatol;
 		}
 }

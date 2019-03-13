@@ -4,19 +4,36 @@ import java.io.*;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.emp.model.EmpService;
 import com.emp.model.EmpVO;
-
 @MultipartConfig(fileSizeThreshold=1024*1024, maxFileSize=5*1024*1024, maxRequestSize=5*5*1024*1024)
 public class EmpServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	//登入比對
+	protected String allowUser(String account, String password) {
+		EmpService empSvc = new EmpService();
+		String ans = null;
+		try {
+		EmpVO empVO = empSvc.checkIn(account);
+			if(empVO.getEmpmail().equals(account) && (!empVO.getEmppwd().equals(password))){
+				ans="errorpwd";
+			}else{ 
+				ans="bingo";
+			}
+		} catch (Exception e) {
+			ans="noemail";
+		}
+	     return ans;
+	  }
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		//頁面顯示
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
-		ServletOutputStream out = res.getOutputStream();
+		ServletOutputStream outpic = res.getOutputStream();
 		
 		try {
 			String empno = req.getParameter("empno");
@@ -24,12 +41,12 @@ public class EmpServlet extends HttpServlet {
 			com.emp.model.EmpVO empVO = empSvc.getOneEmp(empno);
 	
 			byte[] pic = empVO.getEmppic();
-			out.write(pic);
+			outpic.write(pic);
 		}catch (Exception e) {
 			InputStream in = getServletContext().getResourceAsStream("/NoData/null2.jpg");
 			byte[] pic = new byte[in.available()];
 			in.read(pic);
-			out.write(pic);
+			outpic.write(pic);
 			in.close();
 		}
 	}
@@ -38,6 +55,52 @@ public class EmpServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+		//登入比對account
+		if("account".equals(action)) {
+			res.setContentType("text/html; charset=UTF-8");
+
+		    // 【取得使用者 帳號(account) 密碼(password)】
+		    String account = req.getParameter("email");
+		    String password = req.getParameter("password");
+		    
+		    List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+		    // 【檢查該帳號 , 密碼是否有效】
+		    if (allowUser(account, password).equals("errorpwd")) {          //【帳號 , 密碼無效時】
+		    	RequestDispatcher failureView = req.getRequestDispatcher("/empLogin.jsp");
+		    	errorMsgs.add("errorpwd");
+				failureView.forward(req, res);
+				return;
+		     
+		    }else if(allowUser(account, password).equals("noemail")){
+		    	RequestDispatcher failureView = req.getRequestDispatcher("/empLogin.jsp");
+		    	errorMsgs.add("noemail");
+				failureView.forward(req, res);
+				return;
+		    }else{                                       //【帳號 , 密碼有效時, 才做以下工作】
+		      HttpSession session = req.getSession();
+		      EmpService empSvc = new EmpService();
+			  EmpVO empVO = empSvc.checkIn(account);
+		      session.setAttribute("account", account);   //*工作1: 才在session內做已經登入過的標識
+		      String empno = new String(empVO.getEmpno());
+		      session.setAttribute("empno", empno);
+		      try {                                                        
+		         String location = (String) session.getAttribute("location");
+		         if (location != null) {
+		           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+		           res.sendRedirect(location);            
+		           return;
+		         }
+		       }catch (Exception ignored) { }
+
+		      res.sendRedirect(req.getContextPath()+"/backend/emp/empIndex.jsp");  //*工作3: (-->如無來源網頁:則重導至empIndex.jsp)
+		    }
+		}
+		    
 		
 		if("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>(); //錯誤判斷塞訊息是每個if一直跑，用ArrayList塞錯誤訊息應該會比較快，為何使用LinkedList
