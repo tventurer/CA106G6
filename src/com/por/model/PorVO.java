@@ -2,6 +2,26 @@ package com.por.model;
 import java.sql.Timestamp;
 
 public class PorVO implements java.io.Serializable{
+	private String porid;
+	private String purid;
+	private String memno;
+	private String pormemname;
+	private Integer porprice;
+	private Timestamp portime;
+	private String poraddress;
+	private String portel;
+	private Integer porstatus;
+	private Timestamp porstatustime;
+	private Integer porbuyscore;
+	private String porbuycontent;
+	private Timestamp porbuytime;
+	private Integer porsellscore;
+	private String porsellcontent;
+	private Timestamp porselltime;
+	private Integer porsum;
+	private Integer porlogistics;
+	private byte[] porqr;
+	
 	public String getPorid() {
 		return porid;
 	}
@@ -56,6 +76,12 @@ public class PorVO implements java.io.Serializable{
 	public void setPorstatus(Integer porstatus) {
 		this.porstatus = porstatus;
 	}
+	public Timestamp getPorstatustime() {
+		return porstatustime;
+	}
+	public void setPorstatustime(Timestamp porstatustime) {
+		this.porstatustime = porstatustime;
+	}
 	public Integer getPorbuyscore() {
 		return porbuyscore;
 	}
@@ -68,6 +94,12 @@ public class PorVO implements java.io.Serializable{
 	public void setPorbuycontent(String porbuycontent) {
 		this.porbuycontent = porbuycontent;
 	}
+	public Timestamp getPorbuytime() {
+		return porbuytime;
+	}
+	public void setPorbuytime(Timestamp porbuytime) {
+		this.porbuytime = porbuytime;
+	}
 	public Integer getPorsellscore() {
 		return porsellscore;
 	}
@@ -79,6 +111,12 @@ public class PorVO implements java.io.Serializable{
 	}
 	public void setPorsellcontent(String porsellcontent) {
 		this.porsellcontent = porsellcontent;
+	}
+	public Timestamp getPorselltime() {
+		return porselltime;
+	}
+	public void setPorselltime(Timestamp porselltime) {
+		this.porselltime = porselltime;
 	}
 	public Integer getPorsum() {
 		return porsum;
@@ -98,20 +136,4 @@ public class PorVO implements java.io.Serializable{
 	public void setPorqr(byte[] porqr) {
 		this.porqr = porqr;
 	}
-	private String porid;
-	private String purid;
-	private String memno;
-	private String pormemname;
-	private Integer porprice;
-	private Timestamp portime;
-	private String poraddress;
-	private String portel;
-	private Integer porstatus;
-	private Integer porbuyscore;
-	private String porbuycontent;
-	private Integer porsellscore;
-	private String porsellcontent;
-	private Integer porsum;
-	private Integer porlogistics;
-	private byte[] porqr;
 }

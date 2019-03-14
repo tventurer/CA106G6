@@ -40,8 +40,20 @@ public class PorJNDIDAO implements PorDAO_interface{
 		"SELECT * FROM PURCHASEORDER where PORID = ?";
 	private static final String DELETE = 
 		"DELETE FROM PURCHASEORDER where PORID = ?";
+	
+	//買家給予評價
+	private static final String UPDATE_PORBUYTIME = 
+			"UPDATE PURCHASEORDER set PORBUYSCORE=? , PORBUYCONTENT=?, PORBUYTIME=sysdate where PORID = ?";
+
+	//賣家給予評價
+	private static final String UPDATE_PORSELLTIME = 
+			"UPDATE PURCHASEORDER set PORSELLSCORE=? , PORSELLCONTENT=?, PORSELLTIME=sysdate where PORID = ?";
+	
+	//更新代購狀態
+	private static final String UPDATE_PORSTATUS = 
+			"UPDATE PURCHASEORDER set PORSTATUS=? ,PORSTATUSTIME=sysdate where PORID = ?";
 	private static final String UPDATE = 
-		"UPDATE PURCHASEORDER set PURID=? , MEMNO=? ,PORMEMNAME=? ,PORPRICE=? ,PORTIME=sysdate ,PORADDRESS=? ,PORTEL=? ,PORSTATUS=? ,PORBUYSCORE=? ,PORBUYCONTENT=? ,PORSELLSCORE=? ,PORSELLCONTENT=? ,PORSUM=? ,PORLOGISTICS=? ,PORQR=?  where PORID = ?";
+		"UPDATE PURCHASEORDER set PURID=? , MEMNO=? ,PORMEMNAME=? ,PORPRICE=? ,PORADDRESS=? ,PORTEL=? ,PORSTATUS=? ,PORBUYSCORE=? ,PORBUYCONTENT=? ,PORSELLSCORE=? ,PORSELLCONTENT=? ,PORSUM=? ,PORLOGISTICS=? ,PORQR=?  where PORID = ?";
 	private static final String GET_PUR_ALLPOR = 
 			"select sum(porsum) as porsumpur from purchaseorder where purid=?";
 
@@ -373,5 +385,124 @@ try {
 	}
 }
 return purporsum;
+}
+@Override
+public void updatePorStatus(PorVO porVO) {
+	// TODO Auto-generated method stub
+	Connection con = null;
+	PreparedStatement pstmt = null;
+
+	try {
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(UPDATE_PORSTATUS);
+
+		pstmt.setInt(1, porVO.getPorstatus());
+		pstmt.setString(2, porVO.getPorid());
+
+
+		pstmt.executeUpdate();
+
+		// Handle any driver errors
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	
+}
+
+@Override
+public void updatePorBuyTime(PorVO porVO) {
+	// TODO Auto-generated method stub
+	Connection con = null;
+	PreparedStatement pstmt = null;
+
+	try {
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(UPDATE_PORBUYTIME);
+
+		pstmt.setInt(1, porVO.getPorbuyscore());
+		pstmt.setString(2, porVO.getPorbuycontent());
+		pstmt.setString(2, porVO.getPorid());
+
+
+		pstmt.executeUpdate();
+
+		// Handle any driver errors
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+}
+
+@Override
+public void updatePorSellTime(PorVO porVO) {
+	// TODO Auto-generated method stub
+	Connection con = null;
+	PreparedStatement pstmt = null;
+
+	try {
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(UPDATE_PORSELLTIME);
+
+		pstmt.setInt(1, porVO.getPorsellscore());
+		pstmt.setString(2, porVO.getPorsellcontent());
+		pstmt.setString(2, porVO.getPorid());
+
+
+		pstmt.executeUpdate();
+
+		// Handle any driver errors
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
 }
 }

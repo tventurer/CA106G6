@@ -5,6 +5,9 @@ import java.util.*;
 public interface PorDAO_interface {
 	public void insert(PorVO porVO);
     public void update(PorVO porVO);
+    public void updatePorStatus(PorVO porVO);
+    public void updatePorBuyTime(PorVO porVO);
+    public void updatePorSellTime(PorVO porVO);
     public void delete(String porid);
     public PorVO findByPrimaryKey(String porid);
     public List<PorVO> getAll();
