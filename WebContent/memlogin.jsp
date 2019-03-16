@@ -56,6 +56,10 @@
 	<h1>${denied}</h1>
 	
 	<%@ include file="/frontend/not/notification.file" %>
-	
+
+	<form action="<%=request.getContextPath()%>/EmailValidator" method="post">
+		<input type="hidden" name="action" value="ask_validation_email">
+		<input type="submit" value="申請驗證信">
+	</form>
 </body>
 </html>

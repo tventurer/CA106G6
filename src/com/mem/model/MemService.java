@@ -54,6 +54,10 @@ public class MemService {
 		return vo;
 	}
 	
+	public void updateMem(MemVO vo) {
+		dao.update(vo);
+	}
+	
 	public MemVO getOneMem(String memno) {
 		return dao.findByPrimaryKey(memno);
 	}
