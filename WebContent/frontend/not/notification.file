@@ -1,0 +1,19 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.not.model.*"%>
+<%@ page import="java.util.*"%>
+
+<%
+  String memnoForNotification = (String) session.getAttribute("memno");
+  boolean isMemberLogin = (memnoForNotification != null);
+  long unreadedNotfication = 0; 
+  
+  if (isMemberLogin) {
+    List<NotVO> notlist = new NotService().getByMemno(memnoForNotification); 
+
+    unreadedNotfication = notlist.stream()
+                                 .filter(vo -> (vo.getNotreaded() == 0))
+                                 .count();
+  }
+%>
+
+<%=isMemberLogin? "<a href=\"" + request.getContextPath() + "/frontend/not/AllMyNot.jsp\">你有 " + unreadedNotfication + " 個未讀通知</a>" : "" %>

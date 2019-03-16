@@ -81,11 +81,11 @@ CREATE SEQUENCE MEM_SEQ
     START WITH 1
     INCREMENT BY 1;
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'ALICE', 123456, 'alice@abc.com', 1, '愛麗絲');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'ALICE', 'uquq', 'alice@abc.com', 1, '愛麗絲');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'BOB', 123456, 'bob@abc.com', 1, '鮑伯');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'BOB', 'uquq', 'bob@abc.com', 1, '鮑伯');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'CHARLIE', 123456, 'charlie@abc.com', 1, '查理');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'CHARLIE', 'uquq', 'charlie@abc.com', 1, '查理');
 
 -----------------------建立會員訊息表格-----------------------
 

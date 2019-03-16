@@ -24,73 +24,73 @@ public class MemVO {
 	public String getMemacc() {
 		return memacc;
 	}
-	public void setMemacc(String memAcc) {
-		this.memacc = memAcc;
+	public void setMemacc(String memacc) {
+		this.memacc = memacc;
 	}
 	public String getMempwd() {
 		return mempwd;
 	}
-	public void setMempwd(String memPwd) {
-		this.mempwd = memPwd;
+	public void setMempwd(String mempwd) {
+		this.mempwd = mempwd;
 	}
 	public String getMememail() {
 		return mememail;
 	}
-	public void setMememail(String memEmail) {
-		this.mememail = memEmail;
+	public void setMememail(String mememail) {
+		this.mememail = mememail;
 	}
 	public Integer getMememailvalid() {
 		return mememailvalid;
 	}
-	public void setMememailvalid(Integer memEmailValid) {
-		this.mememailvalid = memEmailValid;
+	public void setMememailvalid(Integer mememailvalid) {
+		this.mememailvalid = mememailvalid;
 	}
 	public String getMemrealname() {
 		return memrealname;
 	}
-	public void setMemrealname(String memRealName) {
-		this.memrealname = memRealName;
+	public void setMemrealname(String memrealname) {
+		this.memrealname = memrealname;
 	}
 	public String getMemengname() {
 		return memengname;
 	}
-	public void setMemengname(String memEngName) {
-		this.memengname = memEngName;
+	public void setMemengname(String memengname) {
+		this.memengname = memengname;
 	}
 	public String getMemphone() {
 		return memphone;
 	}
-	public void setMemphone(String memPhone) {
-		this.memphone = memPhone;
+	public void setMemphone(String memphone) {
+		this.memphone = memphone;
 	}
 	public java.sql.Date getMembirth() {
 		return membirth;
 	}
-	public void setMembirth(java.sql.Date memBirth) {
-		this.membirth = memBirth;
+	public void setMembirth(java.sql.Date membirth) {
+		this.membirth = membirth;
 	}
 	public String getMemaddr() {
 		return memaddr;
 	}
-	public void setMemaddr(String memAddr) {
-		this.memaddr = memAddr;
+	public void setMemaddr(String memaddr) {
+		this.memaddr = memaddr;
 	}
 	public String getMemidno() {
 		return memidno;
 	}
-	public void setMemidno(String memIDNo) {
-		this.memidno = memIDNo;
+	public void setMemidno(String memidno) {
+		this.memidno = memidno;
 	}
 	public String getMembankacc() {
 		return membankacc;
 	}
-	public void setMembankacc(String memBankAcc) {
-		this.membankacc = memBankAcc;
+	public void setMembankacc(String membankacc) {
+		this.membankacc = membankacc;
 	}
 	public byte[] getMemphoto() {
 		return memphoto;
 	}
-	public void setMemphoto(byte[] memPhoto) {
-		this.memphoto = memPhoto;
+	public void setMemphoto(byte[] memphoto) {
+		this.memphoto = memphoto;
 	} 
 }

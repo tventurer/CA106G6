@@ -7,4 +7,6 @@ public interface MemDAO_interface {
 	public int update(MemVO memVO);
 	public MemVO findByPrimaryKey(String memno);
 	public List<MemVO> getAll();
+	public MemVO findByEmail(String mememail);
+	public MemVO findByMemacc(String memacc);
 }

@@ -33,7 +33,7 @@ public class MemService {
 	
 	public MemVO updateMem(String memno, String memacc, String mempwd, String mememail, 
 			Integer mememailvalid, String memrealname, String memengname, 
-			String memphone, String membirth, String memaddr, 
+			String memphone, java.sql.Date membirth, String memaddr, 
 			String memidno, String membankacc) {
 		
 		MemVO vo = new MemVO();
@@ -45,10 +45,12 @@ public class MemService {
 		vo.setMemrealname(memrealname);
 		vo.setMemengname(memengname);
 		vo.setMemphone(memphone);
-		vo.setMembirth(java.sql.Date.valueOf(membirth));
+		vo.setMembirth(membirth);
 		vo.setMemaddr(memaddr);
 		vo.setMemidno(memidno);
 		vo.setMembankacc(membankacc);
+		dao.update(vo);
+		
 		return vo;
 	}
 	
@@ -58,5 +60,13 @@ public class MemService {
 	
 	public List<MemVO> getAll(){
 		return dao.getAll();
+	}
+	
+	public MemVO getEmailForLogin(String mememail) {
+		return dao.findByEmail(mememail);
+	}
+	
+	public MemVO getMemaccForLogin(String memacc) {
+		return dao.findByMemacc(memacc);
 	}
 }

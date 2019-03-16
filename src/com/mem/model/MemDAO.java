@@ -31,6 +31,114 @@ public class MemDAO implements MemDAO_interface {
 			"SELECT MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME, MEMENGNAME, MEMPHONE, MEMBIRTH, MEMADDR, MEMIDNO, MEMBANKACC FROM MEMBER WHERE MEMNO = ?";
 	private static final String UPDATE = 
 			"UPDATE MEMBER SET MEMACC = ?, MEMPWD = ?, MEMEMAIL = ?, MEMEMAILVALID = ?, MEMREALNAME = ?, MEMENGNAME = ?, MEMPHONE = ?, MEMBIRTH = ?, MEMADDR = ?, MEMIDNO = ?, MEMBANKACC = ? WHERE MEMNO = ?";
+	private static final String GET_ONE_BY_EMAIL = 
+			"SELECT MEMNO, MEMACC, MEMPWD, MEMREALNAME, MEMEMAIL FROM MEMBER WHERE MEMEMAIL = ?";
+	private static final String GET_ONE_BY_MEMACC = 
+			"SELECT MEMNO, MEMACC, MEMPWD, MEMREALNAME, MEMEMAIL FROM MEMBER WHERE MEMACC = ?";
+	
+	@Override
+	public MemVO findByMemacc(String memacc) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemVO memvo = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_BY_MEMACC);
+			
+			pstmt.setString(1, memacc);
+
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				memvo = new MemVO();
+				memvo.setMemno(rs.getString("MEMNO"));
+				memvo.setMemacc(rs.getString("MEMACC"));
+				memvo.setMempwd(rs.getString("MEMPWD"));
+				memvo.setMemrealname("MEMREALNAME");
+				memvo.setMememail(rs.getString("MEMEMAIL"));
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memvo;
+	}
+	
+	@Override
+	public MemVO findByEmail(String mememail) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemVO memvo = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_BY_EMAIL);
+			
+			pstmt.setString(1, mememail);
+
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				memvo = new MemVO();
+				memvo.setMemno(rs.getString("MEMNO"));
+				memvo.setMemacc(rs.getString("MEMACC"));
+				memvo.setMempwd(rs.getString("MEMPWD"));
+				memvo.setMemrealname("MEMREALNAME");
+				memvo.setMememail(rs.getString("MEMEMAIL"));
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memvo;
+	}
 	
 	@Override
 	public int insert(MemVO memVO) {
