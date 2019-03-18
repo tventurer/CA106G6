@@ -9,4 +9,7 @@ public interface PhdDAO_interface {
 	public List<PhdVO> findByPAHNO(String pahno);
 	public List<PhdVO> findByPHONO(String phono);
 	public List<PhdVO> getall();
+	
+	//**********android專用
+	public void insertAn(PhdVO phdvo, Connection con);
 }

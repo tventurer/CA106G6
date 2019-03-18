@@ -2,6 +2,8 @@ package com.phd.model;
 
 import javax.sql.DataSource;
 
+import android.com.pah.model.PahAnDAO;
+import android.com.pah.model.PahAnVO;
 
 import javax.naming.*;
 import java.sql.Connection;
@@ -256,4 +258,55 @@ public class PhdDAO implements PhdDAO_interface{
 		return list;
 	}
 
+
+	//**********android專用
+	private final static String INSERT_AN = "INSERT INTO PLANEHOTELDETAIL(PAHNO, PHONO, PHDNUM) VALUES (?,?,?)";
+	
+	//**********android專用
+	public void insertAn(PhdVO phdvo, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			//新增訂單明細
+			pstmt = con.prepareStatement(INSERT_AN);
+			pstmt.setString(1, phdvo.getPahno());
+			pstmt.setString(2, phdvo.getPhono());
+			pstmt.setInt(3, phdvo.getPhdnum());
+			pstmt.executeUpdate();
+			
+			//修改旅遊商品數量
+			String pahno = phdvo.getPahno();
+			Integer phdnum = phdvo.getPhdnum();
+			
+			PahAnDAO pahAnDAO = new PahAnDAO();
+			PahAnVO pahAnVO = pahAnDAO.findOneByPk(pahno); //找出商品好取出商品庫存量
+			Integer pahnum = pahAnVO.getPahnum() - phdnum; //將商品庫存量減去明細商品數量得到目前庫存量
+			Integer pahstatus = 0; //預設商品狀態是上架
+			if(pahnum <= 0) { //庫存量小於0，修改商品為下架
+				pahstatus = 1;
+			}
+			pahAnDAO.updatePahNum(pahno, pahnum, pahstatus, con); //使用專提供給android方法
+			
+		}catch(SQLException se) {
+			if(con!=null) {
+				try {
+					con.rollback();
+				}catch(SQLException sqle) {
+					throw new RuntimeException("A database error occured. " + sqle.getMessage());
+				}		
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	}
+	
 }
