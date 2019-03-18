@@ -322,7 +322,7 @@
 				<%}}%>		
 						
 						
-				<input type="button" onclick="location.href='<%= request.getContextPath() %>/pah/pahcontrol?action=listPahBySelect';" value="繼續選購" class="btn btn-info"/>	
+				
         </div>
       </div>	
     </div>
