@@ -59,6 +59,10 @@ private SpoDAO_interface dao;
 		return dao.findByPk(spono);
 	}
 	
+	public SpoVO getAllByName(String sponame) {
+		return dao.findByName(sponame);
+	}
+	
 	public List<SpoVO> getAllByCity(String spocity) {
 		return dao.findByCity(spocity);
 	}
@@ -67,7 +71,23 @@ private SpoDAO_interface dao;
 		return dao.findByClass(spoclass);
 	}
 	
+	public List<SpoVO> getAllByClassAndCity(String spoclass, String spocity){
+		return dao.findByClassAndCity(spoclass, spocity);
+	}
+	
 	public List<SpoVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<String> getClassName() {
+		return dao.showClass();
+	}
+	
+	public List<String> getCitys(String cityName){
+		return dao.getCity(cityName);
+	}
+	
+	public List<String> getAllCity(){
+		return dao.getAllCity();
 	}
 }

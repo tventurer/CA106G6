@@ -52,6 +52,14 @@ public class TriService {
 		return dao.findByPk(trino);
 	}
 	
+	public TriVO getTriByTriname(String triname) {
+		return dao.findByTriname(triname);
+	}
+	
+	public List<TriVO> getAllByMemno(String memno) {
+		return dao.findByMemno(memno);
+	}
+	
 	public List<TriVO> getAll() {
 		return dao.getAll();
 	}

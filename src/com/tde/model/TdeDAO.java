@@ -39,7 +39,7 @@ public class TdeDAO implements TdeDAO_interface{
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(ADD_STMT);
-
+			System.out.println("tdetest");
 			pstmt.setString(1, tde.getTrino());
 			pstmt.setString(2, tde.getSpono());
 			pstmt.setTimestamp(3, tde.getTdestart());
@@ -47,7 +47,7 @@ public class TdeDAO implements TdeDAO_interface{
 			pstmt.setString(5, tde.getTdedate());
 			pstmt.setInt(6, tde.getTdeseq());
 			pstmt.setString(7, tde.getTderemark());
-
+			System.out.println("tdetest2");
 			pstmt.executeUpdate();
 			
 		} catch (SQLException se) {
@@ -309,6 +309,45 @@ public class TdeDAO implements TdeDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void insert2(TdeVO tde, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(ADD_STMT);
+			
+			pstmt.setString(1, tde.getTrino());
+			pstmt.setString(2, tde.getSpono());
+			pstmt.setTimestamp(3, tde.getTdestart());
+			pstmt.setTimestamp(4, tde.getTdefinish());
+			pstmt.setString(5, tde.getTdedate());
+			pstmt.setInt(6, tde.getTdeseq());
+			pstmt.setString(7, tde.getTderemark());
+			
+			pstmt.executeUpdate();
+			
+		} catch(SQLException se) {
+			if(con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException e) {
+					throw new RuntimeException("rollback error:" + e.getMessage());
+				}
+			} 
+			throw new RuntimeException("insert database error:" + se.getMessage());
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
 	}
 
 }

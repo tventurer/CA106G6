@@ -3,7 +3,7 @@ package com.spo.model;
 import java.io.Serializable;
 
 public class SpoVO implements Serializable{
-	
+
 	private static final long serialVersionUID = 8320299842477944258L;
 	private String spono;
 	private String sponame;
@@ -107,5 +107,36 @@ public class SpoVO implements Serializable{
 
 	public void setSpoattribute(Integer spoattribute) {
 		this.spoattribute = spoattribute;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((sponame == null) ? 0 : sponame.hashCode());
+		result = prime * result + ((spono == null) ? 0 : spono.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SpoVO other = (SpoVO) obj;
+		if (sponame == null) {
+			if (other.sponame != null)
+				return false;
+		} else if (!sponame.equals(other.sponame))
+			return false;
+		if (spono == null) {
+			if (other.spono != null)
+				return false;
+		} else if (!spono.equals(other.spono))
+			return false;
+		return true;
 	}
 }

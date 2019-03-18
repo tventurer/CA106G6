@@ -1,28 +1,19 @@
 package com.spo.model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+public class SpoJDBCDAO implements SpoDAO_interface {
 
-public class SpoDAO implements SpoDAO_interface {
-
-	private static DataSource ds =null;
-	static {
-		try{
-			Context ctx = new InitialContext();
-			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/TV");
-		} catch(NamingException ne) {
-			ne.printStackTrace();
-		}
-	}
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	String userid = "TV";
+	String passwd = "123456";
 	
 	private static final String ADD_STMT = "INSERT INTO SPOT (SPONO, SPONAME, SPOCLASS, SPOCON, SPOCITY, SPOLAT, SPOLONG, SPOADDR, SPOCONTENT, SPOPIC, SPOATTRIBUTE) VALUES ('SPO'||LPAD(TO_CHAR(SPO_SEQ.NEXTVAL),6,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE SPOT SET SPONAME=?, SPOCLASS=?, SPOCON=?, SPOCITY=?, SPOLAT=?, SPOLONG=?, SPOADDR=?, SPOCONTENT=?, SPOPIC=?, SPOATTRIBUTE=? WHERE SPONO=?";
@@ -31,11 +22,9 @@ public class SpoDAO implements SpoDAO_interface {
 	private static final String FINDBYNAME_STMT = "SELECT * FROM SPOT WHERE SPONAME=?";
 	private static final String FINDBYCITY_STMT = "SELECT * FROM SPOT WHERE SPOCITY=?";
 	private static final String FINDBYCLASS_STMT = "SELECT * FROM SPOT WHERE SPOCLASS=?";
-	private static final String FINDBYCLASSANDCITY_STMT = "SELECT * FROM SPOT WHERE SPOCLASS=? AND SPOCITY=?";
 	private static final String GETALL_STMT = "SELECT * FROM SPOT";
 	private static final String SHOWCLASS_STMT = "SELECT DISTINCT SPOCLASS FROM SPOT ORDER BY nlssort(SPOCLASS,'NLS_SORT=SCHINESE_STROKE_M') DESC";
-	private static final String GETALLCITY_STMT = "SELECT DISTINCT SPOCITY FROM SPOT";
-	
+
 	@Override
 	public void add(SpoVO spot) {
 
@@ -43,9 +32,10 @@ public class SpoDAO implements SpoDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			con = ds.getConnection();
-			String[] cols = { "SPONO" };
-			pstmt = con.prepareStatement(ADD_STMT, cols);
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			pstmt = con.prepareStatement(ADD_STMT);
 
 			pstmt.setString(1, spot.getSponame());
 			pstmt.setString(2, spot.getSpoclass());
@@ -60,6 +50,8 @@ public class SpoDAO implements SpoDAO_interface {
 
 			pstmt.executeUpdate();
 
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -88,7 +80,8 @@ public class SpoDAO implements SpoDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
 			pstmt.setString(1, spot.getSponame());
@@ -105,6 +98,8 @@ public class SpoDAO implements SpoDAO_interface {
 
 			pstmt.executeUpdate();
 
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -133,13 +128,16 @@ public class SpoDAO implements SpoDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE_STMT);
 
 			pstmt.setString(1, spono);
 
 			pstmt.executeUpdate();
 
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -169,7 +167,8 @@ public class SpoDAO implements SpoDAO_interface {
 		SpoVO spot = new SpoVO();
 
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(FINDBYPK_STMT);
 
 			pstmt.setString(1, spono);
@@ -190,6 +189,8 @@ public class SpoDAO implements SpoDAO_interface {
 				spot.setSpoattribute(rs.getInt(11));
 			}
 
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -228,7 +229,8 @@ public class SpoDAO implements SpoDAO_interface {
 		SpoVO spot = new SpoVO();
 		
 		try{
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(FINDBYNAME_STMT);
 			
 			pstmt.setString(1, sponame);
@@ -249,8 +251,10 @@ public class SpoDAO implements SpoDAO_interface {
 				spot.setSpoattribute(rs.getInt(11));
 			}
 			
-		} catch(SQLException se) {
-				throw new RuntimeException(se.getMessage());
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		}  finally {
 			if (rs != null) {
 				try {
@@ -287,7 +291,8 @@ public class SpoDAO implements SpoDAO_interface {
 		List<SpoVO> list = new ArrayList<SpoVO>();
 
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(FINDBYCITY_STMT);
 
 			pstmt.setString(1, spocity);
@@ -310,6 +315,8 @@ public class SpoDAO implements SpoDAO_interface {
 				list.add(spot);
 			}
 
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -348,7 +355,8 @@ public class SpoDAO implements SpoDAO_interface {
 		List<SpoVO> list = new ArrayList<SpoVO>();
 
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(FINDBYCLASS_STMT);
 
 			pstmt.setString(1, spoclass);
@@ -371,6 +379,8 @@ public class SpoDAO implements SpoDAO_interface {
 				list.add(spot);
 			}
 
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -399,67 +409,6 @@ public class SpoDAO implements SpoDAO_interface {
 
 		return list;
 	}
-	
-	@Override
-	public List<SpoVO> findByClassAndCity(String spoclass, String spocity) {
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<SpoVO> list = new ArrayList<SpoVO>();
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(FINDBYCLASSANDCITY_STMT);
-			
-			pstmt.setString(1, spoclass);
-			pstmt.setString(2, spocity);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				SpoVO spot = new SpoVO();
-				spot.setSpono(rs.getString(1));
-				spot.setSponame(rs.getString(2));
-				spot.setSpoclass(rs.getString(3));
-				spot.setSpocon(rs.getString(4));
-				spot.setSpocity(rs.getString(5));
-				spot.setSpolat(rs.getDouble(6));
-				spot.setSpolong(rs.getDouble(7));
-				spot.setSpoaddr(rs.getString(8));
-				spot.setSpocontent(rs.getString(9));
-				spot.setSpopic(rs.getBytes(10));
-				spot.setSpoattribute(rs.getInt(11));
-				list.add(spot);
-			}
-			
-		} catch(SQLException se) {
-			throw new RuntimeException(se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-		}
-		return list;
-	}
 
 	@Override
 	public List<SpoVO> getAll() {
@@ -470,7 +419,8 @@ public class SpoDAO implements SpoDAO_interface {
 		List<SpoVO> list = new ArrayList<SpoVO>();
 
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GETALL_STMT);
 
 			rs = pstmt.executeQuery();
@@ -491,6 +441,8 @@ public class SpoDAO implements SpoDAO_interface {
 				list.add(spot);
 			}
 
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -528,7 +480,8 @@ public class SpoDAO implements SpoDAO_interface {
 		List<String> list = new ArrayList<String>();
 		
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(SHOWCLASS_STMT);
 			
 			rs = pstmt.executeQuery();
@@ -536,6 +489,8 @@ public class SpoDAO implements SpoDAO_interface {
 			while(rs.next()) {
 				list.add(rs.getString(1));
 			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException(se.getMessage());
 		} finally {
@@ -573,7 +528,8 @@ public class SpoDAO implements SpoDAO_interface {
 		List<String> citys = new ArrayList<String>();
 		
 		try {
-			con = ds.getConnection();
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
 			String GETCITY_STMT = "SELECT DISTINCT SPOCITY FROM SPOT WHERE SPOCITY LIKE '%" + cityname + "%'";
 			pstmt = con.prepareStatement(GETCITY_STMT);
 			
@@ -585,9 +541,10 @@ public class SpoDAO implements SpoDAO_interface {
 			
 			System.out.println("查詢城市結果有" + citys.size() + "筆");
 			
-		} catch(SQLException se) {
-			se.printStackTrace();
-			throw new RuntimeException("查詢失敗:" + se.getMessage());
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
@@ -615,49 +572,15 @@ public class SpoDAO implements SpoDAO_interface {
 	}
 
 	@Override
+	public List<SpoVO> findByClassAndCity(String spoclass, String spocity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public List<String> getAllCity() {
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<String> list = new ArrayList<String>();
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GETALLCITY_STMT);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				list.add(rs.getString(1));
-			}
-			
-		} catch(SQLException se) {
-			throw new RuntimeException("查詢失敗:" + se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-		}
-		return list;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

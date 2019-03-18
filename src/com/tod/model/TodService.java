@@ -11,8 +11,7 @@ public class TodService {
 		dao = new TodDAO();
 	}
 	
-	public TodVO addTod(String memno, String trino, String empno, Integer todquo, Date todddl, Date toddate,
-			String todremark, Integer todstat) {
+	public TodVO addTod(String memno, String trino, String empno, Integer todquo, Date todddl, String todremark, Integer todstat) {
 		
 		TodVO tod = new TodVO();
 		
@@ -21,7 +20,6 @@ public class TodService {
 		tod.setEmpno(empno);
 		tod.setTodquo(todquo);
 		tod.setTodddl(todddl);
-		tod.setToddate(toddate);
 		tod.setTodremark(todremark);
 		tod.setTodstat(todstat);
 		dao.add(tod);
@@ -29,7 +27,7 @@ public class TodService {
 		return tod;
 	}
 	
-	public TodVO updateTod(String empno, Integer todquo, Date todddl, Date toddate,
+	public TodVO updateTod(String empno, Integer todquo, Date todddl,
 			String todremark, Integer todstat, String todno) {
 		
 		TodVO tod = new TodVO();
@@ -37,7 +35,6 @@ public class TodService {
 		tod.setEmpno(empno);
 		tod.setTodquo(todquo);
 		tod.setTodddl(todddl);
-		tod.setToddate(toddate);
 		tod.setTodremark(todremark);
 		tod.setTodstat(todstat);
 		tod.setTodno(todno);

@@ -69,35 +69,51 @@ public class Test extends HttpServlet {
 		
 //------景點Spot------
 		
-		SpoDAO sdao = new SpoDAO();
-		SpoVO s1 = new SpoVO();
-		s1.setSponame("淡水");
-		s1.setSpoclass("景點");
-		s1.setSpocon("台灣");
-		s1.setSpocity("新北市");
-		s1.setSpolat(121.3258);
-		s1.setSpolong(23.5542);
-		s1.setSpoaddr("tset123");
-		File file = new File("D:/pic/123.jpg");
-		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		byte[] b = new byte[8192];
-		int i;
-		while((i = bis.read(b)) != -1) {
-			bos.write(b);
-		}
-		bos.close();
-		bis.close();
-		s1.setSpopic(bos.toByteArray());
-		s1.setSpoattribute(0);
+//		SpoDAO sdao = new SpoDAO();
+//		SpoVO s1 = new SpoVO();
+//		s1.setSponame("淡水");
+//		s1.setSpoclass("景點");
+//		s1.setSpocon("台灣");
+//		s1.setSpocity("新北市");
+//		s1.setSpolat(121.3258);
+//		s1.setSpolong(23.5542);
+//		s1.setSpoaddr("tset123");
+//		File file = new File("D:/pic/123.jpg");
+//		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+//		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//		byte[] b = new byte[8192];
+//		int i;
+//		while((i = bis.read(b)) != -1) {
+//			bos.write(b);
+//		}
+//		bos.close();
+//		bis.close();
+//		s1.setSpopic(bos.toByteArray());
+//		s1.setSpoattribute(0);
+//		
+//		sdao.add(s1);
 		
-		sdao.add(s1);
+//		List<String> list = sdao.showClass();
+//		for(String str : list) {
+//			System.out.println(str);
+//		}
 		
 //		SpoVO s2 = sdao.findByPk("SPO000022");
 //		s2.setSponame("2");
 //		s2.setSpocon("Taiwan");
 		
 //		sdao.update(s2);
+		
+//		SpoVO s3 = sdao.findByName("123");
+//			System.out.println(s3.getSpono());
+//			System.out.println(s3.getSponame());
+//			System.out.println(s3.getSpoclass());
+//			System.out.println(s3.getSpocon());
+//			System.out.println(s3.getSpocity());
+//			System.out.println(s3.getSpolat());
+//			System.out.println(s3.getSpolong());
+//			System.out.println(s3.getSpoaddr());
+//			System.out.println(s3.getSpoattribute());
 		
 //		List<SpoVO> s3 = sdao.findByCity("台北市");
 //		for(SpoVO spo : s3) {
@@ -143,14 +159,22 @@ public class Test extends HttpServlet {
 //			System.out.println(spo.getSpoattribute());
 //		}
 		
+		SpoDAO s5 = new SpoDAO();
+		List<String> citys = s5.getCity("台");
+		for(String city : citys) {
+			System.out.println(city);
+		}
+		
 //------行程明細tde------
 		
 //		TdeDAO tdao = new TdeDAO();
 //		TdeVO t1 = new TdeVO();
 //		t1.setTrino("TRI000001");
 //		t1.setSpono("SPO000001");
-//		t1.setTdestart(Timestamp.valueOf("2019-08-17 08:00:00"));
-//		t1.setTdefinish(Timestamp.valueOf("2019-08-17 10:00:00"));
+////		t1.setTdestart(Timestamp.valueOf("2019-08-17 08:00:00"));
+////		t1.setTdefinish(Timestamp.valueOf("2019-08-17 10:00:00"));
+//		t1.setTdestart(null);
+//		t1.setTdefinish(null);
 //		t1.setTdedate("D1");
 //		t1.setTdeseq(1);
 //		t1.setTderemark("132");

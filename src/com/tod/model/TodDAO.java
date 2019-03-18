@@ -24,8 +24,8 @@ public class TodDAO implements TodDAO_interface{
 		}
 	}
 	
-	private static final String ADD_STMT = "INSERT INTO TRIPORDER (TODNO, MEMNO, TRINO, EMPNO, TODQUO, TODDDL, TODDATE, TODREMARK, TODSTAT) VALUES ('TOD'||LPAD(TO_CHAR(TOD_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_STMT = "UPDATE TRIPORDER SET EMPNO=?, TODQUO=?, TODDDL=?, TODDATE=?, TODREMARK=?, TODSTAT=? WHERE TODNO=?";
+	private static final String ADD_STMT = "INSERT INTO TRIPORDER (TODNO, MEMNO, TRINO, EMPNO, TODQUO, TODDDL, TODDATE, TODREMARK, TODSTAT) VALUES ('TOD'||LPAD(TO_CHAR(TOD_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, SYSDATE, ?, ?)";
+	private static final String UPDATE_STMT = "UPDATE TRIPORDER SET EMPNO=?, TODQUO=?, TODDDL=?, TODREMARK=?, TODSTAT=? WHERE TODNO=?";
 	private static final String DELETE_STMT = "DELETE FROM TRIPORDER WHERE TODNO=?";
 	private static final String FINDBYPK_STMT = "SELECT * FROM TRIPORDER WHERE TODNO=?";
 	private static final String GETALL_STMT = "SELECT * FROM TRIPORDER";
@@ -44,9 +44,8 @@ public class TodDAO implements TodDAO_interface{
 			pstmt.setString(3, tod.getEmpno());
 			pstmt.setInt(4, tod.getTodquo());
 			pstmt.setDate(5, tod.getTodddl());
-			pstmt.setDate(6, tod.getToddate());
-			pstmt.setString(7, tod.getTodremark());
-			pstmt.setInt(8, tod.getTodstat());
+			pstmt.setString(6, tod.getTodremark());
+			pstmt.setInt(7, tod.getTodstat());
 			
 			pstmt.executeUpdate();
 			
@@ -83,10 +82,9 @@ public class TodDAO implements TodDAO_interface{
 			pstmt.setString(1, tod.getEmpno());
 			pstmt.setInt(2, tod.getTodquo());
 			pstmt.setDate(3, tod.getTodddl());
-			pstmt.setDate(4, tod.getToddate());
-			pstmt.setString(5, tod.getTodremark());
-			pstmt.setInt(6, tod.getTodstat());
-			pstmt.setString(7, tod.getTodno());
+			pstmt.setString(4, tod.getTodremark());
+			pstmt.setInt(5, tod.getTodstat());
+			pstmt.setString(6, tod.getTodno());
 			
 			pstmt.executeUpdate();
 			

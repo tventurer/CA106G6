@@ -82,5 +82,43 @@ public class TdeVO implements Serializable{
 	public void setTderemark(String tderemark) {
 		this.tderemark = tderemark;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((spono == null) ? 0 : spono.hashCode());
+		result = prime * result + ((tdedate == null) ? 0 : tdedate.hashCode());
+		result = prime * result + ((trino == null) ? 0 : trino.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TdeVO other = (TdeVO) obj;
+		if (spono == null) {
+			if (other.spono != null)
+				return false;
+		} else if (!spono.equals(other.spono))
+			return false;
+		if (tdedate == null) {
+			if (other.tdedate != null)
+				return false;
+		} else if (!tdedate.equals(other.tdedate))
+			return false;
+		if (trino == null) {
+			if (other.trino != null)
+				return false;
+		} else if (!trino.equals(other.trino))
+			return false;
+		return true;
+	}
+	
 	
 }

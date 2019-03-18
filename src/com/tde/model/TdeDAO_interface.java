@@ -1,5 +1,6 @@
 package com.tde.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface TdeDAO_interface {
@@ -10,4 +11,6 @@ public interface TdeDAO_interface {
 	TdeVO findByPk(String tdeno);
 	List<TdeVO> findByTri(String trino);
 	List<TdeVO> getAll();
+	
+	public void insert2(TdeVO tde, Connection con);
 }
