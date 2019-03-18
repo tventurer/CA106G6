@@ -28,42 +28,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<script
-	src="<%=request.getContextPath()%>/bootstrap/sweetAlert/sweetalert.min.js"></script>	
+	
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.min.css">
-<script
-	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/bootstrap/sweetAlert/jquery-3.2.1.min.js"></script>
 
-<script>
-
-// 數量顯示器
-window.onload = function() {
-    var count = document.getElementById("count");
-    var inc = document.getElementById("inc");
-    var dec = document.getElementById("dec");
-    inc.onclick = function() {
-    	if(count.value<<%=pahvo.getPahnum()-buynum%>){
-	        count.value = parseInt(count.value) + 1;		
-    	}
-    };
-    dec.onclick = function() {
-    	if(count.value>1){
-	        count.value = parseInt(count.value) - 1;
-    	}
-    };
-};
-
-</script>
 
 
 <meta charset="UTF-8">
@@ -224,7 +194,7 @@ window.onload = function() {
       </div>
     </div>
    </div>
- <section>
+ </section>
 
 
 	
@@ -244,6 +214,40 @@ window.onload = function() {
 
 
 </body>
+
+<script
+	src="<%=request.getContextPath()%>/bootstrap/sweetAlert/sweetalert.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script
+	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/bootstrap/sweetAlert/jquery-3.2.1.min.js"></script>
+
+<script>
+
+// 數量顯示器
+window.onload = function() {
+    var count = document.getElementById("count");
+    var inc = document.getElementById("inc");
+    var dec = document.getElementById("dec");
+    inc.onclick = function() {
+    	if(count.value<<%=pahvo.getPahnum()-buynum%>){
+	        count.value = parseInt(count.value) + 1;		
+    	}
+    };
+    dec.onclick = function() {
+    	if(count.value>1){
+	        count.value = parseInt(count.value) - 1;
+    	}
+    };
+};
+
+</script>
+
+
 <script>
 
 //SWEETALERT
@@ -258,6 +262,18 @@ window.onload = function() {
 <%}%>
 </script>
 
+  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/popper/popper.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/easing/easing.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="<%= request.getContextPath() %>/style/f/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="<%= request.getContextPath() %>/style/f/js/main.js"></script>
 
 
 </html>

@@ -48,7 +48,7 @@
                       <span class="color-b"> 最優質</span> 
                       <br> 機票加酒店票券</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">特價中</span></a>
+                      <a href="<%=request.getContextPath()%>/pah/pahcontrol?action=listPahBySelect"><span class="price-a">特價中</span></a>
                     </p>
                   </div>
                 </div>

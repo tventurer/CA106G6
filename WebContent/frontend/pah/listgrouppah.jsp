@@ -11,18 +11,12 @@
 <html>
 <head>
 
-<script
-	src="<%=request.getContextPath()%>/bootstrap/sweetAlert/sweetalert.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.min.css">
-<script
-	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+
+
 	
 	
 <meta charset="utf-8">
@@ -38,46 +32,6 @@
 	height: 151px; /* height:  151px; */
 }
 </style>
-
-<script>
-	$.datetimepicker.setLocale('zh');
-	$('.f_date1').datetimepicker({
-		theme : '', //theme: 'dark',
-		timepicker : false, //timepicker:true,
-		step : 10, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d', //format:'Y-m-d H:i:s',
-		value : '', // value:   new Date(),
-	});
-
-
-	$.datetimepicker.setLocale('zh'); // kr ko ja en
-	$(function() {
-		$('#start_date').datetimepicker(
-				{
-					format : 'Y-m-d',
-					onShow : function() {
-						this.setOptions({
-							maxDate : $('#end_date').val() ? $('#end_date')
-									.val() : false
-						})
-					},
-					timepicker : false
-				});
-
-		$('#end_date').datetimepicker(
-				{
-					format : 'Y-m-d',
-					onShow : function() {
-						this.setOptions({
-							minDate : $('#start_date').val() ? $('#start_date')
-									.val() : false
-						})
-					},
-					timepicker : false
-				});
-	});
-</script>
-
 
 </head>
 <body>
@@ -264,6 +218,56 @@
 <%}%>
 
 </script>
+
+<script
+	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script
+	src="<%=request.getContextPath()%>/bootstrap/sweetAlert/sweetalert.min.js"></script>
+
+<script>
+	$.datetimepicker.setLocale('zh');
+	$('.f_date1').datetimepicker({
+		theme : '', //theme: 'dark',
+		timepicker : false, //timepicker:true,
+		step : 10, //step: 60 (這是timepicker的預設間隔60分鐘)
+		format : 'Y-m-d', //format:'Y-m-d H:i:s',
+		value : '', // value:   new Date(),
+	});
+
+$(this).on("load", function(){
+	$.datetimepicker.setLocale('zh'); // kr ko ja en
+	$(function() {
+		$('#start_date').datetimepicker(
+				{
+					format : 'Y-m-d',
+					onShow : function() {
+						this.setOptions({
+							maxDate : $('#end_date').val() ? $('#end_date')
+									.val() : false
+						})
+					},
+					timepicker : false
+				});
+
+		$('#end_date').datetimepicker(
+				{
+					format : 'Y-m-d',
+					onShow : function() {
+						this.setOptions({
+							minDate : $('#start_date').val() ? $('#start_date')
+									.val() : false
+						})
+					},
+					timepicker : false
+				});
+	});
+});
+</script>
+
 
 </html>
 
