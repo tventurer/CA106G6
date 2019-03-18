@@ -130,8 +130,7 @@
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pah/addpah.jsp"><i class="icon fa fa-circle-o"></i>商品上架</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pah/listallpah.jsp"><i class="icon fa fa-circle-o"></i>商品列表</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pho/listallrefund.jsp"><i class="icon fa fa-circle-o"></i>申請退款訂單列表</a></li>
-            <li><a class="treeview-item" href="page-error.html"><i class="icon fa fa-circle-o"></i>客戶訂單查詢</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pho/listallrefund.jsp"><i class="icon fa fa-circle-o"></i>客戶訂單管理</a></li>
           </ul>
         </li>
       </ul>
