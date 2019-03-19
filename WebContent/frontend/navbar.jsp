@@ -33,17 +33,17 @@
   <!--/ Nav Star /-->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand text-brand" href="index.jsp">T<span class="color-b">-Venturer</span></a>
+      <a class="navbar-brand text-brand" href="<%= request.getContextPath() %>/index.jsp">T<span class="color-b">-Venturer</span></a>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="contact.html">代購</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/pah/pahcontrol?action=listPahBySelect">機加酒</a>
+            <a class="nav-link" href="contact.html">機加酒</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">自由行</a>
+            <a class="nav-link" href="<%= request.getContextPath() %>/frontend/tri/tripIndex.jsp">自由行</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">套裝行程</a>
@@ -59,8 +59,8 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="agent-single.html">基本資料</a>
               <a class="dropdown-item" href="property-single.html">我的代購</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/pho/phocontrol?action=listMeOrder&memno=MEM000001">我的機加酒訂單</a>
-              <a class="dropdown-item" href="property-single.html">我的自由行</a>
+              <a class="dropdown-item" href="property-single.html">我的機加酒</a>
+              <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/tri/listTriByMem.jsp">我的自由行</a>
               <a class="dropdown-item" href="property-single.html">我的套裝行程</a>
               <a class="dropdown-item" href="blog-single.html">文章管理</a>
               <a class="dropdown-item" href="agents-grid.html">代幣管理</a>
