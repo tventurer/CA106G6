@@ -373,9 +373,6 @@ INCREMENT BY 1
 START WITH 1
 NOMAXVALUE;
 
-INSERT INTO PLANEHOTELORDER VALUES ('PHO'||LPAD(TO_CHAR(PHO_SEQ.NEXTVAL),6,'0'), '姆斯', '0921568221', 'CHIC@yahoo.com.tw', sysdate, 0,' ' ,'1234-5678-4321-9876',100000 ,'MEM000001');
-INSERT INTO PLANEHOTELORDER VALUES ('PHO'||LPAD(TO_CHAR(PHO_SEQ.NEXTVAL),6,'0'), '首中', '0937916556', 'BOBO@GMAIL.COM', sysdate, 0,' ' ,'1234-5678-4321-9876',50000 ,'MEM000001');
-INSERT INTO PLANEHOTELORDER VALUES ('PHO'||LPAD(TO_CHAR(PHO_SEQ.NEXTVAL),6,'0'), '隆界', '0956337863', 'BABY@yahoo.com.tw', sysdate, 0,' ' ,'1234-5678-4321-9876',500000000 ,'MEM000001');
     
 -----------------------建立機加酒商品表格-----------------------
 
@@ -405,9 +402,6 @@ INCREMENT BY 1
 START WITH 1
 NOMAXVALUE;
 
-INSERT INTO PLANEHOTEL VALUES('PAH'||LPAD(TO_CHAR(PH_SEQ.NEXTVAL),6,'0'), '東京豪華五日遊', '好好玩', '超級好玩', 18888, 'JAPAN', '10', to_date('2019-4-15','yyyy-mm-dd'), to_date('2019-4-18','yyyy-mm-dd'), to_date('2019-4-10 23:59:59','yyyy-mm-dd hh24:mi:ss'), 0, '', '', '', '', '', 'EMP000001' );
-INSERT INTO PLANEHOTEL VALUES('PAH'||LPAD(TO_CHAR(PH_SEQ.NEXTVAL),6,'0'), '倫敦斯文里三日遊', '66666', '無敵好玩', 99999, 'LONDON', '15', to_date('2019-4-15','yyyy-mm-dd'), to_date('2019-4-17','yyyy-mm-dd'), to_date('2019-4-10 23:59:59','yyyy-mm-dd hh24:mi:ss'), 0, '', '', '', '', '', 'EMP000001' );
-INSERT INTO PLANEHOTEL VALUES('PAH'||LPAD(TO_CHAR(PH_SEQ.NEXTVAL),6,'0'), '法國愛情摩天輪', '愛情產業鏈', '有女朋友就好玩', 3000, 'FRENCH', '2', to_date('2019-4-15','yyyy-mm-dd'), to_date('2019-4-19','yyyy-mm-dd'), to_date('2019-4-10 23:59:59','yyyy-mm-dd hh24:mi:ss'), 0, '', '', '', '', '', 'EMP000001' );
 
 
 -----------------------建立機加酒訂單明細表格-----------------------
@@ -420,9 +414,6 @@ CREATE TABLE PLANEHOTELDETAIL(
     CONSTRAINT PLANEHOTELDETAIL_FK1 FOREIGN KEY(PAHNO) REFERENCES PLANEHOTEL(PAHNO),
     CONSTRAINT PLANEHOTELDETAIL_FK2 FOREIGN KEY(PHONO) REFERENCES PLANEHOTELORDER(PHONO));
  
-INSERT INTO PLANEHOTELDETAIL VALUES ('PAH000001', 'PHO000002',5);
-INSERT INTO PLANEHOTELDETAIL VALUES ('PAH000002', 'PHO000002',5);
-INSERT INTO PLANEHOTELDETAIL VALUES ('PAH000003', 'PHO000003',5);
 
 -----------------------建立最新消息表格-----------------------
 
