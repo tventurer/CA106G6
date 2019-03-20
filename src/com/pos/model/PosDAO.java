@@ -21,9 +21,13 @@ public class PosDAO implements PosDAO_interface {
 	private static String UPDATE = 
 			"UPDATE BLOGPOST SET MEMNO = ?, TAGNO = ?, POSTITLE = ?, POSCONTENT = ?, POSTIME = ? WHERE POSNO = ?";
 	private static String GET_ONE_STMT = 
-			"SELECT POSNO, MEMNO, TAGNO, POSTITLE, POSCONTENT, to_char(POSTIME,'yyyy-mm-dd') POSTIME FROM BLOGPOST WHERE POSNO = ?";
+			"SELECT POSNO, MEMNO, TAGNO, POSTITLE, POSCONTENT, to_char(POSTIME,'yyyy-mm-dd hh:mm:ss') POSTIME FROM BLOGPOST WHERE POSNO = ?";
 	private static String GET_ALL_STMT = 
-			"SELECT POSNO, MEMNO, TAGNO, POSTITLE, POSCONTENT, to_char(POSTIME,'yyyy-mm-dd') POSTIME FROM BLOGPOST ORDER BY POSNO";
+			"SELECT POSNO, MEMNO, TAGNO, POSTITLE, POSCONTENT, to_char(POSTIME,'yyyy-mm-dd hh:mm:ss') POSTIME FROM BLOGPOST ORDER BY POSNO DESC";
+	
+	private static String GET_NEWEST_POST_BY_MEMNO = 
+			"SELECT POSNO FROM BLOGPOST WHERE MEMNO = ? ORDER BY POSTIME DESC";
+	
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -33,22 +37,34 @@ public class PosDAO implements PosDAO_interface {
 		}
 	}	
 	@Override
-	public int insert(PosVO posvo) {
+	public String insert(PosVO posvo) {
 		Connection con = null;
-		PreparedStatement pstmt = null;		
-		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String key = null;
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, java.sql.Statement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, posvo.getMemno());
 			pstmt.setString(2, posvo.getTagno());
 			pstmt.setString(3, posvo.getPostitle());
 			pstmt.setString(4, posvo.getPoscontent());
 			
-			result = pstmt.executeUpdate();
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			pstmt = con.prepareStatement(GET_NEWEST_POST_BY_MEMNO);
+			pstmt.setString(1, posvo.getMemno());
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				key = rs.getString(1);
+			}
 		} catch (SQLException se) {
+			se.printStackTrace();
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 		} finally {
@@ -68,7 +84,7 @@ public class PosDAO implements PosDAO_interface {
 			}
 		}
 		
-		return result;
+		return key;
 	}
 	
 	@Override
@@ -119,7 +135,7 @@ public class PosDAO implements PosDAO_interface {
 			pstmt.setString(2, posvo.getTagno());
 			pstmt.setString(3, posvo.getPostitle());
 			pstmt.setString(4, posvo.getPoscontent());
-			pstmt.setDate(5, posvo.getPostime());
+			pstmt.setTimestamp(5, posvo.getPostime());
 			pstmt.setString(6, posvo.getPosno());
 			
 			result = pstmt.executeUpdate();
@@ -165,7 +181,7 @@ public class PosDAO implements PosDAO_interface {
 				posvo.setTagno(rs.getString("TAGNO"));
 				posvo.setPostitle(rs.getString("POSTITLE"));
 				posvo.setPoscontent(rs.getString("POSCONTENT"));
-				posvo.setPostime(rs.getDate("POSTIME"));			
+				posvo.setPostime(rs.getTimestamp("POSTIME"));			
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -216,7 +232,7 @@ public class PosDAO implements PosDAO_interface {
 				posvo.setTagno(rs.getString("TAGNO"));
 				posvo.setPostitle(rs.getString("POSTITLE"));
 				posvo.setPoscontent(rs.getString("POSCONTENT"));
-				posvo.setPostime(rs.getDate("POSTIME"));
+				posvo.setPostime(rs.getTimestamp("POSTIME"));
 				list.add(posvo);
 			}
 		} catch (SQLException se) {

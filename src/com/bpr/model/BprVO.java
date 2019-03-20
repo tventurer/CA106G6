@@ -8,7 +8,7 @@ public class BprVO {
 	private String empno;
 	private String bprtag;
 	private String bprcontent;
-	private java.sql.Date bprtime;
+	private java.sql.Timestamp bprtime;
 	private Integer bprstatus;
 	private Integer bprresult;
 	
@@ -54,10 +54,10 @@ public class BprVO {
 	public void setBprcontent(String bprcontent) {
 		this.bprcontent = bprcontent;
 	}
-	public java.sql.Date getBprtime() {
+	public java.sql.Timestamp getBprtime() {
 		return bprtime;
 	}
-	public void setBprtime(java.sql.Date bprtime) {
+	public void setBprtime(java.sql.Timestamp bprtime) {
 		this.bprtime = bprtime;
 	}
 	public Integer getBprstatus() {

@@ -3,10 +3,10 @@ package com.mpm.model;
 public class MpmVO {
 	private String mpmno;
 	private String mpmsender;
-	private String mpmreciver;
+	private String mpmreceiver;
 	private String mpmtitle;
 	private String mpmcontent;
-	private java.sql.Date mpmtime;
+	private java.sql.Timestamp mpmtime;
 	private Integer mpmreaded;
 	
 	public String getMpmno() {
@@ -21,11 +21,11 @@ public class MpmVO {
 	public void setMpmsender(String mpmsender) {
 		this.mpmsender = mpmsender;
 	}
-	public String getMpmreciver() {
-		return mpmreciver;
+	public String getMpmreceiver() {
+		return mpmreceiver;
 	}
-	public void setMpmreciver(String mpmreciver) {
-		this.mpmreciver = mpmreciver;
+	public void setMpmreceiver(String mpmreciver) {
+		this.mpmreceiver = mpmreciver;
 	}
 	public String getMpmtitle() {
 		return mpmtitle;
@@ -39,10 +39,10 @@ public class MpmVO {
 	public void setMpmcontent(String mpmcontent) {
 		this.mpmcontent = mpmcontent;
 	}
-	public java.sql.Date getMpmtime() {
+	public java.sql.Timestamp getMpmtime() {
 		return mpmtime;
 	}
-	public void setMpmtime(java.sql.Date mpmtime) {
+	public void setMpmtime(java.sql.Timestamp mpmtime) {
 		this.mpmtime = mpmtime;
 	}
 	public Integer getMpmreaded() {

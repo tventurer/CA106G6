@@ -2,10 +2,19 @@
 <%@ page import="com.pos.model.*" %>
 <%@ page import="com.mem.model.*" %>
 <%@ page import="com.bpt.model.*" %>
+<%@ page import="com.bpc.model.*" %>
+<%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
 <%
-  PosVO posVO = (PosVO) request.getAttribute("posVO");
+  PosService posSvc = new PosService();
+  PosVO posVO = posSvc.getOnePos(request.getParameter("posno"));
+  request.setAttribute("posVO", posVO);
+  
+  BpcService bpcSvc = new BpcService();
+  List<BpcVO> bpclist = bpcSvc.getListByPosno(posVO.getPosno());
+  request.setAttribute("bpclist", bpclist);
 %>
 <jsp:useBean id="memSvc" class="com.mem.model.MemService" scope="page"/>
 <jsp:useBean id="bptSvc" class="com.bpt.model.BptService" scope="page"/>
@@ -72,6 +81,53 @@
 		<td>${posVO.postime}</td>
 	</tr>
 </table>
-
+<c:if test="${memno != null}">
+<form action="<%=request.getContextPath()%>/frontend/bpc/bpc" method="post">
+  <table>
+    <tr>
+      <td>我要留言</td>		
+	</tr>
+	<tr>
+	  <td><textarea name="bpccontent" rows="10" cols="80"></textarea></td>
+	</tr>
+	<tr>
+	  <td>
+	    <input type="hidden" name="posno" value="${posVO.posno}">
+	    <input type="hidden" name="action" value="insert">
+	    <input type="submit" value="送出">${errorMsgs.bpccontent}${errorMsgs.notlogin}
+	  </td>
+	</tr>
+  </table>
+</form>
+</c:if>
+<table>
+	<tr>
+		<th>會員帳號</th>
+		<th>留言內容</th>
+		<th>發表時間</th>
+		<th>刪除</th>		
+	</tr>
+	
+	<c:forEach var="bpcVO" items="${bpclist}">
+		
+		<tr>
+			<td>${memSvc.getOneMem(bpcVO.memno).memacc}</td>
+			<td>${bpcVO.bpccontent}</td>
+			<td>${bpcVO.bpctime}</td>
+			<td>
+			  <c:if test="${bpcVO.memno == memno}">
+			    <form action="<%=request.getContextPath()%>/frontend/bpc/bpc" method="post">
+			      <input type="hidden" name="action" value="delete">
+			      <input type="hidden" name="bpcno" value="${bpcVO.bpcno}">
+			      <input type="hidden" name="posno" value="${posVO.posno}">
+			      <input type="submit" value="刪除"/>
+			    </form>
+			  </c:if>
+			</td>
+		</tr>
+	</c:forEach>
+	
+</table>
 </body>
+<% session.removeAttribute("errorMsgs"); %>
 </html>

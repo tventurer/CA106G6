@@ -152,7 +152,7 @@ public class BprJDBCDAO implements BprDAO_interface {
 				vo.setEmpno(rs.getString("EMPNO"));
 				vo.setBprtag(rs.getString("BPRTAG"));
 				vo.setBprcontent(rs.getString("BPRCONTENT"));
-				vo.setBprtime(rs.getDate("BPRTIME"));
+				vo.setBprtime(rs.getTimestamp("BPRTIME"));
 				vo.setBprstatus(rs.getInt("BPRSTATUS"));
 				vo.setBprresult(rs.getInt("BPRRESULT"));
 			}
@@ -207,7 +207,7 @@ public class BprJDBCDAO implements BprDAO_interface {
 				vo.setEmpno(rs.getString("EMPNO"));
 				vo.setBprtag(rs.getString("BPRTAG"));
 				vo.setBprcontent(rs.getString("BPRCONTENT"));
-				vo.setBprtime(rs.getDate("BPRTIME"));
+				vo.setBprtime(rs.getTimestamp("BPRTIME"));
 				vo.setBprstatus(rs.getInt("BPRSTATUS"));
 				vo.setBprresult(rs.getInt("BPRRESULT"));
 				list.add(vo);

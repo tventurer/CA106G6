@@ -32,7 +32,7 @@ public class MpmJDBCDAO implements MpmDAO_interface {
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, mpmvo.getMpmsender());
-			pstmt.setString(2, mpmvo.getMpmreciver());
+			pstmt.setString(2, mpmvo.getMpmreceiver());
 			pstmt.setString(3, mpmvo.getMpmtitle());
 			pstmt.setString(4, mpmvo.getMpmcontent());
 			pstmt.setInt(5, mpmvo.getMpmreaded());
@@ -114,10 +114,10 @@ public class MpmJDBCDAO implements MpmDAO_interface {
 				mpmvo = new MpmVO();
 				mpmvo.setMpmno(rs.getString("MPMNO"));
 				mpmvo.setMpmsender(rs.getString("MPMSENDER"));
-				mpmvo.setMpmreciver(rs.getString("MPMRECIVER"));
+				mpmvo.setMpmreceiver(rs.getString("MPMRECIVER"));
 				mpmvo.setMpmtitle(rs.getString("MPMTITLE"));
 				mpmvo.setMpmcontent(rs.getString("MPMCONTENT"));
-				mpmvo.setMpmtime(rs.getDate("MPMTIME"));
+				mpmvo.setMpmtime(rs.getTimestamp("MPMTIME"));
 				mpmvo.setMpmreaded(rs.getInt("MPMREADED"));
 			}
 		} catch (SQLException se) {
@@ -166,10 +166,10 @@ public class MpmJDBCDAO implements MpmDAO_interface {
 				mpmvo = new MpmVO();
 				mpmvo.setMpmno(rs.getString("MPMNO"));
 				mpmvo.setMpmsender(rs.getString("MPMSENDER"));
-				mpmvo.setMpmreciver(rs.getString("MPMRECIVER"));
+				mpmvo.setMpmreceiver(rs.getString("MPMRECIVER"));
 				mpmvo.setMpmtitle(rs.getString("MPMTITLE"));
 				mpmvo.setMpmcontent(rs.getString("MPMCONTENT"));
-				mpmvo.setMpmtime(rs.getDate("MPMTIME"));
+				mpmvo.setMpmtime(rs.getTimestamp("MPMTIME"));
 				mpmvo.setMpmreaded(rs.getInt("MPMREADED"));
 				list.add(mpmvo);
 			}

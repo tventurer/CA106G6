@@ -8,4 +8,5 @@ public interface BpcDAO_interface {
 	public int update(BpcVO bpcVO);
 	public BpcVO findByPrimaryKey(String bpcno);
 	public List<BpcVO> getAll();
+	public List<BpcVO> findByPosno(String posno);
 }

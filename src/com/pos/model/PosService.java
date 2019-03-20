@@ -17,7 +17,8 @@ public class PosService {
 		vo.setTagno(tagno);
 		vo.setPostitle(postitle);
 		vo.setPoscontent(poscontent);
-		dao.insert(vo);
+		String key = dao.insert(vo);
+		vo.setPosno(key);
 		
 		return vo;
 	}
@@ -33,7 +34,7 @@ public class PosService {
 		vo.setTagno(tagno);
 		vo.setPostitle(postitle);
 		vo.setPoscontent(poscontent);
-		vo.setPostime(java.sql.Date.valueOf(postime));
+		vo.setPostime(java.sql.Timestamp.valueOf(postime));
 		dao.update(vo);
 		
 		return vo;

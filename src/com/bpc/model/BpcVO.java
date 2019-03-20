@@ -5,7 +5,7 @@ public class BpcVO {
 	private String memno;
 	private String posno;
 	private String bpccontent;
-	private java.sql.Date bpctime;
+	private java.sql.Timestamp bpctime;
 	
 	public String getBpcno() {
 		return bpcno;
@@ -31,10 +31,10 @@ public class BpcVO {
 	public void setBpccontent(String bpccontent) {
 		this.bpccontent = bpccontent;
 	}
-	public java.sql.Date getBpctime() {
+	public java.sql.Timestamp getBpctime() {
 		return bpctime;
 	}
-	public void setBpctime(java.sql.Date bpctime) {
+	public void setBpctime(java.sql.Timestamp bpctime) {
 		this.bpctime = bpctime;
 	}
 }

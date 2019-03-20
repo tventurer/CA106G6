@@ -9,7 +9,7 @@ public class PosVO implements Serializable {
 	private String tagno;
 	private String postitle;
 	private String poscontent;
-	private java.sql.Date postime;
+	private java.sql.Timestamp postime;
 	
 	public PosVO() {}
 	public String getPosno() {
@@ -42,10 +42,10 @@ public class PosVO implements Serializable {
 	public void setPoscontent(String poscontent) {
 		this.poscontent = poscontent;
 	}
-	public java.sql.Date getPostime() {
+	public java.sql.Timestamp getPostime() {
 		return postime;
 	}
-	public void setPostime(java.sql.Date postime) {
+	public void setPostime(java.sql.Timestamp postime) {
 		this.postime = postime;
 	}
 	@Override
