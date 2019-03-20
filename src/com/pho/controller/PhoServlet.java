@@ -253,29 +253,6 @@ public class PhoServlet extends HttpServlet {
 		}
 		
 		
-		//神奇小按鈕
-		if("buildOrder".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			
-			try {
-				PhoVO phovo = new PhoVO();
-				phovo.setPhoowner("香蕉");
-				phovo.setPhophone("0987878787");
-				phovo.setPhomail("bochen9368@gmail.com");
-				
-				req.setAttribute("phovo", phovo);
-				RequestDispatcher success = req.getRequestDispatcher("/frontend/pho/order.jsp");
-				success.forward(req, res);
-				return;
-			}catch(Exception e) {
-				errorMsgs.add("神奇小按鈕失效");
-				RequestDispatcher failure = req.getRequestDispatcher("/frontend/pho/order.jsp");
-				failure.forward(req, res);
-				return;
-			}
-			
-		}
 		
 		
 		
@@ -349,7 +326,7 @@ public class PhoServlet extends HttpServlet {
 		
 		
 		
-		if("update".equals(action) || "judge".equals(action)) {
+		if("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -511,8 +488,139 @@ public class PhoServlet extends HttpServlet {
 					return;
 					
 				}
-			}
+			}			
+		}
+		
+		
+		
+		if("judge".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 			
+			try {
+				//訂單編號
+				String phono = req.getParameter("phono");
+				//訂單狀態
+				Integer phostatus = Integer.parseInt(req.getParameter("phostatus"));
+				//訂單描述
+				String phomark = req.getParameter("phomark");
+				if(phostatus==4) {
+					try {
+						if(phomark.equals("")||phomark==null) {
+							errorMsgs.add("請說明無法退貨原因");
+						}
+					}catch(Exception e) {
+						errorMsgs.add("請說明無法退貨原因");
+					}
+				}
+				//會員編號
+				String memno = req.getParameter("memno");
+				
+				//包裝資料
+				PhoVO phovo = new PhoVO();
+				phovo.setPhono(phono);
+				phovo.setPhostatus(phostatus);
+				phovo.setPhomark(phomark);
+				phovo.setMemno(memno);
+				
+				//夾帶訂單明細
+				PhdService pds = new PhdService();
+				List<PhdVO> phdlist = new ArrayList<PhdVO>();
+				phdlist = pds.getbyphono(phono);
+				
+				
+				req.setAttribute("phovo", phovo);
+				req.setAttribute("phdlist", phdlist);
+				//失敗轉向
+				if(!errorMsgs.isEmpty()) {
+					RequestDispatcher failure = req.getRequestDispatcher("/backend/pho/judgeorder.jsp");
+					failure.forward(req, res);
+					return;
+				}
+				
+				
+				//成功更改資料
+				PhoService pos = new PhoService();
+				if(phostatus==3) {
+					pos.refundPah(phdlist, phostatus, phomark, phono);					
+				}else if(phostatus==4) {
+					pos.changeStatus(phostatus, phomark, phono);
+				}
+				
+				req.setAttribute("phovo", pos.getOnePho(phono));
+				RequestDispatcher success = req.getRequestDispatcher("/pho/phocontrol?action=listMeOrderback&memno="+memno);
+				success.forward(req, res);
+				return;
+				
+			}catch(Exception e) {
+				errorMsgs.add("訂單修改失敗");
+				RequestDispatcher failure = req.getRequestDispatcher("/backend/pho/judgeorder.jsp");
+				failure.forward(req, res);
+				return;
+			}			
+		}
+		
+		
+		
+		if("successOrder".equals(action)) {
+			List<String> errorMsgs = new ArrayList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				//修改訂單狀態為商品已寄出
+				String noOrder = "";
+				String Orderno[] = null;
+				try{
+					Orderno = req.getParameterValues("OKOrder");
+					if(Orderno==null || Orderno.length==0) {
+						noOrder = "請選擇要修改的訂單";
+					}
+				}catch(Exception e) {
+					noOrder = "請選擇要修改的訂單";
+				}				
+				if(!noOrder.isEmpty()) {
+					req.setAttribute("noOrder", noOrder);
+					RequestDispatcher failure = req.getRequestDispatcher("/backend/pho/listallrefund.jsp");
+					failure.forward(req, res);
+					return;
+				}
+				
+				
+				//剛新增成功的訂單編號
+				List<String> orderno = new ArrayList<String>();
+				PhoService phs = new PhoService();
+				for(int i=0; i<Orderno.length; i++) {
+					phs.changeStatus(1, "", Orderno[i]);
+					orderno.add(Orderno[i]);
+				}
+				
+				
+				//包裝目前所有成功的訂單及總金額
+				Integer allMoney = 0;
+				List<PhoVO> all = phs.getall();
+				List<PhoVO> sucessOrderList = new ArrayList<PhoVO>();
+				for(PhoVO phovo : all) {
+					if(phovo.getPhostatus()==1) {
+						sucessOrderList.add(phovo);
+						allMoney += phovo.getPhototal();
+					}
+				}		
+				
+				//導轉成功頁面
+				req.setAttribute("allMoney", allMoney);
+				req.setAttribute("sucessOrderList", sucessOrderList);
+				req.setAttribute("orderno", orderno);
+				RequestDispatcher success = req.getRequestDispatcher("/backend/pho/allsuccessorder.jsp");
+				success.forward(req, res);
+				return;
+				
+				
+			}catch(Exception e) {
+				errorMsgs.add("重新選擇寄出商品");
+				RequestDispatcher failure = req.getRequestDispatcher("/backend/pho/listallrefund.jsp");
+				failure.forward(req, res);
+				return;
+			}
 		}
 	}
 

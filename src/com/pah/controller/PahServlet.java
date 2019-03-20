@@ -595,7 +595,7 @@ public class PahServlet extends HttpServlet {
 				PahService phs = new PahService();
 				phs.addPah(pahname, pahintro, pahcontent, pahprice, pahcountry, pahnum, pahstdate, pahenddate, pahdown, pahstatus, item1, item2, item3, item4, item5, empno);
 				
-				RequestDispatcher success = req.getRequestDispatcher("/backend/pah/addpah.jsp");
+				RequestDispatcher success = req.getRequestDispatcher("/backend/pah/listallpah.jsp");
 				success.forward(req, res);
 				return;
 			}catch(Exception e) {
