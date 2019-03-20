@@ -78,6 +78,27 @@
           </div>
         </div>
       </div>
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(style/f/img/pacpic.jpg)">
+        <div class="overlay overlay-a"></div>
+        <div class="intro-content display-table">
+          <div class="table-cell">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="intro-body">
+                    <h1 class="intro-title mb-4">
+                      <span class="color-b">旅遊由我安排 </span> 
+                      <br> 讓您無後顧之憂</h1>
+                    <p class="intro-subtitle intro-price">
+                      <a href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp"><span class="price-a">熱烈報名中</span></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!--/ Carousel end /-->
