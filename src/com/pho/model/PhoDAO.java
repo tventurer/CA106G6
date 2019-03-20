@@ -479,171 +479,171 @@ public class PhoDAO implements PhoDAO_interface{
 	
 	
 	//**********android使用
-//	private final static String INSERT_ORDER = "INSERT INTO PLANEHOTELORDER(phono, phoowner, phophone, phomail, phostdate, phostatus, phomark, phovisa, phototal, memno) "
-//                                             + "VALUES('PHO'||LPAD(to_char(PHO_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, SYSDATE, ?, ?, ?, ?, ?)";
-//	//**********android使用
-//	@Override
-//	public String addWithPhoList(PhoListVO phoListVO, List<PhdVO> phdVOList) {
-//		
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		String next_orderid = null;
-//		
-//		try {
-//			con = ds.getConnection();
-//			
-//			con.setAutoCommit(false);
-//			//設定pstmt並新增訂單
-//			String[] cols = {"phono"};
-//			pstmt = con.prepareStatement(INSERT_ORDER, cols);
-//			
-//			pstmt.setString(1, phoListVO.getPhoowner());
-//			pstmt.setString(2, phoListVO.getPhophone());
-//			pstmt.setString(3, phoListVO.getPhomail());
-//			pstmt.setInt(4, 0);
-//			pstmt.setString(5, phoListVO.getPhomark());
-//			pstmt.setString(6, phoListVO.getPhovisa());
-//			pstmt.setInt(7, phoListVO.getPhototal());
-//			pstmt.setString(8, phoListVO.getMemno());
-//			
-//			pstmt.executeUpdate();
-//			
-//			//取得自增主鍵值
-//			ResultSet rs = pstmt.getGeneratedKeys();
-//			if(rs.next()) {
-//				next_orderid = rs.getString(1);
-//				System.out.println("自增主鍵值 = " + next_orderid);
-//			} else {
-//				System.out.println("未取得自增主鍵");
-//			}
-//			rs.close();
-//			
-//			//新增訂單明細
-//			PhdDAO phdDAO = new PhdDAO();
-//			for(PhdVO phdVO : phdVOList) {
-//				phdVO.setPhono(next_orderid);
-//				phdDAO.insertAn(phdVO, con); //新增訂單明細
-//			}
-//			con.commit();
-//			con.setAutoCommit(true);
-//			System.out.println("orderItemList.size()-B= " + phdVOList.size());
-//			System.out.println("新增訂單編號" + next_orderid + "時，共有明細" + phdVOList.size() + "筆同時被新增");
-//
-//		}catch(SQLException sqle) {
-//			if(con != null) {
-//				try {
-//					System.err.println("交易 rollback!");
-//					con.rollback();
-//				}catch(SQLException sqle2) {
-//					throw new RuntimeException("rollback error occured." + sqle2.getMessage());
-//				}
-//			}
-//			throw new RuntimeException("a data base errored occured." + sqle.getMessage());
-//		}finally{
-//			if(pstmt != null) {
-//				try {
-//					pstmt.close();
-//				}catch(SQLException sqle) {
-//					sqle.printStackTrace();
-//				}
-//			}
-//			if(con != null) {
-//				try {
-//					con.close();
-//				}catch(SQLException sqle) {
-//					sqle.printStackTrace();
-//				}
-//			}
-//		}
-//		return next_orderid;
-//	}
-//
-//	//**********android使用
-//	private static final String GET_ALL = "SELECT * FROM PLANEHOTELORDER WHERE memno = ? ORDER BY phostdate DESC";
-//	private static final String GET_BY_DATE = "SELECT * FROM PLANEHOTELORDER WHERE memno = ? "
-//                                            + "AND phostdate BETWEEN TO_DATE(?, 'yyyy-mm-dd') AND TO_DATE(?, 'yyyy-mm-dd') ORDER BY phostdate DESC";
-//	
-//	//**********android使用
-//	@Override
-//	public List<PhoListVO> getall(String memno, String start, String end) {
-//		
-//		List<PhoListVO> phoList = new ArrayList<>();
-//		PhoListVO phoListVO = null;
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		String end_more = "";
-//		
-//		try {
-//			con = ds.getConnection();
-//			
-//			if (start == null || end == null || start.isEmpty()
-//					|| end.isEmpty()) {
-//				pstmt = con.prepareStatement(GET_ALL);
-//				pstmt.setString(1, memno);
-//			} else {
-//				try {
-//					//把傳入的日期多加一天
-//					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//					java.util.Date endDate = df.parse(end);
-//					long endDate_long = endDate.getTime() + 1000 * 60 * 60 * 24L;
-//					java.util.Date endDate_more = new java.util.Date(endDate_long);
-//					end_more = df.format(endDate_more);
-//					end = end_more;
-//				} catch (ParseException e) {
-//					e.printStackTrace();
-//				}
-//				pstmt = con.prepareStatement(GET_BY_DATE);
-//				pstmt.setString(1, memno);
-//				pstmt.setString(2, start);
-//				pstmt.setString(3, end);
-//			}
-//
-//			rs = pstmt.executeQuery();
-//
-//			while (rs.next()) {
-//				phoListVO = new PhoListVO();
-//				phoListVO.setPhono(rs.getString(1));
-//				phoListVO.setPhoowner(rs.getString(2));
-//				phoListVO.setPhophone(rs.getString(3));
-//				phoListVO.setPhomail(rs.getString(4));
-//				phoListVO.setPhostdate(rs.getDate(5));
-//				phoListVO.setPhostatus(rs.getInt(6));
-//				phoListVO.setPhomark(rs.getString(7));
-//				phoListVO.setPhovisa(rs.getString(8));
-//				phoListVO.setPhototal(rs.getInt(9));
-//				phoListVO.setMemno(rs.getString(10));
-//				phoList.add(phoListVO);
-//			}
-//			// Handle any driver errors
-//		}catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. " + se.getMessage());
-//			// Clean up JDBC resources
-//		}finally {
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
-//		return phoList;
-//	}
+	private final static String INSERT_ORDER = "INSERT INTO PLANEHOTELORDER(phono, phoowner, phophone, phomail, phostdate, phostatus, phomark, phovisa, phototal, memno) "
+                                             + "VALUES('PHO'||LPAD(to_char(PHO_SEQ.NEXTVAL), 6, '0'), ?, ?, ?, SYSDATE, ?, ?, ?, ?, ?)";
+	//**********android使用
+	@Override
+	public String addWithPhoList(PhoListVO phoListVO, List<PhdVO> phdVOList) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String next_orderid = null;
+		
+		try {
+			con = ds.getConnection();
+			
+			con.setAutoCommit(false);
+			//設定pstmt並新增訂單
+			String[] cols = {"phono"};
+			pstmt = con.prepareStatement(INSERT_ORDER, cols);
+			
+			pstmt.setString(1, phoListVO.getPhoowner());
+			pstmt.setString(2, phoListVO.getPhophone());
+			pstmt.setString(3, phoListVO.getPhomail());
+			pstmt.setInt(4, 0);
+			pstmt.setString(5, phoListVO.getPhomark());
+			pstmt.setString(6, phoListVO.getPhovisa());
+			pstmt.setInt(7, phoListVO.getPhototal());
+			pstmt.setString(8, phoListVO.getMemno());
+			
+			pstmt.executeUpdate();
+			
+			//取得自增主鍵值
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				next_orderid = rs.getString(1);
+				System.out.println("自增主鍵值 = " + next_orderid);
+			} else {
+				System.out.println("未取得自增主鍵");
+			}
+			rs.close();
+			
+			//新增訂單明細
+			PhdDAO phdDAO = new PhdDAO();
+			for(PhdVO phdVO : phdVOList) {
+				phdVO.setPhono(next_orderid);
+				phdDAO.insertAn(phdVO, con); //新增訂單明細
+			}
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("orderItemList.size()-B= " + phdVOList.size());
+			System.out.println("新增訂單編號" + next_orderid + "時，共有明細" + phdVOList.size() + "筆同時被新增");
+
+		}catch(SQLException sqle) {
+			if(con != null) {
+				try {
+					System.err.println("交易 rollback!");
+					con.rollback();
+				}catch(SQLException sqle2) {
+					throw new RuntimeException("rollback error occured." + sqle2.getMessage());
+				}
+			}
+			throw new RuntimeException("a data base errored occured." + sqle.getMessage());
+		}finally{
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException sqle) {
+					sqle.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException sqle) {
+					sqle.printStackTrace();
+				}
+			}
+		}
+		return next_orderid;
+	}
+
+	//**********android使用
+	private static final String GET_ALL = "SELECT * FROM PLANEHOTELORDER WHERE memno = ? ORDER BY phostdate DESC";
+	private static final String GET_BY_DATE = "SELECT * FROM PLANEHOTELORDER WHERE memno = ? "
+                                            + "AND phostdate BETWEEN TO_DATE(?, 'yyyy-mm-dd') AND TO_DATE(?, 'yyyy-mm-dd') ORDER BY phostdate DESC";
+	
+	//**********android使用
+	@Override
+	public List<PhoListVO> getall(String memno, String start, String end) {
+		
+		List<PhoListVO> phoList = new ArrayList<>();
+		PhoListVO phoListVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String end_more = "";
+		
+		try {
+			con = ds.getConnection();
+			
+			if (start == null || end == null || start.isEmpty()
+					|| end.isEmpty()) {
+				pstmt = con.prepareStatement(GET_ALL);
+				pstmt.setString(1, memno);
+			} else {
+				try {
+					//把傳入的日期多加一天
+					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+					java.util.Date endDate = df.parse(end);
+					long endDate_long = endDate.getTime() + 1000 * 60 * 60 * 24L;
+					java.util.Date endDate_more = new java.util.Date(endDate_long);
+					end_more = df.format(endDate_more);
+					end = end_more;
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				pstmt = con.prepareStatement(GET_BY_DATE);
+				pstmt.setString(1, memno);
+				pstmt.setString(2, start);
+				pstmt.setString(3, end);
+			}
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				phoListVO = new PhoListVO();
+				phoListVO.setPhono(rs.getString(1));
+				phoListVO.setPhoowner(rs.getString(2));
+				phoListVO.setPhophone(rs.getString(3));
+				phoListVO.setPhomail(rs.getString(4));
+				phoListVO.setPhostdate(rs.getDate(5));
+				phoListVO.setPhostatus(rs.getInt(6));
+				phoListVO.setPhomark(rs.getString(7));
+				phoListVO.setPhovisa(rs.getString(8));
+				phoListVO.setPhototal(rs.getInt(9));
+				phoListVO.setMemno(rs.getString(10));
+				phoList.add(phoListVO);
+			}
+			// Handle any driver errors
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return phoList;
+	}
 
 	
 }

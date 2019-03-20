@@ -15,6 +15,6 @@ public interface PhoDAO_interface {
 	public void refundPah(List<PhdVO> phdlist, Integer phostatus, String phomark, String phono);
 	
 	//**********android使用
-//	public String addWithPhoList(PhoListVO phoListVO, List<PhdVO> phdVOList);
-//	public List<PhoListVO> getall(String memno, String start, String end);
+	public String addWithPhoList(PhoListVO phoListVO, List<PhdVO> phdVOList);
+	public List<PhoListVO> getall(String memno, String start, String end);
 }

@@ -73,13 +73,13 @@ public class PhoService {
 		return;
 	}
 	
-//	//**********android使用
-//	public String addOrder(PhoListVO phoListVO, List<PhdVO> phdVOList) {
-//		return dao.addWithPhoList(phoListVO, phdVOList);
-//	}
-//	//**********android使用
-//	public List<PhoListVO> getall(String memno, String start, String end){
-//		return dao.getall(memno, start, end);
-//	}
+	//**********android使用
+	public String addOrder(PhoListVO phoListVO, List<PhdVO> phdVOList) {
+		return dao.addWithPhoList(phoListVO, phdVOList);
+	}
+	//**********android使用
+	public List<PhoListVO> getall(String memno, String start, String end){
+		return dao.getall(memno, start, end);
+	}
 	
 }
