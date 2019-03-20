@@ -205,19 +205,6 @@
   			
 </body>
 
-<script>
-
-//SWEETALERT
-<%if("sendMail".equals(request.getAttribute("sendMail"))){%>
-	swal({
-		  title: "訂單已成立!",
-		  text: "請至信箱確認訂單，謝謝",
-		  icon: "success",
-		  button: "關閉",
-		});
-<%}%>
-
-</script>
 
 <script
 	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
@@ -268,6 +255,19 @@ $(this).on("load", function(){
 });
 </script>
 
+<script>
+
+//SWEETALERT
+<%if("sendMail".equals(request.getAttribute("sendMail"))){%>
+	swal({
+		  title: "訂單已成立!",
+		  text: "請至信箱確認訂單，謝謝",
+		  icon: "success",
+		  button: "關閉",
+		});
+<%}%>
+
+</script>
 
 </html>
 

@@ -59,12 +59,12 @@
 <!-- 					輸入姓名、手機 -->
 				<div class="form-row">
 					<div class="form-group col-7">
-						聯絡人姓名<input type="text" class="form-control" name="phoowner" 
+						聯絡人姓名<input type="text" class="form-control" name="phoowner" id="phoowner"
 									value="<%=(phovo==null)?"":phovo.getPhoowner()%>">
     					<font style="color:red">${nameerrorMsgs}</font>
     				</div>
     				<div class="form-group col-7">
-						聯絡手機<input type="tel" class="form-control" name="phophone"
+						聯絡手機<input type="tel" class="form-control" name="phophone" id="phophone"
 									value="<%=(phovo==null)?"":phovo.getPhophone()%>">
     					<font style="color:red">${phoneerrorMsgs}</font>
     				</div>
@@ -72,7 +72,7 @@
 <!-- 					輸入EMAIL -->
    				<div class="form-row">
 					<div class="form-group col-7">
-						E-mail<input type="email" class="form-control" name="phomail"
+						E-mail<input type="email" class="form-control" name="phomail" id="phomail"
 									value="<%=(phovo==null)?"":phovo.getPhomail()%>">
     					<font style="color:red">${emailerrorMsgs}</font>
     				</div>
@@ -95,10 +95,9 @@
 				<input type="hidden" name="action" value="insert">
 			</form>
 			<br>
-			<form action="<%=request.getContextPath()%>/pho/phocontrol" method="post">
-				<input type="submit" class="btn btn-b" value="神奇小按鈕">
-				<input type="hidden" name="action" value="buildOrder">
-			</form>
+			
+			
+				<input id="magic" type="submit" class="btn btn-b" value="神奇小按鈕">
 			
 			
  		</div>
@@ -132,5 +131,20 @@
 	document.forms[0].N1.focus();  
 </script> 
 
+
+<!----------------- 神奇小按鈕 --------------------------->
+<script>
+
+$("#magic").click(function(){
+	buildInfo();
+})
+
+function buildInfo(){
+	$("#phoowner").val("香蕉");
+	$("#phophone").val("0987878787");
+	$("#phomail").val("bochen9368@gmail.com");
+}
+
+</script>
 
 </html>

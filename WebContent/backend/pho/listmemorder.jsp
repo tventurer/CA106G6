@@ -67,6 +67,7 @@
             <div class="tile-body">
               <table class="table table-hover table-bordered" id="sampleTable">
              	<h2> 會員訂單列表</h2>
+             	<h8>(點選訂單編號即可修改)</h8>
                 <thead>
                   <tr>
 					<th>機加酒編號</th>
@@ -115,7 +116,7 @@
 <!------------------------客戶的其他訂單 -->
 						<c:if test="${phovo.phono!=phoVO.phono}">
 							<tr>
-								<td><a href="<%=request.getContextPath()%>/pho/phocontrol?action=&phono=${phoVO.phono}">${phoVO.phono}</a></td>
+								<td><a href="<%=request.getContextPath()%>/pho/phocontrol?action=getOneUpdate&phono=${phoVO.phono}">${phoVO.phono}</a></td>
 								<td>${phoVO.phoowner}</td>
 								<td>${phoVO.phophone}</td> 
 								<td>${phoVO.phomail}</td>
