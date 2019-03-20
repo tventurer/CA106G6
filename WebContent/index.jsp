@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <div class="carousel-item-a intro-item bg-image" style="background-image: url(style/f/img/slide-3.jpg)">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(style/f/img/purpic.jpg)">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
@@ -65,13 +65,11 @@
               <div class="row">
                 <div class="col-lg-8">
                   <div class="intro-body">
-                    <p class="intro-title-top">Doral, Florida
-                      <br> 78345</p>
                     <h1 class="intro-title mb-4">
-                      <span class="color-b">204 </span> Alira
-                      <br> Roan Road One</h1>
+                      <span class="color-b">An apple </span>  a day
+                      <br> keep the doctor away</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                      <a href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp"><span class="price-a">tax free</span></a>
                     </p>
                   </div>
                 </div>

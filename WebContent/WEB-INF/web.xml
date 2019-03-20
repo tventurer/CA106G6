@@ -34,4 +34,84 @@
     <servlet-name>pos</servlet-name>
     <url-pattern>/backend/pos/pos</url-pattern>
   </servlet-mapping>
+  
+<!-- 代購 -->
+  <servlet>
+    <servlet-name>AcrServlet</servlet-name>
+    <servlet-class>com.acr.controller.AcrServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcrServlet</servlet-name>
+    <url-pattern>/frontend/acr/acr</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AcrServlet</servlet-name>
+    <url-pattern>/backend/acr/acr</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PurServlet</servlet-name>
+    <servlet-class>com.pur.controller.PurServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PurServlet</servlet-name>
+    <url-pattern>/frontend/pur/pur</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>PorServlet</servlet-name>
+    <servlet-class>com.por.controller.PorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PorServlet</servlet-name>
+    <url-pattern>/frontend/por/por</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>PreServlet</servlet-name>
+    <servlet-class>com.pre.controller.PreServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PreServlet</servlet-name>
+    <url-pattern>/backend/pre/pre</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>EmpServlet</servlet-name>
+    <servlet-class>com.emp.controller.EmpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmpServlet</servlet-name>
+    <url-pattern>/backend/emp/emp</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EmrServlet</servlet-name>
+    <servlet-class>com.emr.controller.EmrServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmrServlet</servlet-name>
+    <url-pattern>/backend/emr/emr</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>EmaServlet</servlet-name>
+    <servlet-class>com.ema.controller.EmaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmaServlet</servlet-name>
+    <url-pattern>/backend/ema/ema</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MemAnServlet</servlet-name>
+    <servlet-class>android.com.mem.controller.MemAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemAnServlet</servlet-name>
+    <url-pattern>/memAn</url-pattern>
+  </servlet-mapping>
+<!-- 代購 -->
 </web-app>
