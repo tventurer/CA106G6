@@ -47,7 +47,7 @@
             <a class="nav-link" href="<%= request.getContextPath() %>/frontend/tri/tripIndex.jsp">自由行</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">套裝行程</a>
+            <a class="nav-link" href="<%= request.getContextPath() %>/backend/ptp/pacHead.jsp">套裝行程</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">旅人文章</a>

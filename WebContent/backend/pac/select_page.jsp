@@ -94,6 +94,22 @@
 </ul>
 
 
+  <jsp:useBean id="deptSvc" scope="page" class="com.ptp.model.PtpService" />
+  
+  <li>
+     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" >
+       <b><font color=orange>選擇行程2:</font></b>
+       <select size="1" name="pacno">
+         <c:forEach var="deptVO" items="${ptpSvc.all}" > 
+          <option value="${pacVO.pacno}">${ptpVO.pacno}
+         </c:forEach>   
+       </select>
+       <input type="submit" value="送出">
+       <input type="hidden" name="action" value="listEmps_ByDeptno_A">
+     </FORM>
+  </li>
+</ul>
+
 <h3>套裝行程管理</h3>
 
 <ul>

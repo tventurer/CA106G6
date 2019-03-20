@@ -114,4 +114,47 @@
     <url-pattern>/memAn</url-pattern>
   </servlet-mapping>
 <!-- 代購 -->
+
+<!-- 套裝行程 -->
+<servlet>
+    <servlet-name>PacJNDIimpl_servlet</servlet-name>
+    <servlet-class>com.pac.model.PacJNDIDAO</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PacJNDIimpl_servlet</servlet-name>
+    <url-pattern>/PacJNDIDAO</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PacServlet</servlet-name>
+    <servlet-class>com.pac.controller.PacServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PacServlet</servlet-name>
+    <url-pattern>/backend/pac/pac</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DBGifReader</servlet-name>
+    <servlet-class>com.pac.controller.DBGifReader</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DBGifReader</servlet-name>
+    <url-pattern>/DBGifReader</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PtpServlet</servlet-name>
+    <servlet-class>com.ptp.controller.PtpServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PtpServlet</servlet-name>
+    <url-pattern>/backend/ptp/ptp</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PcdServlet</servlet-name>
+    <servlet-class>com.pcd.controller.PcdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PcdServlet</servlet-name>
+    <url-pattern>/backend/pcd/pcd</url-pattern>
+  </servlet-mapping>
+<!-- 套裝行程 -->
 </web-app>

@@ -16,7 +16,7 @@ public class PacVO implements java.io.Serializable{
 	private byte[] pactchar2;
 	private String pacremark;
 	private Integer pacstatus;
-	
+//pacno,empno,pacname,paccountry,paccity,pactotalday,pacprice,pacdeposit,pacdiv,paccontent,pactchar1,pactchar2,pacremark,pacstatus
 	public String getPacno() {
 		return pacno;
 	}

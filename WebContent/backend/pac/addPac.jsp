@@ -13,7 +13,7 @@
 
 <style>
   table#table-1 {
-	background-color: #CCCCFF;
+  	background-color: #CCCCFF;
     border: 2px solid black;
     text-align: center;
   }
@@ -28,8 +28,9 @@
   }
 </style>
 
-<style>
+<style type="text/css">
   table {
+  	
 	width: 450px;
 	background-color: white;
 	margin-top: 1px;
@@ -40,6 +41,12 @@
   }
   th, td {
     padding: 1px;
+  }
+  form {
+  	line-height:2em;
+  }
+  form>input,form>select{
+  	padding:5px 10px;border:1px solid #888888;border-radius:5px;
   }
 </style>
 

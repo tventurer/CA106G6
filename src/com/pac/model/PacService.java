@@ -1,5 +1,8 @@
 package com.pac.model;
 import java.util.List;
+import java.util.Set;
+import com.pac.model.*;
+import com.ptp.model.*;
 
 public class PacService {
 
@@ -78,4 +81,8 @@ public class PacService {
 	public List<PacVO> getAll() {
 		return dao.getAll();
 	}
+	public Set<PtpVO> getPtpsByPacno(String pacno) {
+		return dao.getPtpsByPacno(pacno);
+	}
+
 }

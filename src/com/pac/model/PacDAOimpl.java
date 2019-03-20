@@ -11,7 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import com.pac.model.PacVO;
+import com.ptp.model.PtpVO;
 
 public class PacDAOimpl implements PacDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -31,7 +36,7 @@ public class PacDAOimpl implements PacDAO_interface{
 			"DELETE FROM PACKAGE WHERE PACNO = ?";
 		private static final String UPDATE = 
 			"UPDATE PACKAGE SET EMPNO=? ,PACNAME=? ,PACCOUNTRY=? ,PACCITY=? ,PACTOTALDAY=? ,PACPRICE=? ,PACDEPOSIT=? ,PACDIV=? ,PACCONTENT=? ,PACTCHAR1=? ,PACTCHAR2=? ,PACREMARK=? ,PACSTATUS=? WHERE PACNO = ?";
-
+		private static final String GET_Ptps_ByPtpno_STMT = "SELECT PTPNO,PACNO, PTPSTART, PTPEND, PTPSIGNDLE, PTPNOTICE, PTPVACANCY, PTPMINMEN, PTPMAXMEN, PTPSTATUS, PTPTIMELOG FROM PACTRIPCONTENT WHERE PACNO = ? ORDER BY PTPNO";
 			@Override
 			public void insert(PacVO pacVO) {
 
@@ -263,7 +268,70 @@ public class PacDAOimpl implements PacDAO_interface{
 				}
 				return pacVO;
 			}
-
+			
+			@Override
+			public Set<PtpVO> getPtpsByPacno(String pacno) {
+				
+				Set<PtpVO> set = new LinkedHashSet<PtpVO>();
+				PtpVO ptpVO = null;
+			
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+			
+				try {
+					con = DriverManager.getConnection(url, userid, passwd);
+					pstmt = con.prepareStatement(GET_Ptps_ByPtpno_STMT);
+					
+					pstmt.setString(1, pacno);
+					rs = pstmt.executeQuery();
+			
+					while (rs.next()) {
+						ptpVO = new PtpVO();
+						ptpVO.setPtpno(rs.getString("ptpno"));
+						ptpVO.setPacno(rs.getString("pacno"));
+						ptpVO.setPtpstart(rs.getTimestamp("ptpstart"));
+						ptpVO.setPtpend(rs.getDate("ptpend"));
+						ptpVO.setPtpsigndle(rs.getDate("ptpsigndle"));
+						ptpVO.setPtpnotice(rs.getString("ptpnotice"));
+						ptpVO.setPtpvacancy(rs.getInt("ptpvacancy"));
+						ptpVO.setPtpminmen(rs.getInt("ptpminmen"));
+						ptpVO.setPtpmaxmen(rs.getInt("ptpmaxmen"));
+						ptpVO.setPtpstatus(rs.getInt("ptpstatus"));
+						ptpVO.setPtptimelog(rs.getTimestamp("ptptimelog"));
+						set.add(ptpVO); // Store the row in the vector
+					}
+			
+					// Handle any SQL errors
+				} catch (SQLException se) {
+					throw new RuntimeException("A database error occured. "
+							+ se.getMessage());
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				}
+				return set;
+			}
+			
 			@Override
 			public List<PacVO> getAll() {
 				List<PacVO> list = new ArrayList<PacVO>();
@@ -371,6 +439,7 @@ public class PacDAOimpl implements PacDAO_interface{
 					File file = new File("D:\\001.jpg");
 					InputStream in = new FileInputStream(file);
 					b = new byte[in.available()];
+					System.out.println(b.length);
 					in.read(b);
 					in.close();
 				}catch(FileNotFoundException e) {
@@ -437,8 +506,38 @@ public class PacDAOimpl implements PacDAO_interface{
 //					System.out.print(aEmp.getPacstatus() + "  ---");
 //					System.out.println();
 //				}
+				Set<PtpVO> set= dao.getPtpsByPacno("PAC000002");
+				
+				Iterator<PtpVO> objs=set.iterator();
+				System.out.print(set + ",");
+				for(PtpVO ptpVO : set) {
+				System.out.print(ptpVO.getPtpnotice() + ",");
+				}
+//				System.out.print(ptpVO.getPacname() + ",");
+//				System.out.print(ptpVO.getPaccountry() + ",");
+//				System.out.print(ptpVO.getPaccity() + ",");
+//				System.out.print(ptpVO.getPactotalday() + ",");
+//				System.out.print(ptpVO.getPacprice());
+//				System.out.print(ptpVO.getPacdeposit() + ",");
+//				System.out.print(ptpVO.getPacdiv() + ",");
+//				System.out.print(ptpVO.getPaccontent() + ",");
+//				System.out.print(ptpVO.getPactchar1() + ",");
+//				System.out.print(ptpVO.getPactchar2() + ",");
+//				System.out.print(ptpVO.getPacremark() + ",");
+//				System.out.print(ptpVO.getPacstatus() + "  ---");
+//					System.out.println(objs.next());
+				}
+			
+			
 			}
-		}
+		
+
+				
+				
+				
+				
+				
+			
 	
 	
 	

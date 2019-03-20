@@ -4,6 +4,7 @@
 
 <%
   PacVO pacVO = (PacVO) request.getAttribute("pacVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+  String requestURL = request.getParameter("requestURL");
 %>
 
 <html>
@@ -40,6 +41,10 @@
   }
   th, td {
     padding: 1px;
+  }
+  
+  form>input,form>select{
+  	padding:5px 10px;border:1px solid #888888;border-radius:5px;
   }
 </style>
 
@@ -163,6 +168,11 @@
 <input type="hidden" name="pacno" value="<%=pacVO.getPacno()%>">
 <input type="hidden" name="empno" value="<%=pacVO.getEmpno()%>">
 <input type="submit" value="送出修改"></FORM>
+<!-- <input type="hidden" name="action" value="updateX"> -->
+<%-- <input type="hidden" name="pacno" value="<%=pacVO.getPacno()%>"> --%>
+<%-- <input type="hidden" name="empno" value="<%=pacVO.getEmpno()%>"> --%>
+<%-- <input type="hidden" name="requestURL" value="<%=requestURL%>"> --%>
+<!-- <input type="submit" value="改版送出修改"></FORM> -->
 </body>
 
 </html>
