@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,6 +69,15 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <li class="nav-item">
+          <c:if test="${memacc == null}">
+            <a class="nav-link" href="contact.html">登入</a>
+          </c:if>
+          <c:if test="${memacc != null}">
+            <a class="nav-link" href="contact.html">登出</a>
+          </c:if>
           </li>
         </ul>
       </div>
