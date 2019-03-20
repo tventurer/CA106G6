@@ -60,15 +60,4 @@ private TdeDAO_interface dao;
 	public List<TdeVO> getAll() {
 		return dao.getAll();
 	}
-	
-	
-	//**********android專用
-	public List<String> getDays(String trino){
-		return dao.getDays(trino);
-	}
-	
-	//**********android專用
-	public List<String> getSpos(String trino, String tdedate){
-		return dao.getSpos(trino, tdedate);
-	};
 }

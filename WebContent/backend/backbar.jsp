@@ -26,8 +26,9 @@
   </head>
   <body class="app sidebar-mini rtl">
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="index.html">Home Page</a>
-      <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <header class="app-header"><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <a class="app-header__logo" href="<%=request.getContextPath()%>/backend/emp/empIndex.jsp">T-Venturer</a>
+      <!-- Sidebar toggle button-->
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
         <li class="app-search">
@@ -91,6 +92,12 @@
 
 
       </ul>
+		<style type="text/css">
+			.app-header__logo{
+				background-color:#009688;
+				width:200px;
+			}
+		</style>
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
@@ -101,14 +108,17 @@
           <p class="app-sidebar__user-designation">Frontend Developer</p>
         </div>
       </div>
-      <ul class="app-menu">      
+      <ul class="app-menu">  
+      
+      
+      
+      
+      
+          
 <!----------------------------------------- 會員 --------------------------------------------------------->      
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">會員管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i> Bootstrap Elements</a></li>
-            <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li>
-            <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li>
-            <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li>
+            <li><a class="app-menu__item" href="<%=request.getContextPath()%>/backend/acr/listAllAcr.jsp"><i class="fa fa-credit-card" aria-hidden="true"></i><span class="app-menu__label">&nbsp;&nbsp;&nbsp;會員儲值紀錄</span></a></li>
           </ul>        
         </li>
 <!----------------------------------------- 後台人員 --------------------------------------------------------->        
@@ -130,21 +140,15 @@
           </ul>
         </li>
 <!----------------------------------------- 代購 --------------------------------------------------------->       
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">代購管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-       	  <ul class="treeview-menu">
-            <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Form Components</a></li>
-            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Custom Components</a></li>
-            <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> Form Samples</a></li>
-            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Form Notifications</a></li>
-          </ul>
-        </li>        
+ 		<li><a class="app-menu__item " href="<%=request.getContextPath()%>/backend/pre/listAllPre.jsp"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><span class="app-menu__label">&nbsp;&nbsp;&nbsp;代購商品檢舉審核</span></a></li>
 <!----------------------------------------- 自由行 --------------------------------------------------------->        
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">自由行管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Form Components</a></li>
-            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Custom Components</a></li>
-            <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> Form Samples</a></li>
-            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Form Notifications</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tri/listAllTri.jsp"><i class="icon fa fa-circle-o"></i> 行程列表</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tri/listAllByTristat.jsp"><i class="icon fa fa-circle-o"></i> 待報價行程</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tod/listAllTod.jsp"><i class="icon fa fa-circle-o"></i> 訂單列表</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tod/listAllByTodstat.jsp"><i class="icon fa fa-circle-o"></i> 待處理訂單</a></li>
+            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> 景點管理</a></li>
           </ul>
         </li>
 <!----------------------------------------- 套裝行程 --------------------------------------------------------->

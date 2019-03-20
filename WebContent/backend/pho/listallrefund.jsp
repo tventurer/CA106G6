@@ -17,16 +17,9 @@
 <head>
 
 
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/bootstrap/css/bootstrap.min.css">
-<script
-	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
+
 	
 <title>退貨訂單審核</title>
 
@@ -60,7 +53,6 @@
              
              <%-- 錯誤驗證 --%>
 			<c:if test="${not empty errorMsgs}">
-				<font style="color:red">請修正以下錯誤:</font>
 				<ul>
 					<c:forEach var="message" items="${errorMsgs}">
 						<li style="color:red">${message}</li>
@@ -78,48 +70,50 @@
             </form>  
             <br>      
             <!----------------------  商品尚未寄出訂單 -->              
-            <table class="table table-hover table-bordered" id="sampleTable">
-              <HR>
-             	<h2> 已下定訂單列表</h2>
-                <thead>
-                  <tr>
-					<th>訂單編號</th>
-					<th>主要聯絡人姓名</th>
-					<th>電話號碼</th>
-					<th>E-Mail</th>
-					<th>訂單成立日期</th>
-					<th>機加酒訂單狀態</th>
-					<th>訂單狀態備註</th>
-					<th>信用卡號碼</th>
-					<th>總金額</th>
-					<th>會員編號</th>
-                  </tr>
-                </thead>
-                <tbody>
-                	<c:forEach var="phoVO" items="${list}" varStatus="s">
-						<c:if test="${phoVO.phostatus==0}">
-							<tr>
-								<td><a href="<%=request.getContextPath()%>/pho/phocontrol?action=getOneUpdate&phono=${phoVO.phono}">${phoVO.phono}</a></td>
-								<td>${phoVO.phoowner}</td>
-								<td>${phoVO.phophone}</td> 
-								<td>${phoVO.phomail}</td>
-								<td>${phoVO.phostdate}</td>
-								<td>商品尚未寄出</td>
-								<td>${phoVO.phomark}</td>
-								<td>${phoVO.phovisa}</td>
-								<td>${phoVO.phototal}</td>
-								<td>${phoVO.memno}</td>
-							</tr>
-						</c:if>
-					</c:forEach>                    
-                </tbody>
-              </table>            
+           <form method="post" action="<%=request.getContextPath()%>/pho/phocontrol">
+           	  <table class="table table-hover table-bordered" id="sampleTable">
+	              <HR>
+	             	<h2> 已下定訂單列表</h2>
+	             	<h8>(勾選已送出商品訂單)</h8>
+	                <thead>
+	                  <tr>
+	                 	<th></th>
+						<th>主要聯絡人姓名</th>
+						<th>電話號碼</th>
+						<th>E-Mail</th>
+						<th>訂單成立日期</th>
+						<th>機加酒訂單狀態</th>
+						<th>總金額</th>
+	                  </tr>
+	                </thead>
+	                <tbody>
+	                	<c:forEach var="phoVO" items="${list}" varStatus="s">
+							<c:if test="${phoVO.phostatus==0}">
+								<tr>
+									<td align="center"><input type="checkbox" name="OKOrder" value="${phoVO.phono}"></td>
+									<td>${phoVO.phoowner}</td>
+									<td>${phoVO.phophone}</td> 
+									<td>${phoVO.phomail}</td>
+									<td>${phoVO.phostdate}</td>
+									<td>商品尚未寄出</td>
+									<td>${phoVO.phototal}</td>
+								</tr>
+							</c:if>
+						</c:forEach>                    
+	                </tbody>
+              	</table>  
+              <input type="hidden" name="action" value="successOrder">      
+              <input type="submit" value="確認寄出商品" class="btn btn-primary">
+              <c:if test="${not empty noOrder}"> 
+             	 <li style="color:red">${noOrder}</li> 
+              </c:if>    
+           </form> 
             
             
 <!----------------------  等待退貨訂單 -->
            <table class="table table-hover table-bordered" id="sampleTable">
 			   <HR>
-             	<h2> 退貨訂單列表</h2>
+             	<h2> 退貨訂單列表  </h2><h8>(點選訂單編號即可審核)</h8>
                 <thead>
                   <tr>
 					<th>訂單編號</th>
@@ -128,7 +122,6 @@
 					<th>E-Mail</th>
 					<th>訂單成立日期</th>
 					<th>機加酒訂單狀態</th>
-					<th>訂單狀態備註</th>
 					<th>信用卡號碼</th>
 					<th>總金額</th>
 					<th>會員編號</th>
@@ -144,7 +137,6 @@
 								<td>${phoVO.phomail}</td>
 								<td>${phoVO.phostdate}</td>
 								<td>審核中</td>
-								<td>${phoVO.phomark}</td>
 								<td>${phoVO.phovisa}</td>
 								<td>${phoVO.phototal}</td>
 								<td>${phoVO.memno}</td>
@@ -161,5 +153,9 @@
 
 
 </body>
+
+
+<script
+	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
 
 </html>

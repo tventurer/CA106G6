@@ -33,7 +33,10 @@ public class PreJDBCDAO implements PreDAO_interface{
 				"DELETE FROM PURCHASEREPORT where PREID = ?";
 			private static final String UPDATE = 
 				"UPDATE PURCHASEREPORT set MEMNO=? , PURID=? ,EMPNO=? ,PRECAUSE=? ,PRETIME=sysdate ,PRESTATUS=? ,PRELABEL=? ,PRERESULT=? where PREID = ?";
-
+			
+			//更新違規
+			private static final String UPDATE_PRERESULT = 
+			"UPDATE PURCHASEREPORT set PRERESULT=? ,prestatus=1 where PREID = ?";
 	@Override
 	public void insert(PreVO preVO) {
 		// TODO Auto-generated method stub
@@ -282,6 +285,45 @@ public class PreJDBCDAO implements PreDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void updatePreresult(PreVO preVO) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_PRERESULT);
+
+
+			pstmt.setInt(1, preVO.getPreresult());
+			pstmt.setString(2, preVO.getPreid());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 }

@@ -15,15 +15,15 @@ import javax.sql.DataSource;
 public class MpmDAO implements MpmDAO_interface {
 	private static DataSource ds = null;
 	private static String INSERT_STMT = 
-			"INSERT INTO MEMBERPRIVATEMESSAGE (MPMNO, MPMSENDER, MPMRECIVER, MPMTITLE, MPMCONTENT, MPMTIME, MPMREADED) VALUES (('MPM' || LPAD(to_char(MPM_SEQ.NEXTVAL), 6 , '0')), ?, ?, ?, ?, SYSTIMESTAMP, ?)";
+			"INSERT INTO MEMBERPRIVATEMESSAGE (MPMNO, MPMSENDER, MPMRECEIVER, MPMTITLE, MPMCONTENT, MPMTIME, MPMREADED) VALUES (('MPM' || LPAD(to_char(MPM_SEQ.NEXTVAL), 6 , '0')), ?, ?, ?, ?, SYSTIMESTAMP, ?)";
 	private static String DELETE = 
 			"DELETE FROM MEMBERPRIVATEMESSAGE WHERE MPMNO = ?";
 	private static String UPDATE = 
 			"UPDATE MEMBERPRIVATEMESSAGE SET MPMTITLE = ?, MPMCONTENT = ? WHERE MPMNO = ?";
 	private static String GET_ONE_STMT = 
-			"SELECT MPMNO, MPMSENDER, MPMRECIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE WHERE MPMNO = ?";
+			"SELECT MPMNO, MPMSENDER, MPMRECEIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd hh:mm:ss') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE WHERE MPMNO = ?";
 	private static String GET_ALL_STMT = 
-			"SELECT MPMNO, MPMSENDER, MPMRECIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE ORDER BY MPMNO";
+			"SELECT MPMNO, MPMSENDER, MPMRECEIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd hh:mm:ss') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE ORDER BY MPMNO";
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -44,7 +44,7 @@ public class MpmDAO implements MpmDAO_interface {
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, mpmvo.getMpmsender());
-			pstmt.setString(2, mpmvo.getMpmreciver());
+			pstmt.setString(2, mpmvo.getMpmreceiver());
 			pstmt.setString(3, mpmvo.getMpmtitle());
 			pstmt.setString(4, mpmvo.getMpmcontent());
 			pstmt.setInt(5, mpmvo.getMpmreaded());
@@ -126,10 +126,10 @@ public class MpmDAO implements MpmDAO_interface {
 				mpmvo = new MpmVO();
 				mpmvo.setMpmno(rs.getString("MPMNO"));
 				mpmvo.setMpmsender(rs.getString("MPMSENDER"));
-				mpmvo.setMpmreciver(rs.getString("MPMRECIVER"));
+				mpmvo.setMpmreceiver(rs.getString("MPMRECEIVER"));
 				mpmvo.setMpmtitle(rs.getString("MPMTITLE"));
 				mpmvo.setMpmcontent(rs.getString("MPMCONTENT"));
-				mpmvo.setMpmtime(rs.getDate("MPMTIME"));
+				mpmvo.setMpmtime(rs.getTimestamp("MPMTIME"));
 				mpmvo.setMpmreaded(rs.getInt("MPMREADED"));
 			}
 		} catch (SQLException se) {
@@ -178,10 +178,10 @@ public class MpmDAO implements MpmDAO_interface {
 				mpmvo = new MpmVO();
 				mpmvo.setMpmno(rs.getString("MPMNO"));
 				mpmvo.setMpmsender(rs.getString("MPMSENDER"));
-				mpmvo.setMpmreciver(rs.getString("MPMRECIVER"));
+				mpmvo.setMpmreceiver(rs.getString("MPMRECEIVER"));
 				mpmvo.setMpmtitle(rs.getString("MPMTITLE"));
 				mpmvo.setMpmcontent(rs.getString("MPMCONTENT"));
-				mpmvo.setMpmtime(rs.getDate("MPMTIME"));
+				mpmvo.setMpmtime(rs.getTimestamp("MPMTIME"));
 				mpmvo.setMpmreaded(rs.getInt("MPMREADED"));
 				list.add(mpmvo);
 			}

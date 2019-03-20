@@ -1,5 +1,6 @@
 package com.acr.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class AcrService {
@@ -54,6 +55,9 @@ public class AcrService {
 	}
 	public AcrVO findByPrimaryKey(String acrid) {
 		return dao.findByPrimaryKey(acrid);
+	}
+	public List<AcrVO> getMemTimeBetween(String memno, Timestamp atime, Timestamp btime){
+		return dao. getMemTimeBetween(memno, atime, btime);
 	}
 
 }

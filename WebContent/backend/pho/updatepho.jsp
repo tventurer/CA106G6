@@ -58,7 +58,6 @@
 				  
 	<!----------------------  錯誤驗證 ------------------>
 					<c:if test="${not empty errorMsgs}">
-						<font style="color:red">請修正以下錯誤:</font>
 						<ul>
 							<c:forEach var="message" items="${errorMsgs}">
 								<li style="color:red">${message}</li>
@@ -113,7 +112,7 @@
 	                 	
 	                 	<div class="form-group">
 	                    	<label for="exampleTextarea">訂單狀態備註:</label>
-	                  	 	<textarea value="${phovo.phomark}" name="phomark" class="form-control" id="exampleTextarea" rows="5"></textarea>
+	                  	 	<textarea name="phomark" class="form-control" id="exampleTextarea" rows="5">${phovo.phomark}</textarea>
 	                 	</div>
 	                 	
            				<label for="exampleTextarea">信用卡號碼:</label><br>

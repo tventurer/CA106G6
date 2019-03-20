@@ -31,7 +31,7 @@ public class PorDAO implements PorDAO_interface{
 				}
 		
 				private static final String INSERT_STMT = 
-						"INSERT INTO PURCHASEORDER (PORID,PURID,MEMNO,PORMEMNAME,PORPRICE,PORTIME,PORADDRESS,PORTEL,PORSTATUS,PORBUYSCORE,PORBUYCONTENT,PORSELLSCORE,PORSELLCONTENT,PORSUM,PORLOGISTICS,PORQR) VALUES ('POR'||LPAD(to_char(PORID_SEQ.NEXTVAL),6,'0'), ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					"INSERT INTO PURCHASEORDER (PORID,PURID,MEMNO,PORMEMNAME,PORPRICE,PORTIME,PORADDRESS,PORTEL,PORSTATUS,PORSTATUSTIME,PORBUYSCORE,PORBUYCONTENT,PORSELLSCORE,PORSELLCONTENT,PORSUM,PORLOGISTICS,PORLOGTIME,PORQR) VALUES ('POR'||LPAD(to_char(PORID_SEQ.NEXTVAL),6,'0'), ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)";
 				private static final String GET_ALL_STMT = 
 					"SELECT * FROM PURCHASEORDER order by PORID";
 				private static final String GET_ONE_STMT = 
@@ -47,13 +47,22 @@ public class PorDAO implements PorDAO_interface{
 				private static final String UPDATE_PORSELLTIME = 
 						"UPDATE PURCHASEORDER set PORSELLSCORE=? , PORSELLCONTENT=?, PORSELLTIME=sysdate where PORID = ?";
 				
-				//更新代購狀態
-				private static final String UPDATE_PORSTATUS = 
+				//更新物流狀態
+				private static final String UPDATE_PORLOGISTICS = 
+						"UPDATE PURCHASEORDER set PORLOGISTICS=? ,PORLOGTIME=sysdate where PORID = ?";
+				
+				//更新交易狀態
+				private static final String UPDATE_PORSTATUSTIME = 
 						"UPDATE PURCHASEORDER set PORSTATUS=? ,PORSTATUSTIME=sysdate where PORID = ?";
+				
 				private static final String UPDATE = 
 					"UPDATE PURCHASEORDER set PURID=? , MEMNO=? ,PORMEMNAME=? ,PORPRICE=? ,PORADDRESS=? ,PORTEL=? ,PORSTATUS=? ,PORBUYSCORE=? ,PORBUYCONTENT=? ,PORSELLSCORE=? ,PORSELLCONTENT=? ,PORSUM=? ,PORLOGISTICS=? ,PORQR=?  where PORID = ?";
+				
 				private static final String GET_PUR_ALLPOR = 
-						"select sum(porsum) as porsumpur from purchaseorder where purid=?";
+						"select * from purchaseorder where purid=?";
+				
+				private static final String GET_MEMALLPOR = 
+						"select * from purchaseorder where memno=?";
 		
 		@Override
 		public void insert(PorVO porVO) {
@@ -224,12 +233,16 @@ pstmt = con.prepareStatement(INSERT_STMT);
 					porVO.setPoraddress(rs.getString("poraddress"));
 					porVO.setPortel(rs.getString("portel"));
 					porVO.setPorstatus(rs.getInt("porstatus"));
+					porVO.setPorstatustime(rs.getTimestamp("porstatustime"));
 					porVO.setPorbuyscore(rs.getInt("porbuyscore"));
 					porVO.setPorbuycontent(rs.getString("porbuycontent"));
+					porVO.setPorbuytime(rs.getTimestamp("porbuytime"));
 					porVO.setPorsellscore(rs.getInt("porsellscore"));
 					porVO.setPorsellcontent(rs.getString("porsellcontent"));
+					porVO.setPorselltime(rs.getTimestamp("porselltime"));
 					porVO.setPorsum(rs.getInt("porsum"));
 					porVO.setPorlogistics(rs.getInt("porlogistics"));
+					porVO.setPorlogtime(rs.getTimestamp("porlogtime"));
 					porVO.setPorqr(rs.getBytes("porqr"));
 
 					
@@ -294,12 +307,16 @@ pstmt = con.prepareStatement(INSERT_STMT);
 					porVO.setPoraddress(rs.getString("poraddress"));
 					porVO.setPortel(rs.getString("portel"));
 					porVO.setPorstatus(rs.getInt("porstatus"));
+					porVO.setPorstatustime(rs.getTimestamp("porstatustime"));
 					porVO.setPorbuyscore(rs.getInt("porbuyscore"));
 					porVO.setPorbuycontent(rs.getString("porbuycontent"));
+					porVO.setPorbuytime(rs.getTimestamp("porbuytime"));
 					porVO.setPorsellscore(rs.getInt("porsellscore"));
 					porVO.setPorsellcontent(rs.getString("porsellcontent"));
+					porVO.setPorselltime(rs.getTimestamp("porselltime"));
 					porVO.setPorsum(rs.getInt("porsum"));
 					porVO.setPorlogistics(rs.getInt("porlogistics"));
+					porVO.setPorlogtime(rs.getTimestamp("porlogtime"));
 					porVO.setPorqr(rs.getBytes("porqr"));
 					list.add(porVO); // Store the row in the list
 				}
@@ -336,24 +353,47 @@ pstmt = con.prepareStatement(INSERT_STMT);
 		}
 
 		@Override
-		public Integer getPurporsum(String purid) {
+		public List<PorVO> getPurAll(String purid) {
 			// TODO Auto-generated method stub
+			List<PorVO> list = new ArrayList<PorVO>();
+			PorVO porVO = null;
+
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			Integer purporsum=0;
 			try {
 
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_PUR_ALLPOR);
 				pstmt.setString(1, purid);
 				rs = pstmt.executeQuery();
-				
-				
+
 				while (rs.next()) {
 					// acrVO 也稱為 Domain objects
-					purporsum =rs.getInt("porsumpur");
+					porVO = new PorVO();
+					porVO.setPorid(rs.getString("porid"));
+					porVO.setPurid(rs.getString("purid"));
+					porVO.setMemno(rs.getString("memno"));
+					porVO.setPormemname(rs.getString("pormemname"));
+					porVO.setPorprice(rs.getInt("porprice"));
+					porVO.setPortime(rs.getTimestamp("portime"));
+					porVO.setPoraddress(rs.getString("poraddress"));
+					porVO.setPortel(rs.getString("portel"));
+					porVO.setPorstatus(rs.getInt("porstatus"));
+					porVO.setPorstatustime(rs.getTimestamp("porstatustime"));
+					porVO.setPorbuyscore(rs.getInt("porbuyscore"));
+					porVO.setPorbuycontent(rs.getString("porbuycontent"));
+					porVO.setPorbuytime(rs.getTimestamp("porbuytime"));
+					porVO.setPorsellscore(rs.getInt("porsellscore"));
+					porVO.setPorsellcontent(rs.getString("porsellcontent"));
+					porVO.setPorselltime(rs.getTimestamp("porselltime"));
+					porVO.setPorsum(rs.getInt("porsum"));
+					porVO.setPorlogistics(rs.getInt("porlogistics"));
+					porVO.setPorlogtime(rs.getTimestamp("porlogtime"));
+					porVO.setPorqr(rs.getBytes("porqr"));
+					list.add(porVO); // Store the row in the list
 				}
+				
 				// Handle any driver errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
@@ -382,20 +422,20 @@ pstmt = con.prepareStatement(INSERT_STMT);
 					}
 				}
 			}
-			return purporsum;
+			return list;
 		}
 
 		@Override
-		public void updatePorStatus(PorVO porVO) {
+		public void updatePorlogistics(PorVO porVO) {
 			// TODO Auto-generated method stub
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
 			try {
 				con = ds.getConnection();
-				pstmt = con.prepareStatement(UPDATE_PORSTATUS);
+				pstmt = con.prepareStatement(UPDATE_PORLOGISTICS);
 
-				pstmt.setInt(1, porVO.getPorstatus());
+				pstmt.setInt(1, porVO.getPorlogistics());
 				pstmt.setString(2, porVO.getPorid());
 
 
@@ -504,4 +544,115 @@ pstmt = con.prepareStatement(INSERT_STMT);
 				}
 			}
 		}
+
+		@Override
+		public void updatePorStatusTime(PorVO porVO) {
+			// TODO Auto-generated method stub
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(UPDATE_PORSTATUSTIME);
+
+				pstmt.setInt(1, porVO.getPorstatus());
+				pstmt.setString(2, porVO.getPorid());
+
+
+				pstmt.executeUpdate();
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+
+		@Override
+		public List<PorVO> getMemAllPor(String memno) {
+			// TODO Auto-generated method stub
+			List<PorVO> list = new ArrayList<PorVO>();
+			PorVO porVO = null;
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_MEMALLPOR);
+				pstmt.setString(1, memno);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// acrVO 也稱為 Domain objects
+					porVO = new PorVO();
+					porVO.setPorid(rs.getString("porid"));
+					porVO.setPurid(rs.getString("purid"));
+					porVO.setMemno(rs.getString("memno"));
+					porVO.setPormemname(rs.getString("pormemname"));
+					porVO.setPorprice(rs.getInt("porprice"));
+					porVO.setPortime(rs.getTimestamp("portime"));
+					porVO.setPoraddress(rs.getString("poraddress"));
+					porVO.setPortel(rs.getString("portel"));
+					porVO.setPorstatus(rs.getInt("porstatus"));
+					porVO.setPorstatustime(rs.getTimestamp("porstatustime"));
+					porVO.setPorbuyscore(rs.getInt("porbuyscore"));
+					porVO.setPorbuycontent(rs.getString("porbuycontent"));
+					porVO.setPorbuytime(rs.getTimestamp("porbuytime"));
+					porVO.setPorsellscore(rs.getInt("porsellscore"));
+					porVO.setPorsellcontent(rs.getString("porsellcontent"));
+					porVO.setPorselltime(rs.getTimestamp("porselltime"));
+					porVO.setPorsum(rs.getInt("porsum"));
+					porVO.setPorlogistics(rs.getInt("porlogistics"));
+					porVO.setPorlogtime(rs.getTimestamp("porlogtime"));
+					porVO.setPorqr(rs.getBytes("porqr"));
+					list.add(porVO); // Store the row in the list
+				}
+				
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+			}
 }

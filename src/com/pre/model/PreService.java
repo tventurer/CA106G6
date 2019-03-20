@@ -2,6 +2,8 @@ package com.pre.model;
 
 import java.util.List;
 
+import com.pur.model.PurVO;
+
 
 public class PreService {
 	
@@ -52,5 +54,14 @@ public class PreService {
 
 	public List<PreVO> getAll() {
 		return dao.getAll();
+	}
+	public PreVO updatePreresult(Integer preresult, String preid) {
+		PreVO preVO = new PreVO();
+		
+		preVO.setPreresult(preresult);
+		preVO.setPreid(preid);
+		dao.updatePreresult(preVO);
+		
+		return preVO;
 	}
 }

@@ -20,8 +20,8 @@ public class PorVO implements java.io.Serializable{
 	private Timestamp porselltime;
 	private Integer porsum;
 	private Integer porlogistics;
+	private Timestamp porlogtime;
 	private byte[] porqr;
-	
 	public String getPorid() {
 		return porid;
 	}
@@ -130,10 +130,17 @@ public class PorVO implements java.io.Serializable{
 	public void setPorlogistics(Integer porlogistics) {
 		this.porlogistics = porlogistics;
 	}
+	public Timestamp getPorlogtime() {
+		return porlogtime;
+	}
+	public void setPorlogtime(Timestamp porlogtime) {
+		this.porlogtime = porlogtime;
+	}
 	public byte[] getPorqr() {
 		return porqr;
 	}
 	public void setPorqr(byte[] porqr) {
 		this.porqr = porqr;
 	}
+	
 }

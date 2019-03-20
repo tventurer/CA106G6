@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.acr.model.AcrService;
 import com.acr.model.AcrVO;
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
 
 public class AcrServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -83,6 +85,84 @@ public class AcrServlet extends HttpServlet{
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/frontend/acr/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("search".equals(action)) { // 來自b/listAllAcr.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String memmail = req.getParameter("mememail");
+				String memmailReg = "^.*@.*\\..*$";
+				MemService memSvc = new MemService();
+				MemVO memVO = memSvc.getEmailForLogin(memmail);
+				String memno = null;
+				if (memmail == null || memmail.trim().length() == 0) {
+					errorMsgs.add("請輸入搜尋的會員帳號");
+				} else if(!memmail.trim().matches(memmailReg)) {
+					errorMsgs.add("會員帳號請輸入正確");
+	            }else if(memVO.getMemno().isEmpty()) {
+	            	errorMsgs.add("查無此會員");
+	            }else {
+	            	memno = new String(memVO.getMemno());
+	            }
+				
+				java.sql.Timestamp atime = null;
+				try {
+					atime = java.sql.Timestamp.valueOf(req.getParameter("atime").trim());
+				} catch (IllegalArgumentException e) {
+					atime=new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期!");
+				}
+				
+				java.sql.Timestamp btime = null;
+				try {
+					btime = java.sql.Timestamp.valueOf(req.getParameter("btime").trim());
+				} catch (IllegalArgumentException e) {
+					btime=new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期!");
+				}
+				
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backend/acr/listAllAcr.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				
+				/***************************2.開始查詢資料****************************************/
+				AcrService acrSvc = new AcrService();
+				List<AcrVO> acrVO = acrSvc.getMemTimeBetween(memno, atime, btime);
+				if (acrVO.isEmpty()) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backend/acr/listAllAcr.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("acrVO", acrVO);         // 資料庫取出的acrVO物件,存入req
+				String url ="/backend/acr/listAllAcr.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 /backend/acr/listAllAcr.jsp
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/acr/listAllAcr.jsp");
 				failureView.forward(req, res);
 			}
 		}

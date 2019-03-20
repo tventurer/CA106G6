@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
 
+import listeners.MemberSessionMapping;
 import tools.PwdEncoder;
 
 @WebServlet("/MemLoginHandler")
@@ -42,6 +43,8 @@ public class MemLoginHandler extends HttpServlet {
 			session.setAttribute("memno", vo.getMemno());
 			session.setAttribute("memrealname", vo.getMemrealname());
 			session.setAttribute("mememail", vo.getMememail());
+			session.setAttribute("sessionMSM", new MemberSessionMapping(req));
+			
 			
 			try {
 				String location = (String) session.getAttribute("location");

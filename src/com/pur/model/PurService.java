@@ -84,4 +84,23 @@ public class PurService {
 	public List<PurVO> getSortAll(Integer pursort){
 		return dao.getSortAll(pursort);
 	}
+	
+	public PurVO updatePurSell(Integer pursell, String purid) {
+		PurVO purVO = new PurVO();
+		
+		purVO.setPursell(pursell);
+		purVO.setPurid(purid);
+		dao.updatePurSell(purVO);
+		
+		return purVO;
+	}
+	public PurVO updatePurstatus(Integer Purstatus, String purid) {
+		PurVO purVO = new PurVO();
+		
+		purVO.setPurstatus(Purstatus);
+		purVO.setPurid(purid);
+		dao.updatePurstatus(purVO);
+		
+		return purVO;
+	}
 }

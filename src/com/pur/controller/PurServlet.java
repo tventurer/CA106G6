@@ -195,7 +195,7 @@ public class PurServlet extends HttpServlet{
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("purVO", purVO);         // 資料庫取出的purVO物件,存入req
-				String url = "/frontend/pur/update_pur_input.jsp";
+				String url = "/frontend/pur/updateOnePur.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_pur_input.jsp
 				successView.forward(req, res);
 
@@ -203,7 +203,7 @@ public class PurServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/frontend/pur/listAllPur.jsp");
+						.getRequestDispatcher("/frontend/pur/listMemPur.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -364,7 +364,7 @@ public class PurServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("purVO", purVO); // 含有輸入格式錯誤的purVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/frontend/pur/update_pur_input.jsp");
+							.getRequestDispatcher("/frontend/pur/updateOnePur.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -376,7 +376,7 @@ public class PurServlet extends HttpServlet{
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("purVO", purVO); // 資料庫update成功後,正確的的purVO物件,存入req
-				String url = "/frontend/pur/listOnePur.jsp";
+				String url = "/frontend/pur/listMemPur.jsp?memno="+memno;
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
@@ -384,7 +384,7 @@ public class PurServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/frontend/pur/update_pur_input.jsp");
+						.getRequestDispatcher("/frontend/pur/updateOnePur.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -529,7 +529,7 @@ public class PurServlet extends HttpServlet{
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("purVO", purVO); // 含有輸入格是錯誤的purVO物件，也存入req
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/frontend/pur/addPur.jsp");
+								.getRequestDispatcher("/frontend/pur/addOnePur.jsp");
 						failureView.forward(req, res);
 						return;
 					}
@@ -539,7 +539,7 @@ public class PurServlet extends HttpServlet{
 					purVO = purSvc.addPur(memno, purname, purcontent, pursort, pururl, purcountry, purdelivery, purreprice, purpricing, purobtained, purreceipt, purstatus, purpic,purextime, purstock, pursell, purlimit);
 					
 					/***************************3.新增完成，準備轉交(Send the Success view)***********/
-					String url = "/frontend/pur/listAllPur.jsp";
+					String url = "/frontend/pur/listMemPur.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllPur.jsp
 					successView.forward(req, res);				
 					
@@ -547,7 +547,7 @@ public class PurServlet extends HttpServlet{
 				} catch (Exception e) {
 					errorMsgs.add("Else Error:"+e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/frontend/pur/addPur.jsp");
+							.getRequestDispatcher("/frontend/pur/addOnePur.jsp");
 					failureView.forward(req, res);
 				}
 			}
@@ -561,9 +561,9 @@ public class PurServlet extends HttpServlet{
 		
 				try {
 					/***************************1.接收請求參數***************************************/
-					String purid = new String(req.getParameter("purid"));
-					String where = new String(req.getParameter("allpur"));
-					String memno = req.getParameter("memno");
+					String purid = new String(req.getParameter("purid").trim());
+					String where = new String(req.getParameter("allpur").trim());
+					String memno = req.getParameter("memno").trim();
 					Integer purstatus = new Integer(2);
 					
 					/***************************2.開始刪除資料***************************************/
@@ -573,7 +573,7 @@ public class PurServlet extends HttpServlet{
 					/***************************3.刪除完成,準備轉交(Send the Success view)***********/
 					String url="";
 					if(where.equals("allpur")) {
-						 url = "/frontend/pur/listAllPur.jsp";	
+						 url = "/frontend/pur/listMemPur.jsp";	
 					}else if(where.equals("memallpur")){
 						url ="/frontend/pur/listMemAllPur.jsp?memno="+memno;
 					}

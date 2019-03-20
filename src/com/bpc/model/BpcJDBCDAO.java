@@ -16,14 +16,68 @@ public class BpcJDBCDAO implements BpcDAO_interface {
 	private static String UPDATE = 
 			"UPDATE BLOGPOSTCOMMENT SET BPCCONTENT = ? WHERE BPCNO = ?";
 	private static String GET_ONE_STMT = 
-			"SELECT BPCNO, MEMNO, POSNO, BPCCONTENT, to_char(BPCTIME,'yyyy-mm-dd') BPCTIME FROM BLOGPOSTCOMMENT WHERE BPCNO = ?";
+			"SELECT BPCNO, MEMNO, POSNO, BPCCONTENT, to_char(BPCTIME,'yyyy-mm-dd hh:mm:ss') BPCTIME FROM BLOGPOSTCOMMENT WHERE BPCNO = ?";
 	private static String GET_ALL_STMT = 
-			"SELECT BPCNO, MEMNO, POSNO, BPCCONTENT, to_char(BPCTIME,'yyyy-mm-dd') BPCTIME FROM BLOGPOSTCOMMENT ORDER BY POSNO";
+			"SELECT BPCNO, MEMNO, POSNO, BPCCONTENT, to_char(BPCTIME,'yyyy-mm-dd hh:mm:ss') BPCTIME FROM BLOGPOSTCOMMENT ORDER BY POSNO";
+	private static String GET_LIST_BY_POSNO = 
+			"SELECT BPCNO, MEMNO, POSNO, BPCCONTENT, to_char(BPCTIME,'yyyy-mm-dd hh:mm:ss') BPCTIME FROM BLOGPOSTCOMMENT WHERE POSNO = ?";
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String user = "TV";
 	String password = "123456";
+	
+	@Override
+	public List<BpcVO> findByPosno(String posno) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		List<BpcVO> list = new ArrayList<BpcVO>();
+		BpcVO bpcvo = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(GET_LIST_BY_POSNO);
+			pstmt.setString(1, posno);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				bpcvo = new BpcVO();
+				bpcvo.setBpcno(rs.getString("BPCNO"));
+				bpcvo.setMemno(rs.getString("MEMNO"));
+				bpcvo.setPosno(rs.getString("POSNO"));
+				bpcvo.setBpccontent(rs.getString("BPCCONTENT"));
+				bpcvo.setBpctime(rs.getTimestamp("BPCTIME"));
+				list.add(bpcvo);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	
 	@Override
 	public int insert(BpcVO bpcVO) {
@@ -153,7 +207,7 @@ public class BpcJDBCDAO implements BpcDAO_interface {
 				bpcvo.setMemno(rs.getString("MEMNO"));
 				bpcvo.setPosno(rs.getString("POSNO"));
 				bpcvo.setBpccontent(rs.getString("BPCCONTENT"));
-				bpcvo.setBpctime(rs.getDate("BPCTIME"));
+				bpcvo.setBpctime(rs.getTimestamp("BPCTIME"));
 			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -203,7 +257,7 @@ public class BpcJDBCDAO implements BpcDAO_interface {
 				bpcvo.setMemno(rs.getString("MEMNO"));
 				bpcvo.setPosno(rs.getString("POSNO"));
 				bpcvo.setBpccontent(rs.getString("BPCCONTENT"));
-				bpcvo.setBpctime(rs.getDate("BPCTIME"));
+				bpcvo.setBpctime(rs.getTimestamp("BPCTIME"));
 				list.add(bpcvo);
 			}
 		} catch (SQLException se) {

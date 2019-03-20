@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,10 +38,10 @@
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">代購</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp">代購商品</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">機加酒</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/pah/pahcontrol?action=listPahBySelect">機加酒</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<%= request.getContextPath() %>/frontend/tri/tripIndex.jsp">自由行</a>
@@ -58,16 +59,27 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="agent-single.html">基本資料</a>
-              <a class="dropdown-item" href="property-single.html">我的代購</a>
-              <a class="dropdown-item" href="property-single.html">我的機加酒</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/pho/phocontrol?action=listMeOrder&memno=MEM000001">我的機加酒</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/tri/listTriByMem.jsp">我的自由行</a>
               <a class="dropdown-item" href="property-single.html">我的套裝行程</a>
               <a class="dropdown-item" href="blog-single.html">文章管理</a>
-              <a class="dropdown-item" href="agents-grid.html">代幣管理</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/pur/listMemPur.jsp">代購商品管理</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/por/listSellPor.jsp">賣家訂單管理</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/por/listBuyPor.jsp">買家訂單管理</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/acr/listMemAcr.jsp">代幣管理</a>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <li class="nav-item">
+          <c:if test="${memacc == null}">
+            <a class="nav-link" href="contact.html">登入</a>
+          </c:if>
+          <c:if test="${memacc != null}">
+            <a class="nav-link" href="contact.html">登出</a>
+          </c:if>
           </li>
         </ul>
       </div>

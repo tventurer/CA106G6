@@ -56,7 +56,7 @@ public class MemDAO implements MemDAO_interface {
 				memvo.setMemno(rs.getString("MEMNO"));
 				memvo.setMemacc(rs.getString("MEMACC"));
 				memvo.setMempwd(rs.getString("MEMPWD"));
-				memvo.setMemrealname("MEMREALNAME");
+				memvo.setMemrealname(rs.getString("MEMREALNAME"));
 				memvo.setMememail(rs.getString("MEMEMAIL"));
 			}
 		} catch (SQLException se) {
@@ -108,7 +108,7 @@ public class MemDAO implements MemDAO_interface {
 				memvo.setMemno(rs.getString("MEMNO"));
 				memvo.setMemacc(rs.getString("MEMACC"));
 				memvo.setMempwd(rs.getString("MEMPWD"));
-				memvo.setMemrealname("MEMREALNAME");
+				memvo.setMemrealname(rs.getString("MEMREALNAME"));
 				memvo.setMememail(rs.getString("MEMEMAIL"));
 			}
 		} catch (SQLException se) {

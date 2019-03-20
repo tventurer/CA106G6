@@ -16,6 +16,12 @@ public class TodVO implements Serializable{
 	private String todremark;
 	private Integer todstat;
 	
+	//以下屬性為訂單購買用
+	private String todowner;
+	private String todphone;
+	private String todmail;
+	private String todpurchase;
+
 	public TodVO() {
 
 	}
@@ -90,6 +96,38 @@ public class TodVO implements Serializable{
 
 	public void setTodstat(Integer todstat) {
 		this.todstat = todstat;
+	}
+	
+	public String getTodowner() {
+		return todowner;
+	}
+
+	public void setTodowner(String todowner) {
+		this.todowner = todowner;
+	}
+
+	public String getTodphone() {
+		return todphone;
+	}
+
+	public void setTodphone(String todphone) {
+		this.todphone = todphone;
+	}
+
+	public String getTodmail() {
+		return todmail;
+	}
+
+	public void setTodmail(String todmail) {
+		this.todmail = todmail;
+	}
+	
+	public String getTodpurchase() {
+		return todpurchase;
+	}
+
+	public void setTodpurchase(String todpurchase) {
+		this.todpurchase = todpurchase;
 	}
 	
 }

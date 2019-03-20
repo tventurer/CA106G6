@@ -66,15 +66,20 @@ PorVO porVO = new PorVO();
 		return dao.getAll();
 	}
 	
-	public Integer getPurporsum(String purid) {
-		return dao.getPurporsum(purid);
+	public List<PorVO> getPurAll(String purid) {
+		return dao.getPurAll(purid);
 	}
-	public PorVO updatePorStatus(Integer porstatus, String porid) {
+	
+	public List<PorVO> getMemAllPor(String memno) {
+		return dao.getMemAllPor(memno);
+	}
+	
+	public PorVO updatePorlogistics(Integer porlogistics, String porid) {
 		PorVO porVO = new PorVO();
 				
-				porVO.setPorstatus(porstatus);
+				porVO.setPorlogistics(porlogistics);
 				porVO.setPorid(porid);
-				dao.update(porVO);
+				dao.updatePorlogistics(porVO);
 				
 				return porVO;
 			}
@@ -84,7 +89,7 @@ PorVO porVO = new PorVO();
 				porVO.setPorbuyscore(porbuyscore);
 				porVO.setPorbuycontent(porbuycontent);
 				porVO.setPorid(porid);
-				dao.update(porVO);
+				dao.updatePorBuyTime(porVO);
 				
 				return porVO;
 			}
@@ -94,8 +99,17 @@ PorVO porVO = new PorVO();
 				porVO.setPorsellscore(porsellscore);
 				porVO.setPorsellcontent(porsellcontent);
 				porVO.setPorid(porid);
-				dao.update(porVO);
+				dao.updatePorSellTime(porVO);
 				
 				return porVO;
 			}
+	public PorVO updatePorStatusTime(Integer porstatus, String porid) {
+				PorVO porVO = new PorVO();
+				
+				porVO.setPorstatus(porstatus);
+				porVO.setPorid(porid);
+				dao.updatePorStatusTime(porVO);
+				
+				return porVO;
+	}
 }

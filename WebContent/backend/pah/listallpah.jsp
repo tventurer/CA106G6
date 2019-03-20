@@ -63,6 +63,7 @@
             <div class="tile-body">
               <table class="table table-hover table-bordered" id="sampleTable">
              	<h2> 商品上架中</h2>
+             	<h8>(點選編號修改商品)</h8>
                 <thead>
                   <tr>
 					<th>機加酒編號</th>
@@ -80,7 +81,12 @@
                 <tbody>
                 	<c:forEach var="pahVO" items="${list}" varStatus="s">
 						<c:if test="${pahVO.pahstatus==0}">
-							<tr>
+							<c:if test="${sucessUpdate.pahno==pahVO.pahno}">
+								<tr class="table-success">
+							</c:if>
+							<c:if test="${sucessUpdate.pahno!=pahVO.pahno}">
+								<tr>
+							</c:if>
 								<td><a href="<%=request.getContextPath()%>/pah/pahcontrol?action=oneUpdatePah&pahno=${pahVO.pahno}">${pahVO.pahno}</a></td>
 								<td>${pahVO.pahname}</td>
 								<td>${pahVO.pahprice}</td> 
@@ -108,6 +114,7 @@
             <div class="tile-body">
               <table class="table table-hover table-bordered" id="sampleTable">
              	<h2> 商品已下架</h2>
+             	<h8>(點選編號修改商品)</h8>
                 <thead>
                   <tr>
 					<th>機加酒編號</th>
@@ -125,7 +132,12 @@
                 <tbody>
                 	<c:forEach var="pahVO" items="${list}" varStatus="s">
 						<c:if test="${pahVO.pahstatus==1}">
-							<tr>
+							<c:if test="${sucessUpdate.pahno==pahVO.pahno}">
+								<tr class="table-success">
+							</c:if>
+							<c:if test="${sucessUpdate.pahno!=pahVO.pahno}">
+								<tr>
+							</c:if>
 								<td><a href="<%=request.getContextPath()%>/pah/pahcontrol?action=oneUpdatePah&pahno=${pahVO.pahno}">${pahVO.pahno}</a></td>
 								<td>${pahVO.pahname}</td>
 								<td>${pahVO.pahprice}</td> 

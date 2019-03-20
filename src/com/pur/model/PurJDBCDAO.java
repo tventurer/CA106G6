@@ -35,6 +35,14 @@ public class PurJDBCDAO implements PurDAO_interface{
 				"SELECT * FROM PURCHASE where MEMNO = ?";
 		private static final String GET_SORTALL_STMT=
 				"SELECT * FROM PURCHASE where PURSORT = ?";
+		
+		//更新商品賣出數量
+		private static final String UPDATE_PURSELL = 
+				"UPDATE PURCHASE set PURSELL=? where PURID = ?";
+		//更新商品狀態並更新最後修改時間
+		private static final String UPDATE_PURSTATUS = 
+				"UPDATE PURCHASE set PURSTATUS=?,PURSAVETIME=sysdate where PURID = ?";
+		
 	@Override
 	public void insert(PurVO purVO) {
 		// TODO Auto-generated method stub
@@ -474,6 +482,84 @@ public class PurJDBCDAO implements PurDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void updatePurSell(PurVO purVO) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_PURSELL);
+
+
+			pstmt.setInt(1, purVO.getPursell());
+			pstmt.setString(2, purVO.getPurid());
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void updatePurstatus(PurVO purVO) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_PURSTATUS);
+
+
+			pstmt.setInt(1, purVO.getPurstatus());
+			pstmt.setString(2, purVO.getPurid());
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 
 }

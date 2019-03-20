@@ -20,17 +20,6 @@
 <html>
 <head>
 
-<script>  
-	function next(obj) {  
-	    if (obj.value.length == obj.maxLength) {  
-	        do {  
-	            obj = obj.nextSibling;  
-	        } while (obj.nodeName != "INPUT");  
-	        obj.focus();  
-	    }         
-	}  
-	document.forms[0].N1.focus();  
-</script>
 
 <meta charset="UTF-8">
 <title>修改訂單</title>
@@ -88,22 +77,7 @@
 	                 	
 					<br>
 					<input type="hidden" name="action" value="judge">
-					<%
-						String phovisa0=phovo.getPhovisa().substring(0, 4);
-						String phovisa1=phovo.getPhovisa().substring(4, 8);
-						String phovisa2=phovo.getPhovisa().substring(8, 12);
-						String phovisa3=phovo.getPhovisa().substring(12,16);
-					%>  
-					<input type="hidden" name="phovisa0" value="<%=phovisa0%>">
-					<input type="hidden" name="phovisa1" value="<%=phovisa1%>">
-					<input type="hidden" name="phovisa2" value="<%=phovisa2%>">
-					<input type="hidden" name="phovisa3" value="<%=phovisa3%>">
 					<input type="hidden" name="phono" value="${phovo.phono}">
-					<input type="hidden" name="phomail" value="${phovo.phomail}">
-					<input type="hidden" name="phoowner" value="${phovo.phoowner}">
-					<input type="hidden" name="phophone" value="${phovo.phophone}">
-					<input type="hidden" name="phostdate" value="${phovo.phostdate}">
-					<input type="hidden" name="phototal" value="${phovo.phototal}">
 					<input type="hidden" name="memno" value="${phovo.memno}">
 					<input type="submit" value="送出修改" class="btn btn-primary">
 				

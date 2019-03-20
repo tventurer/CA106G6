@@ -70,12 +70,12 @@ public class PosServlet extends HttpServlet {
 				}
 				PosService posSvc = new PosService();
 				posVO = posSvc.addPos(memno, tagno, postitle, poscontent);
-				req.setAttribute("posVO", posVO);
 				
-				String url = "/frontend/pos/listOnePos.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+				
+				String url = req.getContextPath() + "/frontend/pos/listOnePos.jsp?posno=" + posVO.getPosno();
+				res.sendRedirect(url);
 			} catch (Exception e) {
+				e.printStackTrace();
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = 
 						req.getRequestDispatcher("/frontend/pos/NewPost.jsp");

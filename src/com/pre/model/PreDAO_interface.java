@@ -5,6 +5,7 @@ import java.util.*;
 public interface PreDAO_interface {
 	public void insert(PreVO preVO);
     public void update(PreVO preVO);
+    public void updatePreresult(PreVO preVO);
     public void delete(String preid);
     public PreVO findByPrimaryKey(String preid);
     public List<PreVO> getAll();

@@ -134,6 +134,7 @@ public class PahServlet extends HttpServlet {
 		if("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			PahService pas = new PahService();
 			
 			try {
 				//機加酒編號無法修改故無需錯誤驗證
@@ -232,7 +233,7 @@ public class PahServlet extends HttpServlet {
 					errorMsgs.add("請輸入狀態");
 				}
 				//第一張圖
-				byte item1[] = null;
+				byte item1[] = pas.findByPk(pahno).getPahpc1();
 				try {
 					Part part = req.getPart("pahpc1");
 					if(part.getSubmittedFileName() != "") {
@@ -249,7 +250,7 @@ public class PahServlet extends HttpServlet {
 					errorMsgs.add("上傳照片失敗，請重新上傳");
 				}
 				//第二張圖
-				byte item2[] = null;
+				byte item2[] = pas.findByPk(pahno).getPahpc2();
 				try {
 					Part part = req.getPart("pahpc2");
 					if(part.getSubmittedFileName() != "") {
@@ -266,7 +267,7 @@ public class PahServlet extends HttpServlet {
 					errorMsgs.add("上傳照片失敗，請重新上傳");
 				}
 				//第三張圖
-				byte item3[] = null;
+				byte item3[] = pas.findByPk(pahno).getPahpc3();
 				try {
 					Part part = req.getPart("pahpc3");
 					if(part.getSubmittedFileName() != "") {
@@ -283,7 +284,7 @@ public class PahServlet extends HttpServlet {
 					errorMsgs.add("上傳照片失敗，請重新上傳");
 				}
 				//第四張圖
-				byte item4[] = null;
+				byte item4[] = pas.findByPk(pahno).getPahpc4();
 				try {
 					Part part = req.getPart("pahpc4");
 					if(part.getSubmittedFileName() != "") {
@@ -300,7 +301,7 @@ public class PahServlet extends HttpServlet {
 					errorMsgs.add("上傳照片失敗，請重新上傳");
 				}
 				//第五張圖
-				byte item5[] = null;
+				byte item5[] = pas.findByPk(pahno).getPahpc5();
 				try {
 					Part part = req.getPart("pahpc5");
 					if(part.getSubmittedFileName() != "") {
@@ -357,8 +358,8 @@ public class PahServlet extends HttpServlet {
 				PahService phs = new PahService();
 				phs.updatePah(pahname, pahintro, pahcontent, pahprice, pahcountry, pahnum, pahstdate, pahenddate, pahdown, pahstatus, item1, item2, item3, item4, item5, empno, pahno);
 				
-				req.setAttribute("pahvo", pahvo);
-				RequestDispatcher success = req.getRequestDispatcher("/backend/pah/.jsp");
+				req.setAttribute("sucessUpdate", pahvo);
+				RequestDispatcher success = req.getRequestDispatcher("/backend/pah/listallpah.jsp");
 				success.forward(req, res);
 				return;
 				

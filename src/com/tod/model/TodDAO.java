@@ -28,7 +28,12 @@ public class TodDAO implements TodDAO_interface{
 	private static final String UPDATE_STMT = "UPDATE TRIPORDER SET EMPNO=?, TODQUO=?, TODDDL=?, TODREMARK=?, TODSTAT=? WHERE TODNO=?";
 	private static final String DELETE_STMT = "DELETE FROM TRIPORDER WHERE TODNO=?";
 	private static final String FINDBYPK_STMT = "SELECT * FROM TRIPORDER WHERE TODNO=?";
+	private static final String FINDBYTRINO_STMT = "SELECT * FROM TRIPORDER WHERE TRINO=?";
 	private static final String GETALL_STMT = "SELECT * FROM TRIPORDER";
+	
+	//購買用sql指令
+	private static final String TODBUY_STMT = "UPDATE TRIPORDER SET TODOWNER=?, TODPHONE=?, TODMAIL=?, TODPURCHASE=? WHERE TODNO=?";
+	private static final String FINDBYTODSTAT_STMT = "SELECT * FROM TRIPORDER WHERE TODSTAT=?";
 	
 	@Override
 	public void add(TodVO tod) {
@@ -171,8 +176,7 @@ public class TodDAO implements TodDAO_interface{
 			tod.setTodstat(rs.getInt(9));
 			
 		} catch(SQLException se) {
-			se.printStackTrace();
-//			throw new RuntimeException(se.getMessage());
+			throw new RuntimeException(se.getMessage());
 		} finally {
 			if(rs != null) {
 				try{
@@ -197,6 +201,127 @@ public class TodDAO implements TodDAO_interface{
 			}
 		}
 		return tod;
+	}
+	
+	@Override
+	public TodVO findByTrino(String trino) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		TodVO todVO = new TodVO();
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FINDBYTRINO_STMT);
+			
+			pstmt.setString(1, trino);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				todVO.setTodno(rs.getString(1));
+				todVO.setMemno(rs.getString(2));
+				todVO.setTrino(rs.getString(3));
+				todVO.setEmpno(rs.getString(4));
+				todVO.setTodquo(rs.getInt(5));
+				todVO.setTodddl(rs.getDate(6));
+				todVO.setToddate(rs.getDate(7));
+				todVO.setTodremark(rs.getString(8));
+				todVO.setTodstat(rs.getInt(9));
+			}
+			
+			
+		} catch(SQLException se) {
+			throw new RuntimeException(se.getMessage());
+		} finally {
+			if(rs != null) {
+				try{
+					rs.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try{
+					pstmt.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try{
+					con.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+		return todVO;
+	}
+	
+	@Override
+	public List<TodVO> findByTodstat(int todstat) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<TodVO> list = new ArrayList<TodVO>();
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FINDBYTODSTAT_STMT);
+			
+			pstmt.setInt(1, todstat);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TodVO todVO = new TodVO();
+				todVO.setTodno(rs.getString(1));
+				todVO.setMemno(rs.getString(2));
+				todVO.setTrino(rs.getString(3));
+				todVO.setEmpno(rs.getString(4));
+				todVO.setTodquo(rs.getInt(5));
+				todVO.setTodddl(rs.getDate(6));
+				todVO.setToddate(rs.getDate(7));
+				todVO.setTodremark(rs.getString(8));
+				todVO.setTodstat(rs.getInt(9));
+				todVO.setTodowner(rs.getString(10));
+				todVO.setTodphone(rs.getString(11));
+				todVO.setTodmail(rs.getString(12));
+				todVO.setTodpurchase(rs.getString(13));
+				list.add(todVO);
+			}
+				
+			} catch(SQLException se) {
+				throw new RuntimeException(se.getMessage());
+			} finally {
+				if(rs != null) {
+					try{
+						rs.close();
+					} catch(SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if(pstmt != null) {
+					try{
+						pstmt.close();
+					} catch(SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if(con != null) {
+					try{
+						con.close();
+					} catch(SQLException se) {
+						se.printStackTrace();
+					}
+				}
+			}
+
+		return list;
 	}
 
 	@Override
@@ -251,6 +376,46 @@ public class TodDAO implements TodDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void todBuy(TodVO tod) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(TODBUY_STMT);
+			
+			pstmt.setString(1, tod.getTodowner());
+			pstmt.setString(2, tod.getTodphone());
+			pstmt.setString(3, tod.getTodmail());
+			pstmt.setString(4, tod.getTodpurchase());
+			pstmt.setString(5, tod.getTodno());
+			
+			pstmt.executeUpdate();
+		
+		} catch(SQLException se) {
+			throw new RuntimeException(se.getMessage());
+		} finally {
+			if(pstmt != null) {
+				try{
+					pstmt.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 }

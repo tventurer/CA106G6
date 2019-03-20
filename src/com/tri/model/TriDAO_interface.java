@@ -12,7 +12,9 @@ public interface TriDAO_interface {
 	TriVO findByPk(String trino);
 	TriVO findByTriname(String triname);
 	List<TriVO> findByMemno(String memno);
+	List<TriVO> findByTristat(int tristat);
 	List<TriVO> getAll();
+	
 	
 	public void insertWithTdes(TriVO trivo, List<TdeVO> tdeVOList);
 }
