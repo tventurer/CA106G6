@@ -17,4 +17,5 @@ public interface PhoDAO_interface {
 	//**********android使用
 	public String addWithPhoList(PhoListVO phoListVO, List<PhdVO> phdVOList);
 	public List<PhoListVO> getall(String memno, String start, String end);
+	public void changeStatus(Integer phostatus, String phono);
 }

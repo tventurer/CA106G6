@@ -16,16 +16,22 @@ public class PahCountry {
 		PahCountryVO pahCountryVO2 = new PahCountryVO();
 		PahCountryVO pahCountryVO3 = new PahCountryVO();
 		PahCountryVO pahCountryVO4 = new PahCountryVO();
+		PahCountryVO pahCountryVO5 = new PahCountryVO();
+		PahCountryVO pahCountryVO6 = new PahCountryVO();
 		
 		pahCountryVO1.setPahCountry("請選擇");
-		pahCountryVO2.setPahCountry("French");
-		pahCountryVO3.setPahCountry("Japan");
-		pahCountryVO4.setPahCountry("London");
+		pahCountryVO2.setPahCountry("法國");
+		pahCountryVO3.setPahCountry("日本");
+		pahCountryVO4.setPahCountry("俄羅斯");
+		pahCountryVO5.setPahCountry("英國");
+		pahCountryVO6.setPahCountry("埃及");
 		
 		list.add(pahCountryVO1);
 		list.add(pahCountryVO2);
 		list.add(pahCountryVO3);
 		list.add(pahCountryVO4);
+		list.add(pahCountryVO5);
+		list.add(pahCountryVO6);
 		return list;
 	}
 	

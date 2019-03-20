@@ -82,4 +82,8 @@ public class PhoService {
 		return dao.getall(memno, start, end);
 	}
 	
+	//**********android使用
+	public void changeStatus(Integer phostatus, String phono) {
+		dao.changeStatus(phostatus, phono);
+	}
 }

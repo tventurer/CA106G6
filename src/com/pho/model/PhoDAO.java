@@ -645,5 +645,48 @@ public class PhoDAO implements PhoDAO_interface{
 		return phoList;
 	}
 
+	//**********android使用
+	//會員修改用，只能更動訂單狀態，不能更動訂單備註
+	private final static String CHANGESTATUSAN = "UPDATE PLANEHOTELORDER SET PHOSTATUS=? WHERE PHONO=?";
+	
+	//**********android使用
+	public void changeStatus(Integer phostatus, String phono) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(CHANGESTATUSAN);
+			
+			pstmt.setInt(1, phostatus);
+			pstmt.setString(2, phono);
+			
+			pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			throw new RuntimeException("A database error occured. "
+					+ e.getMessage());
+		}finally {
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	}
+	
+	
 	
 }

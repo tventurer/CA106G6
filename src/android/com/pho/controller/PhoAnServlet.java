@@ -110,7 +110,19 @@ System.out.println("產生自增主鍵值nextPhoNo = " + nextPhoNo);
 				writeText(res, gson.toJson(phoList));
 			}
 		}
-		
+		else if("changeStatus".equals(action) && memno != null){
+			String phono = jsonObject.get("phono").getAsString();
+			Integer phostatus = jsonObject.get("phostatus").getAsInt();
+			if(phono != null && phono.trim().length() > 0 && phostatus != null) {
+				PhoService phoSvc = new PhoService();
+				phoSvc.changeStatus(phostatus, phono);
+				JsonObject jsonObjectStatus = new JsonObject();
+				jsonObjectStatus.addProperty("statusResult", "訂單審核申請中");
+				writeText(res, jsonObjectStatus.toString());
+			}else {
+				writeText(res, "");
+			}
+		}
 	}
 	
 	private void writeText(HttpServletResponse res, String output) throws IOException{
