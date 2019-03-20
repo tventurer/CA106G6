@@ -13,9 +13,4 @@ public interface TdeDAO_interface {
 	List<TdeVO> getAll();
 	
 	public void insert2(TdeVO tde, Connection con);
-	
-	//**********android專用
-	List<String> getDays(String trino);
-	//**********android專用
-	List<String> getSpos(String trino, String tdedate);
 }

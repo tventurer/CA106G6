@@ -33,6 +33,7 @@ public class TriDAO implements TriDAO_interface{
 	private static final String FINDBYPK_STMT = "SELECT * FROM TRIP WHERE TRINO=?";
 	private static final String FINDBYTRINAME_STMT = "SELECT * FROM TRIP WHERE TRINAME=?";
 	private static final String FINDBYMEMNO_STMT = "SELECT * FROM TRIP WHERE MEMNO=?";
+	private static final String FINDBYTRISTAT_STMT = "SELECT * FROM TRIP WHERE TRISTAT=? ORDER BY TRINO";
 	private static final String GETALL_STMT = "SELECT * FROM TRIP";
 	
 	@Override
@@ -315,6 +316,64 @@ public class TriDAO implements TriDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<TriVO> findByTristat(int tristat) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<TriVO> list = new ArrayList<TriVO>();
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FINDBYTRISTAT_STMT);
+			
+			pstmt.setInt(1, tristat);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TriVO triVO = new TriVO();
+				triVO.setTrino(rs.getString(1));
+				triVO.setMemno(rs.getString(2));
+				triVO.setTriname(rs.getString(3));
+				triVO.setTribegdate(rs.getDate(4));
+				triVO.setTrienddate(rs.getDate(5));
+				triVO.setTripeonum(rs.getInt(6));
+				triVO.setTristat(rs.getInt(7));
+				triVO.setTriremark(rs.getString(8));
+				list.add(triVO);
+			}
+			
+		} catch(SQLException se) {
+			throw new RuntimeException(se.getMessage());
+		} finally {
+			if(rs != null) {
+				try{
+					rs.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try{
+					pstmt.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try{
+					con.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+		return list;
+	}
 
 	@Override
 	public List<TriVO> getAll() {
@@ -441,4 +500,5 @@ public class TriDAO implements TriDAO_interface{
 			}
 		}
 	}
+
 }

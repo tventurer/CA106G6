@@ -60,6 +60,10 @@ public class TriService {
 		return dao.findByMemno(memno);
 	}
 	
+	public List<TriVO> getAllByTristat(int tristat) {
+		return dao.findByTristat(tristat);
+	}
+	
 	public List<TriVO> getAll() {
 		return dao.getAll();
 	}

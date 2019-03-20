@@ -28,7 +28,7 @@ public class TdeDAO implements TdeDAO_interface{
 	private static final String UPDATE_STMT = "UPDATE TRIPDETAIL SET SPONO=?, TDESTART=?, TDEFINISH=?, TDEDATE=?, TDESEQ=?, TDEREMARK=? WHERE TDENO=?";
 	private static final String DELETE_STMT = "DELETE FROM TRIPDETAIL WHERE TDENO=?";
 	private static final String FINDBYPK_STMT = "SELECT * FROM TRIPDETAIL WHERE TDENO=?";
-	private static final String FINDBYTRI_STMT = "SELECT * FROM TRIPDETAIL WHERE TRINO=?";
+	private static final String FINDBYTRI_STMT = "SELECT * FROM TRIPDETAIL WHERE TRINO=? ORDER BY TDEDATE, TDESEQ";
 	private static final String GETALL_STMT = "SELECT * FROM TRIPDETAIL";
 
 	@Override
@@ -350,110 +350,4 @@ public class TdeDAO implements TdeDAO_interface{
 		}
 	}
 
-
-	//**********android專用
-	private static final String GETDAYS_STMT = "SELECT TDEDATE FROM TRIPDETAIL WHERE trino=? GROUP BY TDEDATE";
-	
-	//**********android專用
-	@Override
-	public List<String> getDays(String trino) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<String> strList = new ArrayList<String>();
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GETDAYS_STMT);
-			
-			pstmt.setString(1, trino);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				strList.add(rs.getString(1));
-			}
-			
-		} catch(SQLException se) {
-			throw new RuntimeException(se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-		}
-		return strList;
-	}
-	
-	//**********android專用
-	private static final String GETSPOS_STMT = "SELECT SPONO FROM TRIPDETAIL WHERE TRINO=? AND TDEDATE=? ORDER BY TDENO";
-	//**********android專用
-	@Override
-	public List<String> getSpos(String trino, String tdedate) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<String> spoList = new ArrayList<String>();
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GETSPOS_STMT);
-			
-			pstmt.setString(1, trino);
-			pstmt.setString(2, tdedate);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				spoList.add(rs.getString(1));
-			}
-			
-		} catch(SQLException se) {
-			throw new RuntimeException(se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-		}
-		return spoList;
-		
-	}
-	
-	
-	
 }

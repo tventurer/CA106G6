@@ -51,7 +51,28 @@ public class TodService {
 		return dao.findByPk(todno);
 	}
 	
+	public TodVO getOneTodByTrino(String trino) {
+		return dao.findByTrino(trino);
+	}
+	
 	public List<TodVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<TodVO> getAllByTodstat(int todstat) {
+		return dao.findByTodstat(todstat);
+	}
+	
+	public TodVO todBuy(String todowner, String todphone, String todmail, String todpurchase, String todno) {
+		
+		TodVO todVO = new TodVO();
+		todVO.setTodowner(todowner);
+		todVO.setTodphone(todphone);
+		todVO.setTodmail(todmail);
+		todVO.setTodpurchase(todpurchase);
+		todVO.setTodno(todno);
+		dao.todBuy(todVO);
+		
+		return dao.findByPk(todno);
 	}
 }

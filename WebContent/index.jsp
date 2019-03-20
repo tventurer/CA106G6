@@ -23,9 +23,9 @@
                   <div class="intro-body">
                     <h5 class="intro-title mb-4">
                       <span class="color-b">說走就走 </span>
-                      <br> 在異地譜出自己的生活故事</h5>
+                      <br> 在異地譜出生活故事</h5>
                     <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">start your journey</span></a>
+                      <a href="<%= request.getContextPath() %>/frontend/tri/tripIndex.jsp"><span class="price-a">start your journey</span></a>
                     </p>
                   </div>
                 </div>
