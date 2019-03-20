@@ -6,6 +6,8 @@ import java.util.*;
 public interface PurDAO_interface {
 	public void insert(PurVO purVO);
     public void update(PurVO purVO);
+    public void updatePurSell(PurVO purVO);
+    public void updatePurstatus(PurVO purVO);
     public void delete(String purid,Integer purstatus);
     public PurVO findByPrimaryKey(String purid);
     public List<PurVO> getAll();

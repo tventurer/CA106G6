@@ -102,7 +102,7 @@ input[type="file"] {
 		<%String pursort[]={"生活居家","生活休閒","國際菸草","各國酒類","玩具遊戲","毛小孩專屬","經典品牌","行家收藏","運動用品","美妝保養"};
 		for(int i = 0; i<pursort.length; i++){
 			if(purVO.getPursort()==i){
-				
+				out.print("<option value='" + i + "' selected='selected' >"+ pursort[i]+ "</option>");
 			}else{
 				out.print("<option value='" + i + "'>"+ pursort[i]+ "</option>");
 			}
@@ -293,5 +293,4 @@ function readURL(input){
          });
         
         </script>
-
 </html>

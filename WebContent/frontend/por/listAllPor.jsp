@@ -6,7 +6,7 @@
 
 <%
     PorService porSvc = new PorService();
-    List<PorVO> list = porSvc.getAll();
+    List<PorVO> list = porSvc.getPurAll("PUR000001");
     pageContext.setAttribute("list",list);
 %>
 

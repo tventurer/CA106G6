@@ -6,11 +6,14 @@
 <%@ page import="com.acr.model.*"%>
 <%
 PurVO purVO = (PurVO) request.getAttribute("purVO");
+String name = "MEM000002";
+pageContext.setAttribute("name",name);
 %>
 
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta charset="utf-8">
   <title>新增代購商品</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
@@ -35,8 +38,9 @@ PurVO purVO = (PurVO) request.getAttribute("purVO");
   <!-- Main Stylesheet File -->
   <link href="<%=request.getContextPath()%>/style/f/css/style.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-  <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-  <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+
 
   <style>
   .img-fluid{
@@ -221,23 +225,29 @@ PurVO purVO = (PurVO) request.getAttribute("purVO");
             </ol>
           </nav>
         </div>
-
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
       </div>
     </div>
   </section>
   <!--/ Intro Single End /-->
-
-  <section class="property-single nav-arrow-b">
-  
+    <section class="property-single nav-arrow-b">
+<form class="form-a" name="form1" METHOD="post" ACTION="pur" enctype="multipart/form-data">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-        <form class="form-a" name="form1" METHOD="post" ACTION="pur" enctype="multipart/form-data">
           <div class="row justify-content-between">
             <div class="col-md-5 col-lg-5">
               <div class="property-price d-flex justify-content-center foo">
                 <div class="card-header-c d-flex">
-                 <img width="400px" height="50%" id="purpicimg" src="#"  style="display:none"  alt="">
+                 <img width="400px" height="80%" id="purpicimg" src="#"  alt="">
                 </div>
               </div>
               <div class="property-summary">
@@ -306,7 +316,7 @@ PurVO purVO = (PurVO) request.getAttribute("purVO");
           <div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purcontent">商品描述</label>
-              <textarea name="purcontent" id="purcontent" rows="4" cols="42"><%= (purVO==null)? "僅限中國和部分亞太國家限定發售的合組「LEGO 80102 舞龍」(Dragon Dance)日本太回火熱搶購中" : purVO.getPurcontent()%></textarea>
+              <textarea class="form-control rounded-0" name="purcontent" id="purcontent" rows="4" ><%= (purVO==null)? "僅限中國和部分亞太國家限定發售的合組「LEGO 80102 舞龍」(Dragon Dance)日本太回火熱搶購中" : purVO.getPurcontent()%></textarea>
             </div>
           </div>
           <div class="col-md-12 col-lg-8">
@@ -356,29 +366,15 @@ PurVO purVO = (PurVO) request.getAttribute("purVO");
 			 value="<%= (purVO==null)? "1" : purVO.getPurstock()%>" class="form-control form-control-lg form-control-a"/>
             </div>
           </div>
-          <div class="col-md-12 col-lg-8">
-            <div class="form-group">
-              <label for="purlimit">評價限制</label>
-              <select size="1" name="purlimit">
-		<%
-		for(int i = 1; i < 11; i++){
-			out.print("<option value='" + i + "'>"+i+ "</option>");
-		}
-		%>
-		</select>
-            </div>
-          </div>
           
           <div class="col-md-12 ">
-          	<input type="hidden" name="memno" value="MEM000002">
+          	<input type="hidden" name="memno" value="${name}">
           	<input type="hidden" name="pursell" value="0">
 			<input type="hidden" name="action" value="insert">
-			<input type="hidden" name="purstatus" value="1">
-            <button type="submit" id="add" class="btn btn-b">送出新增</button>
-            <button type="submit" id="save" class="btn btn-b">儲存</button>
+            <button type="submit" name="purstatus" value="1" class="btn btn-b">上架商品</button>
+            <button type="submit" name="purstatus" value="0" class="btn btn-b">儲存</button>
           </div>
            </div>
-      </form>
               </div>
             </div>
           </div>
@@ -490,17 +486,8 @@ PurVO purVO = (PurVO) request.getAttribute("purVO");
   <script src="<%=request.getContextPath()%>/style/f/js/main.js"></script>
 
 </body>
- <script src="<%=request.getContextPath()%>/style/f/js/main.js"></script>
- 
-<script type="text/javascript">
-$(document).ready(function(){
-	  $("#add").click(function(){
-		$("#purstatus").val(1);
-	  });
-	  $("#save").click(function(){
-			$("#purstatus").val(0);
-		  });
-</script>
+</html>
+<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
@@ -641,4 +628,3 @@ function readURL(input){
         //      }});
         
 </script>
-</html>

@@ -127,13 +127,18 @@
   </servlet-mapping>
   
   <!-- 代購 -->
-  <servlet>
+<servlet>
     <servlet-name>AcrServlet</servlet-name>
     <servlet-class>com.acr.controller.AcrServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AcrServlet</servlet-name>
     <url-pattern>/frontend/acr/acr</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AcrServlet</servlet-name>
+    <url-pattern>/backend/acr/acr</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -160,7 +165,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PreServlet</servlet-name>
-    <url-pattern>/frontend/pre/pre</url-pattern>
+    <url-pattern>/backend/pre/pre</url-pattern>
   </servlet-mapping>
   <!-- 代購 -->
   

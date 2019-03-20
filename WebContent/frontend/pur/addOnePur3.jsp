@@ -251,7 +251,7 @@
             <div class="col-md-5 col-lg-5">
               <div class="property-price d-flex justify-content-center foo">
                 <div class="card-header-c d-flex">
-                 <img width="400px" height="100%" src="<%=request.getContextPath()%>/frontend/pur/pur?purid=<%=purVO.getPurid() %>" style="display:none" alt="">
+                 <img width="400px" height="50%" id="purpicimg" src="#"  style="display:none"  alt="">
                 </div>
               </div>
               <div class="property-summary">
@@ -382,7 +382,8 @@
 			<input type="hidden" name="porstatus" value="0">
 			<input type="hidden" name="porlogistics" value="0">
 			<input type="hidden" name="action" value="insert">
-            <button type="submit" class="btn btn-b">確認送出</button>
+            <button type="submit" class="btn btn-b" value=0>確認送出</button>
+            <button type="submit" class="btn btn-b" value=1>儲存</button>
           </div>
            </div>
       
@@ -537,8 +538,7 @@ elem: '#f_date1' //指定該input的ID
 ,value: '<%=purobtained%>'
 
 });
-</script>
-<script>
+
 
 $("#purpic").change(function(){
 

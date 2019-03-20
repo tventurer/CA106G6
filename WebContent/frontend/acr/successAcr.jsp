@@ -22,6 +22,9 @@ pageContext.setAttribute("Acrlist",Acrlist);
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
+  <META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+<META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
 
   <!-- Favicons -->
   <link href="<%=request.getContextPath()%>/style/f/img/favicon.png" rel="icon">

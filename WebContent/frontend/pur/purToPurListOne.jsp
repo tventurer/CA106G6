@@ -3,25 +3,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.pur.model.*"%>
+<%@ page import="com.por.model.*"%>
+<%@ page import="com.acr.model.*"%>
+<% 
+	String purid = new String(request.getParameter("purid")); 
+	pageContext.setAttribute("purid",purid);
 
-<%
-    PurService purSvc = new PurService();
-    List<PurVO> list = purSvc.getAll();
-    pageContext.setAttribute("list",list);
-    
-    String purstatus[]={"未上架","上架中","已下架","檢舉下架"};
-    request.setAttribute("purstatus", purstatus);
-    
-    String[] pursort = {"生活居家","生活休閒","國際菸草","各國酒類","玩具遊戲","毛小孩專屬","經典品牌","行家收藏","運動用品","美妝保養"};
-    request.setAttribute("pursort", pursort);
-    
+	PurService purSvc = new PurService();
+	PurVO purVO = purSvc.getOnePur(purid);
+	
+    Integer purstock = purVO.getPurstock();
+	  
+	PorService porSvc = new PorService(); 
+	
+	String sellmem = purVO.getMemno();
+	pageContext.setAttribute("sellmem",sellmem);
+	
+	//有登入才會跑這裡顯示目前擁有的代幣
+	AcrService acrSvc = new AcrService();
+	String memno = "MEM000003";
+	pageContext.setAttribute("memno",memno);
+	List<AcrVO> Acrlist = acrSvc.getMemAll(memno);
+	pageContext.setAttribute("Acrlist",Acrlist);
 %>
-
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>T-Venturer 代購商品</title>
+  <title>T-Venturer <%=purVO.getPurname() %></title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -51,20 +60,17 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
-  <style>
-  .img-fluid{
-  height:280px;
-  margin:auto;
-  }
-  </style>
 </head>
-
+<style>
+.owl-carousel .owl-item img{
+	width: auto;
+    margin: auto;
+}
+</style>
 <body>
 
- <body>
-
   <div class="click-closed"></div>
-  <!--/ Form Search Star 搜尋欄位的多重搜尋/-->
+  <!--/ Form Search Star /-->
   <div class="box-collapse">
     <div class="title-box-d">
       <h3 class="title-d">Search Property</h3>
@@ -162,11 +168,9 @@
     <div class="container">
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
         aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <!--/ 此處有用不能刪除 上面縮起來的三條橫線/-->
         <span></span>
         <span></span>
         <span></span>
-        <!--/ 此處有用不能刪除/-->
       </button>
       <a class="navbar-brand text-brand" href="index.html">T-<span class="color-b">Venturer</span></a>
       <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
@@ -183,6 +187,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="purIndex.jsp">代購商品</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -190,8 +195,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/acr/addOneAcr.jsp">儲值</a>
-              <a class="dropdown-item" href="blog-single.html">買家訂單</a>
-              <a class="dropdown-item" href="blog-single.html">賣家訂單</a>
+              <a class="dropdown-item" href="blog-single.html">訂單</a>
               <a class="dropdown-item" href="agents-grid.html">新增代購商品</a>
               <a class="dropdown-item" href="agent-single.html">我的代購商品</a>
             </div>
@@ -215,141 +219,176 @@
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">Purchasing</h1>
-            <span class="color-text-a">來自世界各地的商品</span>
+            <h1 class="title-single"><%=purVO.getPurname() %></h1>
+            <span class="color-text-a">商品類別：<%=purVO.getPursort() %></span>
           </div>
         </div>
-
-        <!--/ 此處可放搜尋類別路徑 /-->
         <div class="col-md-12 col-lg-4">
           <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                <a href="#">首頁</a>
+                <a href="index.html">首頁</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="purIndex.jsp">代購商品</a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-              	  代購商品
+                <%=purVO.getPurname() %>
               </li>
             </ol>
           </nav>
         </div>
-
       </div>
     </div>
   </section>
   <!--/ Intro Single End /-->
 
-  <!--/ Property Grid Star /-->
-  <section class="property-grid grid">
+  <!--/ Property Single Star /-->
+  <section class="property-single nav-arrow-b">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
 
-          <!--/ 此處可讓使用者用類別搜尋 /-->
-          <div class="grid-option">
-            <form>
-              <select class="custom-select">
-                <option selected>All</option>
-                <option value="1">New to Old</option>
-                <option value="2">For Rent</option>
-                <option value="3">For Sale</option>
-              </select>
-            </form>
+          <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
+            <div class="carousel-item-b">
+              <img height="500px" src="<%=request.getContextPath()%>/frontend/pur/pur?purid=<%=purVO.getPurid() %>" alt="">
+            </div>
           </div>
-
-        </div>
-        
-        <!--/ 商品陳列卡片顯示 /-->
-<c:forEach var="purVO" items="${list}">
-<c:choose>
-<c:when test="${purVO.purstatus == 1}">
-        <div class="col-md-4">
-          <div class="card-box-a card-shadow">
-            <div class="img-box-a">
-            <div class="row">
-            <img src="<%=request.getContextPath()%>/frontend/pur/pur?purid=${purVO.purid}" alt="" class="img-a img-fluid">
-            </div>
-            </div>
-            <div class="card-overlay">
-              <div class="card-overlay-a-content">
-                <div class="card-header-a">
-                  <h2 class="card-title-a">
-                    <a href="#">${purVO.purname}</a>
-                  </h2>
-                </div>
-                <div class="card-body-a">
-                  <div class="price-box d-flex">
-                    <span class="price-a">NT | $ ${purVO.purpricing}</span>
+          <div class="row justify-content-between">
+            <div class="col-md-5 col-lg-4">
+              <div class="property-price d-flex justify-content-center foo">
+                <div class="card-header-c d-flex">
+                  <div class="card-box-ico">
+                    <span class="ion-money">$</span>
                   </div>
-                  <a href="purListOne.jsp?purid=${purVO.purid}" class="link-a">商品詳情
-                    <span class="ion-ios-arrow-forward"></span>
-                  </a>
+                  <div class="card-title-c align-self-center">
+                    <h5 class="title-c"><%=purVO.getPurpricing() %></h5>
+                  </div>
                 </div>
-
-                <div class="card-footer-a">
-                  <ul class="card-info d-flex justify-content-around">
-                    <li>
-                      <h4 class="card-info-title">截止日期</h4>
-                      <span><fmt:formatDate value="${purVO.purobtained}"  timeStyle="short" type="both"/>
-                      </span>
+              </div>
+              <div class="property-summary">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="title-box-d section-t4">
+                      <h3 class="title-d">商品詳情</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="summary-list">
+                  <ul class="list">
+                    <li class="d-flex justify-content-between">
+                      <strong>賣家會員：</strong>
+                      <span><%=purVO.getMemno() %></span>
                     </li>
-                    <li>
-                      <h4 class="card-info-title">預計出貨</h4>
-                      <span><fmt:formatDate value="${purVO.purtime}"  timeStyle="short" type="both"/>
-                      </span>
+                    <li class="d-flex justify-content-between">
+                      <strong>商品類別：</strong>
+                      <span><%=purVO.getPursort() %></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>參考網址：</strong>
+                      <span><a href=<%=purVO.getPururl()%>>連結於此處</a></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>購買國家：</strong>
+                      <span><%=purVO.getPurcountry() %></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>收貨國家：</strong>
+                      <span><%=purVO.getPurdelivery() %></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>商品當地原價：</strong>
+                      <span><%=purVO.getPurreprice() %></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>提供收據：</strong>
+                      <span><%=purVO.getPurreceipt() %></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>商品總數量：</strong>
+                      <span><%=purVO.getPurstock() %></span>
+                    </li>
+                    
+                    <li class="d-flex justify-content-between">
+                      <strong>已賣出的商品數：</strong>
+                      <span><%=purVO.getPursell() %></span>
                     </li>
                   </ul>
                 </div>
+              </div>
+              <h1>此商品未上架</h1>
+         		<br>
+                
+            </div>
+            <div class="col-md-7 col-lg-7 section-md-t3">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h4 class="title-d">商品描述</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="property-description">
+                <p class="description color-text-a">
+                 <%=purVO.getPurcontent() %>
+                </p>
+              </div>
+              <div class="row section-t3">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h4 class="title-d">下單截止時間</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="amenities-list color-text-a">
+                <ul class="list-a no-margin">
+                  <p><i class="fa fa-calendar-times-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="<%=purVO.getPurobtained() %>" timeStyle="short" type="both"/></p>
+                </ul>
+              </div>
+              
+              <div class="row section-t3">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h4 class="title-d">預計出貨時間</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="amenities-list color-text-a">
+                <ul class="list-a no-margin">
+                  <p><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="<%=purVO.getPurextime() %>" timeStyle="short" type="both"/></p>
+                </ul>
+              </div>
+              
+              <div class="row section-t3">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h4 class="title-d">購買評價限制</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="amenities-list color-text-a">
+                <ul class="list-a no-margin">
+                  <p><i class="fa fa-user-times" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;購買者的購物評價<%=purVO.getPurlimit() %>以下不得購買</p>
+                </ul>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
 
+
+                
               </div>
             </div>
           </div>
         </div>
-</c:when>
-</c:choose>
-</c:forEach>
-        <!--/ 商品陳列卡片顯示 /-->
-        
-<!-- 這個div不能刪掉不然頁碼的位置會跑掉! -->
       </div>
-<!-- 這個div不能刪掉不然頁碼的位置會跑掉! -->
-
-      <!--頁碼-->
-      <div class="row">
-        <div class="col-sm-12">
-          <nav class="pagination-a">
-            <ul class="pagination justify-content-end">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">
-                  <span class="ion-ios-arrow-back"></span>
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item next">
-                <a class="page-link" href="#">
-                  <span class="ion-ios-arrow-forward"></span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-       <!--頁碼-->
-
     </div>
   </section>
-  <!--/ Property Grid End /-->
-
+  <!--/ Property Single End /-->
+  
   <!--/ footer Star /-->
-
   <footer>
     <div class="container">
       <div class="row">
@@ -425,8 +464,9 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
+
   <!-- JavaScript Libraries -->
-  <script src="<%=request.getContextPath()%>/style/f/lib/jquery/jquery.min.js"></script>
+   <script src="<%=request.getContextPath()%>/style/f/lib/jquery/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/style/f/lib/jquery/jquery-migrate.min.js"></script>
   <script src="<%=request.getContextPath()%>/style/f/lib/popper/popper.min.js"></script>
   <script src="<%=request.getContextPath()%>/style/f/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -438,6 +478,6 @@
 
   <!-- Template Main Javascript File -->
   <script src="<%=request.getContextPath()%>/style/f/js/main.js"></script>
-
+ 
 </body>
 </html>
