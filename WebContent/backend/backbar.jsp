@@ -144,10 +144,11 @@
 <!----------------------------------------- 自由行 --------------------------------------------------------->        
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">自由行管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Form Components</a></li>
-            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Custom Components</a></li>
-            <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> Form Samples</a></li>
-            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Form Notifications</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tri/listAllTri.jsp"><i class="icon fa fa-circle-o"></i> 行程列表</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tri/listAllByTristat.jsp"><i class="icon fa fa-circle-o"></i> 待報價行程</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tod/listAllTod.jsp"><i class="icon fa fa-circle-o"></i> 訂單列表</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tod/listAllByTodstat.jsp"><i class="icon fa fa-circle-o"></i> 待處理訂單</a></li>
+            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> 景點管理</a></li>
           </ul>
         </li>
 <!----------------------------------------- 套裝行程 --------------------------------------------------------->
