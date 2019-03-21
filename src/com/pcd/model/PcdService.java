@@ -1,6 +1,9 @@
 package com.pcd.model;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
+
+import com.ptp.model.PtpVO;
 public class PcdService {
 	private PcdDAO_interface dao;
 
@@ -66,6 +69,10 @@ public class PcdService {
 
 	public List<PcdVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public Set<PcdVO> member_query(String memno) {
+		return dao.member_query(memno);
 	}
 
 }

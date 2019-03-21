@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.ptp.model.PtpDAOimpl;
 import com.ptp.model.PtpVO;
@@ -29,7 +31,8 @@ public class PcdDAOimpl implements PcdDAO_interface{
 			"DELETE FROM PACORDER WHERE PCDNO = ?";
 	private static final String UPDATE = 
 			"UPDATE PACORDER SET PTPNO=?, MEMNO=?, PCDTRIPMEN=?, PCDORDDAY=? , PCDMONEY=? ,PCDSTATUS=? , PCDSECPHONE=? ,PCDFAMDATA=? , PCDMARK=? WHERE PCDNO = ?";
-		 		
+	private static final String MEMBER_QUERY =
+			"SELECT * FROM PACORDER WHERE MEMNO=? ORDER BY PCDNO " ; 		
 	
 
 
@@ -324,50 +327,123 @@ public class PcdDAOimpl implements PcdDAO_interface{
 			return list;
 		}
 		
+		@Override
+		public Set<PcdVO> member_query(String memno) {
+			
+			Set<PcdVO> set = new LinkedHashSet<PcdVO>();
+			PcdVO pcdVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(MEMBER_QUERY);
+				
+				pstmt.setString(1, memno);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// PtpVO 也稱為 Domain objects
+					pcdVO = new PcdVO();
+					pcdVO.setPcdno(rs.getString("pcdno"));
+					pcdVO.setPtpno(rs.getString("ptpno"));
+					pcdVO.setMemno(rs.getString("memno"));
+					pcdVO.setPcdtripmen(rs.getInt("pcdtripmen"));
+					pcdVO.setPcdordday(rs.getDate("pcdordday"));
+					pcdVO.setPcdmoney(rs.getInt("pcdmoney"));
+					pcdVO.setPcdstatus(rs.getInt("pcdstatus"));
+					pcdVO.setPcdsecphone(rs.getString("pcdsecphone"));
+					pcdVO.setPcdfamdata(rs.getString("pcdfamdata"));
+					pcdVO.setPcdmark(rs.getString("pcdmark"));
+					set.add(pcdVO);
+				}
+
+				// Handle any driver errors
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				se.printStackTrace();
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return set;
+		}
+			
+		
+		
 		public static void main(String[] args) {
 
 			PcdDAOimpl dao = new PcdDAOimpl();
 
 			// 新增
-			PcdVO pcdVO1 = new PcdVO();
-//						pcdVO1.setPtpno("PAC000003");
-			pcdVO1.setPtpno("PTP000003");
-			pcdVO1.setMemno("MEM000003");
-			pcdVO1.setPcdtripmen(5);
-			pcdVO1.setPcdordday(java.sql.Date.valueOf("2019-1-25"));
-			pcdVO1.setPcdmoney(85000);
-			pcdVO1.setPcdstatus(1);
-			pcdVO1.setPcdsecphone("0980888756");
-			pcdVO1.setPcdfamdata("謝隆隆 50/2/9 侯友宜 52/3/3 盧秀燕  55/7/7");
-			pcdVO1.setPcdmark("年輕人挑剔");
-			dao.insert(pcdVO1);		
-			System.out.println("新增一筆"+ pcdVO1.getPtpno());
-		
-			System.out.println("==============================================");
-			// 修改
-			PcdVO pcdVO2 = new PcdVO();
-//			PTPNO=?, MEMNO=?, PCDTRIPMEN=?, PCDORDDAY=? , PCDMONEY=? ,PCDSTATUS=? , PCDSECPHONE=? ,PCDFAMDATA=? , PCDMARK=? WHERE PCDNO = ?";
-				 		
-			pcdVO2.setPtpno("PTP000003");
-			pcdVO2.setMemno("MEM000003");
-			pcdVO2.setPcdtripmen(5);
-			pcdVO2.setPcdordday(java.sql.Date.valueOf("2019-1-25"));
-			pcdVO2.setPcdmoney(85000);
-			pcdVO2.setPcdstatus(1);
-			pcdVO2.setPcdsecphone("0980888756");
-			pcdVO2.setPcdfamdata("馬英九 50/2/9 蔡英文 52/3/3 李登輝  25/7/7");
-			pcdVO2.setPcdmark("年輕人挑剔XXXX");
-			pcdVO2.setPcdno("PCD000021");
-			dao.update(pcdVO2);		
-			
-			System.out.println("修改"+pcdVO2.getPcdno() +"成功");
-
-			
-
-			// 刪除
-			dao.delete("PCD000009");
-			System.out.println("刪除成功");
-			System.out.println("=======================================================");
+//			PcdVO pcdVO1 = new PcdVO();
+////						pcdVO1.setPtpno("PAC000003");
+//			pcdVO1.setPtpno("PTP000003");
+//			pcdVO1.setMemno("MEM000003");
+//			pcdVO1.setPcdtripmen(5);
+//			pcdVO1.setPcdordday(java.sql.Date.valueOf("2019-1-25"));
+//			pcdVO1.setPcdmoney(85000);
+//			pcdVO1.setPcdstatus(1);
+//			pcdVO1.setPcdsecphone("0980888756");
+//			pcdVO1.setPcdfamdata("謝隆隆 50/2/9 侯友宜 52/3/3 盧秀燕  55/7/7");
+//			pcdVO1.setPcdmark("年輕人挑剔");
+//			dao.insert(pcdVO1);		
+//			System.out.println("新增一筆"+ pcdVO1.getPtpno());
+//		
+//			System.out.println("==============================================");
+//			// 修改
+//			PcdVO pcdVO2 = new PcdVO();
+////			PTPNO=?, MEMNO=?, PCDTRIPMEN=?, PCDORDDAY=? , PCDMONEY=? ,PCDSTATUS=? , PCDSECPHONE=? ,PCDFAMDATA=? , PCDMARK=? WHERE PCDNO = ?";
+//				 		
+//			pcdVO2.setPtpno("PTP000003");
+//			pcdVO2.setMemno("MEM000003");
+//			pcdVO2.setPcdtripmen(5);
+//			pcdVO2.setPcdordday(java.sql.Date.valueOf("2019-1-25"));
+//			pcdVO2.setPcdmoney(85000);
+//			pcdVO2.setPcdstatus(1);
+//			pcdVO2.setPcdsecphone("0980888756");
+//			pcdVO2.setPcdfamdata("馬英九 50/2/9 蔡英文 52/3/3 李登輝  25/7/7");
+//			pcdVO2.setPcdmark("年輕人挑剔XXXX");
+//			pcdVO2.setPcdno("PCD000021");
+//			dao.update(pcdVO2);		
+//			
+//			System.out.println("修改"+pcdVO2.getPcdno() +"成功");
+//
+//			
+//
+//			// 刪除
+//			dao.delete("PCD000009");
+//			System.out.println("刪除成功");
+//			System.out.println("=======================================================");
 
 			// 查詢
 //			PcdVO pcdVO3 = dao.findByPrimaryKey("PCD000008");
@@ -380,7 +456,20 @@ public class PcdDAOimpl implements PcdDAO_interface{
 //			System.out.print(pcdVO3.getPcdsecphone() + ",");
 //			System.out.print(pcdVO3.getPcdfamdata()+ ",");
 //			System.out.print(pcdVO3.getPcdmark() + ",");
-//			System.out.println("---------------------");
+			System.out.println("---------------------");
+			Set<PcdVO> set = dao.member_query("MEM000001");
+			for (PcdVO pcdVO : set) {
+			System.out.print(pcdVO.getPcdno() + ",");
+			System.out.print(pcdVO.getPtpno() + ",");
+			System.out.print(pcdVO.getMemno() + ",");
+			System.out.print(pcdVO.getPcdtripmen() + ",");
+			System.out.print(pcdVO.getPcdordday() + ",");
+			System.out.print(pcdVO.getPcdmoney() + ",");
+			System.out.print(pcdVO.getPcdstatus() + ",");
+			System.out.print(pcdVO.getPcdsecphone() + ",");
+			System.out.print(pcdVO.getPcdfamdata()+ ",");
+			System.out.print(pcdVO.getPcdmark() + ",");
+			System.out.println("---------------------");
 			
 			
 			// 查詢
@@ -400,9 +489,12 @@ public class PcdDAOimpl implements PcdDAO_interface{
 //				
 //				System.out.println();
 //			
-//			}
+			}
 		}
-	}	
+}
+
+
+		
 		
 		
 		

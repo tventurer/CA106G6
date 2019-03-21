@@ -47,14 +47,8 @@ pageContext.setAttribute("pcdVO", pcdVO);
 
 </head>
 <body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>套裝訂單內容新增 - join4.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
+<jsp:include page="/frontend/navbar.jsp"/>
+<section class="section-property section-t8">
 <h3>資料新增:</h3>
 
 <%-- 錯誤表列 --%>
@@ -71,14 +65,16 @@ pageContext.setAttribute("pcdVO", pcdVO);
 <table>
 	<tr>
 		<td>*出團內容編號:</td>
-		<td><input type="TEXT" name="ptpno" size="30" 
+		<td><%= pcdVO.getPtpno()%></td>
+		<td><input type="hidden" name="ptpno" size="30" 
 			 value="<%= pcdVO.getPtpno()%>" /></td>
 	</tr>
 	<jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService"/>
 	<jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
 	<tr>
 		<td>出團行程名稱:</td>
-		<td><input type="TEXT" name="pacname" size="30" 
+		<td>${pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacname}</td>
+		<td><input type="hidden" name="pacname" size="30" 
 			 value="${pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacname}" /></td>
 <%-- 			 value="${pacSvc.getOnePac(ptpSvc.getOnePtp("PTP000003").pacno).pacname}" /></td> --%>
 	</tr>
@@ -89,22 +85,26 @@ pageContext.setAttribute("pcdVO", pcdVO);
 	<tr>
 		<td>*參加人數:</td>
 		<td>${pcdVO.pcdtripmen}</td>
+		<td><input type="hidden" name="pcdtripmen" size="30"
+			 value="<%= (pcdVO.getPcdtripmen() == null)? "":pcdVO.getPcdtripmen() %>"> </td>
+		
 	</tr>
 	
 	<%
 	java.sql.Date pcdordday = new java.sql.Date(System.currentTimeMillis());
-
-   		
   	%>
 	
 	<tr>
 		<td>繳費日期:</td>
-		<td><%= pcdordday.toString()%></td>
+		<td><%= pcdordday%></td>
+		<td><input name="pcdordday" type="hidden" class="f_date" value="<%= pcdordday%>" ></td>
 	</tr>
 	
 	<tr>
 		<td>繳費金額:</td>
 		<td>${pcdVO.pcdtripmen*pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacprice}</td>
+		<td><input type="hidden" name="pcdmoney" size="30" 
+			value=${pcdVO.pcdtripmen*pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacprice} /></td>
 	</tr>
 
 	<tr>
@@ -132,13 +132,14 @@ pageContext.setAttribute("pcdVO", pcdVO);
 	</tr>
 </table>
 	
-	
 <br>
 <input type="hidden" name="action" value="insert">
+<input type="hidden" name="memno" value="<%= pcdVO.getMemno()%>">
+<input type="hidden" name="ptpno" value="<%= pcdVO.getPtpno()%>">
 <input type="submit" value="送出新增"></FORM>
 </body>
 
-
+</section>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>

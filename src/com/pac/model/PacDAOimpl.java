@@ -429,49 +429,187 @@ public class PacDAOimpl implements PacDAO_interface{
 //				System.out.println("新增成功"+ pacVO1.getPacno());
 				
 				
-				System.out.println("============================");
-				// 修改
-				PacVO pacVO2 = new PacVO();
-		/*	* 	所有原來的*/
+//				System.out.println("============================");
+//				// 修改
+//				PacVO pacVO2 = new PacVO();
+//		
+//				
+//				byte[] b = null;
+//				try {
+//					File file = new File("D:\\001.jpg");
+//					InputStream in = new FileInputStream(file);
+//					b = new byte[in.available()];
+//					System.out.println(b.length);
+//					in.read(b);
+//					in.close();
+//				}catch(FileNotFoundException e) {
+//					e.printStackTrace();
+//				}catch(IOException ioe) {
+//					ioe.printStackTrace();
+//				}
+//				
+//				pacVO2.setEmpno("EMP000003");
+//				pacVO2.setPacname("東京熱123");
+//				pacVO2.setPaccountry("日本XXX");
+//				pacVO2.setPaccity("東京花街");
+//				pacVO2.setPactotalday(5);
+//				pacVO2.setPacprice(28800);
+//				pacVO2.setPacdeposit(5000);
+//				pacVO2.setPacdiv("溫泉、城市");
+//				pacVO2.setPaccontent("櫻花、溫泉，城市風光");
+//				pacVO2.setPactchar1(b);
+//				pacVO2.setPactchar2(null);
+//				pacVO2.setPacremark("注意事項");
+//				pacVO2.setPacstatus(2);
+//				pacVO2.setPacno("PAC000007");
+		 		
+//				pacVO2.setPacname("東京熱");
+//				pacVO2.setPaccity("東京花街");
+//				pacVO2.setPacprice(28800);
+//				pacVO2.setPacstatus(2);
+////				pacVO2.setPacno("PAC000007");
+//				dao.update(pacVO2);
+
 				
-				byte[] b = null;
+				
+				PacVO pacVO10 = new PacVO();
+				
+				byte[] c = null;
 				try {
-					File file = new File("D:\\001.jpg");
+					File file = new File("D:\\pacImg\\pac01\\0004.jpg");
 					InputStream in = new FileInputStream(file);
-					b = new byte[in.available()];
-					System.out.println(b.length);
-					in.read(b);
+					c = new byte[in.available()];
+					System.out.println(c.length);
+					in.read(c);
 					in.close();
 				}catch(FileNotFoundException e) {
 					e.printStackTrace();
 				}catch(IOException ioe) {
 					ioe.printStackTrace();
 				}
+				byte[] d = null;
+				try {
+					File file = new File("D:\\pacImg\\pac01\\0005.jpg");
+					InputStream in = new FileInputStream(file);
+					d = new byte[in.available()];
+					System.out.println(d.length);
+					in.read(d);
+					in.close();
+				}catch(FileNotFoundException e) {
+					e.printStackTrace();
+				}catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+				byte[] e = null;
+				try {
+					File file = new File("D:\\pacImg\\pac02\\0018.jpg");
+					InputStream in = new FileInputStream(file);
+					e = new byte[in.available()];
+					System.out.println(e.length);
+					in.read(e);
+					in.close();
+				}catch(FileNotFoundException fe) {
+					fe.printStackTrace();
+				}catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+				byte[] f = null;
+				try {
+					File file = new File("D:\\pacImg\\pac02\\0019.jpg");
+					InputStream in = new FileInputStream(file);
+					f = new byte[in.available()];
+					System.out.println(f.length);
+					in.read(f);
+					in.close();
+				}catch(FileNotFoundException fe) {
+					fe.printStackTrace();
+				}catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+				byte[] g = null;
+				try {
+					File file = new File("D:\\pacImg\\pac08\\019.jpg");
+					InputStream in = new FileInputStream(file);
+					g = new byte[in.available()];
+					System.out.println(f.length);
+					in.read(g);
+					in.close();
+				}catch(FileNotFoundException fe) {
+					fe.printStackTrace();
+				}catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+				byte[] h = null;
+				try {
+					File file = new File("D:\\pacImg\\pac08\\020.jfif");
+					InputStream in = new FileInputStream(file);
+					h = new byte[in.available()];
+					System.out.println(f.length);
+					in.read(h);
+					in.close();
+				}catch(FileNotFoundException fe) {
+					fe.printStackTrace();
+				}catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+				byte[] i = null;
+				try {
+					File file = new File("D:\\pacImg\\pac09\\0021.jpg");
+					InputStream in = new FileInputStream(file);
+					i = new byte[in.available()];
+					System.out.println(i.length);
+					in.read(i);
+					in.close();
+				}catch(FileNotFoundException fe) {
+					fe.printStackTrace();
+				}catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
+				byte[] j = null;
+				try {
+					File file = new File("D:\\pacImg\\pac09\\0022.jpg");
+					InputStream in = new FileInputStream(file);
+					j = new byte[in.available()];
+					System.out.println(j.length);
+					in.read(j);
+					in.close();
+				}catch(FileNotFoundException fe) {
+					fe.printStackTrace();
+				}catch(IOException ioe) {
+					ioe.printStackTrace();
+				}
 				
-				pacVO2.setEmpno("EMP000003");
-				pacVO2.setPacname("東京熱123");
-				pacVO2.setPaccountry("日本XXX");
-				pacVO2.setPaccity("東京花街");
-				pacVO2.setPactotalday(5);
-				pacVO2.setPacprice(28800);
-				pacVO2.setPacdeposit(5000);
-				pacVO2.setPacdiv("溫泉、城市");
-				pacVO2.setPaccontent("櫻花、溫泉，城市風光");
-				pacVO2.setPactchar1(b);
-				pacVO2.setPactchar2(null);
-				pacVO2.setPacremark("注意事項");
-				pacVO2.setPacstatus(2);
-				pacVO2.setPacno("PAC000007");
-		 		
-//				pacVO2.setPacname("東京熱");
-//				pacVO2.setPaccity("東京花街");
-//				pacVO2.setPacprice(28800);
-//				pacVO2.setPacstatus(2);
+				
+				
+				
+						
+				
+				
+//				
+//				PacVO pacVO11 = new PacVO();
+//				PacVO pacVO12 = new PacVO();
+//				PacVO pacVO13 = new PacVO();
+//				PacVO pacVO14 = new PacVO();
+//				PacVO pacVO15 = new PacVO();
+//				PacVO pacVO16 = new PacVO();
+//				PacVO pacVO17 = new PacVO();
+//				PacVO pacVO18 = new PacVO();
+//				PacVO pacVO19 = new PacVO();
+//				PacVO pacVO20 = new PacVO();
+//				PacVO pacVO21 = new PacVO();
+//				
 //				pacVO2.setPacno("PAC000007");
-				dao.update(pacVO2);
-
-//
-//
+//				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 ////				// 刪除
 //				dao.delete("PAC000006");
 
@@ -508,7 +646,7 @@ public class PacDAOimpl implements PacDAO_interface{
 //				}
 				Set<PtpVO> set= dao.getPtpsByPacno("PAC000002");
 				
-				Iterator<PtpVO> objs=set.iterator();
+//				Iterator<PtpVO> objs=set.iterator();
 				System.out.print(set + ",");
 				for(PtpVO ptpVO : set) {
 				System.out.print(ptpVO.getPtpnotice() + ",");
@@ -526,6 +664,9 @@ public class PacDAOimpl implements PacDAO_interface{
 //				System.out.print(ptpVO.getPacremark() + ",");
 //				System.out.print(ptpVO.getPacstatus() + "  ---");
 //					System.out.println(objs.next());
+				
+				
+				
 				}
 			
 			
