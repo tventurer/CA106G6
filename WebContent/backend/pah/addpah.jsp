@@ -6,7 +6,7 @@
   PahVO pahvo = (PahVO)request.getAttribute("pahvo");
 %>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 
@@ -135,7 +135,7 @@
                		
                		<div class="form-group">
                     	<label for="exampleInputEmail1">管理員編號</label>
-                   		<input value="${pahvo.empno}" name="empno" id="empno" type="text" class="form-control" >
+                   		<input value="${empno}" name="empno" id="empno" type="text" class="form-control" >
                  	</div>
                  	
 					<div class="tile-footer">
