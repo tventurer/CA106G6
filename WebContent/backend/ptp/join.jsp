@@ -17,9 +17,10 @@ PtpVO ptpVO = ptpSvc.getOnePtp(ptpno);
 String pacno = ptpVO.getPacno();
 PacVO pacVO = pacSvc.getOnePac(pacno);
 PcdVO pcdVO = (PcdVO) request.getAttribute("pcdVO");
-pageContext.setAttribute("ptpVO", ptpVO);
-pageContext.setAttribute("pacVO", pacVO);
-pageContext.setAttribute("pcdVO", pcdVO);
+
+request.setAttribute("ptpVO", ptpVO);
+request.setAttribute("pacVO", pacVO);
+request.setAttribute("pcdVO", pcdVO);
 
 %>
 
@@ -72,7 +73,7 @@ pageContext.setAttribute("pcdVO", pcdVO);
             <td class="group_Preferences_Content">
             	◎ 會員編號：${memno} 
             	<input type="hidden" name="memno" size="30" 
-			value="<%= pcdVO.getMemno()%>"><br>
+			value="${memno}"><br>
                
 			    ◎ 旅遊編號 ：<span style="color: #036eb7">
                        <%=ptpVO.getPtpno()%>
