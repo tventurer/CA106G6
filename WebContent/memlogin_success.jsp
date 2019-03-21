@@ -16,7 +16,7 @@
 		</tr>
 	</table>
 	<b> <br>
-	<br>                以下留空....
+	<br>                五秒後回到原頁面或是<a href="<%=session.getAttribute("fromwhere")%>">按我前往</a>
 	</b>
 	
 </body>

@@ -31,7 +31,7 @@ public class MemLoginHandler extends HttpServlet {
 			MemVO vo = memSvc.getEmailForLogin(mememail);			
 			
 			if (!isUserValid(password, vo)) {
-				req.setAttribute("denied", "滾");
+				req.setAttribute("denied", "帳號密碼錯誤");
 				RequestDispatcher accessdenied = 
 						req.getRequestDispatcher("/memlogin.jsp");
 				accessdenied.forward(req, res);
@@ -45,18 +45,21 @@ public class MemLoginHandler extends HttpServlet {
 			session.setAttribute("mememail", vo.getMememail());
 			session.setAttribute("sessionMSM", new MemberSessionMapping(req));
 			
+			String location = (String) session.getAttribute("location");
+			String fromwhere = (String) session.getAttribute("fromwhere");
 			
 			try {
-				String location = (String) session.getAttribute("location");
-			
+				
 				if (location != null) {
 					session.removeAttribute("location");
 					res.sendRedirect(location);
 					return;
 				} else {
+					res.addHeader("Refresh", "5; URL=" + fromwhere);
 					res.sendRedirect(req.getContextPath() + "/memlogin_success.jsp");
 				}
 			} catch (Exception ignored) {
+				res.addHeader("Refresh", "5; URL=" + fromwhere);
 				res.sendRedirect(req.getContextPath() + "/memlogin_success.jsp");
 			}
 		}

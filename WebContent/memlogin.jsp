@@ -48,7 +48,7 @@
 					<td colspan=2 align=center>
 							<input type=hidden name="action" value="login">
 							<input type=submit value="登入">
-						<button type="submit" formaction="<%=request.getContextPath()%>/memsignup.jsp" name="action" value="signup">註冊</button>
+						<button type="submit" formaction="<%=request.getContextPath()%>/frontend/mem/memsignup.jsp" name="action" value="signup">註冊</button>
 					</td>
 				</tr>
 			</table>

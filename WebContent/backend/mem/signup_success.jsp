@@ -17,7 +17,7 @@
 		</tr>
 	</table>
 	<b> <br>
-	<br>                五秒後回到首頁或是<a href="<%=session.getAttribute("fromwhere")%>">按我前往</a>
+	<br>                五秒後回到原頁面或是<a href="<%=session.getAttribute("fromwhere")%>">按我前往</a>
 	</b>
 	
 </body>

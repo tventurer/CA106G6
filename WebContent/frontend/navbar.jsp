@@ -58,7 +58,7 @@
               	會員
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/mem/MyPage.jsp">基本資料</a>
+              <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/mem/MyPage.jsp?memno="${memno}>基本資料</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/pho/phocontrol?action=listMeOrder&memno=${memno}">我的機加酒</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/tri/listTriByMem.jsp">我的自由行</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/backend/pcd/memListAll.jsp?memno=${memno}">我的套裝行程</a>
@@ -76,9 +76,12 @@
           <li class="nav-item">
           <c:if test="${memacc == null}">
             <a class="nav-link" href="<%=request.getContextPath()%>/memlogin.jsp">登入</a>
+            <li class="nav-item">
+            	<a class="nav-link" href="<%=request.getContextPath()%>/frontend/mem/memsignup.jsp">註冊</a>
+            </li>
           </c:if>
           <c:if test="${memacc != null}">
-            <a class="nav-link" href="<%=request.getContextPath()%>/logout.jsp">登出</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/backend/mem/memlogout.jsp">登出</a>
           </c:if>
           </li>
         </ul>
