@@ -131,14 +131,6 @@
     <url-pattern>/backend/ema/ema</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>MemAnServlet</servlet-name>
-    <servlet-class>android.com.mem.controller.MemAnServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MemAnServlet</servlet-name>
-    <url-pattern>/memAn</url-pattern>
-  </servlet-mapping>
 <!-- 代購 -->
 
 <!-- 套裝行程 -->
@@ -286,4 +278,78 @@
     <url-pattern>/ScheduleServlet</url-pattern>
   </servlet-mapping>
 <!--   機加酒 -->
+
+<!-- android -->  
+  <servlet>
+    <servlet-name>MemAnServlet</servlet-name>
+    <servlet-class>android.com.mem.controller.MemAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemAnServlet</servlet-name>
+    <url-pattern>/memAn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PahAnServlet</servlet-name>
+    <servlet-class>android.com.pah.controller.PahAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PahAnServlet</servlet-name>
+    <url-pattern>/pahAn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PahDDLAnServlet</servlet-name>
+    <servlet-class>android.com.pah.controller.PahDDLAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PahDDLAnServlet</servlet-name>
+    <url-pattern>/pahDDLAn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PhoAnServlet</servlet-name>
+    <servlet-class>android.com.pho.controller.PhoAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PhoAnServlet</servlet-name>
+    <url-pattern>/phoAn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>TriAnServlet</servlet-name>
+    <servlet-class>android.com.tri.controller.TriAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TriAnServlet</servlet-name>
+    <url-pattern>/triAn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>TdeAnServlet</servlet-name>
+    <servlet-class>android.com.tde.controller.TdeAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TdeAnServlet</servlet-name>
+    <url-pattern>/tdeAn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>TdeMapAnServlet</servlet-name>
+    <servlet-class>android.com.tde.controller.TdeMapAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TdeMapAnServlet</servlet-name>
+    <url-pattern>/tdeMapAn</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>TdeMapImgAnServlet</servlet-name>
+    <servlet-class>android.com.tde.controller.TdeMapImgAnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TdeMapImgAnServlet</servlet-name>
+    <url-pattern>/tdeMapImgAn</url-pattern>
+  </servlet-mapping> 
+<!-- android -->
 </web-app>
