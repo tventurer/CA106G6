@@ -216,4 +216,48 @@
     <url-pattern>/frontend/tod/tod</url-pattern>
   </servlet-mapping>
 <!-- 自由行 -->
+
+<!-- 機加酒 -->
+ <servlet>
+    <servlet-name>pahcontrol</servlet-name>
+    <servlet-class>com.pah.controller.PahServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>pahcontrol</servlet-name>
+    <url-pattern>/pah/pahcontrol</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>shoppingcontrol</servlet-name>
+    <servlet-class>com.pah.controller.ShoppingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>shoppingcontrol</servlet-name>
+    <url-pattern>/pah/shoppingcontrol</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>phocontrol</servlet-name>
+    <servlet-class>com.pho.controller.PhoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>phocontrol</servlet-name>
+    <url-pattern>/pho/phocontrol</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>faqcontrol</servlet-name>
+    <servlet-class>com.faq.controller.FaqServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>faqcontrol</servlet-name>
+    <url-pattern>/faq/faqcontrol</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ScheduleServlet</servlet-name>
+    <servlet-class>com.pah.model.ScheduleUnloadPah</servlet-class>
+    <load-on-startup>10</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScheduleServlet</servlet-name>
+    <url-pattern>/ScheduleServlet</url-pattern>
+  </servlet-mapping>
+<!--   機加酒 -->
 </web-app>
