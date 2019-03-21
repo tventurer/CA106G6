@@ -10,6 +10,6 @@
 <title>logout</title>
 </head>
 <body>
-	<h1>掰!</h1>
+	<h1>您已成功登出!</h1>
 </body>
 </html>

@@ -120,7 +120,7 @@ public class MemServlet extends HttpServlet {
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = 
-							req.getRequestDispatcher("/memsignup.jsp");
+							req.getRequestDispatcher("/frontend/mem/memsignup.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -133,14 +133,23 @@ public class MemServlet extends HttpServlet {
 				session.setAttribute("memrealname", vo.getMemrealname());
 				session.setAttribute("mememail", vo.getMememail());
 				
-				res.addHeader("Refresh", "5; URL=" + session.getAttribute("fromwhere"));
-				String url = "/signup_success.jsp";
+				String fromwhere = (String) session.getAttribute("fromwhere");
+				
+				if (fromwhere != null) {
+					res.addHeader("Refresh", "5; URL=" + fromwhere);
+				} else {
+					res.addHeader("Refresh", "5; URL=" + req.getContextPath() + "/index.jsp");
+					session.setAttribute("fromwhere", req.getContextPath() + "/index.jsp");
+				}
+				
+				
+				String url = "/backend/mem/signup_success.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = 
-						req.getRequestDispatcher("/frontend/mem/addMem.jsp");
+						req.getRequestDispatcher("/frontend/mem/memsignup.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -215,7 +224,7 @@ public class MemServlet extends HttpServlet {
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = 
-							req.getRequestDispatcher("/frontend/mem/addMem.jsp");
+							req.getRequestDispatcher("/backend/mem/addMem.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -229,7 +238,7 @@ public class MemServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = 
-						req.getRequestDispatcher("/frontend/mem/addMem.jsp");
+						req.getRequestDispatcher("/backend/mem/addMem.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -372,7 +381,7 @@ public class MemServlet extends HttpServlet {
 				MemVO memVO = memSvc.getOneMem(memno);
 				req.setAttribute("memVO", memVO);
 				
-				String url = "/frontend/mem/update_mem_input.jsp";
+				String url = "/backend/mem/update_mem_input.jsp";
 				req.setAttribute("forwardURL", url);
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
