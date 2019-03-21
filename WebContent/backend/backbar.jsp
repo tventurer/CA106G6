@@ -168,8 +168,8 @@ EmpVO empVO = empSvc.getOneEmp(empno);
 <!----------------------------------------- 套裝行程 --------------------------------------------------------->
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">套裝行程管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>
-            <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Data Tables</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pac/addPac.jsp"><i class="icon fa fa-circle-o"></i>套裝行程新增</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pac/listAllPac.jsp"><i class="icon fa fa-circle-o"></i> 所有套裝行程列表</a></li>
           </ul>
         </li>
 <!----------------------------------------- 機加酒 --------------------------------------------------------->
