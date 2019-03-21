@@ -62,6 +62,7 @@ private TdeDAO_interface dao;
 	}
 	
 	
+	
 	//**********android專用
 	public List<String> getDays(String trino){
 		return dao.getDays(trino);

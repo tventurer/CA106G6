@@ -281,6 +281,36 @@ public class TdeServlet extends HttpServlet {
 			out.close();
 
 		}
+//======================================================		
+		if("save".equals(action)) {
+			
+			//將打包好的tdeVO透過DAO新增到資料庫
+			TriDAO dao = new TriDAO();
+			TriVO triVO = (TriVO)session.getAttribute("triVO");
+			
+			System.out.println("=====this is for save=====");
+			
+//			triVO.setTristat(1);
+			System.out.println(triVO.getTriname());
+			System.out.println(triVO.getMemno());
+			System.out.println(triVO.getTripeonum());
+			System.out.println(triVO.getTribegdate());
+			System.out.println(triVO.getTristat());
+			
+	
+			dao.insertWithTdes(triVO, tdeVOList);
+			System.out.println("成功新增:" + tdeVOList.size() + "筆");
+				
+			//執行成功,進行轉交
+				
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();			
+			out.write("ok");
+			out.flush();
+			out.close();
+				
+		}
 		
 		if("submit".equals(action)) {
 			

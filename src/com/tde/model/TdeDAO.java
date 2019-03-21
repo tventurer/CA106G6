@@ -349,9 +349,9 @@ public class TdeDAO implements TdeDAO_interface{
 			}
 		}
 	}
-
 	
-
+	
+	
 	//**********android專用
 	private static final String GETDAYS_STMT = "SELECT TDEDATE FROM TRIPDETAIL WHERE trino=? GROUP BY TDEDATE ORDER BY TDEDATE";
 	
@@ -454,8 +454,5 @@ public class TdeDAO implements TdeDAO_interface{
 		return spoList;
 		
 	}
-	
-	
-	
-	
+
 }
