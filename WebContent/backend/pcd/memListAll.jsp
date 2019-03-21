@@ -10,7 +10,8 @@
 
 <%
    
-	String memno=request.getParameter("memno");
+ 	//String memno=request.getParameter("memno");
+	String memno=(String)session.getAttribute("memno");
     Set<PcdVO> set = pcdSvc.member_query(memno);
     pageContext.setAttribute("set",set);
  //   pageContext.setAttribute("pcdVO", pcdVO);
@@ -56,16 +57,11 @@
 </style>
 
 </head>
-<body bgcolor='pink'>
+<body>
+<jsp:include page="/frontend/navbar.jsp"/>
 
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3 align="center">所有報名資訊 - memListAll.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
+<section class="section-property section-t8">
+    <section class="section-property section-t8">
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -75,7 +71,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+會員查詢報名訂單
 <table>
 	<tr>
 		<th>套裝訂單編號</th>
@@ -123,6 +119,7 @@
 		</tr>
 	</c:forEach>
 </table>
-
+</section>
+</section>
 </body>
 </html>

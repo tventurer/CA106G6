@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>listAllTod</title>
+    <title>checkOrderTod</title>
   </head>
   <body class="app sidebar-mini rtl">
   
@@ -31,11 +31,11 @@
 <%
 	TodVO todVO = (TodVO)request.getAttribute("todVO");
 	if(todVO != null){   //沒寫NullpointerException
-		String todremark = todVO.getTodremark();  //name=故宮門票price=200name=台北101門票price=500name=悠遊卡3日車票price=300
-		System.out.println("todremark:" + todremark);
+		String todpurchase = todVO.getTodpurchase();  //name=故宮門票price=200name=台北101門票price=500name=悠遊卡3日車票price=300
+		System.out.println("todpurchase:" + todpurchase);
 		Map<String,String> pdt = new LinkedHashMap<String,String>();
-		if(todremark != null){
-			String[] strs = todremark.split("name");
+		if(todpurchase != null){
+			String[] strs = todpurchase.split("name");
 			for(int i = 0; i < strs.length; i++){
 				if(i != 0){
 					String[] strs2 = strs[i].split("price");

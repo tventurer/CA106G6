@@ -47,6 +47,7 @@ pageContext.setAttribute("listptp", listptp);
 <!--             </div> -->
 <!--           </div> -->
 <!--         </div> -->
+
  <section class="section-property section-t8">
     <section class="section-property section-t8">
       <div id="property-carousel" class="owl-carousel owl-theme">
@@ -75,7 +76,7 @@ pageContext.setAttribute("listptp", listptp);
                   <div class="price-box d-flex">
                     <span class="price-a"> $ ${pacVO.pacprice}起</span>
                   </div>
-                  <a href="join3.jsp" class="link-a">觀看詳情
+                  <a href="pacChoose.jsp?pacno=${pacVO.pacno}&ptpno=PTP000009" class="link-a">觀看詳情
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>

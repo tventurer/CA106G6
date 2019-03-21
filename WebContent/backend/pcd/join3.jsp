@@ -1,64 +1,29 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.pcd.model.*"%>
-<%@ page import="com.ptp.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
-
+<%@ page import="com.pac.model.*"%>
+<%@ page import="com.ptp.model.*"%>
+<%@ page import="com.pcd.model.*"%>
 
 <%
+PtpService ptpSvc =new PtpService();
+PtpVO ptpVO = ptpSvc.getOnePtp("PTP000001");
+String pacno = ptpVO.getPacno();
 
-PcdVO pcdVO = (PcdVO) request.getAttribute("pcdVO");
-
+PacService pacSvc = new PacService();
+PacVO pacVO = pacSvc.getOnePac(pacno);
 %>
-
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>套裝行程新增 - addPcd.jsp</title>
-
-<style>
-  table#table-1 {
-	background-color: LIGHTBLUE;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
-
+  <meta charset="utf-8">
+  <title>旅遊浪潮-<%=pacVO.getPacname()%></title>
 </head>
 <body bgcolor='white'>
+<jsp:include page="/frontend/navbar.jsp"/>
+<section class="section-property section-t8">
 
-<table id="table-1">
-	<tr><td>
-		 <h3>套裝訂單內容新增 - join3.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
+<body>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -69,41 +34,170 @@ PcdVO pcdVO = (PcdVO) request.getAttribute("pcdVO");
 		</c:forEach>
 	</ul>
 </c:if>
-
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pcd/pcd" name="form1">
-<table>
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single"><%=pacVO.getPacname()%></h1>
+            <span class="color-text-a"><%=pacVO.getPacno() %></span>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="property-grid.html">Properties</a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+    <div class="container">
+     <div class="row">
+     <div class="col-md-12 col-lg-12">
+          <div class="title-single-box">
+          <span>
+          <img src="images/bar2.png" alt="">
+          </span><br>
+           	<tr>
+            <td class="group_Preferences_Content">
+            	◎ 會員編號：MEM0000001<br>
+               
+                                        ◎ 商品名稱：<%=pacVO.getPacname()%>
+                                        <span style="color: #036eb7">
+                                            <%=pacVO.getPacno()%></span><br />
+                                        ◎ 出發日期：
+                                        <%=ptpVO.getPtpstart()%>(<font color='red'>日</font>)
+                                        -
+                                        <%=ptpVO.getPtpend()%>(四)<br />
+                            </td>
+            </tr>
+            <br>
+             <!--03 旅遊契約-->
+        
 	
-	<tr>
-		<td>出團內容編號:</td>
-		<td><input type="TEXT" name="ptpno" size="30" 
-			 value="<%= (pcdVO==null)? "PTP000002" : pcdVO.getPtpno()%>" /></td>
-	</tr>
-	<jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService"/>
-	<jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
-	<tr>
-		<td>出團行程名稱:</td>
-		<td><input type="TEXT" name="pacname" size="30" 
-			 value="${pacSvc.getOnePac(ptpSvc.getOnePtp("PTP000002").pacno).pacname }" /></td>
-	</tr>
-		<tr>
-		<td>會員編號:</td>
-		<td><input type="TEXT" name="memno" size="30" 
-			value="<%= (pcdVO == null)? "MEM000001" : pcdVO.getMemno()%>"></td>
-	</tr>
-	
-		<tr>
-		<td>參加人數:</td>
-		<td><input type="TEXT" name="pcdtripmen" size="30" 
-			value="<%= (pcdVO == null)? 2 : pcdVO.getPcdtripmen()%>"></td>
-	</tr>
-		
-	
-</table>
-<br>
+    <div class="group_PreferencesTitle">
+        
+        <div><h3><b> <span style="color: blue;">訂位聯絡人資訊  </b></h3></div>
+    </div>
+     <table width="970px" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="12px" style="background: url(images/gr_leftbk.png);" valign="top">
+            </td>
+            <td valign="top">
+                <table width="946px" height="20px" border="0" cellpadding="0" cellspacing="0" style="border-right: 1px solid #dbdcdc;
+                    border-left: 1px solid #dbdcdc;">
+                    <tr>
+                          <td valign="top">
+                            <table width="894px" border="0" cellpadding="0" cellspacing="0">
+                               
+                                </tr>
+                                <tr>
+                                    <td class="group_Preferences_Content">
+                                        <table width="894px" border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td>
+                                                    <table width="894px" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #888888;">
+                                                        <!--01-->
+                                                        <tr>
+                                                            <td>
+                                                                <table width="894px" height="36px" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #888888;">
+                                                                    <tr>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td style="border-right: 1px solid #888888;" class="group_Preferences_Content" width="94px">
+                                                                            <img src="http://www.lifetour.com.tw/Common/images/fly_ticon_2.png" width="18" height="12" />
+                                                                            姓名
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td class="group_Preferences_Content" width="370px">
+                                                                            <input name="D_Oversea_FillinContact1$PAX_CNM" type="text" id="D_Oversea_FillinContact1_PAX_CNM" style="border-color:Silver;border-width:1px;border-style:Solid;width:100px;" />
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td width="100px">
+                                                                            <input id="D_Oversea_FillinContact1_Check_Member" type="checkbox" name="D_Oversea_FillinContact1$Check_Member" onclick="Contact();" /><label for="D_Oversea_FillinContact1_Check_Member">同會員本人</label>
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <!--02-->
+                                                        <tr>
+                                                            <td>
+                                                                <table width="894px" height="36px" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #888888;">
+                                                                    <tr>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td style="border-right: 1px solid #888888;" class="group_Preferences_Content" width="94px">
+                                                                            <img src="http://www.lifetour.com.tw/Common/images/fly_ticon_2.png" width="18" height="12" />
+                                                                            連絡電話
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td class="group_Preferences_Content" width="183px">
+                                                                            <input name="D_Oversea_FillinContact1$TEL_ZIP" type="text" id="D_Oversea_FillinContact1_TEL_ZIP" style="border-color:Silver;border-width:1px;border-style:Solid;width:40px;" />-<input name="D_Oversea_FillinContact1$TEL_NO" type="text" id="D_Oversea_FillinContact1_TEL_NO" style="border-color:Silver;border-width:1px;border-style:Solid;width:100px;" />
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td style="border-right: 1px solid #888888; border-left: 1px solid #888888; text-align: center"
+                                                                            class="group_Preferences_Content" width="104px">
+                                                                            <img src="http://www.lifetour.com.tw/Common/images/fly_ticon_2.png" width="18" height="12" />
+                                                                            手機
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td class="group_Preferences_Content" width="181px">
+                                                                            <input name="D_Oversea_FillinContact1$MOBILE" type="text" id="D_Oversea_FillinContact1_MOBILE" style="border-color:Silver;border-width:1px;border-style:Solid;width:100px;" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <!--03-->
+                                                        <tr>
+                                                            <td>
+                                                                <table width="894px" height="36px" border="0" cellpadding="0" cellspacing="0" style="border-bottom: 1px solid #888888;">
+                                                                    <tr>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td style="border-right: 1px solid #888888;" class="group_Preferences_Content" width="94px">
+                                                                            <img src="http://www.lifetour.com.tw/Common/images/fly_ticon_2.png" width="18" height="12" />
+                                                                            E-Mail
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                        <td class="group_Preferences_Content" width="480px">
+                                                                            <input name="D_Oversea_FillinContact1$EMAIL" type="text" id="D_Oversea_FillinContact1_EMAIL" style="border-color:Silver;border-width:1px;border-style:Solid;width:240px;" />
+                                                                        </td>
+                                                                        <td width="10px">
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
 
-
-<input type="hidden" name="action" value="join4">
-<input type="submit" value="送出新增"></FORM>
+     
+     
+     
+     </div>
+     </div>  
+    </div> 
+          <br> <br> <br> <br>
+          
+       
 </body>
-
 </html>

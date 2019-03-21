@@ -70,7 +70,7 @@ public class EmailValidator extends HttpServlet {
 			mailSvc.sendMail(to, subject, messageText);
 			
 			RequestDispatcher successView = req.getRequestDispatcher( 
-					"/frontend/mem/ValidationMailSent.jsp");
+					"/backend/mem/ValidationMailSent.jsp");
 			successView.forward(req, res);
 			return;
 		}

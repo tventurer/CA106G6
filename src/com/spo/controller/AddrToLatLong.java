@@ -15,7 +15,7 @@ public class AddrToLatLong {
 	public static double[] getLatLong(String addr) throws Exception {
 		
 		String encodeAddr = URLEncoder.encode(addr, "UTF-8");
-		String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + encodeAddr + "&key=AIzaSyABawQwdYJlRvccVhRttjo_3319LoFCUEo";
+		String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + encodeAddr + "&key=AIzaSyCJDWHf2nJvG1HGWjhDSz95Gv8E0h_ZFp0";//key
 		URL myURL = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection)myURL.openConnection();
 		InputStream is = conn.getInputStream();
