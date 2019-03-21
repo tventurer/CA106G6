@@ -22,6 +22,7 @@ pageContext.setAttribute("memmail",memmail);
 
 %>
 </c:forEach>
+
               <h4>會員：${memmail}</h4>
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>

@@ -162,7 +162,7 @@ public class AcrServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/acr/listAllAcr.jsp");
+						.getRequestDispatcher("/backend/acr/listEmpSearchAcr.jsp");
 				failureView.forward(req, res);
 			}
 		}
