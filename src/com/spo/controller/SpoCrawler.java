@@ -104,7 +104,7 @@ public class SpoCrawler {
 							if (obj.has("rating")) {
 								rating = obj.getDouble("rating");
 
-								if (rating < 4) {
+								if (rating < 4.3) {
 									System.out.println("評分太低不予採納!!");
 								} else {
 
@@ -121,6 +121,9 @@ public class SpoCrawler {
 
 									String addr = new SpoCrawler().getAddr(name);
 									String content = new SpoCrawler().getSpoContent(name);
+									
+									content = rating + content;
+									
 									System.out.println("lat:" + lat);
 									System.out.println("lng:" + lng);
 									System.out.println("name:" + name);
@@ -158,13 +161,13 @@ public class SpoCrawler {
 									spoVO.setSpopic(b);
 									spoVO.setSpoattribute(0);
 									
-									//避免新增重複資料
-//									if(dao.findByName(name).getSponame() == null) {
-//										if(spoVO.getSpoaddr() != null) {
-//											dao.add(spoVO);
-//											System.out.println("============已新增" + (++num) + "筆==================");
-//										}
-//									}
+//									避免新增重複資料
+									if(dao.findByName(name).getSponame() == null) {
+										if(spoVO.getSpoaddr() != null) {
+											dao.add(spoVO);
+											System.out.println("============已新增" + (++num) + "筆==================");
+										}
+									}
 
 								}
 							}
@@ -172,7 +175,7 @@ public class SpoCrawler {
 						br.close();
 						is.close();
 						con.disconnect();
-						Thread.sleep(2000);
+						Thread.sleep(1500);
 						count++;
 						System.out.println("count:" + count);
 					}

@@ -73,6 +73,10 @@ public class TodService {
 		todVO.setTodno(todno);
 		dao.todBuy(todVO);
 		
-		return dao.findByPk(todno);
+		return todVO;
+	}
+	
+	public TodVO findPurContent(String todno) {
+		return dao.findPurContent(todno);
 	}
 }

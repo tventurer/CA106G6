@@ -167,12 +167,12 @@ public class TodServlet extends HttpServlet {
 					errorMsgs.put("pdtPrice", "請至少輸入一項商品價格!");
 				}
 				
-				Integer todquo = null;
-				try {
-					todquo = Integer.parseInt(req.getParameter("todquo").trim());
-				} catch(NumberFormatException ne) {
-					errorMsgs.put("todquo", "輸入的報價格式有誤!");
-				}
+//				Integer todquo = null;
+//				try {
+//					todquo = Integer.parseInt(req.getParameter("todquo").trim());
+//				} catch(NumberFormatException ne) {
+//					errorMsgs.put("todquo", "輸入的報價格式有誤!");
+//				}
 				
 				Date todddl = null;
 				try {
@@ -184,7 +184,6 @@ public class TodServlet extends HttpServlet {
 				Integer todstat = Integer.parseInt(req.getParameter("todstat"));
 				
 				TodVO todVO = new TodVO();
-				todVO.setTodquo(todquo);
 				todVO.setTodddl(todddl);
 				todVO.setTodstat(todstat);
 				
@@ -205,9 +204,23 @@ public class TodServlet extends HttpServlet {
 				
 				System.out.println(sb.toString());
 				
+				//計算總金額
+				int todquo = 0;
+				for(int i =0; i < pdtPrice.length; i++) {
+						if(pdtPrice[i] != "") {
+							todquo += Integer.parseInt(pdtPrice[i]);
+						}
+
+				}
+				
+				System.out.println("todquo:" + todquo);
+				
 				
 				//2.呼叫model
 				TodService todSvc = new TodService();
+				
+				System.out.println("todno:" + todno);
+				
 				todSvc.updateTod("EMP000001", todquo, todddl, sb.toString(), todstat, todno);
 				
 				//3.執行成功,進行轉交
@@ -309,7 +322,7 @@ public class TodServlet extends HttpServlet {
 				System.out.println("sb:" + sb.toString());
 				
 				//3.執行成功,進行轉交
-				req.setAttribute("todpurchase", todpurchase);
+				req.setAttribute("todpurchase", sb.toString());
 				req.setAttribute("todno", todno);
 				RequestDispatcher success = req.getRequestDispatcher("/frontend/tod/order.jsp");
 				success.forward(req, res);
@@ -378,12 +391,13 @@ public class TodServlet extends HttpServlet {
 					return;
 				}
 				
-				//2.呼叫model
+				//2.呼叫model(toBuy方法拿到的VO只有購買資訊)
 				TodService todSvc = new TodService();
 				todSvc.todBuy(todowner, todphone, todmail, todpurchase, todno);
 				
 				//將訂單狀態改為1(已付款待出貨)
 				TodVO todVO = todSvc.getOneTod(todno);
+				System.out.println(todVO.getTodpurchase()+"aaaaaaaaaaaa");
 				todSvc.updateTod(todVO.getEmpno(), todVO.getTodquo(), todVO.getTodddl(), todVO.getTodremark(), 1, todno);
 				
 				//3.執行成功,進行轉交
@@ -408,7 +422,7 @@ public class TodServlet extends HttpServlet {
 				
 				//2.呼叫model
 				TodService todSvc = new TodService();
-				TodVO todVO = todSvc.getOneTod(todno);
+				TodVO todVO = todSvc.findPurContent(todno);
 				
 				//3.執行成功,進行轉交
 				req.setAttribute("todVO", todVO);

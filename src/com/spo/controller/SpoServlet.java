@@ -4,8 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -114,29 +116,24 @@ public class SpoServlet extends HttpServlet {
 		
 		if("insert".equals(action)) {
 			
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
 				// 1.接收請求參數 - 輸入格式的錯誤處理
 				String sponame = req.getParameter("sponame");
 				if(sponame == "" || (sponame.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點名稱!");
-				}
-				
-				String spocon = req.getParameter("spocon");
-				if(spocon == "" || (spocon.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點所在國家!");
+					errorMsgs.put("sponame","請輸入景點名稱!");
 				}
 				
 				String spocity = req.getParameter("spocity");
 				if(spocity == "" || (spocity.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點所在城市!");
+					errorMsgs.put("spocity","請輸入景點所在城市!");
 				}
 				
 				String spoaddr = req.getParameter("spoaddr");
 				if(spoaddr == "" || (spoaddr.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點地址!");
+					errorMsgs.put("spoaddr","請輸入景點地址!");
 				}
 				
 				
@@ -158,44 +155,44 @@ public class SpoServlet extends HttpServlet {
 				double spolat = latlong[0];
 				double spolong = latlong[1];
 				
-				//將輸入錯誤的資料回傳,以減少user重新輸入
+//				//將輸入錯誤的資料回傳,以減少user重新輸入
 				String spoclass = req.getParameter("spoclass");
 				String spocontent = req.getParameter("spocontent");
-				
-				SpoVO spoVO = new SpoVO();
-				spoVO.setSponame(sponame);
-				spoVO.setSpoclass(spoclass);
-				spoVO.setSpocon(spocon);
-				spoVO.setSpocity(spocity);
-				spoVO.setSpoaddr(spoaddr);
-				spoVO.setSpopic(spopic);
-				spoVO.setSpocontent(spocontent);
+//				
+//				SpoVO spoVO = new SpoVO();
+//				spoVO.setSponame(sponame);
+//				spoVO.setSpoclass(spoclass);
+//				spoVO.setSpocity(spocity);
+//				spoVO.setSpoaddr(spoaddr);
+//				spoVO.setSpopic(spopic);
+//				spoVO.setSpocontent(spocontent);
 				
 				if(!errorMsgs.isEmpty()) {
-					req.setAttribute("spoVO", spoVO);
-					RequestDispatcher failure = req.getRequestDispatcher("/spo/addSpo.jsp");
+//					req.setAttribute("spoVO", spoVO);
+					RequestDispatcher failure = req.getRequestDispatcher("/backend/spo/addSpo.jsp");
 					failure.forward(req, res);
 					return;
 				}
 				
 				// 2.呼叫Model
 				SpoService spoSvc = new SpoService();
-				spoVO = spoSvc.addSpo(sponame, spoclass, spocon, spocity, spolat, spolong, spoaddr, spocontent, spopic, 0);
+				spoSvc.addSpo(sponame, spoclass, "台灣", spocity, spolat, spolong, spoaddr, spocontent, spopic, 0);
 				
 				// 3.執行成功,進行轉交
-				RequestDispatcher success = req.getRequestDispatcher("/spo/listAllSpo.jsp");
+				RequestDispatcher success = req.getRequestDispatcher("/backend/spo/listAllSpo.jsp");
 				success.forward(req, res);
 				
 			} catch(Exception e) {
-				errorMsgs.add("無法新增資料:" + e.getMessage());
-				RequestDispatcher failure = req.getRequestDispatcher("/spo/addSpo.jsp");
+				e.printStackTrace();
+				errorMsgs.put("error","無法新增資料:" + e.getMessage());
+				RequestDispatcher failure = req.getRequestDispatcher("/backend/spo/addSpo.jsp");
 				failure.forward(req, res);
 			}
 		}
 		
 		if("getOneForUpdate".equals(action)) {
 			
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
@@ -210,42 +207,37 @@ public class SpoServlet extends HttpServlet {
 				//3.執行成功,進行轉交
 				req.setAttribute("whichPage", whichPage);
 				req.setAttribute("spoVO", spoVO);
-				RequestDispatcher success = req.getRequestDispatcher("/spo/updateSpo.jsp");
+				RequestDispatcher success = req.getRequestDispatcher("/backend/spo/updateSpo.jsp");
 				success.forward(req, res);
 				
 			} catch(Exception e) {
-				errorMsgs.add("資料無法修改" + e.getMessage());
+				errorMsgs.put("error","資料無法修改" + e.getMessage());
 				e.printStackTrace();
-				RequestDispatcher failure = req.getRequestDispatcher("/spo/updateSpo.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/backend/spo/listAllSpo.jsp");
 				failure.forward(req, res);
 			}
 		}
 		
 		if("update".equals(action)) {
 			
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
 				//1.接收請求參數-輸入格式的錯誤處理
 				String sponame = req.getParameter("sponame");
 				if(sponame == "" || (sponame.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點名稱!");
+					errorMsgs.put("sponame","請輸入景點名稱!");
 				}
-				
-				String spocon = req.getParameter("spocon");
-				if(spocon == "" || (spocon.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點所在國家!");
-				}
-				
+								
 				String spocity = req.getParameter("spocity");
 				if(spocity == "" || (spocity.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點所在城市!");
+					errorMsgs.put("spocity","請輸入景點所在城市!");
 				}
 				
 				String spoaddr = req.getParameter("spoaddr");
 				if(spoaddr == "" || (spoaddr.trim()).length() == 0) {
-					errorMsgs.add("請輸入景點地址!");
+					errorMsgs.put("spoaddr","請輸入景點地址!");
 				}
 				
 				//處理圖片
@@ -282,55 +274,55 @@ public class SpoServlet extends HttpServlet {
 				spoVO.setSpono(spono);
 				spoVO.setSponame(sponame);
 				spoVO.setSpoclass(spoclass);
-				spoVO.setSpocon(spocon);
 				spoVO.setSpocity(spocity);
 				spoVO.setSpoaddr(spoaddr);
 				spoVO.setSpopic(spopic);
 				spoVO.setSpocontent(spocontent);
 				
 				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("whichPage", req.getParameter("whichPage"));
 					req.setAttribute("spoVO", spoVO);
-					RequestDispatcher failure = req.getRequestDispatcher("/spo/updateSpo.jsp");
+					RequestDispatcher failure = req.getRequestDispatcher("/backend/spo/updateSpo.jsp");
 					failure.forward(req, res);
 					return;
 				}
 				
 				//2.呼叫model
 				SpoService spoSvc = new SpoService();
-				spoVO = spoSvc.updateSpo(sponame, spoclass, spocon, spocity, spolat, spolong, spoaddr, spocontent, spopic, 0, spono);
+				spoVO = spoSvc.updateSpo(sponame, spoclass, "台灣", spocity, spolat, spolong, spoaddr, spocontent, spopic, 0, spono);
 
 				//3.執行成功,進行轉交
 				String whichPage = req.getParameter("whichPage");
 				req.setAttribute("spoVO", spoVO);
-				RequestDispatcher success = req.getRequestDispatcher("/spo/listAllSpo.jsp?whichPage=" + whichPage);
+				RequestDispatcher success = req.getRequestDispatcher("/backend/spo/listAllSpo.jsp?whichPage=" + whichPage);
 				success.forward(req, res);
 				
 			} catch(Exception e) {
-				errorMsgs.add("資料修改失敗:" + e.getMessage());
-				RequestDispatcher failure = req.getRequestDispatcher("/spo/updateSpo.jsp");
+				e.printStackTrace();
+				errorMsgs.put("error","資料修改失敗:" + e.getMessage());
+				RequestDispatcher failure = req.getRequestDispatcher("/backend/spo/updateSpo.jsp");
 				failure.forward(req, res);
 			}
 		}
 		
 		if("delete".equals(action)) {
 			
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
 				//1.接收請求參數
 				String spono = req.getParameter("spono");
-				//2.呼叫model
+				//2.呼叫model(須注意tde刪除)
 				SpoService spoSvc = new SpoService();
 				spoSvc.deleteSpo(spono);
 				//3.執行成功,進行轉交
-				String whichPage = req.getParameter("whichPage");
-				RequestDispatcher success = req.getRequestDispatcher("/spo/listAllSpo.jsp?whichPage=" + whichPage);
+				RequestDispatcher success = req.getRequestDispatcher("/backend/spo/listAllSpo.jsp");
 				success.forward(req, res);
 				
 			} catch(Exception e) {
-				errorMsgs.add("刪除資料失敗" + e.getMessage());
-				RequestDispatcher failure = req.getRequestDispatcher("/spo/updateSpo.jsp");
+				errorMsgs.put("error","刪除資料失敗" + e.getMessage());
+				RequestDispatcher failure = req.getRequestDispatcher("/backend/spo/listAllSpo.jsp");
 				failure.forward(req, res);
 			}
 		}

@@ -9,9 +9,10 @@ public interface TodDAO_interface {
 	void delete(String todno);
 	TodVO findByPk(String todno);
 	TodVO findByTrino(String trino);
-	List<TodVO> findByTodstat(int todstat);
 	List<TodVO> getAll();
 	
 	//以下為購買用方法
 	void todBuy(TodVO tod);
+	List<TodVO> findByTodstat(int todstat);
+	TodVO findPurContent(String todno);
 }

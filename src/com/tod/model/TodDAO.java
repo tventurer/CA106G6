@@ -34,6 +34,7 @@ public class TodDAO implements TodDAO_interface{
 	//購買用sql指令
 	private static final String TODBUY_STMT = "UPDATE TRIPORDER SET TODOWNER=?, TODPHONE=?, TODMAIL=?, TODPURCHASE=? WHERE TODNO=?";
 	private static final String FINDBYTODSTAT_STMT = "SELECT * FROM TRIPORDER WHERE TODSTAT=?";
+	private static final String FINDPURCONTENT_STMT = "SELECT * FROM TRIPORDER WHERE TODNO=?";
 	
 	@Override
 	public void add(TodVO tod) {
@@ -416,6 +417,58 @@ public class TodDAO implements TodDAO_interface{
 			}
 		}
 
+	}
+
+	@Override
+	public TodVO findPurContent(String todno) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		TodVO todVO = new TodVO();
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FINDPURCONTENT_STMT);
+			
+			pstmt.setString(1, todno);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				todVO.setTodowner(rs.getString(10));
+				todVO.setTodphone(rs.getString(11));
+				todVO.setTodmail(rs.getString(12));
+				todVO.setTodpurchase(rs.getString(13));
+			}
+			
+		} catch(SQLException se) {
+			throw new RuntimeException(se.getMessage());
+		} finally {
+			if(rs != null) {
+				try{
+					rs.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch(SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		
+		return todVO;
 	}
 
 }
