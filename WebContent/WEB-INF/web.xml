@@ -157,4 +157,63 @@
     <url-pattern>/backend/pcd/pcd</url-pattern>
   </servlet-mapping>
 <!-- 套裝行程 -->
+
+<!-- 自由行 -->
+  <servlet>
+    <servlet-name>SpoServlet</servlet-name>
+    <servlet-class>com.spo.controller.SpoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpoServlet</servlet-name>
+    <url-pattern>/backend/spo/spo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TdeServlet</servlet-name>
+    <servlet-class>com.tde.controller.TdeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TdeServlet</servlet-name>
+    <url-pattern>/frontend/tde/tde</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ChangeCityAjax</servlet-name>
+    <servlet-class>com.tde.controller.ChangeCityAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeCityAjax</servlet-name>
+    <url-pattern>/frontend/tde/ChangeCityAjax</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>GetClassAjax</servlet-name>
+    <servlet-class>com.tde.controller.GetClassAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetClassAjax</servlet-name>
+    <url-pattern>/frontend/tde/GetClassAjax</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TriServlet</servlet-name>
+    <servlet-class>com.tri.controller.TriServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TriServlet</servlet-name>
+    <url-pattern>/frontend/tri/tri</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TriServlet</servlet-name>
+    <url-pattern>/backend/tri/tri</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>TodServlet</servlet-name>
+    <servlet-class>com.tod.controller.TodServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TodServlet</servlet-name>
+    <url-pattern>/backend/tod/tod</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TodServlet</servlet-name>
+    <url-pattern>/frontend/tod/tod</url-pattern>
+  </servlet-mapping>
+<!-- 自由行 -->
 </web-app>
