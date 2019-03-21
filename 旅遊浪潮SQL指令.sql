@@ -86,6 +86,14 @@ INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME)
     VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'BOB', 'uquq', 'bob@abc.com', 1, '鮑伯');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
     VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'CHARLIE', 'uquq', 'charlie@abc.com', 1, '查理');
+INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Jack', 'uquq', 'Jack@abc.com', 1, '傑克');
+INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'John', 'uquq', 'John@abc.com', 1, '約翰');
+INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Hank', 'uquq', 'Hank@abc.com', 1, '漢克');
+INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Maria', 'uquq', 'Maria@abc.com', 1, '瑪麗亞');
 
 -----------------------建立會員訊息表格-----------------------
 
