@@ -6,8 +6,8 @@
 
 <jsp:useBean id="triSvc" class="com.tri.model.TriService"/>
 <%
-	String memno = request.getParameter("memno");
-	List<TriVO> triList = triSvc.getAllByMemno("MEM000002");
+	String memno = (String)session.getAttribute("memno");
+	List<TriVO> triList = triSvc.getAllByMemno(memno);
 	request.setAttribute("triList", triList);
 %>
 

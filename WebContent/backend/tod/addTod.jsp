@@ -3,14 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>新增自由行訂單</title>
+<head>
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/datetimepicker/jquery.datetimepicker.css" />
+<title>新增自由行訂單</title>
     
-    <style>
-    	b {
-    		color: red;	
-    	}
-    </style>
+<style>
+.xdsoft_datetimepicker .xdsoft_datepicker {
+width:  300px;
+}
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+height: 151px;
+}
+b {
+color: red;	
+}
+</style>
     
   </head>
   <body class="app sidebar-mini rtl">
@@ -89,7 +96,7 @@
 		            <div class="tile-title-w-btn">
 			           <div class="tile-body">
 			            <label class="control-label">商品金額</label>
-			            <input class="form-control" type="number" name="pdtPrice" placeholder="Enter product price" value="${param.pdtPrice}">  <b>${errorMsgs.pdtPrice}</b>
+			            <input class="form-control" type="number" name="pdtPrice" placeholder="Enter product price" value="${param.pdtPrice}" min="0">  <b>${errorMsgs.pdtPrice}</b>
 			           </div>
 		            </div>
 		          </div>
@@ -108,7 +115,7 @@
 		            <div class="tile-title-w-btn">
 			           <div class="tile-body">
 			            <label class="control-label">商品金額</label>
-			            <input class="form-control" type="number" name="pdtPrice" placeholder="Enter product price">
+			            <input class="form-control" type="number" name="pdtPrice" placeholder="Enter product price" min="0">
 			           </div>
 		            </div>
 		          </div>
@@ -116,16 +123,13 @@
 				
 				<div id="endpoint"></div>
 
-<!--                 <div class="form-group"> -->
-<!--                   <label class="control-label">訂單總報價</label> -->
-<%--                   <input class="form-control" type="number" name="todquo" value="${param.todquo}" placeholder="Enter total price" readonly="readonly"> <b>${errorMsgs.todquo}</b> --%>
-<!--                 </div> -->
                 <div class="form-group">
                   <label class="control-label">訂單截止日</label>
-                  <input class="form-control" type="text" name="todddl" value="${param.todddl}" placeholder="Enter deadline">  <b>${errorMsgs.todddl}</b>
+                  <input class="form-control" id="todddl" type="text" name="todddl" value="${param.todddl}" placeholder="Enter deadline">  <b>${errorMsgs.todddl}</b>
                 </div>
             </div>
             <div class="tile-footer">
+              <input type="hidden" name="memno" value="${param.memno}">
               <input type="hidden" name="trino" value="${param.trino}">
               <input type="hidden" name="whichPage" value="${param.whichPage}">
               <input type="hidden" name="action" value="insert">
@@ -156,4 +160,19 @@
 	</script>
 
   </body>
+<script src="<%= request.getContextPath() %>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script>
+$.datetimepicker.setLocale('zh'); // kr ko ja en
+$(function(){
+	 $('#todddl').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+		   minDate: '-1970-01-01'			    
+	   })
+	  },
+	  timepicker:false
+	 });
+});
+</script>
 </html>

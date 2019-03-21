@@ -127,7 +127,7 @@ public class TriServlet extends HttpServlet {
 				
 				//2.建立VO放入session,待行程明細建立完成才送出(需注意會員登入)(String)session.getAttribute("memno")
 				TriVO triVO = new TriVO();
-				triVO.setMemno("MEM000002");
+				triVO.setMemno((String)session.getAttribute("memno"));//會員
 				triVO.setTriname(triname);
 				triVO.setTribegdate(tribegdate);
 				triVO.setTrienddate(trienddate);

@@ -53,7 +53,7 @@ color: red;
                 </div>
                 <div class="form-group">
                   <label class="control-label">人數</label>
-                  <input class="form-control" type="number" name="tripeonum" value="${triVO.tripeonum}" placeholder="Enter how many people in the trip">  <b>${errorMsgs.tripeonum}</b>
+                  <input min="0" class="form-control" type="number" name="tripeonum" value="${triVO.tripeonum}" placeholder="Enter how many people in the trip">  <b>${errorMsgs.tripeonum}</b>
                 </div>
             </div>
             <div class="tile-footer">

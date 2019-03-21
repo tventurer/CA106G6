@@ -58,7 +58,7 @@
               	會員
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/mem/MyPage.jsp?memno="${memno}>基本資料</a>
+              <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/mem/MyPage.jsp?memno="${memno}">基本資料</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/pho/phocontrol?action=listMeOrder&memno=${memno}">我的機加酒</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/tri/listTriByMem.jsp">我的自由行</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/backend/pcd/memListAll.jsp?memno=${memno}">我的套裝行程</a>

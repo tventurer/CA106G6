@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tod.model.TodService;
 import com.tod.model.TodVO;
@@ -88,7 +89,11 @@ public class TodServlet extends HttpServlet {
 				
 				//2.呼叫model
 				TodService todSvc = new TodService();
-				todSvc.addTod("MEM000001", trino, "EMP000001", todquo, todddl, sb.toString(), 0);
+				//員工
+				HttpSession session = req.getSession();
+				String empno = (String)session.getAttribute("empno");
+				
+				todSvc.addTod(req.getParameter("memno"), trino, empno, todquo, todddl, sb.toString(), 0);
 				
 				//將行程狀態改為2(已報價)
 				TriService triSvc = new TriService();
@@ -221,7 +226,11 @@ public class TodServlet extends HttpServlet {
 				
 				System.out.println("todno:" + todno);
 				
-				todSvc.updateTod("EMP000001", todquo, todddl, sb.toString(), todstat, todno);
+				//員工
+				HttpSession session = req.getSession();
+				String empno = (String)session.getAttribute("empno");
+				
+				todSvc.updateTod(empno, todquo, todddl, sb.toString(), todstat, todno);
 				
 				//3.執行成功,進行轉交
 				RequestDispatcher success = req.getRequestDispatcher("/backend/tod/listAllTod.jsp");
