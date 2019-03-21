@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-String memno="MEM000001";
+String memno=(String)session.getAttribute("memno");
 pageContext.setAttribute("memno",memno);
 
 String acrprice = request.getParameter("acrprice");

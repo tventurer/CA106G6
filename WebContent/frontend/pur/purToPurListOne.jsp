@@ -20,11 +20,14 @@
 	pageContext.setAttribute("sellmem",sellmem);
 	
 	//有登入才會跑這裡顯示目前擁有的代幣
-	AcrService acrSvc = new AcrService();
-	String memno = "MEM000003";
-	pageContext.setAttribute("memno",memno);
-	List<AcrVO> Acrlist = acrSvc.getMemAll(memno);
-	pageContext.setAttribute("Acrlist",Acrlist);
+	Object check = session.getAttribute("memno");
+	if(check != null){
+		String memno=(String)session.getAttribute("memno");
+		AcrService acrSvc = new AcrService();
+		pageContext.setAttribute("memno",memno);
+		List<AcrVO> Acrlist = acrSvc.getMemAll(memno);
+		pageContext.setAttribute("Acrlist",Acrlist);
+	}
 %>
 
 <!-------------------------------- 引入標頭 ------------------------------------->
@@ -287,6 +290,20 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
+  
+    <!-- JavaScript Libraries -->
+  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/popper/popper.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/easing/easing.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="<%= request.getContextPath() %>/style/f/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="<%= request.getContextPath() %>/style/f/js/main.js"></script>
 
 </body>
 </html>

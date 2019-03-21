@@ -62,6 +62,10 @@ public class PreServlet extends HttpServlet{
 					String purid = req.getParameter("purid").trim();
 					Integer prelabel = new Integer(req.getParameter("prelabel"));
 					
+					if (memno == null || memno.trim().length() == 0) {
+						errorMsgs.add("請登入會員");
+					}
+					
 					String precause = req.getParameter("precause").trim();
 					if (precause == null || precause.trim().length() == 0) {
 						errorMsgs.add("檢舉原因不得為空白");

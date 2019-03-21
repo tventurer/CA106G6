@@ -18,7 +18,7 @@
 	Integer purpricing = purVO.getPurpricing();
 	pageContext.setAttribute("purpricing",purpricing);
 	
-	String memno = new String(request.getParameter("memno"));
+	String memno =(String)session.getAttribute("memno");
 	pageContext.setAttribute("memno",memno);
 	
 	if(memno != null || memno.trim().length() != 0){

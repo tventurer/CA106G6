@@ -5,7 +5,7 @@
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
 <%
-	String name = "MEM000001";
+	String name=(String)session.getAttribute("memno");
 	PurService purSvc = new PurService();
 	pageContext.setAttribute("name",name);
 

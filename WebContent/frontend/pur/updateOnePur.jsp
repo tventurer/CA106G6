@@ -5,7 +5,7 @@
 <%
 PurVO purVO = (PurVO) request.getAttribute("purVO");
 
-String name = "MEM000002";
+String name=(String)session.getAttribute("memno");
 pageContext.setAttribute("name",name);
 %>
 

@@ -5,7 +5,7 @@
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
 <%
-String name = "MEM000003";
+	String name=(String)session.getAttribute("memno");
 	String purid = request.getParameter("purid");
 			
 	PorService porSvc = new PorService();

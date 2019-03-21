@@ -20,11 +20,15 @@
 	pageContext.setAttribute("sellmem",sellmem);
 	
 	//有登入才會跑這裡顯示目前擁有的代幣
-	AcrService acrSvc = new AcrService();
-	String memno = "MEM000001";
-	pageContext.setAttribute("memno",memno);
-	List<AcrVO> Acrlist = acrSvc.getMemAll(memno);
-	pageContext.setAttribute("Acrlist",Acrlist);
+	Object check = session.getAttribute("memno");
+	if(check != null){
+		String memno=(String)session.getAttribute("memno");
+		AcrService acrSvc = new AcrService();
+		pageContext.setAttribute("memno",memno);
+		List<AcrVO> Acrlist = acrSvc.getMemAll(memno);
+		pageContext.setAttribute("Acrlist",Acrlist);
+	}
+
 	
 %>
 <!-------------------------------- 引入標頭 ------------------------------------->
@@ -71,10 +75,32 @@
   <!--/ Intro Single End /-->
 
   <!--/ Property Single Star /-->
-  <section class="property-single nav-arrow-b">
+    <section class="property-single nav-arrow-b">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
+
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<c:forEach var="message" items="${errorMsgs}">
+    		<script type="text/javascript">
+    		window.addEventListener("load", function(event) {
+    		var check="${message}";
+    		if(check=="請登入會員"){
+    			var r = confirm("請登入會員，前往登入~!");
+				if(r == true){
+					window.location = '<%=request.getContextPath()%>/memlogin.jsp';
+				}else{
+					window.history.go(-1); 
+				}
+    			document.location.href="<%=request.getContextPath()%>/memlogin.jsp";
+    		}else if(check=="檢舉原因不得為空白"){
+    			alert("檢舉原因不得為空白");
+    		}
+    		});
+    		</script>
+    		</c:forEach>
+</c:if>
 
           <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
             <div class="carousel-item-b">
@@ -361,5 +387,24 @@
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
 
+
+
+
+
+
+  <!-- JavaScript Libraries -->
+  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/popper/popper.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/easing/easing.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="<%= request.getContextPath() %>/style/f/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="<%= request.getContextPath() %>/style/f/js/main.js"></script>
+	
 </body>
 </html>

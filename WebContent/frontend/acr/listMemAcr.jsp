@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.acr.model.*"%>
 <%
-	String name = "MEM000001";
+	String name=(String)session.getAttribute("memno");
 	AcrService acrSvc = new AcrService();
 	pageContext.setAttribute("name",name);
 	

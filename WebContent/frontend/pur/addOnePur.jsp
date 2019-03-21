@@ -6,7 +6,7 @@
 <%@ page import="com.acr.model.*"%>
 <%
 PurVO purVO = (PurVO) request.getAttribute("purVO");
-String name = "MEM000002";
+String name=(String)session.getAttribute("memno");
 pageContext.setAttribute("name",name);
 %>
 
@@ -15,8 +15,7 @@ pageContext.setAttribute("name",name);
 <jsp:include page="/frontend/navbar.jsp" />
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+
 
 
   <style>
@@ -307,7 +306,8 @@ pageContext.setAttribute("name",name);
 </body>
 </html>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
-
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 <% 
@@ -374,11 +374,11 @@ function readURL(input){
 	       timepicker:true,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
-		   value: '<%=purobtained%>' 
+		   value: '<%=purobtained%>', 
 		   // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
+           minDate:               '-1970-01-01' // 去除今日(不含)之前
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
         
@@ -388,11 +388,11 @@ function readURL(input){
  	       timepicker:true,       //timepicker:true,
  	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
  	       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
- 	       value: '<%=purextime%>'  
+ 	       value: '<%=purextime%>',
  	       // value:   new Date(),
             //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
             //startDate:	            '2017/07/10',  // 起始日
-            //minDate:               '-1970-01-01', // 去除今日(不含)之前
+            minDate:               '-1970-01-01' // 去除今日(不含)之前
             //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
          });
         
