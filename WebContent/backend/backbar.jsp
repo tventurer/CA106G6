@@ -1,8 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.emp.model.*"%>
+<%
+	String empno = (String)session.getAttribute("empno");
 
+    Object account = session.getAttribute("account");                  // 從 session內取出 (key) account的值
+    if (account == null) {                                             // 如為 null, 代表此user未登入過 , 才做以下工作
+      session.setAttribute("location", request.getRequestURI());       //*工作1 : 同時記下目前位置 , 以便於login.html登入成功後 , 能夠直接導至此網頁(須配合LoginHandler.java)
+      response.sendRedirect(request.getContextPath()+"/empLogin.jsp");   //*工作2 : 請該user去登入網頁(login.html) , 進行登入
+      return;
+    }
+EmpService empSvc = new EmpService();
+EmpVO empVO = empSvc.getOneEmp(empno);
+
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>T-Venturer - Administrator</title>
     <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
@@ -102,10 +116,10 @@
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
+      <div class="app-sidebar__user"><img type="image/gif" class="app-sidebar__user-avatar" src="<%=request.getContextPath()%>/backend/emp/emp?empno=<%=empVO.getEmpno()%>" width="100px" alt="User Image">
         <div>
-          <p class="app-sidebar__user-name">John Doe</p>
-          <p class="app-sidebar__user-designation">Frontend Developer</p>
+          <p class="app-sidebar__user-name"><%=empVO.getEmpname()%></p>
+          <p class="app-sidebar__user-designation"><%=empVO.getEmpposi()%></p>
         </div>
       </div>
       <ul class="app-menu">  
@@ -122,14 +136,14 @@
           </ul>        
         </li>
 <!----------------------------------------- 後台人員 --------------------------------------------------------->        
-        <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">後台人員管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i> Bootstrap Elements</a></li>
-            <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li>
-            <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li>
-            <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li>
-          </ul>        
-        </li>
+<!--         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">後台人員管理</span><i class="treeview-indicator fa fa-angle-right"></i></a> -->
+<!--           <ul class="treeview-menu"> -->
+<!--             <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i> Bootstrap Elements</a></li> -->
+<!--             <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li> -->
+<!--             <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li> -->
+<!--             <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li> -->
+<!--           </ul>         -->
+<!--         </li> -->
 <!----------------------------------------- 旅人文章 --------------------------------------------------------->        
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">旅人文章管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
@@ -154,8 +168,8 @@
 <!----------------------------------------- 套裝行程 --------------------------------------------------------->
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">套裝行程管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pac/addPac.jsp"><i class="icon fa fa-circle-o"></i> 新增套裝行程</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pac/listAllPac.jsp"><i class="icon fa fa-circle-o"></i>套裝行程列表</a></li>
+            <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i> Basic Tables</a></li>
+            <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i> Data Tables</a></li>
           </ul>
         </li>
 <!----------------------------------------- 機加酒 --------------------------------------------------------->

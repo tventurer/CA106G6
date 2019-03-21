@@ -7,16 +7,6 @@
 <%@ page import="com.mem.model.*"%>
 <%@ page import="com.pur.model.*"%>
 <%
-	String empno = (String)session.getAttribute("empno");
-
-    Object account = session.getAttribute("account");                  // 從 session內取出 (key) account的值
-    if (account == null) {                                             // 如為 null, 代表此user未登入過 , 才做以下工作
-      session.setAttribute("location", request.getRequestURI());       //*工作1 : 同時記下目前位置 , 以便於login.html登入成功後 , 能夠直接導至此網頁(須配合LoginHandler.java)
-      response.sendRedirect(request.getContextPath()+"/empLogin.jsp");   //*工作2 : 請該user去登入網頁(login.html) , 進行登入
-      return;
-    }
-EmpService empSvc = new EmpService();
-EmpVO empVO = empSvc.getOneEmp(empno);
 PreService preSvc = new PreService();
 List<PreVO> list = preSvc.getAll();
 pageContext.setAttribute("list",list);
@@ -30,9 +20,9 @@ pageContext.setAttribute("prelabel",prelabel);
 <html lang="zh-TW">
   <head>
 <!-- 引入標頭 -->
-<jsp:include page="/backend/backbar.jsp"/>
   </head>
   <body class="app sidebar-mini rtl">
+<jsp:include page="/backend/backbar.jsp"/>
  
     
     <!-- 管理頁面主要顯示的部分 -->
@@ -132,74 +122,6 @@ pageContext.setAttribute("prelabel",prelabel);
         </div>
       </div>
     </main>
-    <!-- Essential javascripts for application to work-->
-    <script src="<%=request.getContextPath()%>/style/b/js/jquery-3.2.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/style/b/js/popper.min.js"></script>
-    <script src="<%=request.getContextPath()%>/style/b/js/bootstrap.min.js"></script>
-    <script src="<%=request.getContextPath()%>/style/b/js/main.js"></script>
-    <!-- The javascript plugin to display page loading on top-->
-    <script src="<%=request.getContextPath()%>/style/b/js/plugins/pace.min.js"></script>
-    <!-- Page specific javascripts-->
-    <script type="text/javascript" src="<%=request.getContextPath()%>/style/b/js/plugins/chart.js"></script>
-    <script type="text/javascript">
-      var data = {
-      	labels: ["January", "February", "March", "April", "May"],
-      	datasets: [
-      		{
-      			label: "My First dataset",
-      			fillColor: "rgba(220,220,220,0.2)",
-      			strokeColor: "rgba(220,220,220,1)",
-      			pointColor: "rgba(220,220,220,1)",
-      			pointStrokeColor: "#fff",
-      			pointHighlightFill: "#fff",
-      			pointHighlightStroke: "rgba(220,220,220,1)",
-      			data: [65, 59, 80, 81, 56]
-      		},
-      		{
-      			label: "My Second dataset",
-      			fillColor: "rgba(151,187,205,0.2)",
-      			strokeColor: "rgba(151,187,205,1)",
-      			pointColor: "rgba(151,187,205,1)",
-      			pointStrokeColor: "#fff",
-      			pointHighlightFill: "#fff",
-      			pointHighlightStroke: "rgba(151,187,205,1)",
-      			data: [28, 48, 40, 19, 86]
-      		}
-      	]
-      };
-      var pdata = [
-      	{
-      		value: 300,
-      		color: "#46BFBD",
-      		highlight: "#5AD3D1",
-      		label: "Complete"
-      	},
-      	{
-      		value: 50,
-      		color:"#F7464A",
-      		highlight: "#FF5A5E",
-      		label: "In-Progress"
-      	}
-      ]
-      
-      var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-      var lineChart = new Chart(ctxl).Line(data);
-      
-      var ctxp = $("#pieChartDemo").get(0).getContext("2d");
-      var pieChart = new Chart(ctxp).Pie(pdata);
-    </script>
-    <!-- Google analytics script-->
-    <script type="text/javascript">
-      if(document.location.hostname == 'pratikborsadiya.in') {
-      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      	ga('create', 'UA-72504830-1', 'auto');
-      	ga('send', 'pageview');
-      }
-    </script>
   </body>
-  <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 </html>
