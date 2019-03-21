@@ -105,17 +105,17 @@ text-align: left;
 						</span>
 					</div>
 				</div>
-				<div class="col-md-12 col-lg-4">
-					<nav aria-label="breadcrumb"
-						class="breadcrumb-box d-flex justify-content-lg-end">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">首頁</a></li>
-							<li class="breadcrumb-item"><a href="#">會員</a></li>
-							<li class="breadcrumb-item"><a href="#">代購商品訂單列表</a></li>
-							<li class="breadcrumb-item active" aria-current="page">該商品訂單列表</li>
-						</ol>
-					</nav>
-				</div>
+<!-- 				<div class="col-md-12 col-lg-4"> -->
+<!-- 					<nav aria-label="breadcrumb" -->
+<!-- 						class="breadcrumb-box d-flex justify-content-lg-end"> -->
+<!-- 						<ol class="breadcrumb"> -->
+<!-- 							<li class="breadcrumb-item"><a href="#">首頁</a></li> -->
+<!-- 							<li class="breadcrumb-item"><a href="#">會員</a></li> -->
+<!-- 							<li class="breadcrumb-item"><a href="#">代購商品訂單列表</a></li> -->
+<!-- 							<li class="breadcrumb-item active" aria-current="page">該商品訂單列表</li> -->
+<!-- 						</ol> -->
+<!-- 					</nav> -->
+<!-- 				</div> -->
 			</div>
 		</div>
 	</section>
@@ -150,7 +150,6 @@ text-align: left;
 									<th>交易狀態</th>
 									<th>物流狀態</th>
 									<th>訂單詳情</th>
-									<th>寄/收貨</th>
 									<th>評價買家</th>
 							</thead>
 <!-- 							買家跟賣家的訂單詳情可共用，或用燈箱顯示 -->
@@ -209,7 +208,7 @@ text-align: left;
 											<td>已退貨</td>
 										</c:if>
 								
-								<!--出貨與交易狀況 -->
+								<!--物流狀態 -->
 										<td>
 				 							<c:if test="${porVO.porlogistics == 0 }">
 				 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
@@ -231,45 +230,34 @@ text-align: left;
 											等待退換貨寄回
 										</c:if>
 										<c:if test="${porVO.porlogistics == 4}">
-											
+										<c:if test="${porVO.porstatus ==3}">
 											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
-							   		     	<button type="submit" name="porlogistics" value=3 >寄出換貨</button>
+							   		     	<button type="submit" name="porstatus" value=9 >收到退貨</button>
 							   		     	<input type="hidden" name="memno"  value="<%=name %>">
-				                            <input type="hidden" name="porid"  value="${porVO.porid}">
-				                            <input type="hidden" name="action"	value="updata_porlogistics"></FORM>
-											
-										</c:if>
-										<c:if test="${porVO.porlogistics == 5}">
-										<c:if test="${porVO.porstatus == 6}">
-										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
-							   		     	<button type="submit" name="porlogistics" value=6 >收到換貨</button>
-				                            <input type="hidden" name="porid"  value="${porVO.porid}">
-				                            <input type="hidden" name="memno"  value="<%=name %>">
-				                            <input type="hidden" name="action"	value="updata_porlogistics"></FORM>
-										</c:if>
-										<c:if test="${porVO.porstatus == 3}">
-										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
-										<button type="submit" name="porlogistics" value=6 >收到退貨</button>
-				                            <input type="hidden" name="porid"  value="${porVO.porid}">
-				                            <input type="hidden" name="memno"  value="<%=name %>">
-				                            <input type="hidden" name="action"	value="updata_porlogistics"></FORM>
-										</c:if>
-											
-										</c:if>
-										<c:if test="${porVO.porlogistics == 6}">
-										<c:if test="${porVO.porstatus == 6}">
-										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
-							   		     	<button type="submit" name="porlogistics" value=5 >寄出換貨</button>
-				                            <input type="hidden" name="porid"  value="${porVO.porid}">
-				                            <input type="hidden" name="memno"  value="<%=name %>">
-				                            <input type="hidden" name="action"	value="updata_porlogistics"></FORM>
-										</c:if>
-										<c:if test="${porVO.porstatus == 3}">
-										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
-										<button type="submit" name="porstatus" value=9 >退貨成功</button>
 				                            <input type="hidden" name="porid"  value="${porVO.porid}">
 				                            <input type="hidden" name="action"	value="updata_porstatus"></FORM>
 										</c:if>
+										<c:if test="${porVO.porstatus ==6}">
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
+							   		     	<button type="submit" name="porlogistics" value=5 >收到換貨</button>
+							   		     	<input type="hidden" name="memno"  value="<%=name %>">
+				                            <input type="hidden" name="porid"  value="${porVO.porid}">
+				                            <input type="hidden" name="action"	value="updata_porlogistics"></FORM>
+										</c:if>
+										</c:if>
+										<c:if test="${porVO.porlogistics == 5}">
+											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
+							   		     	<button type="submit" name="porlogistics" value=6 >寄回換貨商品給賣家</button>
+							   		     	<input type="hidden" name="porstatus"  value=0>
+							   		     	<input type="hidden" name="memno"  value="<%=name %>">
+				                            <input type="hidden" name="porid"  value="${porVO.porid}">
+				                            <input type="hidden" name="action"	value="updata_porlogistics_rs"></FORM>
+										</c:if>
+										<c:if test="${porVO.porlogistics == 6}">
+											等待買家領取換貨
+										</c:if>
+										<c:if test="${porVO.porlogistics == 7}">
+											買家收到換貨
 										</c:if>
 										
 			 							</td>
@@ -285,12 +273,12 @@ text-align: left;
 							
 												</div>
 												<div class="modal-body">
-												<strong>編&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${s.count}<br>
+												<strong>編&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${s.count}<br>
 												<strong>訂&nbsp;單&nbsp;編&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${porVO.porid}<br>
 												<strong>買&nbsp;家&nbsp;帳&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${porVO.memno}<br>
 												<strong>購&nbsp;買&nbsp;時&nbsp;間&nbsp;&nbsp;：&nbsp;</strong><fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/><br>
 												<strong>交&nbsp;易&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>${porVO.porstatus}<br>
-												<strong>收件人姓名：&nbsp;</strong>${porVO.pormemname}<br>
+												<strong>收件人姓名&nbsp;：&nbsp;</strong>${porVO.pormemname}<br>
 												<strong>收&nbsp;貨&nbsp;地&nbsp;址&nbsp;&nbsp;：&nbsp;</strong>${porVO.poraddress}<br>
 												<strong>連&nbsp;絡&nbsp;電&nbsp;話&nbsp;&nbsp;：&nbsp;</strong>${porVO.portel}<br>
 												<strong>訂&nbsp;購&nbsp;數&nbsp;量&nbsp;&nbsp;：&nbsp;</strong>${porVO.porsum}<br>
@@ -305,50 +293,12 @@ text-align: left;
 												</div>
 												</div>
 			 							</td>
-			 							
 			 							<td>
-				 							<c:if test="${porVO.porlogistics == 0 }">
-				 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
-							   		     	     <input type="submit" value="出貨">
-				                                 <input type="hidden" name="porid"  value="${porVO.porid}">
-				                                 <input type="hidden" name="purid"  value="<%=OnePur.getPurid()%>">
-				                                 <input type="hidden" name="porlogistics"  value=1>
-				                                 <input type="hidden" name="memno"  value="<%=name %>">
-				                                 <input type="hidden" name="action"	value="updata_porlogistics"></FORM>
+
+				 							<c:if test="${porVO.porstatus != 1 }"> <!--因未完成，將不能給予評價 -->
+				 								未完成交易，不得評價
 				 							</c:if>
-				 							
-				 							<c:if test="${porVO.porlogistics == 1 }">
-				 							已出貨
-				 							</c:if>
-				 							<!--物流狀態 -->
-										
-									
-										<c:if test="${porVO.porlogistics == 2}">
-											買家已領貨
-										</c:if>
-										<c:if test="${porVO.porlogistics == 3}">
-											等待退換貨寄回
-										</c:if>
-										<c:if test="${porVO.porlogistics == 4}">
-											
-											寄出退換貨
-<%-- 											<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;"> --%>
-<!-- 							   		     	     <button type="submit" name="porlogistics" value=6 ></button> -->
-<%-- 				                                 <input type="hidden" name="porid"  value="${porVO.porid}"> --%>
-<!-- 				                                 <input type="hidden" name="action"	value="updata_porlogistics"></FORM> -->
-											
-										</c:if>
-										<c:if test="${porVO.porlogistics == 5}">
-											收到退換貨
-										</c:if>
-			 							</td>
-			 							
-			 							<td>
-				 							<c:if test="${porVO.porlogistics == 0 }"> <!--因未出貨，將不能給予評價 -->
-				 								你不能給予評價
-				 							</c:if>
-				 							<c:if test="${porVO.porlogistics > 0 }"><!--已出貨，給予評價 -->
-				 							<c:if test="${porVO.porstatus != 8 }">
+				 							<c:if test="${porVO.porstatus == 1 }">
 				 							<c:if test="${empty porVO.porselltime}">
 				 							
 											<button type="button" data-toggle="modal" data-target="#showbox${s.count}"  class='sellscore' value="${porVO.porsellscore}" data-data="${s.count}">評價買家</button>
@@ -405,7 +355,7 @@ text-align: left;
 												</FORM>
 			 							</c:if>
 			 							
-			 							</c:if>
+			 							
 			 							<c:if test="${not empty porVO.porselltime}">
 			 								<button type="button" data-toggle="modal" data-target="#showbox${s.count}"  class='sellscore' value="${porVO.porsellscore}" data-data="${s.count}">更改評價</button>
 												<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
@@ -460,10 +410,7 @@ text-align: left;
 												</div>
 												</FORM>
 			 							</c:if>
-										</c:if>	
-										<c:if test="${porVO.porstatus == 8 }">
-										你不能給予評價
-										</c:if>		 							
+			 							</c:if>
 			 							</td>
 									</tr>
 								</c:forEach>
@@ -478,57 +425,57 @@ text-align: left;
 	<br>
 
 	<!--/ footer Star /-->
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<nav class="nav-footer">
-						<ul class="list-inline">
-							<li class="list-inline-item"><a href="#">Home</a></li>
-							<li class="list-inline-item"><a href="#">About</a></li>
-							<li class="list-inline-item"><a href="#">Property</a></li>
-							<li class="list-inline-item"><a href="#">Blog</a></li>
-							<li class="list-inline-item"><a href="#">Contact</a></li>
-						</ul>
-					</nav>
-					<div class="socials-a">
-						<ul class="list-inline">
-							<li class="list-inline-item"><a href="#"> <i
-									class="fa fa-facebook" aria-hidden="true"></i>
-							</a></li>
-							<li class="list-inline-item"><a href="#"> <i
-									class="fa fa-twitter" aria-hidden="true"></i>
-							</a></li>
-							<li class="list-inline-item"><a href="#"> <i
-									class="fa fa-instagram" aria-hidden="true"></i>
-							</a></li>
-							<li class="list-inline-item"><a href="#"> <i
-									class="fa fa-pinterest-p" aria-hidden="true"></i>
-							</a></li>
-							<li class="list-inline-item"><a href="#"> <i
-									class="fa fa-dribbble" aria-hidden="true"></i>
-							</a></li>
-						</ul>
-					</div>
-					<div class="copyright-footer">
-						<p class="copyright color-text-a">
-							&copy; Copyright <span class="color-a">T-Venturer</span> All
-							Rights Reserved.
-						</p>
-					</div>
-					<div class="credits">
-						<!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-            -->
-						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+<!-- 	<footer> -->
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-md-12"> -->
+<!-- 					<nav class="nav-footer"> -->
+<!-- 						<ul class="list-inline"> -->
+<!-- 							<li class="list-inline-item"><a href="#">Home</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#">About</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#">Property</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#">Blog</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#">Contact</a></li> -->
+<!-- 						</ul> -->
+<!-- 					</nav> -->
+<!-- 					<div class="socials-a"> -->
+<!-- 						<ul class="list-inline"> -->
+<!-- 							<li class="list-inline-item"><a href="#"> <i -->
+<!-- 									class="fa fa-facebook" aria-hidden="true"></i> -->
+<!-- 							</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#"> <i -->
+<!-- 									class="fa fa-twitter" aria-hidden="true"></i> -->
+<!-- 							</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#"> <i -->
+<!-- 									class="fa fa-instagram" aria-hidden="true"></i> -->
+<!-- 							</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#"> <i -->
+<!-- 									class="fa fa-pinterest-p" aria-hidden="true"></i> -->
+<!-- 							</a></li> -->
+<!-- 							<li class="list-inline-item"><a href="#"> <i -->
+<!-- 									class="fa fa-dribbble" aria-hidden="true"></i> -->
+<!-- 							</a></li> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
+<!-- 					<div class="copyright-footer"> -->
+<!-- 						<p class="copyright color-text-a"> -->
+<!-- 							&copy; Copyright <span class="color-a">T-Venturer</span> All -->
+<!-- 							Rights Reserved. -->
+<!-- 						</p> -->
+<!-- 					</div> -->
+<!-- 					<div class="credits"> -->
+<!-- 						
+<!--               All the links in the footer should remain intact. -->
+<!--               You can delete the links only if you purchased the pro version. -->
+<!--               Licensing information: https://bootstrapmade.com/license/ -->
+<!--               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency -->
+<!--             --> -->
+<!-- 						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</footer> -->
 	<!--/ Footer End /-->
 
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
