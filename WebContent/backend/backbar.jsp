@@ -162,7 +162,8 @@ EmpVO empVO = empSvc.getOneEmp(empno);
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tri/listAllByTristat.jsp"><i class="icon fa fa-circle-o"></i> 待報價行程</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tod/listAllTod.jsp"><i class="icon fa fa-circle-o"></i> 訂單列表</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/tod/listAllByTodstat.jsp"><i class="icon fa fa-circle-o"></i> 待處理訂單</a></li>
-            <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> 景點管理</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/spo/listAllSpo.jsp"><i class="icon fa fa-circle-o"></i> 景點列表</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/spo/addSpo.jsp"><i class="icon fa fa-circle-o"></i> 新增景點</a></li>
           </ul>
         </li>
 <!----------------------------------------- 套裝行程 --------------------------------------------------------->

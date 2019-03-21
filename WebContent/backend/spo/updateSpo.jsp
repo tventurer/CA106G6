@@ -15,7 +15,7 @@ width: 200px;
 height: 200px;
 }
 </style>
-    <title>新增景點</title>
+    <title>修改景點</title>
   </head>
   <body class="app sidebar-mini rtl">
     
@@ -24,7 +24,7 @@ height: 200px;
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-edit"></i> 新增景點</h1>
+          <h1><i class="fa fa-edit"></i> 修改景點</h1>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -40,24 +40,24 @@ height: 200px;
 
                 <div class="form-group">
                   <label class="control-label">景點名稱</label>
-                  <input class="form-control" type="text" name="sponame" value="${param.sponame}" placeholder="Enter spot name"> <b>${errorMsgs.sponame}</b>
+                  <input class="form-control" type="text" name="sponame" value="${spoVO.sponame}" placeholder="Enter spot name"> <b>${errorMsgs.sponame}</b>
                 </div>
                 <jsp:useBean id="spoSvc" class="com.spo.model.SpoService"/>
                 <div class="form-group">
                   <label for="exampleSelect">景點分類</label>
                     <select class="form-control" id="exampleSelect" name="spoclass">
                     	<c:forEach var="className" items="${spoSvc.className}">
-								<option value="${className}" ${param.spoclass == className?"selected":""}>${className}</option>
+								<option value="${className}" ${spoVO.spoclass == className?"selected":""}>${className}</option>
 						</c:forEach>
                     </select>
                 </div>
                 <div class="form-group">
                   <label class="control-label">城市名稱</label>
-                  <input class="form-control" type="text" name="spocity" value="${param.spocity}" placeholder="Enter spot clty">  <b>${errorMsgs.spocity}</b>
+                  <input class="form-control" type="text" name="spocity" value="${spoVO.spocity}" placeholder="Enter spot clty">  <b>${errorMsgs.spocity}</b>
                 </div>
                 <div class="form-group">
                   <label class="control-label">地址</label>
-                  <input class="form-control" type="text" name="spoaddr" value="${param.spoaddr}" placeholder="Enter spot address">  <b>${errorMsgs.spoaddr}</b>
+                  <input class="form-control" type="text" name="spoaddr" value="${spoVO.spoaddr}" placeholder="Enter spot address">  <b>${errorMsgs.spoaddr}</b>
                 </div>
                 <div class="form-group">
                     <label for="inputFile">圖片</label>
@@ -75,11 +75,13 @@ height: 200px;
                 </div>
                 <div class="form-group">
                   <label class="control-label">簡介</label>
-                  <input class="form-control" type="text" name="spocontent" value="${param.spocontent}" placeholder="Enter spot content">  <b>${errorMsgs.spocontent}</b>
+                  <input class="form-control" type="text" name="spocontent" value="${spoVO.spocontent}" placeholder="Enter spot content">  <b>${errorMsgs.spocontent}</b>
                 </div>
             </div>
             <div class="tile-footer">
-              <input type="hidden" name="action" value="insert">
+              <input type="hidden" name="whichPage" value="${whichPage}">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="spono" value="${spoVO.spono}">
               <a class="btn btn-primary" href="javascript:document.form.submit()"><i class="fa fa-fw fa-lg fa-check-circle"></i>送出</a>
 <!--               &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="javascript:history.back(-1)"><i class="fa fa-fw fa-lg fa-times-circle"></i>取消</a> -->
             </form>
