@@ -102,16 +102,18 @@ public class AcrServlet extends HttpServlet{
 				String memmailReg = "^.*@.*\\..*$";
 				MemService memSvc = new MemService();
 				MemVO memVO = memSvc.getEmailForLogin(memmail);
-				String memno = null;
+				String memno ="";
 				if (memmail == null || memmail.trim().length() == 0) {
 					errorMsgs.add("請輸入搜尋的會員帳號");
 				} else if(!memmail.trim().matches(memmailReg)) {
 					errorMsgs.add("會員帳號請輸入正確");
-	            }else if(memVO.getMemno().isEmpty()) {
+	            }else if(memVO==null) {
 	            	errorMsgs.add("查無此會員");
 	            }else {
 	            	memno = new String(memVO.getMemno());
 	            }
+	            	
+	           
 				
 				java.sql.Timestamp atime = null;
 				try {
@@ -162,7 +164,7 @@ public class AcrServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/acr/listEmpSearchAcr.jsp");
+						.getRequestDispatcher("/backend/acr/listAllAcr.jsp");
 				failureView.forward(req, res);
 			}
 		}
