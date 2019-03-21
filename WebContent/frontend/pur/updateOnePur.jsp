@@ -310,6 +310,18 @@ pageContext.setAttribute("name",name);
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
 
+
+ <!-- JavaScript Libraries -->
+  <script src="<%= request.getContextPath() %>/style/f/lib/popper/popper.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/easing/easing.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="<%= request.getContextPath() %>/style/f/lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="<%= request.getContextPath() %>/style/f/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="<%= request.getContextPath() %>/style/f/js/main.js"></script>
 </body>
 </html>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
