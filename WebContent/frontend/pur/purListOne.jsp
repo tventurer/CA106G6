@@ -93,7 +93,6 @@
 				}else{
 					window.history.go(-1); 
 				}
-    			document.location.href="<%=request.getContextPath()%>/memlogin.jsp";
     		}else if(check=="檢舉原因不得為空白"){
     			alert("檢舉原因不得為空白");
     		}
@@ -192,16 +191,26 @@
 		 </c:choose>
 		 </c:forEach>
 		 </c:if>
-		 <c:choose> 
-		 <c:when test="${sellmem != memno}">
-		 <div class="col-md-12">
-   		 <input type="hidden" name="action" value="insert">
-   		 <input type="text" name="memno" value="${memno}">
-   		 <input type="hidden" name="purid" value="${purid}">
-         <button type="submit" class="btn btn-a">購買</button>
-         </div>
-		 </c:when>
-		 </c:choose>
+		 
+		  <c:if test="${not empty memno}">
+			 <c:if test="${sellmem != memno}">
+			 <div class="col-md-12">
+	   		 <input type="hidden" name="action" value="insert">
+	   		 <input type="hidden" name="memno" value="${memno}">
+	   		 <input type="hidden" name="purid" value="${purid}">
+	         <button type="submit" class="btn btn-a">購買</button>
+	         </div>
+			 </c:if>
+		  </c:if>
+		  
+		   <c:if test="${empty memno}">
+		   	 <div class="col-md-12">
+	         <input type="button" class="btn btn-a" onclick="location.href='<%=request.getContextPath()%>/memlogin.jsp' " value="購買" >
+	         </div>
+		   </c:if>
+		 
+		 
+		 
            </div>
            <br>
          </form>

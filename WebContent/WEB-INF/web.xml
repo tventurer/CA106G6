@@ -35,7 +35,6 @@
     <url-pattern>/frontend/por/listBuyPor.jsp</url-pattern>
     <url-pattern>/frontend/acr/listMemAcr.jsp</url-pattern>
     <url-pattern>/frontend/acr/addOneAcr.jsp</url-pattern>
-    <url-pattern>/frontend/por/addOnePor.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

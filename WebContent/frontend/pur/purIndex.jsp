@@ -99,14 +99,14 @@
               <div class="card-overlay-a-content">
                 <div class="card-header-a">
                   <h2 class="card-title-a">
-                    <a href="#">${purVO.purname}</a>
+                    <a href="<%=request.getContextPath()%>/frontend/pur/purListOne.jsp?purid=${purVO.purid}">${purVO.purname}</a>
                   </h2>
                 </div>
                 <div class="card-body-a">
                   <div class="price-box d-flex">
                     <span class="price-a">NT | $ ${purVO.purpricing}</span>
                   </div>
-                  <a href="purListOne.jsp?purid=${purVO.purid}" class="link-a">商品詳情
+                  <a href="<%=request.getContextPath()%>/frontend/pur/purListOne.jsp?purid=${purVO.purid}" class="link-a">商品詳情
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
