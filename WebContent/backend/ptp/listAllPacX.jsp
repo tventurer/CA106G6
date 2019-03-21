@@ -61,7 +61,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+<a href='addPacX.jsp'>新增</a>一個套裝行程 .
 <table>
 	<tr>
 		<th>行程編號</th>

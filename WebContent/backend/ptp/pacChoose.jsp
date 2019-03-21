@@ -19,6 +19,20 @@ pageContext.setAttribute("list",list);
 List<PtpVO> listptp = ptpSvc.getAll();
 pageContext.setAttribute("listptp", listptp);
 %>
+
+
+<%
+String errorInfo = (String)request.getAttribute("loginError");
+if(ptpVO.getPtpno()==null) {
+%>
+<script type="text/javascript" language="javascript">
+alert("<%=errorInfo%>");                                            // 弹出错误信息
+
+window.location="pacHead.jsp" ;                            // 跳转到登录界面
+</script>	
+<%
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>

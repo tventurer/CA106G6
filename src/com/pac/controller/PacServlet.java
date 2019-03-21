@@ -243,6 +243,11 @@ public class PacServlet extends HttpServlet {
 	            }
 				
 				String paccontent = req.getParameter("paccontent");
+				if (paccontent == null || paccontent.trim().length() == 0) {
+					errorMsgs.add("行程內容: 請勿空白");
+				} else if(paccontent.trim().length()>120) { //以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("行程內容: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到120之間");
+	            }
 								
 				Part pactchar1=req.getPart("pactchar1");
 				byte[] imgbyte1=new byte[pactchar1.getInputStream().available()];;

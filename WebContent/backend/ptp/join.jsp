@@ -11,6 +11,7 @@
 <jsp:useBean id="pcdSvc" scope="page" class="com.pcd.model.PcdService"/>
 
 <%
+String memno=(String)session.getAttribute("memno");
 String ptpno = request.getParameter("ptpno");
 PtpVO ptpVO = ptpSvc.getOnePtp(ptpno);
 String pacno = ptpVO.getPacno();
@@ -69,17 +70,18 @@ pageContext.setAttribute("pcdVO", pcdVO);
   		<tr>
   		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pcd/pcd?ptpno=<%=ptpVO.getPtpno()%>" name="form1">
             <td class="group_Preferences_Content">
-            	◎ 會員編號：<input type="TEXT" name="memno" size="30" 
-			value="<%= (pcdVO == null)? "MEM000001" : pcdVO.getMemno()%>"><br>
+            	◎ 會員編號：${memno} 
+            	<input type="hidden" name="memno" size="30" 
+			value="<%= pcdVO.getMemno()%>"><br>
                
 			    ◎ 旅遊編號 ：<span style="color: #036eb7">
                        <%=ptpVO.getPtpno()%>
                        </span><br>
                      
                                         ◎ 出發日期：
-                                        <%=ptpVO.getPtpstart()%>(<font color='red'>日</font>)
+                                        <fmt:formatDate value="${ptpVO.ptpstart}" pattern="yyyy-MM-dd HH:MM EE"/>
                                         -
-                                        <%=ptpVO.getPtpend()%>(四)<br />
+                                        <fmt:formatDate value="${ptpVO.ptpend}" pattern="yyyy-MM-dd EE"/><br />
            	     ◎ 團體費用：    <span><b><%=pacVO.getPacprice()%></b>  </span><br />
                                         ◎ 每人訂金：<span style="color: #F00;">&nbsp;&nbsp;<%=pacVO.getPacdeposit()%></span><br />
             </td>
@@ -179,10 +181,10 @@ pageContext.setAttribute("pcdVO", pcdVO);
 		<input type="hidden" name="action" value="join4">
 		<input type="submit" value="送出新增">
 		</FORM>
-		
-		
-	
      </table>
+      <tr>
+          <td height="60px"></td>
+      </tr>
        
 </body>
 </html>
