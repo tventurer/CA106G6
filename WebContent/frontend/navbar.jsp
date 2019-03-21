@@ -61,7 +61,7 @@
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/mem/MyPage.jsp">基本資料</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/pho/phocontrol?action=listMeOrder&memno=${memno}">我的機加酒</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/tri/listTriByMem.jsp">我的自由行</a>
-              <a class="dropdown-item" href="property-single.html">我的套裝行程</a>
+              <a class="dropdown-item" href="<%= request.getContextPath() %>/backend/pcd/memListAll.jsp?memno=${memno}">我的套裝行程</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/pos/ListByMemno.jsp?memno=${memno}">文章管理</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/pur/listMemPur.jsp">代購商品管理</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/por/listSellPor.jsp">賣家訂單管理</a>
@@ -70,7 +70,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
+<!--             <a class="nav-link" href="contact.html">Contact</a> -->
           </li>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <li class="nav-item">
