@@ -11,7 +11,7 @@
     }
 EmpService empSvc = new EmpService();
 EmpVO empVO = empSvc.getOneEmp(empno);
-
+session.setAttribute("empno",empVO.getEmpno());
 %>
 <!DOCTYPE html>
 <html lang="en">
