@@ -353,7 +353,7 @@ public class TdeDAO implements TdeDAO_interface{
 	
 
 	//**********android專用
-	private static final String GETDAYS_STMT = "SELECT TDEDATE FROM TRIPDETAIL WHERE trino=? GROUP BY TDEDATE";
+	private static final String GETDAYS_STMT = "SELECT TDEDATE FROM TRIPDETAIL WHERE trino=? GROUP BY TDEDATE ORDER BY TDEDATE";
 	
 	//**********android專用
 	@Override

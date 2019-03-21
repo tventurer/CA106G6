@@ -93,6 +93,7 @@
    				<br><br><br>
 				<input type="submit" class="btn btn-b" value="確認購買">
 				<input type="hidden" name="action" value="insert">
+				<input type="hidden" name="memno" value="${memno}">
 			</form>
 			<br>
 			

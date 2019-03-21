@@ -125,7 +125,7 @@ public class PhoServlet extends HttpServlet {
 				Integer phototal = totalbuy;
 				
 				//輸入員工編號
-				String memno = "MEM000001";
+				String memno = req.getParameter("memno");
 				
 				PhoVO phovo = new PhoVO();
 				phovo.setPhoowner(phoowner);
@@ -263,12 +263,13 @@ public class PhoServlet extends HttpServlet {
 			
 			try {
 				String phono = req.getParameter("orderID");
+				String memno = req.getParameter("memno");
 				
 				PhoService phs = new PhoService();
 				PhoVO phoVO = phs.getOnePho(phono);
 				phs.changeStatus(2, "", phoVO.getPhono());
 				
-				RequestDispatcher success = req.getRequestDispatcher("/pho/phocontrol?action=listMeOrder&memno=MEM000001");
+				RequestDispatcher success = req.getRequestDispatcher("/pho/phocontrol?action=listMeOrder&memno="+memno);
 				success.forward(req, res);
 				return;
 				

@@ -90,7 +90,7 @@
                       <span class="color-b">旅遊由我安排 </span> 
                       <br> 讓您無後顧之憂</h1>
                     <p class="intro-subtitle intro-price">
-                      <a href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp"><span class="price-a">熱烈報名中</span></a>
+                      <a href="<%= request.getContextPath() %>/backend/ptp/pacHead.jsp"><span class="price-a">熱烈報名中</span></a>
                     </p>
                   </div>
                 </div>

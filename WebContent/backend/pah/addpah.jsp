@@ -317,7 +317,6 @@ function buildInfo(){
 	$("#pahstdate").val("2018-10-08");
 	$("#pahenddate").val("2019-03-29");
 	$("#pahdown").val("2018-10-01 17:22:37");
-	$("#empno").val("EMP000001");
 }
 
 </script>

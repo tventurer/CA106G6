@@ -136,6 +136,7 @@
 								<form action="<%=request.getContextPath()%>/pho/phocontrol" method="post">
 									<input type="hidden" name="action" value="returnPah">
 									<input type="hidden" name="orderID" value="<%=phoVO.getPhono()%>">
+									<input type="hidden" name="memno" value="${memno}">
 									<%if(phoVO.getPhostatus()==0){%>
 										<input type="submit" value="申請退貨" class="btn btn-info">									
 									<%}else{%>

@@ -145,6 +145,55 @@
 					</c:forEach>                    
                 </tbody>
               </table>
+              
+              
+<!-- 顯示全部訂單   -->
+              <table class="table table-hover table-bordered" id="sampleTable">
+			   <HR>
+             	<h2> 全部訂單列表  </h2>
+                <thead>
+                  <tr>
+					<th>訂單編號</th>
+					<th>主要聯絡人姓名</th>
+					<th>電話號碼</th>
+					<th>E-Mail</th>
+					<th>訂單成立日期</th>
+					<th>機加酒訂單狀態</th>
+					<th>信用卡號碼</th>
+					<th>總金額</th>
+					<th>會員編號</th>
+                  </tr>
+                </thead>
+                <tbody>
+	               	<c:forEach var="phoVO" items="${list}" varStatus="s">
+							<tr>
+								<td>${phoVO.phono}</td>
+								<td>${phoVO.phoowner}</td>
+								<td>${phoVO.phophone}</td> 
+								<td>${phoVO.phomail}</td>
+								<td>${phoVO.phostdate}</td>
+								<c:if test="${phoVO.phostatus==0}">
+									<td>商品未送出</td>
+								</c:if>
+								<c:if test="${phoVO.phostatus==1}">
+									<td>商品已寄出</td>
+								</c:if>
+								<c:if test="${phoVO.phostatus==2}">
+									<td>退貨審核中</td>
+								</c:if>
+								<c:if test="${phoVO.phostatus==3}">
+									<td>已退貨</td>
+								</c:if>
+								<c:if test="${phoVO.phostatus==4}">
+									<td>退貨失敗</td>
+								</c:if>
+								<td>${phoVO.phovisa}</td>
+								<td>${phoVO.phototal}</td>
+								<td>${phoVO.memno}</td>
+							</tr>
+					</c:forEach>                    
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
