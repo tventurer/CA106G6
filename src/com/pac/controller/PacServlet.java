@@ -174,9 +174,9 @@ public class PacServlet extends HttpServlet {
 				if (pacname == null || pacname.trim().length() == 0) {
 					errorMsgs.add("套裝行程名稱: 請勿空白");
 				} else if(!pacname.trim().matches(pacnameReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
+					errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到120之間");
 	            }
-				String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.(a-zA-Z)\\D]{2,60}$";
+				String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.(a-zA-Z)\\D]{2,120}$";
 				String paccountry = req.getParameter("paccountry");
 				if (paccountry == null || paccountry.trim().length() == 0) {
 					errorMsgs.add("旅遊國家請勿空白");
@@ -226,7 +226,7 @@ public class PacServlet extends HttpServlet {
 				}
 				
 				String pacdiv = req.getParameter("pacdiv");
-				String pacdivReg = "^[(\u4e00-\u9fa5)+,?\\,\\~\\，\\-\\.(a-zA-Z0-9_)]{2,120}$";
+				String pacdivReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.(a-zA-Z0-9_)]{2,120}$";
 				if (pacdiv == null || pacdiv.trim().length() == 0) {
 					errorMsgs.add("特色標籤: 請勿空白");
 				} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
@@ -355,7 +355,7 @@ public class PacServlet extends HttpServlet {
 					errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字, 且長度必需在2到120之間");
 	            }
 				
-				String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.\\-(a-zA-Z)\\D]{2,60}$";
+				String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.\\-(a-zA-Z)\\D]{2,120}$";
 				String paccountry = req.getParameter("paccountry").trim();
 				if (paccountry == null || paccountry.trim().length() == 0) {
 					errorMsgs.add("旅遊國家請勿空白");
@@ -520,7 +520,7 @@ public class PacServlet extends HttpServlet {
 						errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字, 且長度必需在2到120之間");
 		            }
 					
-					String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.\\-(a-zA-Z)\\D]{2,60}$";
+					String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.\\-(a-zA-Z)\\D]{2,120}$";
 					String paccountry = req.getParameter("paccountry").trim();
 					if (paccountry == null || paccountry.trim().length() == 0) {
 						errorMsgs.add("旅遊國家請勿空白");
@@ -693,7 +693,7 @@ public class PacServlet extends HttpServlet {
 					} else if(!pacname.trim().matches(pacnameReg)) { //以下練習正則(規)表示式(regular-expression)
 						errorMsgs.add("套裝行程名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到20之間");
 		            }
-					String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.(a-zA-Z)\\D]{2,60}$";
+					String paccountryReg = "^[(\u4e00-\u9fa5)\\,\\~\\，\\-\\.(a-zA-Z)\\D]{2,120}$";
 					String paccountry = req.getParameter("paccountry");
 					if (paccountry == null || paccountry.trim().length() == 0) {
 						errorMsgs.add("旅遊國家請勿空白");
