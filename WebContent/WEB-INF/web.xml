@@ -25,6 +25,22 @@
     <filter-name>memLoginFilter</filter-name>
     <filter-class>filters.MemLoginFilter</filter-class>
   </filter>
+  <filter-mapping>
+    <filter-name>memLoginFilter</filter-name>
+    <url-pattern>/frontend/pho/order.jsp</url-pattern>
+    <url-pattern>/frontend/pho/listorder.jsp</url-pattern>
+    <url-pattern>/frontend/tri/listTriByMem.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  
+  
+  
+  
   
   <servlet>
     <servlet-name>pos</servlet-name>

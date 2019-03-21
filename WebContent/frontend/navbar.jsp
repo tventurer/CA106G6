@@ -59,10 +59,10 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/mem/MyPage.jsp">基本資料</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/pho/phocontrol?action=listMeOrder&memno=MEM000001">我的機加酒</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/pho/phocontrol?action=listMeOrder&memno=${memno}">我的機加酒</a>
               <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/tri/listTriByMem.jsp">我的自由行</a>
               <a class="dropdown-item" href="property-single.html">我的套裝行程</a>
-              <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/pos/ListByMemno.jsp?memno=${memVO.memno}">文章管理</a>
+              <a class="dropdown-item" href="<%= request.getContextPath() %>/frontend/pos/ListByMemno.jsp?memno=${memno}">文章管理</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/pur/listMemPur.jsp">代購商品管理</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/por/listSellPor.jsp">賣家訂單管理</a>
               <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/por/listBuyPor.jsp">買家訂單管理</a>
