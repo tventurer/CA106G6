@@ -53,6 +53,7 @@
         <div>
           <h1><i class="fa fa-th-list"></i>機加酒商品列表</h1>
           <p>T-Venture</p>
+          <a class="nav-link" href="<%=request.getContextPath()%>/pah/pahcontrol?action=listPahBySelect">至前台查看商品</a>
         </div>
       </div>
 

@@ -33,6 +33,7 @@ public class EmpServlet extends HttpServlet {
 		//頁面顯示
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
+		res.setContentType("image/jpeg");
 		ServletOutputStream outpic = res.getOutputStream();
 		
 		try {
