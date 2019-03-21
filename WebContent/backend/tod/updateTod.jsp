@@ -177,7 +177,8 @@ color: red;
               <input type="hidden" name="whichPage" value="${whichPage}">
               <input type="hidden" name="todno" value="${param.todno}">
               <input type="hidden" name="action" value="update">
-              <a class="btn btn-primary" href="javascript:document.form.submit()"><i class="fa fa-fw fa-lg fa-check-circle"></i>送出</a>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="javascript:history.back(-1)"><i class="fa fa-fw fa-lg fa-times-circle"></i>取消</a>
+              <a class="btn btn-primary" href="javascript:document.form.submit()"><i class="fa fa-fw fa-lg fa-check-circle"></i>送出</a>
+<!--               &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="javascript:history.back(-1)"><i class="fa fa-fw fa-lg fa-times-circle"></i>取消</a> -->
             </div>
             </form>
             </div>

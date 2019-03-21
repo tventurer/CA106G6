@@ -62,7 +62,8 @@ color: red;
               <input type="hidden" name="come" value="backend">
               <input type="hidden" name="action" value="update">
               <input type="hidden" name="trino" value="${triVO.trino}">
-              <a class="btn btn-primary" href="javascript:document.form.submit()"><i class="fa fa-fw fa-lg fa-check-circle"></i>送出</a>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="javascript:history.back(-1)"><i class="fa fa-fw fa-lg fa-times-circle"></i>取消</a>
+              <a class="btn btn-primary" href="javascript:document.form.submit()"><i class="fa fa-fw fa-lg fa-check-circle"></i>送出</a>
+<!--               &nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="javascript:history.back(-1)"><i class="fa fa-fw fa-lg fa-times-circle"></i>取消</a> -->
             </form>
             </div>
           </div>

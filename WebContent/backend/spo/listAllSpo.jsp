@@ -55,7 +55,6 @@ height: 100px;
                   <th>簡介</th>
                   <th>照片</th>
                   <th>修改</th>
-                  <th>刪除</th>
                 </tr>
               </thead>
               <tbody>
@@ -94,14 +93,6 @@ height: 100px;
 	              	<input type="hidden" name="spono" value="${spoVO.spono}">
 	              	<input type="hidden" name="action" value="getOneForUpdate">
 	              	<button type="submit">修改</button>
-	              	</form>
-	              </td>
-	              <td>
-	              	<form method="post" action="spo">
-	              	<input type="hidden" name="whichPage" value="${param.whichPage}">
-	              	<input type="hidden" name="spono" value="${spoVO.spono}">
-	              	<input type="hidden" name="action" value="delete">
-	              	<button type="submit">刪除</button>
 	              	</form>
 	              </td>
                 </tr>

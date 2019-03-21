@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.spo.model.*"%>
 <%@ page import="com.spo.controller.*"%>
+<%@ page import="com.tde.model.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -166,12 +167,15 @@ background: rgb(219,219,219);
 	<!-- 非付費的    -->
 
 <!-- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYmC8oUYc9DGAZn8hqZKakFeclhAbTRSI"></script> -->
-	
+
 <script>
 
 <% 
 //依使用者選擇的城市換算緯經度傳給初始化地圖
-String city = (String)session.getAttribute("city");
+TdeService tdeSvc = new TdeService();
+SpoService spoSvc = new SpoService();
+//取行程中第一天第一個景點的城市為初始城市
+String city = spoSvc.getOneSpo(tdeSvc.getAllByTri("TRI000001").get(0).getSpono()).getSpocity();
 double[] latlong = AddrToLatLong.getLatLong(city);
 %>
 
@@ -235,8 +239,7 @@ double[] latlong = AddrToLatLong.getLatLong(city);
 	var day = "D1";
 	var index = parseInt(day.substring(1,2));
 	var whichDate = "${triVO.tribegdate}";
-
-//使用者更改日期時呼叫此方法,將輸入值傳入whichDate
+	
 function changeDate(){
 	whichDate = $("#tribegdate").val();
 }
@@ -273,7 +276,7 @@ function makeTdeVO(e){
 			}
 		}
 		
-		//日期天數設定(點擊day1 day2時計算天數)
+		//日期天數設定
 		var date = new Date(whichDate.substring(0,4), (whichDate.substring(5,7))-1, whichDate.substring(8,10));
 		var nextDate = date.getTime() + (index-1)*24*60*60*1000;
 		var y = new Date(nextDate).getFullYear().toString();
@@ -365,8 +368,20 @@ function makeTdeVO(e){
 	$("#tResult").on("click", cloneNode);
 	
 	var tripList = new Array();
-	//從session中拿出行程集合轉javascript物件
-	<% Map<String,List<SpoVO>> dayTripList = (Map<String,List<SpoVO>>)session.getAttribute("dayTripList");
+	
+	
+//從TdeService中呼叫方法拿出該行程集合轉javascript物件=====================================
+	<% 
+	List<TdeVO> tdeList = tdeSvc.getAllByTri("TRI000001");
+	Map<String,List<SpoVO>> map = new LinkedHashMap<String,List<SpoVO>>();
+	List<SpoVO> spoList = new ArrayList<SpoVO>();
+	
+	for(TdeVO tdeVO : tdeList){
+// 		if(tdeVO.getTdedate){
+			
+// 		}
+	}
+	Map<String,List<SpoVO>> dayTripList = (Map<String,List<SpoVO>>)session.getAttribute("dayTripList");
 	   List<SpoVO> tripList = null; 
 	   if(dayTripList != null){
 	   	 for(int j=0; j<dayTripList.keySet().size(); j++){
@@ -596,8 +611,10 @@ function makeTdeVO(e){
                                                             + "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' onchange='setMinHour()' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
                                                             + '</div></div>');
                                                     
-                                                    $(".time_element").timepicki();
+                                                    
                                                     $("#delSpot" +pos).on("click", delSpot);
+                                                    
+                                                    $('.startTime').timepicki();
                                                     
                                                     debugger
                                                     if(tripList[index-1].length > 1){
@@ -1528,24 +1545,24 @@ function addHotelMarker(){
 <!-- 儲存行程ajax -->
     <script>
     
-//  		$('#save').on('click',function(){
-//  			var xhr = new XMLHttpRequest();
-//  			xhr.onload = function(){
-// 				if(xhr.readyState == 4){
-// 					if(xhr.status == 200){
-// 						var abc = xhr.responseText;
-// 						console.log("-----"abc);
-// 						debugger
-// 						alert("儲存成功!");
-// 					} else{
-// 						alert(xhr.status);
-// 					}
-// 				}
-// 			}
-<%-- 			xhr.open("POST", "<%= request.getContextPath() %>/frontend/tde/tde", true); --%>
-// 			xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
-// 			xhr.send("action=save");
-//  		})   
+ 		$('#save').on('click',function(){
+ 			var xhr = new XMLHttpRequest();
+ 			xhr.onload = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200){
+						var abc = xhr.responseText;
+						console.log("-----"abc);
+						debugger
+						alert("儲存成功!");
+					} else{
+						alert(xhr.status);
+					}
+				}
+			}
+			xhr.open("POST", "<%= request.getContextPath() %>/frontend/tde/tde", true);
+			xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+			xhr.send("action=save");
+ 		})   
     
  	</script>
     
