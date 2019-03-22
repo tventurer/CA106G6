@@ -100,7 +100,7 @@
               <div class="card-overlay-a-content">
                 <div class="card-header-a">
                   <h2 class="card-title-a">
-                    <a href="#">${purVO.purname}</a>
+                    <a href="purListOne.jsp?purid=${purVO.purid}">${purVO.purname}</a>
                   </h2>
                 </div>
                 <div class="card-body-a">
