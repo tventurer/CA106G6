@@ -169,8 +169,10 @@ session.setAttribute("empno",empVO.getEmpno());
 <!----------------------------------------- 套裝行程 --------------------------------------------------------->
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">套裝行程管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pac/addPac.jsp"><i class="icon fa fa-circle-o"></i>套裝行程新增</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pac/listAllPac.jsp"><i class="icon fa fa-circle-o"></i> 所有套裝行程列表</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/ptp/listAllPacX.jsp"><i class="icon fa fa-circle-o"></i>套裝行程總攬</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pcd/select_page.jsp"><i class="icon fa fa-circle-o"></i>報名訂單管理</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/ptp/select_page.jsp"><i class="icon fa fa-circle-o"></i>出團資訊管理</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/backend/pac/select_page.jsp"><i class="icon fa fa-circle-o"></i>套裝行程管理</a></li>
           </ul>
         </li>
 <!----------------------------------------- 機加酒 --------------------------------------------------------->
