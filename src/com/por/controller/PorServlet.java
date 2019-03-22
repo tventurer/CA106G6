@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.acr.model.AcrService;
 import com.acr.model.AcrVO;
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
+import com.mpm.model.MpmService;
 import com.por.model.PorService;
 import com.por.model.PorVO;
 import com.pur.model.PurService;
@@ -156,7 +159,59 @@ public class PorServlet extends HttpServlet{
 							.getRequestDispatcher("/frontend/por/listBuyPor.jsp");
 					failureView.forward(req, res);
 				}
-			}		 
+			}	
+		 if ("updata_porlogistics_rs".equals(action)) { // 來自listOneSellPur.jsp的請求
+
+				List<String> errorMsgs = new LinkedList<String>();
+				// Store this set in the request scope, in case we need to
+				// send the ErrorPage view.
+				req.setAttribute("errorMsgs", errorMsgs);
+
+//				try {
+					/***************************1.接收請求參數****************************************/
+					String porid = new String(req.getParameter("porid").trim());
+//					String purid = new String(req.getParameter("purid").trim());
+					Integer porlogistics = new Integer(req.getParameter("porlogistics"));
+
+					Integer porstatus = new Integer(req.getParameter("porstatus"));
+
+					PorService porSvc = new PorService();
+					PorVO porVO = porSvc.getOnePor(porid);
+					String purid = porVO.getPurid();
+					Integer checklogistics = porVO.getPorlogistics();
+					String buymemno = porVO.getMemno();
+					String memno = new String(req.getParameter("memno").trim());
+
+					if(checklogistics != porlogistics) {
+
+								porSvc.updatePorStatusTime(porstatus, porid);
+
+
+
+					/***************************2.開始查詢資料****************************************/
+					porSvc.updatePorlogistics(porlogistics, porid);
+
+					/***************************3.查詢完成,準備轉交(Send the Success view)************/
+					if(memno.equals(buymemno)) {//是買家
+						String url = req.getContextPath()+"/frontend/por/listBuyPor.jsp?memno="+memno;
+						res.sendRedirect(url);// 成功轉交 listBuyPor.jsp
+					}else if(!memno.equals(buymemno)){
+						String url = req.getContextPath()+"/frontend/por/listOneSellPur.jsp?purid="+purid+"&memno="+memno;
+						res.sendRedirect(url);// 成功轉交 listOneSellPur.jsp
+					}else {
+						String url = req.getContextPath()+"/frontend/por/listOneSellPur.jsp?purid="+purid+"&memno="+memno;
+						res.sendRedirect(url);// 成功轉交 listOneSellPur.jsp
+					}
+
+					}
+					/***************************其他可能的錯誤處理**********************************/
+//				} catch (Exception e) {
+//					errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/frontend/por/listOneSellPur.jsp");
+//					failureView.forward(req, res);
+//				}
+					}
 		 
 		 if ("updata_porstatus".equals(action)) { // 來自listBuyPor.jsp的請求 
 
@@ -166,6 +221,9 @@ public class PorServlet extends HttpServlet{
 				req.setAttribute("errorMsgs", errorMsgs);
 				PorService porSvc = new PorService();
 				PurService purSvc = new PurService();
+				MpmService mpmSvc = new MpmService();
+				MemService memSvc = new MemService();
+
 
 				try {
 					/***************************1.接收請求參數****************************************/
@@ -198,6 +256,25 @@ public class PorServlet extends HttpServlet{
 						return;//交易完成，在此結束
 					}
 					
+					if(porstatus == 4 || porstatus == 7 ) {//賣家不給予退換貨，錢將轉給賣家
+
+						Integer momeny = porVO.getPorprice();//這筆訂單的價格
+						String acrend = "訂單編號為："+purid+"，交易完成已將金額轉入您的儲值。";
+
+
+
+						AcrService acrSvc = new AcrService();
+						Integer acrtotal = acrSvc.getMemacrtotal(sellmemno);
+						acrtotal = acrtotal + momeny;
+						acrSvc.addAcr(sellmemno, momeny, 1, acrend, acrtotal);
+
+						porSvc.updatePorStatusTime(1, porid);
+
+						String url = req.getContextPath()+"/frontend/por/listOneSellPur.jsp?memno="+sellmemno+"&purid="+purid;
+						res.sendRedirect(url); 
+						return;//交易完成，在此結束
+					}
+					
 					if(porstatus == 9) {//退貨成功，錢將轉給買家
 						
 						Integer momeny = porVO.getPorprice();//這筆訂單的價格
@@ -209,12 +286,58 @@ public class PorServlet extends HttpServlet{
 						Integer acrtotal = acrSvc.getMemacrtotal(buymemno);
 						acrtotal = acrtotal + momeny;
 						acrSvc.addAcr(buymemno, momeny, 1, acrend, acrtotal);
-						
+						porSvc.updatePorlogistics(8, porid);
 						porSvc.updatePorStatusTime(porstatus, porid);
 						
 						String url = req.getContextPath()+"/frontend/por/listOneSellPur.jsp?memno="+sellmemno+"&purid="+purid;
 						res.sendRedirect(url); 
 						return;//交易完成，在此結束
+					}
+					if(porstatus==5) {
+						String sor = new String(req.getParameter("changebuy").trim());
+						if(sor==null||sor.trim().length()==0) {
+							errorMsgs.add("換貨原因請勿空白");
+						}
+
+						if (!errorMsgs.isEmpty()) {
+							RequestDispatcher failureView = req
+									.getRequestDispatcher("/frontend/por/listBuyPor.jsp?memno="+buymemno);
+							failureView.forward(req, res);
+							return;
+						}
+						MemVO memVO =memSvc.getOneMem(buymemno);
+						String memname = memVO.getMemrealname();
+						String mpmtitle = "有來自會員"+memname+"的換貨要求";
+						String sorString = "換貨原因："+sor+"<br>"+"<a href='"+req.getContextPath()+"/frontend/por/listOneSellPur.jsp?memno="+sellmemno+"&purid="+purid+"'>訂單連結</a>";
+						mpmSvc.addMpm(buymemno, buymemno, mpmtitle, sorString);
+
+						porSvc.updatePorStatusTime(porstatus, porid);
+						String url = req.getContextPath()+"/frontend/por/listBuyPor.jsp?memno="+buymemno;
+						res.sendRedirect(url);;// 成功轉交 listBuyPor.jsp
+						return;
+					}
+
+					if(porstatus==2) {
+						String sor = new String(req.getParameter("backbuy").trim());
+						if(sor==null||sor.trim().length()==0) {
+							errorMsgs.add("退貨原因請勿空白");
+						}
+
+						if (!errorMsgs.isEmpty()) {
+							RequestDispatcher failureView = req
+									.getRequestDispatcher("/frontend/por/listBuyPor.jsp?memno="+buymemno);
+							failureView.forward(req, res);
+							return;
+						}
+						MemVO memVO =memSvc.getOneMem(buymemno);
+						String memname = memVO.getMemrealname();
+						String mpmtitle = "有來自會員"+memname+"的退貨要求";
+						String sorString = "退貨原因："+sor+"<br>"+"<a href='"+req.getContextPath()+"/frontend/por/listOneSellPur.jsp?memno="+sellmemno+"&purid="+purid+"'>訂單連結</a>";
+						mpmSvc.addMpm(buymemno, buymemno, mpmtitle, sorString);
+						porSvc.updatePorStatusTime(porstatus, porid);
+						String url = req.getContextPath()+"/frontend/por/listBuyPor.jsp?memno="+buymemno;
+						res.sendRedirect(url);;// 成功轉交 listBuyPor.jsp
+						return;
 					}
 					
 					

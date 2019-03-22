@@ -279,13 +279,13 @@
               <div class="row section-t3">
                 <div class="col-sm-12">
                   <div class="title-box-d">
-                    <h4 class="title-d">購買評價限制</h4>
+<!--                     <h4 class="title-d">購買評價限制</h4> -->
                   </div>
                 </div>
               </div>
               <div class="amenities-list color-text-a">
                 <ul class="list-a no-margin">
-                  <p><i class="fa fa-user-times" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;購買者的購物評價<%=purVO.getPurlimit() %>以下不得購買</p>
+<%--                   <p><i class="fa fa-user-times" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;購買者的購物評價<%=purVO.getPurlimit() %>以下不得購買</p> --%>
                 </ul>
               </div>
               <div class="amenities-list color-text-a">
@@ -309,7 +309,7 @@
 				%>
 				</select>
 				<br><br>
-				檢舉原因原因：<br>
+				檢舉原因：<br>
 				<textarea class="form-control rounded-0" name="precause" rows="4" ></textarea>
 				<input type="hidden" name="purid"  value="${purid}">
 				<input type="hidden" name="action"	value="insert">
