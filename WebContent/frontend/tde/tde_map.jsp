@@ -640,10 +640,12 @@ function makeTdeVO(e){
                         marker[i].addListener('mouseout', function(){
                             var pos = marker.indexOf(this);
                             debugger
-                        	smTimeout[pos] = setTimeout(function(){
+                            isOpen = false;
+                            if(iWindow[pos]){
+                        		smTimeout[pos] = setTimeout(function(){
                         		iWindow[pos].close();
-                        		isOpen = false;
                         		}, 300);
+                            }
                         });
                         
                         
@@ -824,11 +826,14 @@ function addFoodMarker(){
                   
                   foodMark[i].addListener('mouseout', function(){
                       var pos = foodMark.indexOf(this);
+                      console.log("foodMark[pos]:" + iWindow[pos])
                       debugger
                       isOpen = false;
-                  		fmTimeout[pos] = setTimeout(function(){
-                  			iWindow[pos].close();
-                  		}, 300);
+                      	if(iWindow[pos]){
+	                  		fmTimeout[pos] = setTimeout(function(){
+	                  			iWindow[pos].close();
+	                  		}, 300);
+                      	}
                   });
                   
                   
@@ -995,11 +1000,14 @@ function addMuseumMarker(){
                   
                   museumMark[i].addListener('mouseout', function(){
                       var pos = museumMark.indexOf(this);
+                      console.log("museumMark[pos]:" + iWindow[pos])
                       debugger
-                  	mmTimeout[pos] = setTimeout(function(){
-                  		iWindow[pos].close();
-                  		isOpen = false;
-                  		}, 300);
+                      isOpen = false;
+                      if(iWindow[pos]){
+	                  		mmTimeout[pos] = setTimeout(function(){
+	                  		iWindow[pos].close();
+	                  		}, 300);
+                      }
                   });
                   
                   
@@ -1166,11 +1174,14 @@ function addNightMarker(){
                   
                   nightMark[i].addListener('mouseout', function(){
                       var pos = nightMark.indexOf(this);
+                      console.log("nightMark[pos]:" + iWindow[pos])
                       debugger
-                  	nmTimeout[pos] = setTimeout(function(){
+                      isOpen = false;
+                      if(iWindow[pos]){
+                  		nmTimeout[pos] = setTimeout(function(){
                   		iWindow[pos].close();
-                  		isOpen = false;
                   		}, 300);
+                      }
                   });
                   
                   
@@ -1337,11 +1348,14 @@ function addHotelMarker(){
                   
                   hotelMark[i].addListener('mouseout', function(){
                       var pos = hotelMark.indexOf(this);
+                      console.log("hotelMark[pos]:" + iWindow[pos])
                       debugger
-                  	hmTimeout[pos] = setTimeout(function(){
+                      isOpen = false;
+                      if(iWindow[pos]){
+                  		hmTimeout[pos] = setTimeout(function(){
                   		iWindow[pos].close();
-                  		isOpen = false;
                   		}, 300);
+                      }
                   });
                   
                   
