@@ -17,7 +17,7 @@
 	String purstatus[] = { "未上架", "上架中", "已下架", "檢舉下架" };
 	request.setAttribute("purstatus", purstatus);
 
-	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養" };
+	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養", "異國美食"};
 	request.setAttribute("pursort", pursort);
 %>
 
@@ -109,13 +109,13 @@
 												pageContext.setAttribute("Por_num", Por_num);
 										%>
 										<td>${Por_num}</td>
-										<c:forEach var="porVO" items="${Porlist1}" varStatus="a">
+										<td><c:forEach var="porVO" items="${Porlist1}" varStatus="a">
 										<c:choose>
 										<c:when test="${a.last}">
-											<td><fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/></td>
+											<fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/>
 										</c:when>
 										</c:choose>
-										</c:forEach>
+										</c:forEach></td>
 										<td>
 							     		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
 						   		     	     <input type="submit" value="查看">

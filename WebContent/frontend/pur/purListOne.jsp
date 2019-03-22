@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.pur.model.*"%>
+<%@ page import="com.mem.model.*"%>
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.acr.model.*"%>
 <% 
@@ -51,24 +52,30 @@
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
             <h1 class="title-single"><%=purVO.getPurname() %></h1>
-            <span class="color-text-a">商品類別：<%=purVO.getPursort() %></span>
+            <span class="color-text-a">商品類別：
+            <%
+            String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養", "異國美食"};
+        	Integer pursortno = purVO.getPursort();
+        	out.println(pursort[pursortno]);           
+            %>
+            </span>
           </div>
         </div>
-        <div class="col-md-12 col-lg-4">
-          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="index.html">首頁</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a href="purIndex.jsp">代購商品</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                <%=purVO.getPurname() %>
-              </li>
-            </ol>
-          </nav>
-        </div>
+<!--         <div class="col-md-12 col-lg-4"> -->
+<!--           <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end"> -->
+<!--             <ol class="breadcrumb"> -->
+<!--               <li class="breadcrumb-item"> -->
+<!--                 <a href="index.html">首頁</a> -->
+<!--               </li> -->
+<!--               <li class="breadcrumb-item"> -->
+<!--                 <a href="purIndex.jsp">代購商品</a> -->
+<!--               </li> -->
+<!--               <li class="breadcrumb-item active" aria-current="page"> -->
+<%--                 <%=purVO.getPurname() %> --%>
+<!--               </li> -->
+<!--             </ol> -->
+<!--           </nav> -->
+<!--         </div> -->
       </div>
     </div>
   </section>
@@ -130,11 +137,22 @@
                   <ul class="list">
                     <li class="d-flex justify-content-between">
                       <strong>賣家會員：</strong>
-                      <span><%=purVO.getMemno() %></span>
+                      <span>
+                      <%
+						String memid = purVO.getMemno();
+                        MemService memSvc = new MemService();
+                        MemVO memVO =memSvc.getOneMem(memid);
+                        out.println(memVO.getMemrealname());
+					   %>
+				      </span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>商品類別：</strong>
-                      <span><%=purVO.getPursort() %></span>
+                      <span>
+						<%
+			        	out.println(pursort[pursortno]);           
+			            %>
+					  </span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>參考網址：</strong>
@@ -154,7 +172,11 @@
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>提供收據：</strong>
-                      <span><%=purVO.getPurreceipt() %></span>
+                      <span><%
+                      String[] Purreceipt = {"不提供","提供"};
+					  Integer receiptno = purVO.getPurreceipt();
+					  out.println(Purreceipt[receiptno]);
+					  %></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>商品總數量：</strong>
@@ -320,77 +342,77 @@
   <!--/ Property Single End /-->
   
   <!--/ footer Star /-->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <nav class="nav-footer">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">About</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Property</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Blog</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Contact</a>
-              </li>
-            </ul>
-          </nav>
-          <div class="socials-a">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-dribbble" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="copyright-footer">
-            <p class="copyright color-text-a">
-              &copy; Copyright
-              <span class="color-a">T-Venturer</span> All Rights Reserved.
-            </p>
-          </div>
-          <div class="credits">
-            <!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-            -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+<!--   <footer> -->
+<!--     <div class="container"> -->
+<!--       <div class="row"> -->
+<!--         <div class="col-md-12"> -->
+<!--           <nav class="nav-footer"> -->
+<!--             <ul class="list-inline"> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#">Home</a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#">About</a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#">Property</a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#">Blog</a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#">Contact</a> -->
+<!--               </li> -->
+<!--             </ul> -->
+<!--           </nav> -->
+<!--           <div class="socials-a"> -->
+<!--             <ul class="list-inline"> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#"> -->
+<!--                   <i class="fa fa-facebook" aria-hidden="true"></i> -->
+<!--                 </a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#"> -->
+<!--                   <i class="fa fa-twitter" aria-hidden="true"></i> -->
+<!--                 </a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#"> -->
+<!--                   <i class="fa fa-instagram" aria-hidden="true"></i> -->
+<!--                 </a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#"> -->
+<!--                   <i class="fa fa-pinterest-p" aria-hidden="true"></i> -->
+<!--                 </a> -->
+<!--               </li> -->
+<!--               <li class="list-inline-item"> -->
+<!--                 <a href="#"> -->
+<!--                   <i class="fa fa-dribbble" aria-hidden="true"></i> -->
+<!--                 </a> -->
+<!--               </li> -->
+<!--             </ul> -->
+<!--           </div> -->
+<!--           <div class="copyright-footer"> -->
+<!--             <p class="copyright color-text-a"> -->
+<!--               &copy; Copyright -->
+<!--               <span class="color-a">T-Venturer</span> All Rights Reserved. -->
+<!--             </p> -->
+<!--           </div> -->
+<!--           <div class="credits"> -->
+<!--            
+<!--               All the links in the footer should remain intact. -->
+<!--               You can delete the links only if you purchased the pro version. -->
+<!--               Licensing information: https://bootstrapmade.com/license/ -->
+<!--               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency -->
+<!--             --> -->
+<!--             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </footer> -->
   <!--/ Footer End /-->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

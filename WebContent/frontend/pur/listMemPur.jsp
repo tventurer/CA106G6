@@ -15,7 +15,7 @@
 	String purstatus[] = { "未上架", "上架中", "已下架", "檢舉下架" };
 	request.setAttribute("purstatus", purstatus);
 
-	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養" };
+	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養", "異國美食"};
 	request.setAttribute("pursort", pursort);
 	
 	String porlogistics[] = { "待出貨" , "已出貨", "已領貨", "等待退換貨寄回", "寄出退換貨" ,"已收到退換貨"};
@@ -148,7 +148,13 @@ text-align: left;
 					<td>${purVO.purid}</td>
 					<td><img src="<%=request.getContextPath()%>/frontend/pur/pur?purid=${purVO.purid}" width="100px"></td>
 					<td>${purVO.purname}</td>
-					<td>${purVO.pursort}</td>
+					<c:forEach var="mypursort" items="${pursort}" varStatus="ss">
+					<c:choose>
+					<c:when test="${purVO.pursort == ss.index}">
+			    	<td>${mypursort}</td>
+					</c:when>
+					</c:choose>
+				</c:forEach>
 					<td><fmt:formatDate value="${purVO.purtime}"  timeStyle="short" type="both"/></td>
 					<td><fmt:formatDate value="${purVO.purobtained}"  timeStyle="short" type="both"/></td>
 				<c:forEach var="mypurstatus" items="${purstatus}" varStatus="s">

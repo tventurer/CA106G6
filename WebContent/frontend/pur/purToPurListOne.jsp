@@ -5,6 +5,7 @@
 <%@ page import="com.pur.model.*"%>
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.acr.model.*"%>
+<%@ page import="com.mem.model.*"%>
 <% 
 	String purid = new String(request.getParameter("purid")); 
 	pageContext.setAttribute("purid",purid);
@@ -49,7 +50,12 @@
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
             <h1 class="title-single"><%=purVO.getPurname() %></h1>
-            <span class="color-text-a">商品類別：<%=purVO.getPursort() %></span>
+            <span class="color-text-a">商品類別：
+            <%
+            String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養", "異國美食"};
+        	Integer pursortno = purVO.getPursort();
+        	out.println(pursort[pursortno]);           
+            %></span>
           </div>
         </div>
 <!--         <div class="col-md-12 col-lg-4"> -->
@@ -107,11 +113,20 @@
                   <ul class="list">
                     <li class="d-flex justify-content-between">
                       <strong>賣家會員：</strong>
-                      <span><%=purVO.getMemno() %></span>
+                      <span>
+						<%
+						String memid = purVO.getMemno();
+                        MemService memSvc = new MemService();
+                        MemVO memVO =memSvc.getOneMem(memid);
+                        out.println(memVO.getMemrealname());
+					   %>
+					  </span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>商品類別：</strong>
-                      <span><%=purVO.getPursort() %></span>
+                      <span><%
+			        	out.println(pursort[pursortno]);           
+			            %></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>參考網址：</strong>
@@ -131,7 +146,11 @@
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>提供收據：</strong>
-                      <span><%=purVO.getPurreceipt() %></span>
+                      <span><%
+                      String[] Purreceipt = {"不提供","提供"};
+					  Integer receiptno = purVO.getPurreceipt();
+					  out.println(Purreceipt[receiptno]);
+					  %></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>商品總數量：</strong>

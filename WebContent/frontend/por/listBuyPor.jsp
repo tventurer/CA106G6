@@ -188,8 +188,8 @@ text-align: left;
 									 
 									<!-- 訂單詳情 -->
 										<td>
-							     		<button type="button" data-toggle="modal" data-target="#myModal">查看</button>
-												<div class="modal fade" id="myModal" role="dialog">
+							     		<button type="button" data-toggle="modal" data-target="#myModal${s.count}">查看</button>
+												<div class="modal fade" id="myModal${s.count}" role="dialog">
 												<div class="modal-dialog">
 												<div class="modal-content">
 												<div class="modal-header">
@@ -198,16 +198,28 @@ text-align: left;
 							
 												</div>
 												<div class="modal-body">
-												<strong>編&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${s.count}<br>
+												<strong>編&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${s.count}<br>
 												<strong>訂&nbsp;單&nbsp;編&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${porVO.porid}<br>
 												<strong>購&nbsp;買&nbsp;時&nbsp;間&nbsp;&nbsp;：&nbsp;</strong><fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/><br>
-												<strong>交&nbsp;易&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>${porVO.porstatus}<br>
+												<strong>交&nbsp;易&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>
+													<c:forEach var="myporstatus" items="${porstatus}" varStatus="s1">
+														<c:if test="${porVO.porstatus == s1.index}">
+														${myporstatus}
+														</c:if>
+														</c:forEach>
+													<br>
 												<strong>收件人姓名：&nbsp;</strong>${porVO.pormemname}<br>
 												<strong>收&nbsp;貨&nbsp;地&nbsp;址&nbsp;&nbsp;：&nbsp;</strong>${porVO.poraddress}<br>
 												<strong>連&nbsp;絡&nbsp;電&nbsp;話&nbsp;&nbsp;：&nbsp;</strong>${porVO.portel}<br>
 												<strong>訂&nbsp;購&nbsp;數&nbsp;量&nbsp;&nbsp;：&nbsp;</strong>${porVO.porsum}<br>
 												<strong>訂&nbsp;購&nbsp;總&nbsp;額&nbsp;&nbsp;：&nbsp;</strong>${porVO.porprice}<br>
-												<strong>物&nbsp;流&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>${porVO.porlogistics}<br>
+												<strong>物&nbsp;流&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>
+													<c:forEach var="myporlogistics" items="${porlogistics}" varStatus="s2">
+														<c:if test="${porVO.porlogistics == s2.index}">
+														${myporlogistics}
+														</c:if>
+														</c:forEach>
+													<br>
 												<strong>物流最後更新時間：&nbsp;</strong><fmt:formatDate value="${porVO.porlogtime}"  timeStyle="short" type="both"/>
 												</div>
 												<div class="modal-footer">

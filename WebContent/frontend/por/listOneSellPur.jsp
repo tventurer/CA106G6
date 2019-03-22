@@ -24,8 +24,11 @@ String name =(String)session.getAttribute("memno");
 	String porstatus[] = {"已付款", "確認商品無誤，完成交易", "申請退貨", "退貨申請成功", "退貨申請失敗", "申請換貨", "換貨申請成功","換貨申請失敗", "因檢舉下架退款", "已退貨"};
 	request.setAttribute("porstatus", porstatus);
 	
-	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養" };
+	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養", "異國美食"};
 	request.setAttribute("pursort", pursort);
+	
+	String porlogistics[] = { "待出貨" , "賣家已出貨", "買家已領貨", "賣家等待退換貨寄回", "買家寄出退換貨" ,"賣家收到退換貨","寄回換貨給買家","買家收到換貨商品"};
+	request.setAttribute("porlogistics", porlogistics);
 %>
 <!-------------------------------- 引入標頭 ------------------------------------->
 
@@ -275,17 +278,29 @@ text-align: left;
 							
 												</div>
 												<div class="modal-body">
-												<strong>編&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${s.count}<br>
+												<strong>編&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號&nbsp;&nbsp;&nbsp;：&nbsp;</strong>${s.count}<br>
 												<strong>訂&nbsp;單&nbsp;編&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${porVO.porid}<br>
 												<strong>買&nbsp;家&nbsp;帳&nbsp;號&nbsp;&nbsp;：&nbsp;</strong>${porVO.memno}<br>
 												<strong>購&nbsp;買&nbsp;時&nbsp;間&nbsp;&nbsp;：&nbsp;</strong><fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/><br>
-												<strong>交&nbsp;易&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>${porVO.porstatus}<br>
+												<strong>交&nbsp;易&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>
+														<c:forEach var="mypurstatus" items="${purstatus}" varStatus="s1">
+														<c:if test="${porVO.porstatus == s1.index}">
+														${mypurstatus}
+														</c:if>
+														</c:forEach>
+														<br>
 												<strong>收件人姓名&nbsp;：&nbsp;</strong>${porVO.pormemname}<br>
 												<strong>收&nbsp;貨&nbsp;地&nbsp;址&nbsp;&nbsp;：&nbsp;</strong>${porVO.poraddress}<br>
 												<strong>連&nbsp;絡&nbsp;電&nbsp;話&nbsp;&nbsp;：&nbsp;</strong>${porVO.portel}<br>
 												<strong>訂&nbsp;購&nbsp;數&nbsp;量&nbsp;&nbsp;：&nbsp;</strong>${porVO.porsum}<br>
 												<strong>訂&nbsp;購&nbsp;總&nbsp;額&nbsp;&nbsp;：&nbsp;</strong>${porVO.porprice}<br>
-												<strong>物&nbsp;流&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>${porVO.porlogistics}<br>
+												<strong>物&nbsp;流&nbsp;狀&nbsp;態&nbsp;&nbsp;：&nbsp;</strong>
+														<c:forEach var="myporlogistics" items="${porlogistics}" varStatus="s2">
+														<c:if test="${porVO.porlogistics == s2.index}">
+														${myporlogistics}
+														</c:if>
+														</c:forEach>
+														<br>
 												<strong>物流最後更新時間：&nbsp;</strong><fmt:formatDate value="${porVO.porlogtime}"  timeStyle="short" type="both"/>
 												</div>
 												<div class="modal-footer">
