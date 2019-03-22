@@ -157,11 +157,11 @@
               <div class="property-description">
 <form class="form-a" METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por">
         <div class="row">
-          <div class="col-md-12 col-lg-8">
-            <div class="form-group">
-              <input type="checkbox" id="memcheck" value="OK"><label for="Type">同會員基本資料</label>
-            </div>
-          </div>
+<!--           <div class="col-md-12 col-lg-8"> -->
+<!--             <div class="form-group"> -->
+<!--               <input type="checkbox" id="memcheck" value="OK"><label for="Type">同會員基本資料</label> -->
+<!--             </div> -->
+<!--           </div> -->
           <div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="Type">收件人姓名</label>
