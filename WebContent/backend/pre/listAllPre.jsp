@@ -99,6 +99,7 @@ pageContext.setAttribute("prelabel",prelabel);
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pre/pre" style="margin-bottom: 0px;">
 					        <input type="hidden" name="action" value="up_preresult">
 					        <input type="hidden" name="preid" value="${preVO.preid}">
+					        <input type="hidden" name="purid" value="${purid}">
 							<button type="submit" name="preresult" class="btn btn-default" value=0>未違規</button>
 							<button type="submit" name="preresult" class="btn btn-default" value=1>違規</button>
 							</FORM>

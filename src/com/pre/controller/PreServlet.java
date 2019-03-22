@@ -62,10 +62,6 @@ public class PreServlet extends HttpServlet{
 					String purid = req.getParameter("purid").trim();
 					Integer prelabel = new Integer(req.getParameter("prelabel"));
 					
-					if (memno == null || memno.trim().length() == 0) {
-						errorMsgs.add("請登入會員");
-					}
-					
 					String precause = req.getParameter("precause").trim();
 					if (precause == null || precause.trim().length() == 0) {
 						errorMsgs.add("檢舉原因不得為空白");
@@ -112,13 +108,15 @@ public class PreServlet extends HttpServlet{
 //				try {
 					/***************************1.接收請求參數****************************************/
 					String preid = new String(req.getParameter("preid").trim());
-					
+					String purid = new String(req.getParameter("purid").trim());
 					Integer preresult = new Integer(req.getParameter("preresult"));
 
 					/***************************2.開始查詢資料****************************************/
 					PreService preSvc = new PreService();
 					PreVO preVO = preSvc.updatePreresult(preresult, preid);
 					
+					PurService purSvc = new PurService();
+					purSvc.updatePurstatus(8, purid);
 					/***************************3.查詢完成,準備轉交(Send the Success view)************/
 					String url = "/backend/pre/listAllPre.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 listAllPre.jsp
