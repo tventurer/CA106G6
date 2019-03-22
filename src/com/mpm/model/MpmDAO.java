@@ -47,7 +47,7 @@ public class MpmDAO implements MpmDAO_interface {
 			pstmt.setString(2, mpmvo.getMpmreceiver());
 			pstmt.setString(3, mpmvo.getMpmtitle());
 			pstmt.setString(4, mpmvo.getMpmcontent());
-			pstmt.setInt(5, mpmvo.getMpmreaded());
+			pstmt.setInt(5, 0);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException se) {
