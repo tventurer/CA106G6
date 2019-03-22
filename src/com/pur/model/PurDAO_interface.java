@@ -13,6 +13,7 @@ public interface PurDAO_interface {
     public List<PurVO> getAll();
     public List<PurVO> getMemAll(String memno);
     public List<PurVO> getSortAll(Integer pursort);
+    public List<String> getTimeAndDown(String starttime,String endtime);
     //萬用複合查詢(傳入參數型態Map)(回傳List)
 //  public List<PurVO> getAll(Map<String, String[]> map); 
 }

@@ -5,7 +5,7 @@
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
 <%
-	String name=(String)session.getAttribute("memno");
+String name =(String)session.getAttribute("memno");
 	String purid = request.getParameter("purid");
 			
 	PorService porSvc = new PorService();
@@ -21,6 +21,8 @@
 	request.setAttribute("purstatus", purstatus);
 	
 	
+	String porstatus[] = {"已付款", "確認商品無誤，完成交易", "申請退貨", "退貨申請成功", "退貨申請失敗", "申請換貨", "換貨申請成功","換貨申請失敗", "因檢舉下架退款", "已退貨"};
+	request.setAttribute("porstatus", porstatus);
 	
 	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養" };
 	request.setAttribute("pursort", pursort);

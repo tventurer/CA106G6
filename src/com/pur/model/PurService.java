@@ -103,4 +103,7 @@ public class PurService {
 		
 		return purVO;
 	}
+	public List<String> getTimeAndDown(String starttime,String endtime){
+		return dao.getTimeAndDown(starttime,endtime);
+	}
 }

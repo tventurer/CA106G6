@@ -5,7 +5,7 @@
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
 <%
-	String name=(String)session.getAttribute("memno");
+String name =(String)session.getAttribute("memno");
 	PurService purSvc = new PurService();
 	pageContext.setAttribute("name",name);
 
@@ -15,12 +15,17 @@
 
 	String purstatus[] = { "未上架", "上架中", "已下架", "檢舉下架" };
 	request.setAttribute("purstatus", purstatus);
+	
+	String porstatus[] = {"已付款", "確認商品無誤，完成交易", "申請退貨", "退貨申請成功", "退貨申請失敗", "申請換貨", "換貨申請成功","換貨申請失敗", "因檢舉下架退款", "已退貨"};
+	request.setAttribute("porstatus", porstatus);
 
-	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養" };
+	String[] pursort = { "生活居家", "生活休閒", "國際菸草", "各國酒類", "玩具遊戲", "毛小孩專屬", "經典品牌", "行家收藏", "運動用品", "美妝保養", "異國美食"};
 	request.setAttribute("pursort", pursort);
 	
-	String porlogistics[] = { "待出貨" , "已出貨", "已領貨", "等待退換貨寄回", "寄出退換貨" ,"已收到退換貨"};
+	String porlogistics[] = { "待出貨" , "賣家已出貨", "買家已領貨", "賣家等待退換貨寄回", "買家寄出退換貨" ,"賣家收到退換貨","寄回換貨給買家","買家收到換貨商品"};
 	request.setAttribute("porlogistics", porlogistics);
+	
+	
 %>
 
 
@@ -91,15 +96,15 @@ text-align: left;
 	<!--/ Nav End /-->
 
 	<!--/ Intro Single star /-->
-<!-- 	<section class="intro-single"> -->
-<!-- 		<div class="container"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-md-12 col-lg-8"> -->
-<!-- 					<div class="title-single-box"> -->
-<!-- 						<h1 class="title-single">買家訂單</h1> -->
-<!-- 						<span class="color-text-a">如您有購買商品，此處顯示為您的所有購買商品的訂單</span> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+	<section class="intro-single">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-lg-8">
+					<div class="title-single-box">
+						<h1 class="title-single">買家訂單</h1>
+						<span class="color-text-a">如您有購買商品，此處顯示為您的所有購買商品的訂單</span>
+					</div>
+				</div>
 <!-- 				<div class="col-md-12 col-lg-4"> -->
 <!-- 					<nav aria-label="breadcrumb" -->
 <!-- 						class="breadcrumb-box d-flex justify-content-lg-end"> -->
@@ -110,16 +115,30 @@ text-align: left;
 <!-- 						</ol> -->
 <!-- 					</nav> -->
 <!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</section> -->
+			</div>
+		</div>
+	</section>
 	<!--/ Intro Single End /-->
 
 	<!--/ Agents Grid Star /-->
 	<section class="agents-grid grid">
 		<div class="container">
 			<div class="row">
-
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<c:forEach var="message" items="${errorMsgs}">
+    		<script type="text/javascript">
+    		window.addEventListener("load", function(event) {
+    		var check="${message}";
+    		if(check=="退貨原因請勿空白"){
+    			alert("退貨原因請勿空白");
+    		}else if(check=="換貨原因請勿空白"){
+    			alert("換貨原因請勿空白");
+    		}
+    		});
+    		</script>
+    		</c:forEach>
+</c:if>
 				<div class="col-md-12">
 					<div class="tile">
 						<h3 class="tile-title">購買訂單管理</h3>
@@ -268,7 +287,7 @@ text-align: left;
 													<div class="modal-body">
 															
 													退貨原因：<br>
-													<textarea class="form-control rounded-0" name="changebuy" rows="4" ></textarea>
+													<textarea class="form-control rounded-0" name="backbuy" rows="4" ></textarea>
 															
 													<input type="hidden" name="porstatus" value=2 >
 													<input type="hidden" name="porid"  value="${porVO.porid}">
@@ -399,7 +418,7 @@ text-align: left;
 													<div class="modal-body">
 															
 													退貨原因：<br>
-													<textarea class="form-control rounded-0" name="changebuy" rows="4" ></textarea>
+													<textarea class="form-control rounded-0" name="backbuy" rows="4" ></textarea>
 															
 													<input type="hidden" name="porstatus" value=2 >
 													<input type="hidden" name="porid"  value="${porVO.porid}">
@@ -581,7 +600,7 @@ text-align: left;
 	<!--/ Agents Grid End /-->
 	<br>
 
-<!-- 	<!--/ footer Star /--> -->
+	<!--/ footer Star /-->
 <!-- 	<footer> -->
 <!-- 		<div class="container"> -->
 <!-- 			<div class="row"> -->

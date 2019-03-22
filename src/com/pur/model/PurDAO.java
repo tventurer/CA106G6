@@ -41,6 +41,12 @@ public class PurDAO implements PurDAO_interface{
 	private static final String GET_SORTALL_STMT=
 			"SELECT * FROM PURCHASE where PURSORT = ?";
 	
+	//抓取下架時間
+	private static final String GET_PURDOWNTIME=
+//			"SELECT * FROM PURCHASE where PURSTATUS = 1 and PUROBTAINED <= to_timestamp(?,'YYYY-MM-DD HH24:MI:SS')";
+
+			"SELECT * FROM PURCHASE where PURSTATUS = 1 and PUROBTAINED >= to_timestamp(?,'YYYY-MM-DD HH24:MI:SS')  and PUROBTAINED <= to_timestamp(?,'YYYY-MM-DD HH24:MI:SS')";
+	
 	//更新商品賣出數量
 	private static final String UPDATE_PURSELL = 
 			"UPDATE PURCHASE set PURSELL=? where PURID = ?";
@@ -568,4 +574,60 @@ public class PurDAO implements PurDAO_interface{
 		
 	}
 
+	@Override
+	public List<String> getTimeAndDown(String starttime, String endtime) {
+		// TODO Auto-generated method stub
+		List<String> list = new ArrayList<String>();
+		PurVO purVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_PURDOWNTIME);
+			pstmt.setString(1, starttime);
+			pstmt.setString(2, endtime);
+			rs = pstmt.executeQuery();
+
+
+			while (rs.next()) {
+				// acrVO 也稱為 Domain objects
+				purVO = new PurVO();
+				list.add(rs.getString("purid"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 }

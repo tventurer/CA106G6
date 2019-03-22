@@ -2,8 +2,14 @@ package com.pur.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +25,60 @@ import com.pur.model.PurVO;
 
 @MultipartConfig
 public class PurServlet extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
+	int count = 0;      
+	Timer timer;
+	String strDate;
+	public void init() {
+		  timer = new Timer();
+		  Calendar cal = new GregorianCalendar(2011, Calendar.MARCH, 5, 0, 0, 0); 
+			
+		  TimerTask task = new TimerTask(){
+			  public void run(){
+				  Calendar calendar2 = Calendar.getInstance();
+				  SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+	              calendar2.add(Calendar.DATE, 1);
+	              String today = sdf2.format(calendar2.getTime());
+	              PurService purSvc = new PurService();
+	              String start_time = today +"00:00:00";
+	              String end_time = today+"23:59:59";
+	              List<String> puridlist = new ArrayList<String>();
+	              puridlist = purSvc.getTimeAndDown(start_time, end_time);
+				  int countmemid;
+				  System.out.println(puridlist);
+				  if(puridlist != null) {
+					  for(String purid:puridlist) {
+						  purSvc.updatePurstatus(2, purid);
+						  System.out.println(purid);
+					  }
+				  }
+			  }
+		  };
+		  
+		  GregorianCalendar gc= new GregorianCalendar();
+			java.util.Date date =gc.getTime();
+			SimpleDateFormat tFormat=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+			strDate=tFormat.format(date);
+			
+			//取得當天的日年月日
+					String stryear=strDate.substring(0, 4);
+					String strmonth=strDate.substring(5, 7);
+					String strday=strDate.substring(8, 10);
+					
+					int year=Integer.parseInt(stryear);
+					int month=Integer.parseInt(strmonth);
+					int day=Integer.parseInt(strday);
+			 
+			//取得當天00:00:00的GregorianCalendar物件，getTime()取得date物件
+				GregorianCalendar gcToday=new GregorianCalendar(year, month-1, day, 0, 0, 0);
+				java.util.Date today=gcToday.getTime();
+				
+//		        timer.scheduleAtFixedRate(task, today,20*1000); 
+
+	        timer.scheduleAtFixedRate(task, today,1*60*60*1000); 
+	}
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 			// TODO Auto-generated method stub

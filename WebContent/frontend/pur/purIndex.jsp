@@ -85,7 +85,8 @@
         </div>
         
         <!--/ 商品陳列卡片顯示 /-->
-<c:forEach var="purVO" items="${list}">
+<%@ include file="page1.file" %>
+<c:forEach var="purVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 <c:choose>
 <c:when test="${purVO.purstatus == 1}">
         <div class="col-md-4">
@@ -99,14 +100,14 @@
               <div class="card-overlay-a-content">
                 <div class="card-header-a">
                   <h2 class="card-title-a">
-                    <a href="<%=request.getContextPath()%>/frontend/pur/purListOne.jsp?purid=${purVO.purid}">${purVO.purname}</a>
+                    <a href="#">${purVO.purname}</a>
                   </h2>
                 </div>
                 <div class="card-body-a">
                   <div class="price-box d-flex">
                     <span class="price-a">NT | $ ${purVO.purpricing}</span>
                   </div>
-                  <a href="<%=request.getContextPath()%>/frontend/pur/purListOne.jsp?purid=${purVO.purid}" class="link-a">商品詳情
+                  <a href="purListOne.jsp?purid=${purVO.purid}" class="link-a">商品詳情
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
                 </div>
@@ -140,33 +141,7 @@
 <!-- 這個div不能刪掉不然頁碼的位置會跑掉! -->
 
       <!--頁碼-->
-      <div class="row">
-        <div class="col-sm-12">
-          <nav class="pagination-a">
-            <ul class="pagination justify-content-end">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">
-                  <span class="ion-ios-arrow-back"></span>
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item next">
-                <a class="page-link" href="#">
-                  <span class="ion-ios-arrow-forward"></span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+    <%@ include file="page2.file" %>
        <!--頁碼-->
 
     </div>

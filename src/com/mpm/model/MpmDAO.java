@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 public class MpmDAO implements MpmDAO_interface {
 	private static DataSource ds = null;
 	private static String INSERT_STMT = 
-			"INSERT INTO MEMBERPRIVATEMESSAGE (MPMNO, MPMSENDER, MPMRECEIVER, MPMTITLE, MPMCONTENT, MPMTIME, MPMREADED) VALUES (('MPM' || LPAD(to_char(MPM_SEQ.NEXTVAL), 6 , '0')), ?, ?, ?, ?, SYSTIMESTAMP, 0)";
+			"INSERT INTO MEMBERPRIVATEMESSAGE (MPMNO, MPMSENDER, MPMRECIVER, MPMTITLE, MPMCONTENT, MPMTIME, MPMREADED) VALUES (('MPM' || LPAD(to_char(MPM_SEQ.NEXTVAL), 6 , '0')), ?, ?, ?, ?, SYSTIMESTAMP, 0)";
 	private static String DELETE = 
 			"DELETE FROM MEMBERPRIVATEMESSAGE WHERE MPMNO = ?";
 	private static String UPDATE = 
