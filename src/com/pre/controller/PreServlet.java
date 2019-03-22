@@ -57,11 +57,14 @@ public class PreServlet extends HttpServlet{
 
 				try {
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-					String memno = req.getParameter("memno").trim();
 					String empno = req.getParameter("empno").trim();
 					String purid = req.getParameter("purid").trim();
 					Integer prelabel = new Integer(req.getParameter("prelabel"));
 					
+					String memno = req.getParameter("memno").trim();
+					if (memno == null || memno.trim().length() == 0) {
+						errorMsgs.add("請登入會員");
+					}
 					String precause = req.getParameter("precause").trim();
 					if (precause == null || precause.trim().length() == 0) {
 						errorMsgs.add("檢舉原因不得為空白");
