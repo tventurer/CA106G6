@@ -225,7 +225,7 @@ public class PorServlet extends HttpServlet{
 				MemService memSvc = new MemService();
 
 
-				try {
+//				try {
 					/***************************1.接收請求參數****************************************/
 					String porid = new String(req.getParameter("porid"));
 					Integer porstatus = new Integer(req.getParameter("porstatus"));
@@ -361,12 +361,12 @@ public class PorServlet extends HttpServlet{
 					}
 
 					/***************************其他可能的錯誤處理**********************************/
-				} catch (Exception e) {
-					errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/frontend/por/listBuyPor.jsp");
-					failureView.forward(req, res);
-				}
+//				} catch (Exception e) {
+//					errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/frontend/por/listBuyPor.jsp");
+//					failureView.forward(req, res);
+//				}
 			}
 		 if ("updata_porlogistics".equals(action)) { // 來自listOneSellPur.jsp的請求
 
