@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.not.model.*;
+
 @WebServlet("/backend/not/not")
 public class NotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,10 +28,15 @@ public class NotServlet extends HttpServlet {
 			String notcontent = req.getParameter("notcontent");
 			String memno = req.getParameter("receiver");
 			
-			Map<String, HttpSession> map = (Map<String, HttpSession>) req.getServletContext().getAttribute("ctxMSM");
-			HttpSession session = map.get(memno);
+//			Map<String, HttpSession> map = (Map<String, HttpSession>) req.getServletContext().getAttribute("ctxMSM");
+//			HttpSession session = map.get(memno);
 			
-			session.setAttribute("notification", notcontent);
+//			session.setAttribute("notification", notcontent);
+			
+			NotService notSvc = new NotService();
+			NotVO notVO = notSvc.addNot(memno, notcontent);
+			
+			res.sendRedirect(req.getContextPath() + "/backend/not/sendNot.jsp");
 		}
 	}
 
