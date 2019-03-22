@@ -312,7 +312,7 @@ function buildInfo(){
 	$("#pahintro").val("Code打到飛");
 	$("#pahcontent").val("飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛飛");
 	$("#pahprice").val("120000");
-	$("#pahcountry").val("北極");
+	$("#pahcountry").val("日本");
 	$("#pahnum").val("5");
 	$("#pahstdate").val("2018-10-08");
 	$("#pahenddate").val("2019-03-29");

@@ -145,14 +145,14 @@ session.setAttribute("empno",empVO.getEmpno());
 <!--           </ul>         -->
 <!--         </li> -->
 <!----------------------------------------- 旅人文章 --------------------------------------------------------->        
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">旅人文章管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i> Bootstrap Elements</a></li>
-            <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li>
-            <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li>
-            <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li>
-          </ul>
-        </li>
+<!--         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">旅人文章管理</span><i class="treeview-indicator fa fa-angle-right"></i></a> -->
+<!--           <ul class="treeview-menu"> -->
+<!--             <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i> Bootstrap Elements</a></li> -->
+<!--             <li><a class="treeview-item" href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Font Icons</a></li> -->
+<!--             <li><a class="treeview-item" href="ui-cards.html"><i class="icon fa fa-circle-o"></i> Cards</a></li> -->
+<!--             <li><a class="treeview-item" href="widgets.html"><i class="icon fa fa-circle-o"></i> Widgets</a></li> -->
+<!--           </ul> -->
+<!--         </li> -->
 <!----------------------------------------- 代購 --------------------------------------------------------->       
  		<li><a class="app-menu__item " href="<%=request.getContextPath()%>/backend/pre/listAllPre.jsp"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><span class="app-menu__label">&nbsp;&nbsp;&nbsp;代購商品檢舉審核</span></a></li>
 <!----------------------------------------- 自由行 --------------------------------------------------------->        
