@@ -82,6 +82,7 @@
           </c:if>
           <c:if test="${memacc != null}">
             <a class="nav-link" href="<%=request.getContextPath()%>/backend/mem/memlogout.jsp">登出</a>
+            <%@ include file="/frontend/not/notification.file" %>
           </c:if>
           </li>
         </ul>

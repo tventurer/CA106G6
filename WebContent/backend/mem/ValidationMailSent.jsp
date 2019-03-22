@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<h1>ÅçÃÒ«H¤w°e¥X</h1>
-<p>´£¿ô±zÅçÃÒ«H¥u¦³³Ì·sªº¤@«Ê¦³®Ä</p>
-<h1><a href="<%=request.getContextPath()%>/memlogin.jsp">¦^­º­¶</a></h1>
+<h1>é©—è­‰ä¿¡å·²é€å‡º</h1>
+<p>æé†’æ‚¨é©—è­‰ä¿¡åªæœ‰æœ€æ–°çš„ä¸€å°æœ‰æ•ˆ</p>
+<h1><a href="<%=request.getContextPath()%>/frontend/mem/MyPage.jsp?memno=${memno}">å›žå€‹äººé¦–é </a></h1>
 </body>
 </html>

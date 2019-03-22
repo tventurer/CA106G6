@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-  String fromwhere = (String) session.getAttribute("location");
-  session.setAttribute("fromwhere", fromwhere);
-%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -55,11 +51,7 @@
 	</form>
 	<h1>${denied}</h1>
 	
-	<%@ include file="/frontend/not/notification.file" %>
 
-	<form action="<%=request.getContextPath()%>/EmailValidator" method="post">
-		<input type="hidden" name="action" value="ask_validation_email">
-		<input type="submit" value="申請驗證信">
-	</form>
+	
 </body>
 </html>

@@ -11,5 +11,6 @@
 </head>
 <body>
 	<h1>您已成功登出!</h1>
+	<h1>5秒後回首頁或<a href="<%=request.getContextPath()%>/index.jsp">按我前往</a></h1>
 </body>
 </html>

@@ -78,7 +78,7 @@ public class EmailValidator extends HttpServlet {
 		String validationLink = req.getPathInfo();
 		if (!pendingList.containsValue(validationLink)) {
 			req.setAttribute("errorMsg", "連結無效!!!");
-			RequestDispatcher failureView = req.getRequestDispatcher("/frontend/mem/ValidationFailed.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/backend/mem/ValidationFailed.jsp");
 			failureView.forward(req, res);
 			return;
 		}
@@ -86,7 +86,7 @@ public class EmailValidator extends HttpServlet {
 		String memno = (String) req.getSession().getAttribute("memno");
 		if (memno == null) {
 			req.setAttribute("errorMsg", "請先登入會員再點連結");
-			RequestDispatcher failureView = req.getRequestDispatcher("/frontend/mem/ValidationFailed.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/backend/mem/ValidationFailed.jsp");
 			failureView.forward(req, res);
 			return;
 		}
@@ -96,11 +96,11 @@ public class EmailValidator extends HttpServlet {
 			MemVO memvo = memSvc.getOneMem(memno);
 			memvo.setMememailvalid(1);
 			memSvc.updateMem(memvo);
-			RequestDispatcher successView = req.getRequestDispatcher("/frontend/mem/ValidationSuccess.jsp");
+			RequestDispatcher successView = req.getRequestDispatcher("/backend/mem/ValidationSuccess.jsp");
 			successView.forward(req, res);
 		} else {
 			req.setAttribute("errorMsg", "連結不對喔 請不要亂登別人的帳號");
-			RequestDispatcher failureView = req.getRequestDispatcher("/frontend/mem/ValidationFailed.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/backend/mem/ValidationFailed.jsp");
 			failureView.forward(req, res);
 		}
 	}

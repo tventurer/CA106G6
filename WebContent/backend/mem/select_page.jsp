@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>IBM Mem: Home</title>
+<title>會員管理</title>
 
 <style>
   table#table-1 {
@@ -30,10 +30,8 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>IBM Mem: Home</h3><h4>( MVC )</h4></td></tr>
+   <tr><td><h3>會員管理</h3><h4>( MVC )</h4></td></tr>
 </table>
-
-<p>This is the Home page for IBM Mem: Home</p>
 
 <h3>資料查詢:</h3>
 	
@@ -48,7 +46,7 @@
 </c:if>
 
 <ul>
-  <li><a href='<%=request.getContextPath()%>/frontend/mem/listAllMem.jsp'>List</a> all Members.  <br><br></li>
+  <li><a href='<%=request.getContextPath()%>/frontend/mem/listAllMem.jsp'>List</a> all 會員.  <br><br></li>
   
   
   <li>

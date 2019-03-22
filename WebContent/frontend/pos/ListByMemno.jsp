@@ -16,6 +16,9 @@
 		  .collect(Collectors.toList());
   request.setAttribute("list", list);
 %>
+<c:if test="${list.size() == 0}">
+  <c:redirect url="/404.jsp"><c:param name="errorMsgs" value="查無會員編號"/></c:redirect>
+</c:if>
 <jsp:useBean id="memSvc" class="com.mem.model.MemService" scope="page"/>
 <jsp:useBean id="bptSvc" class="com.bpt.model.BptService" scope="page"/>
 <!DOCTYPE html>
@@ -73,7 +76,8 @@
 		<th>文章標籤編號</th>
 		<th>標題</th>
 		<th>內文</th>
-		<th>發表時間</th>		
+		<th>發表時間</th>
+		<th>文章全文</th>
 	</tr>
 	
 	<%@ include file="page1.file" %>
@@ -84,7 +88,8 @@
 			<td>${bptSvc.getOneBpt(posVO.tagno).tagcontent}</td>
 			<td>${posVO.postitle}</td>
 			<td>${posVO.poscontent}</td>
-			<td>${posVO.postime}</td> 
+			<td>${posVO.postime}</td>
+			<td><a href="<%=request.getContextPath()%>/frontend/pos/listOnePos.jsp?posno=${posVO.posno}">全文</a></td>
 		</tr>
 	</c:forEach>
 </table>

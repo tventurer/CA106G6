@@ -7,6 +7,7 @@
 <%
   List<MpmVO> list = (List<MpmVO>) request.getAttribute("list");
 %>
+<jsp:useBean id="memSvc" class="com.mem.model.MemService" scope="page"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,7 @@
 		 <img src="<%=request.getContextPath()%>/backend/pos/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
-
+<h1>${errorMsgs.mpmisempty}</h1>
 <table>
 	<tr>
 		<th>發送者</th>
@@ -70,8 +71,8 @@
 	<c:forEach var="mpmVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${memSvc.getOneMem(mpmVO.mpmsender).memacc}</td>
-			<td>${memSvc.getOneMem(mpmVO.mpmreceiver).memacc}</td>
+			<td><a href="<%=request.getContextPath()%>/frontend/mem/MyPage.jsp?memno=${memSvc.getOneMem(mpmVO.mpmsender).memno}">${memSvc.getOneMem(mpmVO.mpmsender).memacc}</a></td>
+			<td><a href="<%=request.getContextPath()%>/frontend/mem/MyPage.jsp?memno=${memSvc.getOneMem(mpmVO.mpmreceiver).memno}">${memSvc.getOneMem(mpmVO.mpmreceiver).memacc}</a></td>
 			<td>${mpmVO.mpmtitle}</td>
 			<td>${mpmVO.mpmcontent}</td>
 			<td>${mpmVO.mpmtime}</td>
@@ -79,7 +80,6 @@
 		</tr>
 	</c:forEach>
 </table>
-<h1><a href='<%=request.getContextPath()%>/frontend/pos/NewPost.jsp'>Add</a> a new POST.</h1>
 <%@ include file="page2.file" %>
 
 

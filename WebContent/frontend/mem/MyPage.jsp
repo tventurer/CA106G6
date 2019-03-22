@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*" %>
 <%
   MemService memSvc = new MemService();
   MemVO memVO = memSvc.getOneMem(request.getParameter("memno"));
   request.setAttribute("memVO", memVO);
 %>
+<c:if test="${memVO == null}">
+  <c:redirect url="/404.jsp"><c:param name="errorMsgs" value="查無會員編號"/></c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +53,6 @@
 	<tr>
 		<th>會員編號</th>
 		<th>會員帳號</th>
-		<th>會員密碼</th>
 		<th>email</th>
 		<th>email驗證狀態</th>
 		<th>會員姓名</th>
@@ -58,18 +61,15 @@
 		<th>出生年月日</th>	
 		<th>地址</th>
 		<th>身份證字號</th>
-		<th>銀行帳號</th>	
-		<th>所有發文</th>
-		<th>我的私人訊息</th>
+		<th>銀行帳號</th>			
 	</tr>
 	
 		
 		<tr ${(memVO.memno)}>
 			<td>${memVO.memno}</td>
 			<th>${memVO.memacc}</th>
-			<th>${memVO.mempwd}</th>
 			<th>${memVO.mememail}</th>
-			<th>${memVO.mememailvalid}</th>
+			<th>${memVO.mememailvalid == 1 ? "email驗證通過" : "尚未通過email驗證"}</th>
 			<th>${memVO.memrealname}</th>
 			<th>${memVO.memengname}</th>
 			<th>${memVO.memphone}</th>
@@ -77,15 +77,23 @@
 			<th>${memVO.memaddr}</th>
 			<th>${memVO.memidno}</th>
 			<th>${memVO.membankacc}</th>
-			<th><a href="<%=request.getContextPath()%>/frontend/pos/ListByMemno.jsp?memno=${memVO.memno}">查看所有貼文</a></th>
-			<th><a href="<%=request.getContextPath()%>/frontend/mpm/mpm?action=list_my_pm">查看私人訊息</a></th>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/mem/mem" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="memno"  value="${memVO.memno}">
-			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
+			<c:if test="${memno == memVO.memno}">
+			  <td>
+			    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/mem/mem" style="margin-bottom: 0px;">
+			       <input type="submit" value="修改">
+			       <input type="hidden" name="memno"  value="${memVO.memno}">
+			       <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
+			       <input type="hidden" name="action"	value="getOne_For_Update"></FORM><br>
+			       <a href="<%=request.getContextPath()%>/frontend/pos/ListByMemno.jsp?memno=${memVO.memno}">查看所有貼文</a><br><br>
+                   <a href="<%=request.getContextPath()%>/frontend/mpm/mpm?action=list_my_pm">查看私人訊息</a>
+			  </td>
+			</c:if>
+			<c:if test="${memno == memVO.memno}">
+              <form action="<%=request.getContextPath()%>/EmailValidator" method="post">
+	          <input type="hidden" name="action" value="ask_validation_email">
+		      <input type="submit" value="申請驗證信">
+	          </form>
+			</c:if>
 		</tr>
 </table>
 </body>

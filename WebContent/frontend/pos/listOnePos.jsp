@@ -11,7 +11,13 @@
   PosService posSvc = new PosService();
   PosVO posVO = posSvc.getOnePos(request.getParameter("posno"));
   request.setAttribute("posVO", posVO);
-  
+%>
+
+<c:if test="${posVO == null}">
+  <c:redirect url="/404.jsp"><c:param name="errorMsgs" value="查無文章編號"/></c:redirect>
+</c:if>
+
+<%  
   BpcService bpcSvc = new BpcService();
   List<BpcVO> bpclist = bpcSvc.getListByPosno(posVO.getPosno());
   request.setAttribute("bpclist", bpclist);
@@ -74,7 +80,12 @@
 		<th>發表時間</th>		
 	</tr>
 	<tr>
-		<td>${memSvc.getOneMem(posVO.memno).memacc}</td>
+		<td>
+		  ${memSvc.getOneMem(posVO.memno).memacc}
+		  <c:if test="${(memno != null) && (posVO.memno != memno)}">
+		    <br><a href="<%=request.getContextPath()%>/backend/mpm/NewPM.jsp?receiver=${posVO.memno}">發私人訊息給他</a>
+		  </c:if>
+		</td>
 		<td>${bptSvc.getOneBpt(posVO.tagno).tagcontent}</td>
 		<td>${posVO.postitle}</td>
 		<td>${posVO.poscontent}</td>

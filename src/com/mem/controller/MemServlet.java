@@ -125,7 +125,8 @@ public class MemServlet extends HttpServlet {
 					return;
 				}
 				
-				MemVO vo = memSvc.addMem(memacc, PwdEncoder.encode(mempwd), mememail, 0, memrealname, memengname, memphone, membirth, memaddr, memidno, membankacc);
+				memSvc.addMem(memacc, PwdEncoder.encode(mempwd), mememail, 0, memrealname, memengname, memphone, membirth, memaddr, memidno, membankacc);
+				MemVO vo = memSvc.getMemaccForLogin(memacc);
 				
 				HttpSession session = req.getSession();
 				session.setAttribute("memacc", vo.getMemacc());

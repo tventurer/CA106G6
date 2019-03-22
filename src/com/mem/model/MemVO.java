@@ -92,5 +92,5 @@ public class MemVO {
 	}
 	public void setMemphoto(byte[] memphoto) {
 		this.memphoto = memphoto;
-	}
+	} 
 }

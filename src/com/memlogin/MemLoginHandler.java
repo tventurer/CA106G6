@@ -48,6 +48,8 @@ public class MemLoginHandler extends HttpServlet {
 			String location = (String) session.getAttribute("location");
 			String fromwhere = (String) session.getAttribute("fromwhere");
 			
+			System.out.println(fromwhere);
+			
 			try {
 				
 				if (location != null) {
@@ -55,11 +57,11 @@ public class MemLoginHandler extends HttpServlet {
 					res.sendRedirect(location);
 					return;
 				} else {
-					res.addHeader("Refresh", "5; URL=" + fromwhere);
+					res.setHeader("Refresh", "5; URL=" + fromwhere);
 					res.sendRedirect(req.getContextPath() + "/memlogin_success.jsp");
 				}
 			} catch (Exception ignored) {
-				res.addHeader("Refresh", "5; URL=" + fromwhere);
+				res.setHeader("Refresh", "5; URL=" + fromwhere);
 				res.sendRedirect(req.getContextPath() + "/memlogin_success.jsp");
 			}
 		}

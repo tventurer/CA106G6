@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<META HTTP-EQUIV="Refresh" CONTENT="5; URL=${fromwhere}">
 <title>註冊成功</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
 		</tr>
 	</table>
 	<b> <br>
-	<br>                五秒後回到原頁面或是<a href="<%=session.getAttribute("fromwhere")%>">按我前往</a>
+	<br>                五秒後回到原頁面或是<a href="${fromwhere}">按我前往</a>
 	</b>
 	
 </body>
