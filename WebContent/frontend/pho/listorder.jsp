@@ -40,11 +40,14 @@
   <section class="intro-single">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-lg-8">
+        <div class="col-11">
           <div class="title-single-box">
             <h1 class="title-single">訂單查詢</h1>
             <span class="color-text-a">T-Venture</span>
           </div>
+        </div>
+        <div class="col-1">
+        	 <A HREF="javascript:socket()">連絡客服</a>
         </div>
       </div>
     </div>
@@ -175,7 +178,13 @@
 <script
 	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>	
 	
+<script>
+ 
+	function socket(){
+	 	document.open("/CA106G6/backend/sme/message2.jsp", "" ,"height=600,width=850,left=65,top=120,resizable=yes,scrollbars=yes");
+	}
 	
+</script>	
 
 
 </html>

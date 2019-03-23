@@ -42,6 +42,7 @@
         <div>
           <h1><i class="fa fa-th-list"></i>客戶訂單管理</h1>
           <p>T-Venturer</p>
+          <A HREF="javascript:socket('${empno}')">客戶服務</a>
         </div>
       </div>
 
@@ -61,7 +62,7 @@
 			</c:if>
              
              
-            <!----------------------  姓名搜尋訂單 -->   
+            <!----------------------  姓名搜尋訂單 -->               	 
             <form action="<%=request.getContextPath()%>/pho/phocontrol">
 	            <h2>搜尋客戶訂單 : </h2>
 	            <input type="hidden" name="action" value="listMeOrderback">  
@@ -204,7 +205,13 @@
 </body>
 
 
-<script
-	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+ 
+	function socket(e){
+	 	document.open("/CA106G6/backend/sme/message2.jsp?empno=" + e, "" ,"height=600,width=850,left=65,top=120,resizable=yes,scrollbars=yes");
+	}
+	
+</script>
 
 </html>
