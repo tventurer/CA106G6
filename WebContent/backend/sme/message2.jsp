@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,7 +16,8 @@
 		<div class="container">
 			<div="row">
 				<div="col-12">
-	    			<h2 id="statusOutput" class="text-warning" >1212121</h2>
+	    			<h2 id="MEMstatus" class="text-warning" ></h2>
+	    			<h2 id="EMPstatus" class="text-warning" ></h2>
 			        <textarea id="messagesArea" readonly id="textbox" style="width:100%;height:400px;margin-top:3%;margin-bottom:1%"></textarea>				
 				</div>
 			</div>
@@ -25,10 +25,10 @@
         <div class="container">
 			<div="row">
 				<div="col-12">
-					<input id="myStatus" style="width:100%;height:35px" type="text" placeholder="ª¬ºA" />
-		            <input style="width:80%;height:70px;margin-top:2%" id="message" type="text" placeholder="°T®§" onkeydown="if (event.keyCode == 13) sendMessage();"/>
-		            <input style="width:9%;height:70px" type="submit" id="sendMessage" class="btn btn-secondary" value="°e¥X" onclick="sendMessage();"/>
-		            <input style="width:9%;height:70px" type="button" class="btn btn-light" value="¥m©N" onclick="shake();"/>
+					<input id="myStatus" style="width:100%;height:35px" type="text" placeholder="ç‹€æ…‹" />
+		            <input style="width:80%;height:70px;margin-top:2%" id="message" type="text" placeholder="è¨Šæ¯" onkeydown="if (event.keyCode == 13) sendMessage();"/>
+		            <input style="width:9%;height:70px" type="submit" id="sendMessage" class="btn btn-secondary" value="é€å‡º" onclick="sendMessage();"/>
+		            <input style="width:9%;height:70px" type="button" class="btn btn-light" value="å®å’š" onclick="shake();"/>
 		    	</div>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 	var webSocket;
 	
 	function connect() {		
-		// «Ø¥ß websocket ª«¥ó
+		// å»ºç«‹ websocket ç‰©ä»¶
 		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
@@ -54,16 +54,22 @@
 
 		webSocket.onmessage = function(event) {
 			var messagesArea = document.getElementById("messagesArea");
-			var statusOutput = document.getElementById("statusOutput");
+			var MEMstatus = document.getElementById("MEMstatus");
+			var EMPstatus = document.getElementById("EMPstatus");
 	        var jsonObj = JSON.parse(event.data);
 	        
+	        if(jsonObj.empno!=null){
+				var message = "å®¢æœå“¡("+ jsonObj.empno +")èªª: " + jsonObj.message + "\r\n";
 	        	
-				var message = "³X«È : " + jsonObj.message + "\r\n";
+	        }else if(jsonObj.memno!=null){
+	        	var message = "å®¢æˆ¶("+ jsonObj.memno +")èªª: " + jsonObj.message + "\r\n";
+	        }	
 		        messagesArea.value = messagesArea.value + message;
 		        messagesArea.scrollTop = messagesArea.scrollHeight;	        	
 	        	
 	        	var mystatus = jsonObj.myStatus;
-	        	statusOutput.innerHTML = jsonObj.empno + "(" + jsonObj.status + ")";
+	        	statusOutput.innerHTML = jsonObj.memno + "(" + jsonObj.status + ")";
+	        	statusOutput2.innerHTML = jsonObj.empno + "(" + jsonObj.status + ")";
 	        	
 		};
 
@@ -85,7 +91,7 @@
 	    var status = inputStatus.value.trim();
 	    
 	    if (message === ""){
-	        alert ("°T®§½Ğ¤ÅªÅ¥Õ!");
+	        alert ("è¨Šæ¯è«‹å‹¿ç©ºç™½!");
 	        inputMessage.focus();	
 	    }else{
 	    	<%
@@ -108,14 +114,14 @@
 	
 	
 	
-// 	µøµ¡¾_°Ê
+// 	è¦–çª—éœ‡å‹•
 function shake(){
 	
-	 var loop = 0; //²Î­p¾_°Ê¦¸¼Æ
-	 var timer; //©w®É¾¹¤Ş¥Î
-	 var offx; //¤ô¥­°¾²¾¶q
-	 var offy; //««ª½°¾²¾¶q
-	 var dir; //±±¨î¾_°Ê¤è¦V
+	 var loop = 0; //çµ±è¨ˆéœ‡å‹•æ¬¡æ•¸
+	 var timer; //å®šæ™‚å™¨å¼•ç”¨
+	 var offx; //æ°´å¹³åç§»é‡
+	 var offy; //å‚ç›´åç§»é‡
+	 var dir; //æ§åˆ¶éœ‡å‹•æ–¹å‘
 	 
 	 timer = setInterval(function(){
 	  var myStatus = document.getElementById("myStatus");
@@ -123,9 +129,9 @@ function shake(){
 	  var message = document.getElementById("message");
 	  if (loop > 100)
 	  {
-	   clearInterval(timer); //¾_°Ê¦¸¼Æ¶W¹L100´N°±¤î©w®É¾¹
+	   clearInterval(timer); //éœ‡å‹•æ¬¡æ•¸è¶…é100å°±åœæ­¢å®šæ™‚å™¨
 	  }
-	  dir = Math.random()*10 > 5 ? 1 : -1; //Àò±o¾_°Ê¤è¦V
+	  dir = Math.random()*10 > 5 ? 1 : -1; //ç²å¾—éœ‡å‹•æ–¹å‘
 	  offx = Math.random()*3*dir;
 	  offy = Math.random()*3*dir;
 	  myStatus.style.marginTop = offx+"px";
@@ -135,7 +141,7 @@ function shake(){
 	  message.style.marginTop = offx+"px";
 	  message.style.marginLeft = offy+"px";
 	  loop++;
-	 },10) //¨C¹j10²@¬í¾_°Ê¤@¦¸
+	 },10) //æ¯éš”10æ¯«ç§’éœ‡å‹•ä¸€æ¬¡
 	 
 	 
 }
