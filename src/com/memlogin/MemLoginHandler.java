@@ -1,6 +1,7 @@
 package com.memlogin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.mem.model.MemService;
 import com.mem.model.MemVO;
 
 import listeners.MemberSessionMapping;
-import tools.PwdEncoder;
 
 @WebServlet("/MemLoginHandler")
 public class MemLoginHandler extends HttpServlet {
@@ -24,17 +26,17 @@ public class MemLoginHandler extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		if ("login".equals(action)) {
+			JSONObject json = new JSONObject();
+			PrintWriter out = res.getWriter();
 			String mememail = req.getParameter("mememail").trim().toLowerCase();
 			String password = req.getParameter("password").trim();
 		
 			MemService memSvc = new MemService();
 			MemVO vo = memSvc.getEmailForLogin(mememail);			
 			
+			
 			if (!isUserValid(password, vo)) {
-				req.setAttribute("denied", "帳號密碼錯誤");
-				RequestDispatcher accessdenied = 
-						req.getRequestDispatcher("/memlogin.jsp");
-				accessdenied.forward(req, res);
+				out.print("{}");
 				return;
 			}
 		
@@ -45,25 +47,11 @@ public class MemLoginHandler extends HttpServlet {
 			session.setAttribute("mememail", vo.getMememail());
 			session.setAttribute("sessionMSM", new MemberSessionMapping(req));
 			
-			String location = (String) session.getAttribute("location");
-			String fromwhere = (String) session.getAttribute("fromwhere");
-			
-			System.out.println(fromwhere);
-			
-			try {
-				
-				if (location != null) {
-					session.removeAttribute("location");
-					res.sendRedirect(location);
-					return;
-				} else {
-					res.setHeader("Refresh", "5; URL=" + fromwhere);
-					res.sendRedirect(req.getContextPath() + "/memlogin_success.jsp");
-				}
-			} catch (Exception ignored) {
-				res.setHeader("Refresh", "5; URL=" + fromwhere);
-				res.sendRedirect(req.getContextPath() + "/memlogin_success.jsp");
-			}
+			json.accumulate("access", "true");
+			out.print(json.toString());
+			out.flush();
+			out.close();
+			return;
 		}
 		
 		if ("logout".equals(action)) {
