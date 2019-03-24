@@ -309,7 +309,7 @@ public class PorServlet extends HttpServlet{
 						String memname = memVO.getMemrealname();
 						String mpmtitle = "有來自會員"+memname+"的換貨要求";
 						String sorString = "換貨原因："+sor+"<br>"+"<a href='"+req.getContextPath()+"/frontend/por/listOneSellPur.jsp?memno="+sellmemno+"&purid="+purid+"'>訂單連結</a>";
-						mpmSvc.addMpm(buymemno, buymemno, mpmtitle, sorString);
+						mpmSvc.addMpm(buymemno, sellmemno, mpmtitle, sorString);
 
 						porSvc.updatePorStatusTime(porstatus, porid);
 						String url = req.getContextPath()+"/frontend/por/listBuyPor.jsp?memno="+buymemno;
@@ -333,7 +333,7 @@ public class PorServlet extends HttpServlet{
 						String memname = memVO.getMemrealname();
 						String mpmtitle = "有來自會員"+memname+"的退貨要求";
 						String sorString = "退貨原因："+sor+"<br>"+"<a href='"+req.getContextPath()+"/frontend/por/listOneSellPur.jsp?memno="+sellmemno+"&purid="+purid+"'>訂單連結</a>";
-						mpmSvc.addMpm(buymemno, buymemno, mpmtitle, sorString);
+						mpmSvc.addMpm(buymemno, sellmemno, mpmtitle, sorString);
 						porSvc.updatePorStatusTime(porstatus, porid);
 						String url = req.getContextPath()+"/frontend/por/listBuyPor.jsp?memno="+buymemno;
 						res.sendRedirect(url);;// 成功轉交 listBuyPor.jsp

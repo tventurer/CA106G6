@@ -30,6 +30,9 @@
     String[] pursort = {"生活居家","生活休閒","國際菸草","各國酒類","玩具遊戲","毛小孩專屬","經典品牌","行家收藏","運動用品","美妝保養"};
     request.setAttribute("pursort", pursort);
     
+    String[] listCity={"台北市","新北市","桃園市","台中市","台南市","高雄市","基隆市","新竹市","嘉義市","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","宜蘭縣","花蓮縣","臺東縣","澎湖縣"};
+    request.setAttribute("listCity",listCity);
+    
 %>
 
  <c:if test="${empty memno}">
@@ -171,7 +174,39 @@
           <div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="Type">收貨地址</label>
-              <input type="text" name="poraddress" class="form-control form-control-lg form-control-a">
+              	<div class="row">
+    	<div class="col">
+			<div class="dropdown">
+	  
+<select id="twCityName" class="form-control form-control-lg form-control-a">
+<option >--請選擇縣市--</option>
+<c:forEach var="city" items="${listCity}">
+<option value="${city}"> ${city}</option>
+</c:forEach>
+</select>
+	  
+<select id="CityAreaName" class="form-control form-control-lg form-control-a" >
+<option >--請選擇區域--</option>
+</select>
+			    
+<select id="AreaRoadName" class="form-control form-control-lg form-control-a" >
+<option >--請選擇路名--</option>
+</select>	    
+	  
+<input type="text" class="form-control form-control-lg" placeholder="請輸入門牌號碼" id="num">
+	  
+	    			    
+</div>
+	 </div></div></div>
+	</div>
+	 <div class="col-md-12 col-lg-8">
+            <div class="form-group" style="text-align: right;">
+			<input type="button" class="btn btn-default" value="確認" id="btnLoc">	
+            </div>
+          </div>
+	 <div class="col-md-12 col-lg-8">
+            <div class="form-group">
+              <input type="text" id="poraddress" name="poraddress" class="form-control form-control-lg form-control-a">
             </div>
           </div>
           <div class="col-md-12 col-lg-8">
@@ -224,84 +259,73 @@
 
     </div>
   </section>
-  <!--/ Property Grid End /-->
-
-  <!--/ footer Star /-->
-<!--   <footer> -->
-<!--     <div class="container"> -->
-<!--       <div class="row"> -->
-<!--         <div class="col-md-12"> -->
-<!--           <nav class="nav-footer"> -->
-<!--             <ul class="list-inline"> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Home</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">About</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Property</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Blog</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Contact</a> -->
-<!--               </li> -->
-<!--             </ul> -->
-<!--           </nav> -->
-<!--           <div class="socials-a"> -->
-<!--             <ul class="list-inline"> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-facebook" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-twitter" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-instagram" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-pinterest-p" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-dribbble" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--             </ul> -->
-<!--           </div> -->
-<!--           <div class="copyright-footer"> -->
-<!--             <p class="copyright color-text-a"> -->
-<!--               &copy; Copyright -->
-<!--               <span class="color-a">T-Venturer</span> All Rights Reserved. -->
-<!--             </p> -->
-<!--           </div> -->
-<!--           <div class="credits"> -->
-<!--            
-<!--               All the links in the footer should remain intact. -->
-<!--               You can delete the links only if you purchased the pro version. -->
-<!--               Licensing information: https://bootstrapmade.com/license/ -->
-<!--               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency -->
-<!--             --> -->
-<!--             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </footer> -->
-  <!--/ Footer End /-->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
- 
+ <script> 
+
+$(document).ready(function(){
+	
+	$("#twCityName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/Json2Read",
+			 data: {"action":"twCityName",
+				 	"twCityName":$('#twCityName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#CityAreaName").empty();
+				
+				 $("#CityAreaName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#CityAreaName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	$("#CityAreaName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/Json2Read",
+			 data: {"action":"CityAreaName",
+				 	"twCityName":$('#twCityName option:selected').val(),
+				 	"CityAreaName":$('#CityAreaName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#AreaRoadName").empty();
+				 $("#AreaRoadName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#AreaRoadName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	
+	$("#btnLoc").click(function(){
+		
+		var twCityName = ($('#twCityName').get(0).selectedIndex)>0? $('#twCityName option:selected').val() :'';
+		
+		var CityAreaName = ($('#CityAreaName').get(0).selectedIndex)>0? $('#CityAreaName option:selected').val() :'';
+		
+		var AreaRoadName = ($('#AreaRoadName').get(0).selectedIndex)>0? $('#AreaRoadName option:selected').val() :'' ;
+		
+		var num = $('#num').val().trim().length != 0 ? $('#num').val()+"號" :'' ; 
+
+		var locTotal = twCityName+CityAreaName+AreaRoadName+num;
+		$("#poraddress").attr("value",locTotal);
+		
+	});	
+})
+
+
+</script>
 </body>
 </html>

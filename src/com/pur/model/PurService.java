@@ -73,6 +73,10 @@ public class PurService {
 	public List<PurVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<PurVO> getPurOneAll() {
+		return dao.getPurOneAll();
+	}
 	public List<PurVO> getMemAll(String memno){
 		return dao.getMemAll(memno);
 	}

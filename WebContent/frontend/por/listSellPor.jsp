@@ -4,6 +4,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
+
 <%
 	String name=(String)session.getAttribute("memno");
 	PurService purSvc = new PurService();
@@ -45,16 +47,6 @@
 						<span class="color-text-a">如您有販賣商品，此處顯示的訂單為您產品的所有訂單</span>
 					</div>
 				</div>
-<!-- 				<div class="col-md-12 col-lg-4"> -->
-<!-- 					<nav aria-label="breadcrumb" -->
-<!-- 						class="breadcrumb-box d-flex justify-content-lg-end"> -->
-<!-- 						<ol class="breadcrumb"> -->
-<!-- 							<li class="breadcrumb-item"><a href="#">首頁</a></li> -->
-<!-- 							<li class="breadcrumb-item active" aria-current="page"> -->
-<!-- 								會員&nbsp;＞&nbsp;販售訂單管理</li> -->
-<!-- 						</ol> -->
-<!-- 					</nav> -->
-<!-- 				</div> -->
 			</div>
 		</div>
 	</section>
@@ -89,6 +81,11 @@
 							</thead>
 
 							<tbody>
+							<c:if test="${fn:length(Purlist) == 0}">
+								<tr>
+									<td  colspan="10"><br><h5>您尚無上架任何商品 ~ <a href="<%=request.getContextPath()%>/frontend/pur/addOnePur.jsp">新增商品去 ~ </a></h5><br></td>
+								</tr>
+							</c:if>
 								<c:forEach var="purVO" items="${Purlist}" varStatus="s">
 									<tr>
 										<td>${s.count}</td>
@@ -109,13 +106,20 @@
 												pageContext.setAttribute("Por_num", Por_num);
 										%>
 										<td>${Por_num}</td>
-										<td><c:forEach var="porVO" items="${Porlist1}" varStatus="a">
+										<td>
+										<c:if test="${Por_num > 0 }">
+										<c:forEach var="porVO" items="${Porlist1}" varStatus="a">
 										<c:choose>
 										<c:when test="${a.last}">
 											<fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/>
 										</c:when>
 										</c:choose>
-										</c:forEach></td>
+										</c:forEach>
+										</c:if>
+										<c:if test="${Por_num == 0 }">
+											您尚無訂單
+										</c:if>
+										</td>
 										<td>
 							     		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
 						   		     	     <input type="submit" value="查看">
@@ -133,60 +137,6 @@
 	</section>
 	<!--/ Agents Grid End /-->
 	<br>
-
-	<!--/ footer Star /-->
-<!-- 	<footer> -->
-<!-- 		<div class="container"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-md-12"> -->
-<!-- 					<nav class="nav-footer"> -->
-<!-- 						<ul class="list-inline"> -->
-<!-- 							<li class="list-inline-item"><a href="#">Home</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">About</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Property</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Blog</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Contact</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</nav> -->
-<!-- 					<div class="socials-a"> -->
-<!-- 						<ul class="list-inline"> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-facebook" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-twitter" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-instagram" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-pinterest-p" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-dribbble" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 					<div class="copyright-footer"> -->
-<!-- 						<p class="copyright color-text-a"> -->
-<!-- 							&copy; Copyright <span class="color-a">T-Venturer</span> All -->
-<!-- 							Rights Reserved. -->
-<!-- 						</p> -->
-<!-- 					</div> -->
-<!-- 					<div class="credits"> -->
-<!-- 						
-<!--               All the links in the footer should remain intact. -->
-<!--               You can delete the links only if you purchased the pro version. -->
-<!--               Licensing information: https://bootstrapmade.com/license/ -->
-<!--               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency -->
-<!--             --> -->
-<!-- 						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</footer> -->
-	<!--/ Footer End /-->
 
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 	<div id="preloader"></div>

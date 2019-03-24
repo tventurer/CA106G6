@@ -11,6 +11,7 @@ public interface PurDAO_interface {
     public void delete(String purid,Integer purstatus);
     public PurVO findByPrimaryKey(String purid);
     public List<PurVO> getAll();
+    public List<PurVO> getPurOneAll();
     public List<PurVO> getMemAll(String memno);
     public List<PurVO> getSortAll(Integer pursort);
     public List<String> getTimeAndDown(String starttime,String endtime);

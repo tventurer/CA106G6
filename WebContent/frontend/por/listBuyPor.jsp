@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <%
 String name =(String)session.getAttribute("memno");
 	PurService purSvc = new PurService();
@@ -160,6 +161,11 @@ text-align: left;
 							</thead>
 
 							<tbody>
+							<c:if test="${fn:length(Porlist) == 0}">
+								<tr>
+									<td  colspan="10"><br><h5>您尚無下定任何商品 ~ <a href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp">心動不如馬上行動選購去 ~ </a></h5><br></td>
+								</tr>
+							</c:if>
 								<c:forEach var="porVO" items="${Porlist}" varStatus="s">
 									<tr>
 										<td>${s.count}</td>
@@ -612,59 +618,6 @@ text-align: left;
 	<!--/ Agents Grid End /-->
 	<br>
 
-	<!--/ footer Star /-->
-<!-- 	<footer> -->
-<!-- 		<div class="container"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-md-12"> -->
-<!-- 					<nav class="nav-footer"> -->
-<!-- 						<ul class="list-inline"> -->
-<!-- 							<li class="list-inline-item"><a href="#">Home</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">About</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Property</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Blog</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Contact</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</nav> -->
-<!-- 					<div class="socials-a"> -->
-<!-- 						<ul class="list-inline"> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-facebook" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-twitter" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-instagram" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-pinterest-p" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-dribbble" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 					<div class="copyright-footer"> -->
-<!-- 						<p class="copyright color-text-a"> -->
-<!-- 							&copy; Copyright <span class="color-a">T-Venturer</span> All -->
-<!-- 							Rights Reserved. -->
-<!-- 						</p> -->
-<!-- 					</div> -->
-<!-- 					<div class="credits"> -->
-<!-- 						
-<!--               All the links in the footer should remain intact. -->
-<!--               You can delete the links only if you purchased the pro version. -->
-<!--               Licensing information: https://bootstrapmade.com/license/ -->
-<!--               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency -->
-<!--             --> -->
-<!-- 						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</footer> -->
-	<!--/ Footer End /-->
 
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 	<div id="preloader"></div>
