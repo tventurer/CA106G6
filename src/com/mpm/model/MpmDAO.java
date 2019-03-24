@@ -12,6 +12,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.mem.model.MemService;
+import com.not.model.NotService;
+
 public class MpmDAO implements MpmDAO_interface {
 	private static DataSource ds = null;
 	private static String INSERT_STMT = 
@@ -50,6 +53,15 @@ public class MpmDAO implements MpmDAO_interface {
 			pstmt.setInt(5, 0);
 			
 			result = pstmt.executeUpdate();
+			
+			NotService notSvc = new NotService();
+			MemService memSvc = new MemService();
+			String notReceiver = mpmvo.getMpmreceiver();
+			String notSender = mpmvo.getMpmsender();
+			String notContent = "你有一封來自" + memSvc.getOneMem(notSender).getMemacc() + "的私人訊息";
+			
+			
+			notSvc.addNot(notReceiver, notContent);
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
