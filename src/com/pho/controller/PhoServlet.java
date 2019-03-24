@@ -1,6 +1,7 @@
 package com.pho.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.pah.model.*;
 import com.phd.model.*;
 import com.pho.model.*;
+import com.not.model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -548,6 +550,12 @@ public class PhoServlet extends HttpServlet {
 					pos.changeStatus(phostatus, phomark, phono);
 				}
 				
+				
+				//發出通知
+				NotService nos = new NotService();
+				nos.addNot(phovo.getMemno(), "您的訂單已審核");
+				
+				
 				req.setAttribute("phovo", pos.getOnePho(phono));
 				RequestDispatcher success = req.getRequestDispatcher("/pho/phocontrol?action=listMeOrderback&memno="+memno);
 				success.forward(req, res);
@@ -593,6 +601,13 @@ public class PhoServlet extends HttpServlet {
 				for(int i=0; i<Orderno.length; i++) {
 					phs.changeStatus(1, "", Orderno[i]);
 					orderno.add(Orderno[i]);
+					
+
+
+					//發出通知
+					NotService nos = new NotService();
+					nos.addNot(phs.getOnePho(Orderno[i]).getMemno(), "您的訂單商品已寄出");
+					
 				}
 				
 				
@@ -605,7 +620,9 @@ public class PhoServlet extends HttpServlet {
 						sucessOrderList.add(phovo);
 						allMoney += phovo.getPhototal();
 					}
-				}		
+				}						
+				
+				
 				
 				//導轉成功頁面
 				req.setAttribute("allMoney", allMoney);

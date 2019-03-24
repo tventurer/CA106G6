@@ -123,20 +123,15 @@
                 <span class="fa fa-gamepad"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Lifestyle</h2>
+                <h2 class="title-c">代購商品</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+                	若您在國外網站看到限量版貨品，但卻遲遲買不到， 我們的代購功能是您最好的選擇。您可以看看網站內由無正在販售的賣家，優良的服務讓你享受更大購物樂趣，讓您安心在家接收貨品  
               </p>
             </div>
             <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
             </div>
           </div>
         </div>
@@ -147,20 +142,15 @@
                 <span class="fa fa-usd"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Loans</h2>
+                <h2 class="title-c">機加酒</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit. Mauris blandit
-                aliquet elit, eget tincidunt
-                nibh pulvinar a.
+              	  我們時常出國自由行和規劃旅遊，很多人會好奇要怎麼訂到便宜的機票？或是用超值的價格訂到豪華飯店？大家都知道要善用比價網站，除了找最便宜的價格外，喜愛質感旅行的我們，更注重的是「超值」，旅遊浪潮是您最好的朋友。​
               </p>
             </div>
             <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
             </div>
           </div>
         </div>
