@@ -3,7 +3,6 @@ package com.memlogin;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +47,7 @@ public class MemLoginHandler extends HttpServlet {
 			session.setAttribute("sessionMSM", new MemberSessionMapping(req));
 			
 			json.accumulate("access", "true");
+			json.accumulate("memacc", vo.getMemacc());
 			out.print(json.toString());
 			out.flush();
 			out.close();
@@ -57,7 +57,11 @@ public class MemLoginHandler extends HttpServlet {
 		if ("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			session.invalidate();
-			res.sendRedirect(req.getContextPath() + "/memlogout.html");
+			PrintWriter out = res.getWriter();
+			out.print("{}");
+			out.flush();
+			out.close();
+			return;
 		}
 	}
 	
