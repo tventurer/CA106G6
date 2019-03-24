@@ -1,7 +1,6 @@
 package com.not.model;
 
 import java.util.List;
-import com.not.model.NotVO;
 
 public class NotService {
 	private NotDAO_interface dao;
@@ -15,7 +14,6 @@ public class NotService {
 		notVO.setMemno(memno);
 		notVO.setNotcontent(notcontent);
 		dao.insert(notVO);
-		
 		return notVO;
 	}
 	

@@ -29,7 +29,7 @@
   <link href="<%= request.getContextPath() %>/style/f/css/style.css" rel="stylesheet">
 
 </head>
-<body>
+<body onload="connect();" onunload="disconnect();">
 
   <!--/ Nav Star /-->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
@@ -52,7 +52,8 @@
           <li class="nav-item">
             <a class="nav-link" href="<%= request.getContextPath() %>/frontend/pos/AllPost.jsp">旅人文章</a>
           </li>
-          <li class="nav-item dropdown">
+          <c:if test="${memacc != null}">
+          <li class="nav-item dropdown">          
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               	會員
@@ -69,6 +70,7 @@
               <a class="dropdown-item" href="<%=request.getContextPath()%>/frontend/acr/listMemAcr.jsp">代幣管理</a>
             </div>
           </li>
+          </c:if>
           <li class="nav-item">
 <!--             <a class="nav-link" href="contact.html">Contact</a> -->
           </li>

@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.not.controller.WebSocket;
+
 public class NotDAO implements NotDAO_interface {
 	private static DataSource ds = null;
 	static {
@@ -44,10 +46,14 @@ public class NotDAO implements NotDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
+			String memno = notVO.getMemno();
 			pstmt.setString(1, notVO.getMemno());
 			pstmt.setString(2, notVO.getNotcontent());
 			
 			result = pstmt.executeUpdate();
+			
+			WebSocket ws = new WebSocket();
+			ws.onMessage(memno);
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
