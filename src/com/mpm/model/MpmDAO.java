@@ -24,9 +24,9 @@ public class MpmDAO implements MpmDAO_interface {
 	private static String UPDATE = 
 			"UPDATE MEMBERPRIVATEMESSAGE SET MPMTITLE = ?, MPMCONTENT = ? WHERE MPMNO = ?";
 	private static String GET_ONE_STMT = 
-			"SELECT MPMNO, MPMSENDER, MPMRECEIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd hh:mm:ss') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE WHERE MPMNO = ?";
+			"SELECT MPMNO, MPMSENDER, MPMRECIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd hh:mm:ss') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE WHERE MPMNO = ?";
 	private static String GET_ALL_STMT = 
-			"SELECT MPMNO, MPMSENDER, MPMRECEIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd hh:mm:ss') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE ORDER BY MPMNO";
+			"SELECT MPMNO, MPMSENDER, MPMRECIVER, MPMTITLE, MPMCONTENT, to_char(MPMTIME,'yyyy-mm-dd hh:mm:ss') MPMTIME, MPMREADED FROM MEMBERPRIVATEMESSAGE ORDER BY MPMNO";
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -58,7 +58,7 @@ public class MpmDAO implements MpmDAO_interface {
 			MemService memSvc = new MemService();
 			String notReceiver = mpmvo.getMpmreceiver();
 			String notSender = mpmvo.getMpmsender();
-			String notContent = "你有一封來自" + memSvc.getOneMem(notSender).getMemacc() + "的私人訊息";
+			String notContent = mpmvo.getMpmtitle() + mpmvo.getMpmcontent();
 			
 			
 			notSvc.addNot(notReceiver, notContent);
@@ -138,7 +138,7 @@ public class MpmDAO implements MpmDAO_interface {
 				mpmvo = new MpmVO();
 				mpmvo.setMpmno(rs.getString("MPMNO"));
 				mpmvo.setMpmsender(rs.getString("MPMSENDER"));
-				mpmvo.setMpmreceiver(rs.getString("MPMRECEIVER"));
+				mpmvo.setMpmreceiver(rs.getString("MPMRECIVER"));
 				mpmvo.setMpmtitle(rs.getString("MPMTITLE"));
 				mpmvo.setMpmcontent(rs.getString("MPMCONTENT"));
 				mpmvo.setMpmtime(rs.getTimestamp("MPMTIME"));
@@ -190,7 +190,7 @@ public class MpmDAO implements MpmDAO_interface {
 				mpmvo = new MpmVO();
 				mpmvo.setMpmno(rs.getString("MPMNO"));
 				mpmvo.setMpmsender(rs.getString("MPMSENDER"));
-				mpmvo.setMpmreceiver(rs.getString("MPMRECEIVER"));
+				mpmvo.setMpmreceiver(rs.getString("MPMRECIVER"));
 				mpmvo.setMpmtitle(rs.getString("MPMTITLE"));
 				mpmvo.setMpmcontent(rs.getString("MPMCONTENT"));
 				mpmvo.setMpmtime(rs.getTimestamp("MPMTIME"));
