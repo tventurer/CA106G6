@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="col-1">
-        	  <input onclick="javascript:socket('${memno}')" value="連絡客服" type="button" class="btn btn-secondary">
+        	  <input onclick="javascript:socket('${memno}')" value="訂單問題" type="button" class="btn btn-secondary">
         </div>
       </div>
     </div>
