@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.not.model.NotService;
 import com.tod.model.TodService;
 import com.tod.model.TodVO;
 import com.tri.model.TriService;
@@ -92,6 +93,10 @@ public class TodServlet extends HttpServlet {
 				TriService triSvc = new TriService();
 				TriVO triVO = triSvc.getOneTri(trino);
 				triSvc.updateTri(triVO.getTriname(), triVO.getTribegdate(), triVO.getTrienddate(), triVO.getTripeonum(), 2, null, trino);
+				
+				//通知設定
+				NotService notSvc = new NotService();
+				notSvc.addNot(req.getParameter("memno"), "業務員已對您的行程提供相關報價,趕緊查看!");
 				
 				//3.執行成功,進行轉交
 				String url = "/backend/tri/listAllTri.jsp?whichPage=" + whichPage;
