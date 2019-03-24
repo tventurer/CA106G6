@@ -123,9 +123,9 @@
 	    membirth = new java.sql.Date(System.currentTimeMillis());
    }
 %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/frontend/mem/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/frontend/mem/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/frontend/mem/datetimepicker/jquery.datetimepicker.full.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
   .xdsoft_datetimepicker .xdsoft_datepicker {
@@ -137,7 +137,6 @@
 </style>
 
 <script>
-        $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
