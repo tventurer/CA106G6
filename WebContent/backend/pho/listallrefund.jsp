@@ -42,7 +42,7 @@
         <div>
           <h1><i class="fa fa-th-list"></i>客戶訂單管理</h1>
           <p>T-Venturer</p>
-          <A HREF="javascript:socket('${empno}')">客戶服務</a>
+          <input onclick="javascript:socket('${empno}')" value="客戶服務" type="button" class="btn btn-secondary">
         </div>
       </div>
 
@@ -207,9 +207,9 @@
 
 
 <script>
- 
+  	
 	function socket(e){
-	 	document.open("/CA106G6/backend/sme/message2.jsp?empno=" + e, "" ,"height=600,width=850,left=65,top=120,resizable=yes,scrollbars=yes");
+	 	document.open("/CA106G6/backend/sme/message2.jsp?empno=" + e, "" ,"height=680,width=850,left=50,top=40,resizable=yes,scrollbars=yes");
 	}
 	
 </script>

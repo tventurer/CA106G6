@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="col-1">
-        	 <A HREF="javascript:socket('${memno}')">連絡客服</a>
+        	  <input onclick="javascript:socket('${memno}')" value="連絡客服" type="button" class="btn btn-secondary">
         </div>
       </div>
     </div>
@@ -181,7 +181,7 @@
 <script>
  
 	function socket(m){
-	 	document.open("/CA106G6/backend/sme/message2.jsp?memno=" + m, "" ,"height=600,width=850,left=65,top=120,resizable=yes,scrollbars=yes");
+	 	document.open("/CA106G6/backend/sme/message2.jsp?memno=" + m, "" ,"height=680,width=850,left=50,top=40,resizable=yes,scrollbars=yes");
 	}
 	
 </script>	
