@@ -27,6 +27,8 @@
 
   <!-- Main Stylesheet File -->
   <link href="<%= request.getContextPath() %>/style/f/css/style.css" rel="stylesheet">
+  <!-- Sweetalert -->
+  <script src='<%=request.getContextPath()%>/bootstrap/sweetAlert/sweetalert.min.js'></script>
 
 </head>
 <body onload="connect();" onunload="disconnect();">
@@ -76,12 +78,12 @@
           </li>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <li class="nav-item">
-          <c:if test="${memacc == null}">
-            <a class="nav-link" href="<%=request.getContextPath()%>/memlogin.jsp">登入</a>
+          
+            <button class="nav-link" id="btn_login" data-toggle="modal" data-target="#login" ${memno != null ? "style='display:none'" : '' } style='border: none; background-color:white;'>登入</button>
             <li class="nav-item">
             	<a class="nav-link" href="<%=request.getContextPath()%>/frontend/mem/memsignup.jsp">註冊</a>
             </li>
-          </c:if>
+          
           <c:if test="${memacc != null}">
             <a class="nav-link" href="<%=request.getContextPath()%>/backend/mem/memlogout.jsp">登出</a>
             <%@ include file="/frontend/not/notification.file" %>
@@ -92,6 +94,79 @@
     </div>
   </nav>
   <!--/ Nav End /-->
+
+<!-- Modal -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginLabel">登入</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+       </div>
+      <div class="modal-body">
+  	      <div class="form-group">
+   		     <label for="login_text_mem_acc">信箱</label>
+   		     <input type="text" name='mememail' class="form-control mememail" id="login_text_mememail" aria-describedby="ACCHelp" placeholder="輸入您的信箱">
+   		     <small id="login_text_mem_acc_answer" class="form-text text-muted">請輸入您的信箱</small>
+ 		  </div>
+	     <div class="form-group">
+	         <label for="login_text_mem_pw">密碼</label>
+	         <input type="password" name='mempwd' class="form-control password" id="login_text_mempwd" placeholder="輸入您的密碼">
+	         <small id="login_text_mem_pw_answer" class="form-text text-muted">請輸入您的密碼</small>
+	     </div>
+	   <button type="button" class="btn btn-success login" >登入</button>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerLabel">註冊</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontLoginHandler">
+  	      <div class="form-group">
+   		     <label for="register_text_mem_acc">會員帳號</label>
+   		     <input type="text" name="register_text_mem_acc" class="form-control" id="register_text_mem_acc" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
+   		     <small id="register_text_mem_acc_answer" style="color:red;">*您的帳號名稱是什麼?</small>
+ 		  </div>
+	     <div class="form-group">
+	         <label for="register_text_mem_pw">會員密碼</label>
+	         <input type="password" name="register_text_mem_pw"class="form-control" id="register_text_mem_pw" placeholder="輸入您的密碼">
+	         <small id="register_text_mem_pw_answer" style="color:red;">*請輸入4個以上的英文或數字</small>
+	     </div>
+	     <div class="form-group">
+	         <label for="register_text_mem_email">E-mail</label>
+	         <input type="email" name="register_text_mem_email" class="form-control" id="register_text_mem_email" placeholder="輸入您的E-mail">
+	         <small id="register_text_mem_email_answer" style="color:red;">*請輸入有效的電子郵件。</small>
+	     </div>
+	     <div class="form-group">
+	         <label for="register_text_mem_addr">居住地</label>
+    		 <select class="form-control" name="register_text_mem_addr" id="register_text_mem_addr">
+        	 </select>
+	     </div>
+	    
+	     <input type="hidden" name="action" value="register">
+	   <button type="submit" class="btn btn-success" id="btnRegister" disabled>註冊</button>
+	 </form>
+	 </div>
+      <div class="modal-footer">
+       <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>    
 
  <!-- JavaScript Libraries -->
   <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>
@@ -106,5 +181,95 @@
 
   <!-- Template Main Javascript File -->
   <script src="<%= request.getContextPath() %>/style/f/js/main.js"></script>
+  
+  <script>
+  $(function(){
+		
+	    	$('.login').click(function(){
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/MemLoginHandler",
+					 data: {"mememail":$(".mememail").val(),
+						    "password":$(".password").val(),
+						    "action": "login"},
+					 dataType: "json",
+					 success: function(data){
+						 if(data.access == 'true'){
+							$('#login').modal('hide');
+							swal({
+								title: "登入成功!",
+								text: "歡迎您~",
+								type:"success"}).then(function(){ 
+							   		location.reload();
+							   	}
+							);
+														
+						}else{
+							swal('你的帳號,密碼無效!','請您重新輸入帳號密碼','error');
+
+						}
+					 },
+		             error: function(){
+		             
+		             }
+		         });
+			});
+			
+			
+			$('#register_text_mem_acc').on('keyup', function(){
+				if( $('#register_text_mem_acc').val().trim().length == 0){
+					$('#register_text_mem_acc_answer').text('會員帳號: 請勿空白.');
+					//register_text_mem_acc_flag = false;
+				}else{
+					$('#register_text_mem_acc_answer').text('');
+					var register_text_mem_acc = $(this).val();
+				}
+				var register_text_mem_acc = $(this).val();
+ 				
+					_debounce(function(){
+						
+						return getRegister_text_mem_acc(register_text_mem_acc, register_text_mem_acc_flag_G); 
+					}, 500);
+					
+
+			});
+		
+			
+			$('#register_text_mem_pw').on('keyup', function(){
+				if($('#register_text_mem_pw').val().trim().length == 0){
+					$('#register_text_mem_pw_answer').text('會員密碼: 請勿空白');
+
+				}else{
+					$('#register_text_mem_pw_answer').text('');
+					
+				}
+				var register_text_mem_pw = $(this).val();
+				_debounce(function(){
+					
+					return getRegister_text_mem_pw(register_text_mem_pw, register_text_mem_pw_flag_G); 
+				}, 500);
+			});
+			
+			
+			$('#register_text_mem_email').on('keyup', function(){
+				if($('#register_text_mem_email').val().trim().length == 0 ){
+					$('#register_text_mem_email_answer').text('會員電子信箱: 請勿空白');
+					
+				}else{
+					$('#register_text_mem_email_answer').text('');
+					
+				}
+				var register_text_mem_email = $(this).val();
+				_debounce(function(){ 
+					
+					return getRegister_text_mem_email(register_text_mem_email, register_text_mem_email_flag_G); 
+				}, 500);
+			});
+			datas.map(function(data){
+		        $('#register_text_mem_addr').append('<option value="'+ data.value +'">' + data.title + '</option>');
+		    });
+			 
+		});
+</script>
 </body>
 </html>
