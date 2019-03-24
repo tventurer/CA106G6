@@ -79,13 +79,15 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <li class="nav-item">
           
-            <button class="nav-link" id="btn_login" data-toggle="modal" data-target="#login" ${memno != null ? "style='display:none'" : '' } style='border: none; background-color:white;'>登入</button>
+            <button class="nav-link" id="btn_login" data-toggle="modal" data-target="#login" ${memno != null ? "style='display:none'" : '' } style="border: none; background-color:white;">登入</button>
+            <c:if test="${memacc == null}">
             <li class="nav-item">
             	<a class="nav-link" href="<%=request.getContextPath()%>/frontend/mem/memsignup.jsp">註冊</a>
             </li>
-          
+            </c:if>
+          <li>
           <c:if test="${memacc != null}">
-            <a class="nav-link" href="<%=request.getContextPath()%>/backend/mem/memlogout.jsp">登出</a>
+            <button class="nav-link" id="btn_logout" data-toggle="modal" data-target="#logout" ${memno == null ? "style='display:none'" : '' } style="border: none; background-color:white;">登出</button>
             <%@ include file="/frontend/not/notification.file" %>
           </c:if>
           </li>
@@ -124,49 +126,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="registerLabel">註冊</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <form METHOD="post" ACTION="<%=request.getContextPath()%>/FrontLoginHandler">
-  	      <div class="form-group">
-   		     <label for="register_text_mem_acc">會員帳號</label>
-   		     <input type="text" name="register_text_mem_acc" class="form-control" id="register_text_mem_acc" aria-describedby="ACCHelp" placeholder="輸入您的帳號">
-   		     <small id="register_text_mem_acc_answer" style="color:red;">*您的帳號名稱是什麼?</small>
- 		  </div>
-	     <div class="form-group">
-	         <label for="register_text_mem_pw">會員密碼</label>
-	         <input type="password" name="register_text_mem_pw"class="form-control" id="register_text_mem_pw" placeholder="輸入您的密碼">
-	         <small id="register_text_mem_pw_answer" style="color:red;">*請輸入4個以上的英文或數字</small>
-	     </div>
-	     <div class="form-group">
-	         <label for="register_text_mem_email">E-mail</label>
-	         <input type="email" name="register_text_mem_email" class="form-control" id="register_text_mem_email" placeholder="輸入您的E-mail">
-	         <small id="register_text_mem_email_answer" style="color:red;">*請輸入有效的電子郵件。</small>
-	     </div>
-	     <div class="form-group">
-	         <label for="register_text_mem_addr">居住地</label>
-    		 <select class="form-control" name="register_text_mem_addr" id="register_text_mem_addr">
-        	 </select>
-	     </div>
-	    
-	     <input type="hidden" name="action" value="register">
-	   <button type="submit" class="btn btn-success" id="btnRegister" disabled>註冊</button>
-	 </form>
-	 </div>
-      <div class="modal-footer">
-       <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Save changes</button> -->
-      </div>
-    </div>
-  </div>
-</div>    
 
  <!-- JavaScript Libraries -->
   <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>
@@ -198,7 +157,7 @@
 							$('#login').modal('hide');
 							swal({
 								title: "登入成功!",
-								text: "歡迎您~",
+								text: data.memacc + "歡迎您登入旅遊浪潮",
 								type:"success"}).then(function(){ 
 							   		location.reload();
 							   	}
@@ -215,7 +174,27 @@
 		         });
 			});
 			
-			
+	    	$('#btn_logout').click(function(){
+				 $.ajax({
+					 type: "POST",
+					 url: "<%=request.getContextPath()%>/MemLoginHandler",
+					 data: {"action": "logout"},
+					 dataType: "json",
+					 success: function(data){
+						swal({
+							title: "成功登出",
+							text: "即將回到首頁",
+							type:"success"}).then(function(){ 
+						   		location = "<%=request.getContextPath()%>/index.jsp";
+						   	}
+						);
+					 },
+		             error: function(){
+		             
+		             }
+		         });
+			});
+	    	
 			$('#register_text_mem_acc').on('keyup', function(){
 				if( $('#register_text_mem_acc').val().trim().length == 0){
 					$('#register_text_mem_acc_answer').text('會員帳號: 請勿空白.');
