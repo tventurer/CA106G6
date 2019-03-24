@@ -81,7 +81,7 @@ public class MemLoginHandler extends HttpServlet {
 		} catch (NullPointerException e) {
 			return false;
 		}
-		return PwdEncoder.encode(password).equals(vo.getMempwd())? true : false;
+		return password.equals(vo.getMempwd())? true : false;
 	}
 	
 }

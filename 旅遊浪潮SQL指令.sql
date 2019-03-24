@@ -81,19 +81,19 @@ CREATE SEQUENCE MEM_SEQ
     START WITH 1
     INCREMENT BY 1;
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'ALICE', 'uquq', 'alice@abc.com', 1, '愛麗絲');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'ALICE', '123456', 'alice@abc.com', 1, '愛麗絲');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'BOB', 'uquq', 'bob@abc.com', 1, '鮑伯');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'BOB', '123456', 'bob@abc.com', 1, '鮑伯');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'CHARLIE', 'uquq', 'charlie@abc.com', 1, '查理');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'CHARLIE', '123456', 'charlie@abc.com', 1, '查理');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Jack', 'uquq', 'Jack@abc.com', 1, '傑克');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Jack', '123456', 'Jack@abc.com', 1, '傑克');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'John', 'uquq', 'John@abc.com', 1, '約翰');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'John', '123456', 'John@abc.com', 1, '約翰');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Hank', 'uquq', 'Hank@abc.com', 1, '漢克');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Hank', '123456', 'Hank@abc.com', 1, '漢克');
 INSERT INTO MEMBER (MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME) 
-    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Maria', 'uquq', 'Maria@abc.com', 1, '瑪麗亞');
+    VALUES (('MEM' || LPAD(to_char(MEM_SEQ.NEXTVAL), 6 , '0')), 'Maria', '123456', 'Maria@abc.com', 1, '瑪麗亞');
 
 -----------------------建立會員訊息表格-----------------------
 
