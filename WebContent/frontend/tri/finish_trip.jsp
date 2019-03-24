@@ -19,7 +19,7 @@
             <ul class="list-comments">
               <li>
                 <div class="comment-avatar">
-                  <img src="<%= request.getContextPath() %>/style/f/img/author-2.jpg" alt="">
+                  <img src="<%= request.getContextPath() %>/style/f/img/like.png">
                 </div>
                 <div class="comment-details">
                   <h4 class="comment-author">已收到您規劃的行程!</h4>

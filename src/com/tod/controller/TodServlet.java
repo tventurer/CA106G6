@@ -45,13 +45,6 @@ public class TodServlet extends HttpServlet {
 					errorMsgs.put("pdtPrice", "請至少輸入一項商品價格!");
 				}
 				
-//				Integer todquo = null;
-//				try {
-//					todquo = Integer.parseInt(req.getParameter("todquo").trim());
-//				} catch(NumberFormatException ne) {
-//					errorMsgs.put("todquo", "輸入的報價格式有誤!");
-//				}
-				
 				Date todddl = null;
 				try {
 					todddl = Date.valueOf(req.getParameter("todddl").trim());
@@ -101,7 +94,12 @@ public class TodServlet extends HttpServlet {
 				triSvc.updateTri(triVO.getTriname(), triVO.getTribegdate(), triVO.getTrienddate(), triVO.getTripeonum(), 2, null, trino);
 				
 				//3.執行成功,進行轉交
-				RequestDispatcher success = req.getRequestDispatcher("/backend/tri/listAllTri.jsp?whichPage=" + whichPage);
+				String url = "/backend/tri/listAllTri.jsp?whichPage=" + whichPage;
+				if("todstat".equals(req.getParameter("come"))) {
+					url = "/backend/tod/listAllTod.jsp";
+				}
+				System.out.println("url:" + url);
+				RequestDispatcher success = req.getRequestDispatcher(url);
 				success.forward(req, res);
 				
 			} catch(Exception e) {

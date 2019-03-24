@@ -55,6 +55,9 @@ public class TdeServlet extends HttpServlet {
 			SpoService spoSvc = new SpoService();
 			SpoVO spoVO = spoSvc.getAllByName(sponame);
 			
+			//將圖片設為空值,另外處理(效能問題)
+			spoVO.setSpopic(null);
+			
 			//只有在第一次新增時才會建立LinkedHashMap及LinkedList
 			if(dayTripList == null) {
 				dayTripList = new LinkedHashMap<String,List<SpoVO>>();
@@ -143,6 +146,7 @@ public class TdeServlet extends HttpServlet {
 			String whichDate = req.getParameter("whichDate");
 			String tdestart = req.getParameter("tdestart");
 			String tdefinish = req.getParameter("tdefinish");  //tdefinish=10%3A23+PM&tdefinish=10%3A23+PM
+															   //tdestart=09%3A00&tdestart=09%3A30&tdestart=10%3A00
 			
 			System.out.println("參數tdefinish:" + tdefinish);
 			System.out.println("whichDate:" + whichDate);
@@ -150,7 +154,7 @@ public class TdeServlet extends HttpServlet {
 			String encodeStart = URLDecoder.decode(tdestart, "UTF-8");
 			String encodeFinish = URLDecoder.decode(tdefinish, "UTF-8");
 			
-			//從使用者輸入的起始時間及點擊的天數計算是第幾天(whichDate若修改打包過的tdeVO需重新修改時間)
+			//從使用者輸入的起始時間及點擊的天數計算是第幾天(whichDate若修改打包過的tdeVO需重新修改時間)(超過10天切字串會有問題
 			int dayNum = Integer.parseInt(tdedate.substring(1, 2)) - 1;
 			System.out.println("dayNum=" + dayNum);
 			Date date = new Date(Date.valueOf(whichDate).getTime() + dayNum*24*60*60*1000);
@@ -168,10 +172,8 @@ public class TdeServlet extends HttpServlet {
 				System.out.println("str" + str);
 				String hour;
 				if(!str.equals("=&") && !str.equals("=")) {
-					hour = str.substring(1, 3);
-					if(!str.contains("AM")) {
-						hour = String.valueOf((Integer.parseInt(str.substring(1, 3)) + 12));
-					} 
+					hour = String.valueOf((Integer.parseInt(str.substring(1, 3))));
+
 					start.add(date.toString() + " " + hour + ":" + str.substring(4,6) + ":00");
 					System.out.println(date.toString() + " " + hour + ":" + str.substring(4,6) + ":00");
 				} else {
@@ -186,10 +188,8 @@ public class TdeServlet extends HttpServlet {
 				System.out.println("BugStr=" + str);
 				String hour;
 				if(!str.equals("=&") && !str.equals("=")) {
-					hour = str.substring(1, 3);
-					if(!str.contains("AM")) {
-						hour = String.valueOf((Integer.parseInt(str.substring(1, 3)) + 12));
-					} 
+					hour = String.valueOf((Integer.parseInt(str.substring(1, 3))));
+					
 					finish.add(date.toString() + " " + hour + ":" + str.substring(4,6) + ":00");
 					System.out.println(date.toString() + " " + hour + ":" + str.substring(4,6) + ":00");
 				} else {
@@ -282,50 +282,68 @@ public class TdeServlet extends HttpServlet {
 
 		}
 //======================================================		
-		if("save".equals(action)) {
-			
-			//將打包好的tdeVO透過DAO新增到資料庫
-			TriDAO dao = new TriDAO();
-			TriVO triVO = (TriVO)session.getAttribute("triVO");
-			
-			System.out.println("=====this is for save=====");
-			
-//			triVO.setTristat(1);
-			System.out.println(triVO.getTriname());
-			System.out.println(triVO.getMemno());
-			System.out.println(triVO.getTripeonum());
-			System.out.println(triVO.getTribegdate());
-			System.out.println(triVO.getTristat());
-			
-	
-			dao.insertWithTdes(triVO, tdeVOList);
-			System.out.println("成功新增:" + tdeVOList.size() + "筆");
-				
-			//執行成功,進行轉交
-				
-			res.setContentType("text/plain");
-			res.setCharacterEncoding("UTF-8");
-			PrintWriter out = res.getWriter();			
-			out.write("ok");
-			out.flush();
-			out.close();
-				
-		}
+//		if("save".equals(action)) {
+//			
+//			//將打包好的tdeVO透過DAO新增到資料庫
+//			TriDAO dao = new TriDAO();
+//			TriVO triVO = (TriVO)session.getAttribute("triVO");
+//			
+//			System.out.println("=====this is for save=====");
+//			
+////			triVO.setTristat(1);
+//			System.out.println(triVO.getTriname());
+//			System.out.println(triVO.getMemno());
+//			System.out.println(triVO.getTripeonum());
+//			System.out.println(triVO.getTribegdate());
+//			System.out.println(triVO.getTristat());
+//			
+//	
+//			dao.insertWithTdes(triVO, tdeVOList);
+//			System.out.println("成功新增:" + tdeVOList.size() + "筆");
+//				
+//			//執行成功,進行轉交
+//				
+//			res.setContentType("text/plain");
+//			res.setCharacterEncoding("UTF-8");
+//			PrintWriter out = res.getWriter();			
+//			out.write("ok");
+//			out.flush();
+//			out.close();
+//				
+//		}
 		
 		if("submit".equals(action)) {
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
+			
+			//取得tdeVOList中的最後天數
+			int maxDate = 0;
+			for(TdeVO tdeVO : tdeVOList) {
+				if(Integer.parseInt(tdeVO.getTdedate().substring(1, 2)) > maxDate) {
+					maxDate = Integer.parseInt(tdeVO.getTdedate().substring(1, 2));
+				}
+			}
+			
+			
 			//將打包好的tdeVO透過DAO新增到資料庫
 			TriDAO dao = new TriDAO();
 			TriVO triVO = (TriVO)session.getAttribute("triVO");
 			
 			triVO.setTristat(1);
+			
+			//計算使用者最後規劃的天數存入triVO
+			Date tribegdate = triVO.getTribegdate();
+			Date trienddate = new Date(tribegdate.getTime() + (maxDate-1)*24*60*60*1000);
+			
+			triVO.setTrienddate(trienddate);
+			
 			System.out.println(triVO.getTriname());
 			System.out.println(triVO.getMemno());
 			System.out.println(triVO.getTripeonum());
 			System.out.println(triVO.getTribegdate());
+			System.out.println(triVO.getTrienddate());
 			System.out.println(triVO.getTristat());
 			
 			try {	

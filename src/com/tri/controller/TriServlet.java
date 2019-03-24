@@ -78,6 +78,10 @@ public class TriServlet extends HttpServlet {
 		
 		if("insert".equals(action)) {
 			
+			//先移除dayTripList, tdeVOList
+			session.removeAttribute("dayTripList");
+			session.removeAttribute("tdeVOList");
+			
 			Map<String, String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			

@@ -127,7 +127,7 @@ public class SpoServlet extends HttpServlet {
 				}
 				
 				String spocity = req.getParameter("spocity");
-				if(spocity == "" || (spocity.trim()).length() == 0) {
+				if(spocity.equals("--請選擇縣市--")) {
 					errorMsgs.put("spocity","請輸入景點所在城市!");
 				}
 				

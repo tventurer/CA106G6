@@ -2,7 +2,9 @@ package com.tde.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,8 +36,21 @@ public class GetClassAjax extends HttpServlet {
 		SpoService spoSvc = new SpoService();
 		List<SpoVO> spoList = spoSvc.getAllByClassAndCity(spoclass, spocity);
 		
+		//將圖片設為空值,另外處理(效能問題)
+		List<SpoVO> spoListWOPic = new ArrayList<SpoVO>();
+		
+		for(SpoVO spoVO : spoList) {
+			spoVO.setSpopic(null);
+			spoListWOPic.add(spoVO);
+		}
+		
+		
+		for(int i = 0; i < spoListWOPic.size(); i++) {
+			System.out.println("spopic:" + spoListWOPic.get(i).getSpopic());
+		}
+		
 		//3.執行成功,輸出json
-		String outstr = new Gson().toJson(spoList);
+		String outstr = new Gson().toJson(spoListWOPic);
 		System.out.println(outstr);
 		res.setContentType("text/plain");
 		res.setCharacterEncoding("UTF-8");

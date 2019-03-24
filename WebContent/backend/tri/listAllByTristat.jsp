@@ -72,7 +72,7 @@
 	              	<c:if test="${triVO.tristat == 2}">已報價</c:if>
 	              </td>
 	              <td>
-	              	<input class="quo" type="button" value="報價" onclick="location.href='<%= request.getContextPath() %>/backend/tod/addTod.jsp?trino=${triVO.trino}&whichPage=<%= whichPage %>&memno=${triVO.memno}'">
+	              	<input class="quo" type="button" value="報價" onclick="location.href='<%= request.getContextPath() %>/backend/tod/addTod.jsp?trino=${triVO.trino}&whichPage=<%= whichPage %>&memno=${triVO.memno}&come=todstat'">
 	              </td>
                 </tr>
                 

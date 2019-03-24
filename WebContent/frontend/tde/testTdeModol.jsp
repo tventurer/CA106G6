@@ -5,6 +5,12 @@
 <head>
 <meta charset="BIG5">
 <title>test</title>
+<style>
+.greenArrow{
+width: 100px;
+height: 100px;
+}
+</style>
 </head>
 <jsp:include page="/frontend/navbar.jsp"/>
 <body>
@@ -24,7 +30,7 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 		
-		<div class="col-md-7 offset-md-1 col-lg-7 offset-lg-1">
+		<div class="col-md-4 offset-md-1 col-lg-4 offset-lg-1">
           <div class="title-box-d">
           	<h3>第1天</h3>
           </div>
@@ -37,13 +43,16 @@
                 <div class="comment-details">
                   <h4 class="comment-author">台北101</h4>
 
-                  <div style="display:inline">起始時間:</div><div style="display:inline">終止時間:</div>
+                  <div style="display:inline">起始時間:</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="display:inline">終止時間:</div>
 
                 </div>
               </li>
              </ul>
             </div>
+           <center><img class="greenArrow" src="<%= request.getContextPath() %>/frontend/tri/image/arrow_down.png"></center>
            </div>
+           
+          
            
          <div class="col-md-7 offset-md-1 col-lg-7 offset-lg-1">
           <div class="title-box-d">

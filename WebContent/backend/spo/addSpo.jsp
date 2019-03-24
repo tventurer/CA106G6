@@ -21,6 +21,14 @@ height: 200px;
     
     <jsp:include page="/backend/backbar.jsp"/>
     
+<%
+String[] listCity = {"台北市", "基隆市", "新北市", "連江縣", "宜蘭縣", "釣魚台", "新竹市", "新竹縣", "桃園市", "苗栗縣", "台中市", 
+       	"彰化縣", "南投縣", "嘉義市", "嘉義縣", "雲林縣", "台南市", "高雄市", "南海島", "澎湖縣", "金門縣", "屏東縣", "台東縣", "花蓮縣"};
+
+pageContext.setAttribute("listCity", listCity);
+%>    
+
+    
     <main class="app-content">
       <div class="app-title">
         <div>
@@ -52,12 +60,29 @@ height: 200px;
                     </select>
                 </div>
                 <div class="form-group">
-                  <label class="control-label">城市名稱</label>
-                  <input class="form-control" type="text" name="spocity" value="${param.spocity}" placeholder="Enter spot clty">  <b>${errorMsgs.spocity}</b>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">地址</label>
-                  <input class="form-control" type="text" name="spoaddr" value="${param.spoaddr}" placeholder="Enter spot address">  <b>${errorMsgs.spoaddr}</b>
+                  <label class="control-label">地址</label>  <b>${errorMsgs.spocity}</b>
+                
+                <div class="form-row">
+                	<div class="col-3">
+                		<select class="form-control" id="twCityName" name="spocity">
+				 			 <option >--請選擇縣市--</option>
+				  		<c:forEach var="city" items="${listCity}">
+				  			<option value="${city}" ${param.spocity == city?"selected":""}> ${city}</option>
+				  		</c:forEach>
+				 		</select>
+				 	</div>
+				 	<div class="col">
+				 		<select class="form-control" id="CityAreaName" >
+							<option >--請選擇區域--</option>
+				 		</select>
+				 	</div>
+				 	<div class="col">
+			     		<select class="form-control" id="AreaRoadName" >
+					 		<option >--請選擇路名--</option>
+				 		</select>
+				 	</div>
+				 </div>	    
+                  <input class="form-control" id="addressTotal" type="text" name="spoaddr" value="${param.spoaddr}" placeholder="Enter spot address">  <b>${errorMsgs.spoaddr}</b>
                 </div>
                 <div class="form-group">
                     <label for="inputFile">圖片</label>
@@ -105,5 +130,70 @@ function readURL(input){
 			}
 	reader.readAsDataURL(input.files[0]);
 }
+</script>
+
+<!-- 地址連動Ajax -->
+<script>
+
+$(document).ready(function(){
+	
+	$("#twCityName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/Json2Read",
+			 data: {"action":"twCityName",
+				 	"twCityName":$('#twCityName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#CityAreaName").empty();
+				
+				 $("#CityAreaName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#CityAreaName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	$("#CityAreaName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/Json2Read",
+			 data: {"action":"CityAreaName",
+				 	"twCityName":$('#twCityName option:selected').val(),
+				 	"CityAreaName":$('#CityAreaName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#AreaRoadName").empty();
+				 $("#AreaRoadName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#AreaRoadName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	
+	$("#AreaRoadName").change(function(){
+		
+		var twCityName = ($('#twCityName').get(0).selectedIndex)>0? $('#twCityName option:selected').val() :'';
+		
+		var CityAreaName = ($('#CityAreaName').get(0).selectedIndex)>0? $('#CityAreaName option:selected').val() :'';
+		
+		var AreaRoadName = ($('#AreaRoadName').get(0).selectedIndex)>0? $('#AreaRoadName option:selected').val() :'' ; 
+
+		var locTotal = twCityName+CityAreaName+AreaRoadName;
+		$("#addressTotal").attr("value",locTotal);
+		
+	});	
+})
+
+
 </script>
 </html>
