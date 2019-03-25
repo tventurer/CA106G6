@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
+<%@ page import="com.mem.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <%
 String name =(String)session.getAttribute("memno");
@@ -158,7 +159,14 @@ text-align: left;
 									<tr>
 										<td>${s.count}</td>
 										<td>${porVO.porid}</td>
-										<td>${porVO.memno}</td>
+										
+										<c:set var="memid" scope="page" value="${porVO.memno}" />
+										<%
+											String memid = (String) pageContext.getAttribute("memid");
+											MemService memSvc = new MemService();
+											MemVO memVO = memSvc.getOneMem(memid);
+										%>
+										<td><%=memVO.getMememail() %></td>
 										<td><fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/></td>
 <!-- 									交易狀態 -->
 										<c:if test="${porVO.porstatus == 0}">
