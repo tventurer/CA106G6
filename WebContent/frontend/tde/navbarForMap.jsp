@@ -218,7 +218,7 @@
   
   $("#login").on("hidden.bs.modal", function() {
 	  	debugger
-	  	$('.modal-backdrop').remove();
+	  	$('.modal-backdrop').remove(); 
 	  	});
 </script>
 </body>

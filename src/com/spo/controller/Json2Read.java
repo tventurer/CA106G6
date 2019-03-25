@@ -29,7 +29,7 @@ public class Json2Read extends HttpServlet {
 	public Json2Read() {
         super();
     }
-
+ 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req,res);
 	}
