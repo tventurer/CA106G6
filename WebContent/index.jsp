@@ -116,7 +116,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
@@ -135,14 +135,14 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
                 <span class="fa fa-usd"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">機加酒</h2>
+                <h2 class="title-c">機加酒票券</h2>
               </div>
             </div>
             <div class="card-body-c">
@@ -154,27 +154,44 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+       </div>
+       <div class="row">
+        <div class="col-md-6">
           <div class="card-box-c foo">
             <div class="card-header-c d-flex">
               <div class="card-box-ico">
                 <span class="fa fa-home"></span>
               </div>
               <div class="card-title-c align-self-center">
-                <h2 class="title-c">Sell</h2>
+                <h2 class="title-c">自由行</h2>
               </div>
             </div>
             <div class="card-body-c">
               <p class="content-c">
-                Sed porttitor lectus nibh. Cras ultricies ligula sed magna dictum porta. Praesent sapien massa,
-                convallis a pellentesque
-                nec, egestas non nisi.
+             	近幾年來自助旅行迅速成長、跟團也不再是出國的主流，怕被強迫購物又要存錢久久才能出去玩，玩的超沒FU~團體行就是一分錢一分貨 受夠了就得學著自己來  強力推薦自由行 
+但很多人都會問，自由行的資訊哪裡來？怎麼樣才能好玩又便宜？旅遊浪潮的自由行蒐集了最優質的景點，最漂亮的價格，滿足所有有需要的人！
               </p>
             </div>
-            <div class="card-footer-c">
-              <a href="#" class="link-c link-icon">Read more
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
+            <div class="card-footer-c">              
+            </div>
+          </div>
+        </div>
+         <div class="col-md-6">
+          <div class="card-box-c foo">
+            <div class="card-header-c d-flex">
+              <div class="card-box-ico">
+                <span class="fa fa-home"></span>
+              </div>
+              <div class="card-title-c align-self-center">
+                <h2 class="title-c">套裝行程</h2>
+              </div>
+            </div>
+            <div class="card-body-c">
+              <p class="content-c">
+               	保證不失望！最多元旅遊行程，超低價超優惠，手刀報名。 員工旅遊、套裝行程。此生必訪秘境之旅。優質旅遊規劃團隊，帶您日本看櫻花、遨遊柬埔寨吳哥窟，名額有限立即GO。 保證超好玩。
+              </p>
+            </div>
+            <div class="card-footer-c">              
             </div>
           </div>
         </div>

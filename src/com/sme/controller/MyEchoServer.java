@@ -10,7 +10,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnClose;
 import javax.websocket.CloseReason;
 
-@ServerEndpoint("/MyEchoServer")
+@ServerEndpoint("/MyEchoServer0325")
 public class MyEchoServer {
 	
 private static final Set<Session> allSessions = Collections.synchronizedSet(new HashSet<Session>());
