@@ -8,10 +8,10 @@
 <%@ page import="java.util.stream.*"%>
 <%
   PosService posSvc = new PosService();
-  String memno = request.getParameter("memno");
-  request.setAttribute("memno", memno);
+  String tagno = request.getParameter("tagno");
+  request.setAttribute("tagno", tagno);
   List<PosVO> list = posSvc.getAll().stream()
-		  .filter(vo -> vo.getMemno().equals(memno))
+		  .filter(vo -> vo.getTagno().equals(tagno))
 		  .collect(Collectors.toList());
   request.setAttribute("list", list);
 %>
@@ -21,7 +21,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>${memSvc.getOneMem(memno).memacc}的所有貼文</title>
+  <title>所有標籤為${bptSvc.getOneBpt(tagno).tagcontent}的文章</title>
   <jsp:include page="/frontend/navbar.jsp" />
   <!-- Favicons -->
   <link href="<%=request.getContextPath()%>/style/f/img/favicon.png" rel="icon">
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">${memSvc.getOneMem(memno).memacc}的所有貼文</h1>
+            <h1 class="title-single">所有標籤為${bptSvc.getOneBpt(tagno).tagcontent}的文章</h1>
             <span class="color-text-a">T-Venture</span>
           </div>
         </div>

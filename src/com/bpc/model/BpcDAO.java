@@ -22,7 +22,7 @@ public class BpcDAO implements BpcDAO_interface {
 	private static String GET_ALL_STMT = 
 			"SELECT POSNO, MEMNO, TAGNO, POSTITLE, POSCONTENT, to_char(POSTIME,'yyyy-mm-dd hh:mm:ss') POSTIME FROM BLOGPOSTCOMMENT ORDER BY POSNO";
 	private static String GET_LIST_BY_POSNO = 
-			"SELECT BPCNO, MEMNO, POSNO, BPCCONTENT, to_char(BPCTIME,'yyyy-mm-dd hh:mm:ss') BPCTIME FROM BLOGPOSTCOMMENT WHERE POSNO = ? ORDER BY BPCTIME ASC";
+			"SELECT BPCNO, MEMNO, POSNO, BPCCONTENT, to_char(BPCTIME,'yyyy-mm-dd hh:mm:ss') BPCTIME FROM BLOGPOSTCOMMENT WHERE POSNO = ? ORDER BY BPCTIME DESC";
 	
 	static {
 		try {
@@ -92,6 +92,7 @@ public class BpcDAO implements BpcDAO_interface {
 		int result = 0; 
 		try {
 			con = ds.getConnection();
+			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, bpcVO.getMemno());
@@ -99,6 +100,7 @@ public class BpcDAO implements BpcDAO_interface {
 			pstmt.setString(3, bpcVO.getBpccontent());
 			
 			result = pstmt.executeUpdate();
+			con.commit();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

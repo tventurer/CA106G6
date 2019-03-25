@@ -39,9 +39,6 @@
     <url-pattern>/backend/pcd/memListAll.jsp</url-pattern>
     <url-pattern>/backend/ptp/join.jsp</url-pattern>
     <url-pattern>/backend/pho/order.jsp</url-pattern>
-    <url-pattern>/backend/mpm/*</url-pattern>
-    <url-pattern>/backend/not/*</url-pattern>
-    <url-pattern>/backend/pos/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

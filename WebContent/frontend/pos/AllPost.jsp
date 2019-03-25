@@ -12,78 +12,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>AllPost.jsp</title>
+  <meta charset="utf-8">
+  <title>EstateAgency Bootstrap Template</title>
+  <jsp:include page="/frontend/navbar.jsp" />
+  <!-- Favicons -->
+  <link href="<%=request.getContextPath()%>/style/f/img/favicon.png" rel="icon">
+  <link href="<%=request.getContextPath()%>/style/f/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
+  <!-- Bootstrap CSS File -->
+  <link href="<%=request.getContextPath()%>/style/f/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="<%=request.getContextPath()%>/style/f/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="<%=request.getContextPath()%>/style/f/css/style.css" rel="stylesheet">
+
 </head>
-<body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>AllPost.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/pos/AllPost.jsp">
-		 <img src="<%=request.getContextPath()%>/backend/pos/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<body>
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">所有文章列表</h1>
+            <span class="color-text-a">T-Venture</span>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+            
+              <c:if test="${memno != null}">
+            
+              <li class="breadcrumb-item" style="font-size: 30px;">
+                <a href="<%=request.getContextPath()%>/frontend/pos/NewPost.jsp">發文</a>
+              </li>
+              
+              </c:if>
+              
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Intro Single End /-->
 
-<table>
-	<tr>
-		<th>會員帳號</th>
-		<th>文章標籤編號</th>
-		<th>標題</th>
-		<th>內文</th>
-		<th>發表時間</th>
-		<th>文章全文</th>	
-	</tr>
-	
-	<%@ include file="page1.file" %>
-	<c:forEach var="posVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-			<td>${memSvc.getOneMem(posVO.memno).memacc}</td>
-			<td>${bptSvc.getOneBpt(posVO.tagno).tagcontent}</td>
-			<td>${posVO.postitle}</td>
-			<td>${posVO.poscontent}</td>
-			<td>${posVO.postime}</td>
-			<td><a href="<%=request.getContextPath()%>/frontend/pos/listOnePos.jsp?posno=${posVO.posno}">全文</a></td>
-		</tr>
-	</c:forEach>
-</table>
-<h1><a href='<%=request.getContextPath()%>/frontend/pos/NewPost.jsp'>發表文章</a></h1>
-<%@ include file="page2.file" %>
-
-
+  <!--/ News Grid Star /-->
+  <section class="news-grid grid">
+    <div class="container">
+      <div class="row">
+      
+        <c:forEach var="posVO" items="${list}">
+      
+        <div class="col-md-4">
+          <div class="card-box-b card-shadow news-box">
+            <div class="img-box-b">
+              <img src="<%=request.getContextPath()%>/style/f/img/post-1.jpg" alt="" class="img-b img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-header-b">
+                <div class="card-category-b">
+                  <a href="<%=request.getContextPath()%>/frontend/pos/ListByTag.jsp?tagno=${posVO.tagno}" class="category-b">${bptSvc.getOneBpt(posVO.tagno).tagcontent}</a>
+                </div>
+                <div class="card-title-b">
+                  <h2 class="title-2">
+                    <a href="<%=request.getContextPath()%>/frontend/pos/listOnePos.jsp?posno=${posVO.posno}">${posVO.postitle}</a>
+                  </h2>
+                </div>
+                <div class="card-date">
+                  <span class="date-b">${posVO.postime}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        </c:forEach>
+        
+      </div>
+    </div>
+  </section>
+  <!--/ News Grid End /-->
 </body>
 </html>

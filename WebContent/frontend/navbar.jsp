@@ -39,6 +39,17 @@
       <a class="navbar-brand text-brand" href="<%= request.getContextPath() %>/index.jsp">T<span class="color-b">-Venturer</span></a>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
+          
+          <c:if test="${memno != null}">
+          
+          <jsp:useBean id="memSvc" class="com.mem.model.MemService" scope="page"/>
+
+          <li class="nav-item">
+            	${memSvc.getOneMem(memno).memacc}你好
+          </li>
+          
+          </c:if>
+          
           <li class="nav-item">
             <a class="nav-link" href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp">代購商品</a>
           </li>

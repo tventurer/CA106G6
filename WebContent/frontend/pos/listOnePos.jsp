@@ -11,13 +11,7 @@
   PosService posSvc = new PosService();
   PosVO posVO = posSvc.getOnePos(request.getParameter("posno"));
   request.setAttribute("posVO", posVO);
-%>
-
-<c:if test="${posVO == null}">
-  <c:redirect url="/404.jsp"><c:param name="errorMsgs" value="查無文章編號"/></c:redirect>
-</c:if>
-
-<%  
+ 
   BpcService bpcSvc = new BpcService();
   List<BpcVO> bpclist = bpcSvc.getListByPosno(posVO.getPosno());
   request.setAttribute("bpclist", bpclist);
@@ -26,119 +20,146 @@
 <jsp:useBean id="bptSvc" class="com.bpt.model.BptService" scope="page"/>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>文章資料 - listOnePos.jsp</title>
+  <meta charset="utf-8">
+  <title>${posVO.postitle}</title>
+  <jsp:include page="/frontend/navbar.jsp" />
+  <!-- Favicons -->
+  <link href="<%=request.getContextPath()%>/style/f/img/favicon.png" rel="icon">
+  <link href="<%=request.getContextPath()%>/style/f/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-<style>
-  table {
-	width: 600px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
+  <!-- Bootstrap CSS File -->
+  <link href="<%=request.getContextPath()%>/style/f/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="<%=request.getContextPath()%>/style/f/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="<%=request.getContextPath()%>/style/f/css/style.css" rel="stylesheet">
+
 </head>
-<body bgcolor='white'>
+<body>
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">${posVO.postitle}</h1>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+            
+              <c:if test="${memno != null}">
+            
+              <li class="breadcrumb-item" style="font-size: 30px;">
+                <a href="<%=request.getContextPath()%>/frontend/pos/NewPost.jsp">發文</a>
+              </li>
+              
+              </c:if>
+              
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Intro Single End /-->
 
-<table id="table-1">
-	<tr><td>
-		 <h3>文章資料 - listOnePos.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/pos/AllPost.jsp"><img src="<%=request.getContextPath()%>/backend/pos/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<table>
-	<tr>
-		<th>發表人</th>
-		<th>文章分類</th>
-		<th>標題</th>
-		<th>內文</th>
-		<th>發表時間</th>		
-	</tr>
-	<tr>
-		<td>
-		  ${memSvc.getOneMem(posVO.memno).memacc}
-		  <c:if test="${(memno != null) && (posVO.memno != memno)}">
-		    <br><a href="<%=request.getContextPath()%>/backend/mpm/NewPM.jsp?receiver=${posVO.memno}">發私人訊息給他</a>
-		  </c:if>
-		</td>
-		<td>${bptSvc.getOneBpt(posVO.tagno).tagcontent}</td>
-		<td>${posVO.postitle}</td>
-		<td>${posVO.poscontent}</td>
-		<td>${posVO.postime}</td>
-	</tr>
-</table>
-<c:if test="${memno != null}">
-<form action="<%=request.getContextPath()%>/frontend/bpc/bpc" method="post">
-  <table>
-    <tr>
-      <td>我要留言</td>		
-	</tr>
-	<tr>
-	  <td><textarea name="bpccontent" rows="10" cols="80"></textarea></td>
-	</tr>
-	<tr>
-	  <td>
-	    <input type="hidden" name="posno" value="${posVO.posno}">
-	    <input type="hidden" name="action" value="insert">
-	    <input type="submit" value="送出">${errorMsgs.bpccontent}${errorMsgs.notlogin}
-	  </td>
-	</tr>
-  </table>
-</form>
-</c:if>
-<table>
-	<tr>
-		<th>會員帳號</th>
-		<th>留言內容</th>
-		<th>發表時間</th>
-		<th>刪除</th>		
-	</tr>
-	
-	<c:forEach var="bpcVO" items="${bpclist}">
-		
-		<tr>
-			<td>${memSvc.getOneMem(bpcVO.memno).memacc}</td>
-			<td>${bpcVO.bpccontent}</td>
-			<td>${bpcVO.bpctime}</td>
-			<td>
-			  <c:if test="${bpcVO.memno == memno}">
-			    <form action="<%=request.getContextPath()%>/frontend/bpc/bpc" method="post">
-			      <input type="hidden" name="action" value="delete">
-			      <input type="hidden" name="bpcno" value="${bpcVO.bpcno}">
-			      <input type="hidden" name="posno" value="${posVO.posno}">
-			      <input type="submit" value="刪除"/>
-			    </form>
-			  </c:if>
-			</td>
-		</tr>
-	</c:forEach>
-	
-</table>
+  <!--/ News Single Star /-->
+  <section class="news-single nav-arrow-b">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="news-img-box">
+            <img src="<%=request.getContextPath()%>/style/f/img/slide-3.jpg" alt="" class="img-fluid">
+          </div>
+        </div>
+        <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+          <div class="post-information">
+            <ul class="list-inline text-center color-a">
+              <li class="list-inline-item mr-2">
+                <strong>作者: </strong>
+                <span class="color-text-a">${memSvc.getOneMem(posVO.memno).memacc}</span>
+              </li>
+              <li class="list-inline-item mr-2">
+                <strong>分類: </strong>
+                <span class="color-text-a">${bptSvc.getOneBpt(posVO.tagno).tagcontent}</span>
+              </li>
+              <li class="list-inline-item">
+                <strong>日期: </strong>
+                <span class="color-text-a">${posVO.postime}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="post-content color-text-a">
+          <p class="post-intro">
+            ${posVO.poscontent}
+          </p>
+          </div>
+          
+          
+        <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
+          <div class="title-box-d">
+            <h3 class="title-d">留言 (${bpclist.size()})</h3>
+          </div>
+          <div class="box-comments">
+          
+            <c:forEach var="bpcVO" items="${bpclist}">
+          
+            <ul class="list-comments">
+              <li>
+                <div class="comment-details">
+                  <h4 class="comment-author">${memSvc.getOneMem(bpcVO.memno).memacc}</h4>
+                  <span>${bpcVO.bpctime}</span>
+                  <p class="comment-description">
+                    ${bpcVO.bpccontent}
+                  </p>
+                </div>
+              </li>
+            </ul>
+            
+            </c:forEach>
+            
+          </div>
+          <div class="form-comments">
+            <div class="title-box-d">
+              <h3 class="title-d">文章留言</h3>
+            </div>
+            <form action="<%=request.getContextPath()%>/frontend/bpc/bpc" method="post">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <div class="form-group">
+                    <label for="textMessage">你的留言</label>
+                    <script src="<%=request.getContextPath()%>/ckeditor4/ckeditor.js"></script>
+                    <textarea id="textMessage" class="form-control" placeholder="說點什麼吧" name="bpccontent" cols="45"
+                      rows="8" required></textarea>
+                      <script>
+						CKEDITOR.replace( 'bpccontent' );
+		              </script>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <input type="hidden" name="posno" value="${posVO.posno}">
+                  <input type="hidden" name="memno" value="${memno}">
+                  <input type="hidden" name="action" value="insert">
+                  <button type="submit" class="btn btn-a">送出</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <!--/ News Single End /-->
 </body>
-<% session.removeAttribute("errorMsgs"); %>
 </html>
