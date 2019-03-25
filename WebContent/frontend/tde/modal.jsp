@@ -91,6 +91,7 @@
 	  	debugger
   		$(this).removeData("bs.modal");
 	  	$(".newSpot").remove();
+	  	$('#login').modal('hide');
 	  	});
   	
   	function cloneNode(){
@@ -142,6 +143,7 @@
   	}
   	
   	$('#submitTrip').click(function(){
+  		$('#login').modal('hide');
   		$('.modal-backdrop').remove();
   		if(!allowUser()){
   			$('.modal-backdrop').remove();

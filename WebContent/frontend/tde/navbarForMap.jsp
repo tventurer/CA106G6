@@ -220,6 +220,10 @@
 	  	debugger
 	  	$('.modal-backdrop').remove(); 
 	  	});
+  $("#login").on("hide.bs.modal", function() {
+	  	debugger
+	  	$('.modal-backdrop').remove(); 
+	  	});
 </script>
 </body>
 </html>

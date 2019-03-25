@@ -257,9 +257,15 @@ function makeTdeVO(e){
 		if(typeof(e) != "undefined"){	
 			for(var i=0; i<size; i++){
 				if(obj[i] == e.currentTarget){
-					day = "D" + (i+1);
-					index = parseInt(day.substring(1,2));
-					console.log("day=" + day);
+					if(i < 9){
+						day = "D" + (i+1);
+						index = parseInt(day.substring(1,2));
+						console.log("day=" + day);
+					} else{
+						day = "D" + (i+1);
+						index = parseInt(day.substring(1,3));
+						console.log("day=" + day);
+					}
 				}
 			}
 		}
@@ -558,6 +564,9 @@ function makeTdeVO(e){
                         	var k = this;
                         	var num = marker.indexOf(this);
                         	
+                        	//設定滑入的z-index為最上層
+                        	this.setZIndex(999);
+                        	
                         	if(siWindow[num])
                           		siWindow[num].close();
                         	
@@ -777,6 +786,10 @@ function makeTdeVO(e){
                         
                         marker[i].addListener('mouseout', function(){
                             var pos = marker.indexOf(this);
+                            
+                          //恢復marker的z-index
+                        	this.setZIndex(1);
+                          
                             debugger
                         	smTimeout[pos] = setTimeout(function(){
                         		siWindow[pos].close();
@@ -842,6 +855,9 @@ function addFoodMarker(){
                   foodMark[i].addListener('mouseover', function(){
                   	var k = this;
                   	var num = foodMark.indexOf(this);
+                  	
+                  //設定滑入的z-index為最上層
+                	this.setZIndex(999);
                   	
                   	if(iWindow[num])
                   		iWindow[num].close();
@@ -1058,6 +1074,10 @@ function addFoodMarker(){
                   
                   foodMark[i].addListener('mouseout', function(){
                       var pos = foodMark.indexOf(this);
+                      
+                    //恢復marker的z-index
+                    	this.setZIndex(1);
+                      
                       debugger
                       isOpen = false;
                   		fmTimeout[pos] = setTimeout(function(){
@@ -1122,6 +1142,9 @@ function addMuseumMarker(){
                   museumMark[i].addListener('mouseover', function(){
                   	var k = this;
                   	var num = museumMark.indexOf(this);
+                  	
+                  //設定滑入的z-index為最上層
+                	this.setZIndex(999);                  	
                   	
                   	if(iWindow[num])
                   		iWindow[num].close();
@@ -1340,6 +1363,10 @@ function addMuseumMarker(){
                   
                   museumMark[i].addListener('mouseout', function(){
                       var pos = museumMark.indexOf(this);
+                      
+                    //恢復marker的z-index
+                    	this.setZIndex(1);
+                      
                       debugger
                   	mmTimeout[pos] = setTimeout(function(){
                   		iWindow[pos].close();
@@ -1404,6 +1431,9 @@ function addNightMarker(){
                   nightMark[i].addListener('mouseover', function(){
                   	var k = this;
                   	var num = nightMark.indexOf(this);
+                  	
+                  //設定滑入的z-index為最上層
+                	this.setZIndex(999);
                   	
                   	if(iWindow[num])
                   		iWindow[num].close();
@@ -1622,6 +1652,10 @@ function addNightMarker(){
                   
                   nightMark[i].addListener('mouseout', function(){
                       var pos = nightMark.indexOf(this);
+                      
+                    //恢復marker的z-index
+                  	this.setZIndex(1);
+                      
                       debugger
                   	nmTimeout[pos] = setTimeout(function(){
                   		iWindow[pos].close();
@@ -1686,6 +1720,9 @@ function addHotelMarker(){
                   hotelMark[i].addListener('mouseover', function(){
                   	var k = this;
                   	var num = hotelMark.indexOf(this);
+                  	
+                  //設定滑入的z-index為最上層
+                	this.setZIndex(999);
                   	
                   	if(iWindow[num])
                   		iWindow[num].close();
@@ -1904,6 +1941,10 @@ function addHotelMarker(){
                   
                   hotelMark[i].addListener('mouseout', function(){
                       var pos = hotelMark.indexOf(this);
+                      
+                    //恢復marker的z-index
+                  	this.setZIndex(1);
+                      
                       debugger
                   	hmTimeout[pos] = setTimeout(function(){
                   		iWindow[pos].close();
