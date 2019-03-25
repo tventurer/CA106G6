@@ -30,11 +30,49 @@ public class NotDAO implements NotDAO_interface {
 	private static final String GET_ALL_STMT = 
 			"SELECT MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME, MEMENGNAME, MEMPHONE, MEMBIRTH, MEMADDR, MEMIDNO, MEMBANKACC, MEMPHOTO FROM MEMBER";
 	private static final String GET_ONE_STMT = 
-			"SELECT MEMNO, MEMACC, MEMPWD, MEMEMAIL, MEMEMAILVALID, MEMREALNAME, MEMENGNAME, MEMPHONE, MEMBIRTH, MEMADDR, MEMIDNO, MEMBANKACC FROM MEMBER WHERE MEMNO = ?";
+			"SELECT NOTNO, MEMNO, NOTCONTENT, NOTREADED, NOTTIME FROM NOTIFICATION WHERE NOTNO = ? ";
 	private static final String UPDATE = 
-			"UPDATE MEMBER SET MEMACC = ?, MEMPWD = ?, MEMEMAIL = ?, MEMEMAILVALID = ?, MEMREALNAME = ?, MEMENGNAME = ?, MEMPHONE = ?, MEMBIRTH = ?, MEMADDR = ?, MEMIDNO = ?, MEMBANKACC = ? WHERE MEMNO = ?";
+			"UPDATE NOTIFICATION SET MEMNO = ?, NOTCONTENT = ?, NOTREADED = ?, NOTTIME = ? WHERE NOTNO = ?";
 	private static final String GET_BY_MEMNO = 
-			"SELECT NOTCONTENT, NOTREADED, NOTTIME FROM NOTIFICATION WHERE MEMNO = ?";
+			"SELECT NOTNO, MEMNO, NOTCONTENT, NOTREADED, NOTTIME FROM NOTIFICATION WHERE MEMNO = ? ORDER BY NOTNO DESC";
+	
+	@Override
+	public void update(NotVO notVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE);
+			
+			pstmt.setString(1, notVO.getMemno());
+			pstmt.setString(2, notVO.getNotcontent());
+			pstmt.setInt(3, notVO.getNotreaded());
+			pstmt.setDate(4, notVO.getNottime());
+			pstmt.setString(5, notVO.getNotno());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	
 	@Override
 	public int insert(NotVO notVO) {
@@ -85,8 +123,56 @@ public class NotDAO implements NotDAO_interface {
 
 	@Override
 	public NotVO findByPrimaryKey(String notno) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		NotVO notVO = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+			
+			pstmt.setString(1, notno);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				notVO = new NotVO();
+				
+				notVO.setNotno(rs.getString("NOTNO"));
+				notVO.setNotcontent(rs.getString("NOTCONTENT"));
+				notVO.setNotreaded(rs.getInt("NOTREADED"));
+				notVO.setNottime(rs.getDate("NOTTIME"));
+				notVO.setMemno(rs.getString("MEMNO"));
+				System.out.println(notno);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return notVO;
 	}
 	
 	@Override
@@ -108,9 +194,11 @@ public class NotDAO implements NotDAO_interface {
 			while (rs.next()) {
 				vo = new NotVO();
 				
+				vo.setNotno(rs.getString("NOTNO"));
 				vo.setNotcontent(rs.getString("NOTCONTENT"));
 				vo.setNotreaded(rs.getInt("NOTREADED"));
 				vo.setNottime(rs.getDate("NOTTIME"));
+				vo.setMemno(rs.getString("MEMNO"));
 				
 				list.add(vo);
 			}

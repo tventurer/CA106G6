@@ -16,8 +16,7 @@
   }
 %>
 
-<%=isMemberLogin? "<a href=\"" + request.getContextPath() + "/frontend/not/AllMyNot.jsp\">你有<span id='howmanyunread'>" + unreadedNotfication + "</span>個未讀通知</a>" : "" %>
-
+<%=isMemberLogin? "<button type='button' onclick='loadnotification();' data-toggle='modal' data-target='#notification'>你有<span id='howmanyunread'>" + unreadedNotfication + "</span>個未讀通知</button>" : ""%>
 <script>
     var MyPoint = "<%=request.getContextPath()%>/frontend/not/${memno}";
     var host = window.location.host;
@@ -27,7 +26,6 @@
 	var webSocket;
 	
 	function connect() {
-		// 建立 websocket 物件
 		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
@@ -42,7 +40,5 @@
 		
 		webSocket.onclose = function(event) {
 		};
-		
-	
 	}
 </script>

@@ -2,8 +2,34 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.mem.model.*"%>
+<%@ page import="java.util.*"%>
 <% 
   MemVO memVO = (MemVO) request.getAttribute("memVO");
+  List<String> listCity = Arrays.asList(new String[] {
+		    "基隆市",
+		    "台北市",
+		    "新北市",
+		    "桃園市",
+		    "新竹市",
+		    "新竹縣",
+		    "苗栗縣",
+		    "台中市",
+		    "彰化縣",
+		    "南投縣",    
+		    "雲林縣",
+		    "嘉義市",
+		    "嘉義縣",
+		    "台南市",
+		    "高雄市",
+		    "屏東縣",
+		    "台東縣",
+		    "花蓮縣",
+		    "宜蘭縣",
+		    "澎湖縣",
+		    "金門縣",
+		    "連江縣"
+  });
+  request.setAttribute("listCity", listCity);
 %>
 
 <!DOCTYPE html>
@@ -12,105 +38,149 @@
 <meta charset="UTF-8">
 <title>註冊新會員</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+  <jsp:include page="/frontend/navbar.jsp" />
+  <!-- Favicons -->
+  <link href="<%=request.getContextPath()%>/style/f/img/favicon.png" rel="icon">
+  <link href="<%=request.getContextPath()%>/style/f/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="<%=request.getContextPath()%>/style/f/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="<%=request.getContextPath()%>/style/f/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/style/f/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="<%=request.getContextPath()%>/style/f/css/style.css" rel="stylesheet">
+
+
 
 </head>
 
-<body bgcolor='white'>
+<body>
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">註冊新會員</h1>
+            <span class="color-text-a">T-Venture</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Intro Single End /-->
 
-<table id="table-1">
-	<tr><td>
-		 <h3>註冊新會員</h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/mem/select_page.jsp"><img src="<%=request.getContextPath()%>/frontend/mem/images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/mem/mem" name="form1">
-<table>
-	<tr>
-		<td>帳號</td>
-		<td><input type="TEXT" name="memacc" size="45" 
-			 value="${param.memacc}" /></td><td>${errorMsgs.memacc}</td>
-	</tr>
-	<tr>
-		<td>密碼</td>
-		<td><input type="TEXT" name="mempwd" size="45" 
-			 value="${param.mempwd}" /></td><td>${errorMsgs.mempwd}</td>
-	</tr>
-	<tr>
-		<td>信箱</td>
-		<td><input type="TEXT" name="mememail" size="45" 
-			 value="${param.mememail}" /></td><td>${errorMsgs.mememail}</td>
-	</tr>
-	<tr>
-		<td>姓名</td>
-		<td><input type="TEXT" name="memrealname" size="45" 
-			 value="${param.memrealname}" /></td><td>${errorMsgs.memrealname}</td>
-	</tr>
-	<tr>
-		<td>英文姓名</td>
-		<td><input type="TEXT" name="memengname" size="45" 
-			 value="${param.memengname}" /></td><td>${errorMsgs.memengname}</td>
-	</tr>
-	<tr>
-		<td>電話</td>
-		<td><input type="TEXT" name="memphone" size="45" 
-			 value="${param.memphone}" /></td><td>${errorMsgs.memphone}</td>
-	</tr>	
-	<tr>
-		<td>出生年月日</td>
-		<td><input name="membirth" id="f_date1" type="TEXT" value="${param.membirth}"/></td>
-	</tr>
-	<tr>
-		<td>地址</td>
-		<td><input type="TEXT" name="memaddr" size="45" 
-			 value="${param.memaddr}" /></td>
-	</tr>	
-	<tr>
-		<td>身分證字號</td>
-		<td><input type="TEXT" name="memidno" size="45" 
-			 value="${param.memidno}" /></td><td>${errorMsgs.memidno}</td>
-	</tr>
-	<tr>
-		<td>銀行帳號</td>
-		<td><input type="TEXT" name="membankacc" size="45" 
-			 value="${param.membankacc}" /></td>
-	</tr>
+  <!--/ Contact Star /-->
+  <section class="contact">
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-sm-12 section-t8">
+          <div class="row">
+            <div class="col-md-7">
+              <form action="<%=request.getContextPath()%>/backend/mem/mem" method="post">
+                
+                <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <input type="text" name="memacc" class="form-control form-control-lg form-control-a" placeholder="你的帳號" data-rule="minlen:4" data-msg="帳號不得少於四個字元">
+                      <div class="validation"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <input type="password" name="mempwd" class="form-control form-control-lg form-control-a" placeholder="你的密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
+                      <div class="validation"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <input type="password"  class="form-control form-control-lg form-control-a" placeholder="請再次輸入密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
+                      <div class="validation"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <input name="mememail" type="email" class="form-control form-control-lg form-control-a" placeholder="你的email" data-rule="email" data-msg="email格式不符">
+                      <div class="validation"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <input type="text" name="memrealname" class="form-control form-control-lg form-control-a" placeholder="請輸入真實姓名">
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <input type="text" name="memengname" class="form-control form-control-lg form-control-a" placeholder="請輸入英文姓名">
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <input type="text" name="memphone" class="form-control form-control-lg form-control-a" placeholder="請輸入聯絡電話">
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <p>出生年月日</p>
+                      <input type="text" name="membirth" class="form-control form-control-lg form-control-a" placeholder="" id="f_date1">
+                    </div>
+                  </div>
+  <div class="container">
+	<div class="row">
+    	<div class="col">
+			<div class="dropdown ">
+	  <p>請輸入地址</p>
+	  <select id="twCityName">
+			  <option >--請選擇縣市--</option>
+			  <c:forEach var="city" items="${listCity}">
+			  	<option value="${city}"> ${city}</option>
+			  </c:forEach>
+	  </select>
+	  
+	  <select id="CityAreaName" >
+			  <option >--請選擇區域--</option>
+	  </select>
+			    
+      <select id="AreaRoadName" >
+			  <option >--請選擇路名--</option>
+	  </select>	    
+	  
+	  <input type="text" placeholder="請輸入門牌號碼" id="num">
+	  
+	  <button type="button" id="buttonLoc">確認地址</button>	    			    
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		 <input id="addressTotal" name="memaddr" type="text" size="50" >   
+	</div>
 
-</table>
-<br>
-<input type="hidden" name="action" value="signup">
-<input type="submit" value="送出新增"></FORM>
+	</div>
+                  <div class="col-md-12">
+                    <input type="hidden" name="action" value="signup">
+                    <input type="hidden" name="membankacc" value="">
+                    <button type="submit" class="btn btn-a">註冊會員</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Contact End /-->
+
 </body>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
@@ -201,4 +271,70 @@
         
 </script>
 
+<script> 
+
+$(document).ready(function(){
+	
+	$("#twCityName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/Json64Read",
+			 data: {"action":"twCityName",
+				 	"twCityName":$('#twCityName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#CityAreaName").empty();
+				
+				 $("#CityAreaName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#CityAreaName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	$("#CityAreaName").change(function(){
+		$.ajax({
+			 type: "POST",
+			 url: "<%=request.getContextPath()%>/Json64Read",
+			 data: {"action":"CityAreaName",
+				 	"twCityName":$('#twCityName option:selected').val(),
+				 	"CityAreaName":$('#CityAreaName option:selected').val()},
+			 dataType: "json",
+			 success: function(result){
+				 $("#AreaRoadName").empty();
+				 $("#AreaRoadName").append("<option >--請選擇區域--</option>")
+				 for(var i=0; i<result.length; i++){
+				 	$("#AreaRoadName").append('<option value="'+result[i]+'">'+result[i]+'</option>');
+				 }
+			 },
+	         error: function(){
+	        	 alert("AJAX-grade發生錯誤囉!")
+	        	 }
+	    });
+	});
+	
+	
+	$("#buttonLoc").click(function(){
+		
+		var twCityName = ($('#twCityName').get(0).selectedIndex)>0? $('#twCityName option:selected').val() :'';
+		
+		var CityAreaName = ($('#CityAreaName').get(0).selectedIndex)>0? $('#CityAreaName option:selected').val() :'';
+		
+		var AreaRoadName = ($('#AreaRoadName').get(0).selectedIndex)>0? $('#AreaRoadName option:selected').val() :'' ;
+		
+		var num = $('#num').val().trim().length != 0 ? $('#num').val()+"號" :'' ; 
+
+		var locTotal = twCityName+CityAreaName+AreaRoadName+num;
+		$("#addressTotal").attr("value",locTotal);
+		
+	});
+	
+})
+
+
+</script>
 </html>

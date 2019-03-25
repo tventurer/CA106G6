@@ -4,7 +4,8 @@
 <%@ page import="com.not.model.*"%>
 <%
   NotService notSvc = new NotService();
-  List<NotVO> list = notSvc.getByMemno((String) session.getAttribute("memno"));
+  String memno = (String) session.getAttribute("memno");
+  List<NotVO> list = notSvc.getByMemno(memno);
   request.setAttribute("list", list);
 %>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" /> 
@@ -14,69 +15,85 @@
 <head>
 <meta charset="UTF-8">
 <title>所有通知</title>
-
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
+.notifications{
+  width: 200px;
+  height: 30px;
+  background-color: #99aaff;
+  margin: 20px 0px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
 </style>
-
 <style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
+.box-wrap .toggle {
+	margin-top: 25px;
+    border-radius: 4px;
+    border: 1px solid #cecece;
+    background: #efefef;
+}
+.box-wrap.box-open .toggle:after {
+    content: "關閉"
+}
+.box-wrap.box-close .toggle:after {
+    content: "展開"
+}
+.box {
+	font-size: 20px;
+	margin-bottom: 25px;
+    border-radius: 10px;
+    display: block;
+    width: auto;
+    height: 30px;
+    background-color: #99ccff; 
+    transition: height 0.35s ease;
+    overflow: hidden;
+    padding: 0 10px 2px 10px;
+}
 </style>
 </head>
-<body bgcolor='white'>
+<body>
+<c:forEach var="notVO" items="${list}">
+<div class="box-wrap box-close">
+  <button class="toggle${notVO.notno}">閱讀</button>
+    <div class="box box-close" id="innerbox${notVO.notno}">
+        <p>${notVO.notcontent}</p>
+        <p>${notVO.nottime}</p>
+    </div>
+</div>
+<script>
+var toggleNode = document.querySelector('.toggle${notVO.notno}');
 
-<table id="table-1">
-	<tr><td>
-		 <h3>所有通知AllMyNot.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/pos/AllPost.jsp">
-		 <img src="<%=request.getContextPath()%>/backend/pos/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+toggleNode.addEventListener("click", toggleFunc);
 
-<table>
-	<tr>
-		<th>通知內容</th>
-		<th>已讀?</th>
-		<th>時間</th>
-	</tr>
-	
-	<%@ include file="page1.file" %>
-	<c:forEach var="notVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		
-		<tr>
-			<td>${notVO.notcontent}</td>
-			<td>${notVO.notreaded != 0? "已讀" : "未讀"}</td>
-			<td>${notVO.nottime}</td> 
-		</tr>
-	</c:forEach>
-</table>
-<%@ include file="page2.file" %>
 
+function toggleFunc(E) {
+    E.preventDefault();
+    box = document.querySelector('#innerbox${notVO.notno}');
+    var orgHeight = parseInt(box.style.height, 10);
+    box.style.height = (orgHeight > 100) ? "30px": box.scrollHeight + "px";
+    
+    $.ajax({
+		 type: "POST",
+		 url: "<%=request.getContextPath()%>/backend/not/not",
+		 data: {"notno":"${notVO.notno}",
+			    "action": "read"},
+		 dataType: "json",
+		 success: function(data){
+			 if (data.readed == 'false') {
+			    var i = parseInt(document.getElementById("howmanyunread").innerHTML);
+				howmanyunread.innerHTML = --i;
+			 }
+		 },
+        error: function(){
+        
+        }
+    });
+    
+
+}
+</script>
+</c:forEach>
 
 </body>
 </html>

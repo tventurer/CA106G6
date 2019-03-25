@@ -9,4 +9,5 @@ public interface NotDAO_interface {
 	public NotVO findByPrimaryKey(String notno);
 	public List<NotVO> findByMemno(String memno);
 	public List<NotVO> getAll();
+	public void update(NotVO notVO);
 }
