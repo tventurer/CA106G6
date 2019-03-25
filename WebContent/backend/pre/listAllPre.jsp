@@ -32,10 +32,6 @@ pageContext.setAttribute("prelabel",prelabel);
           <h1><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;代購商品檢舉審核</h1>
           <p>代購商品檢舉，管理員可在此處審核</p>
         </div>
-        <ul class="app-breadcrumb breadcrumb side">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item active"><a href="#">代購商品檢舉審核</a></li>
-        </ul>
       </div>
       <div class="row">
         <div class="col-md-12">

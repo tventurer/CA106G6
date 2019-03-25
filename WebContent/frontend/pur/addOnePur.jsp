@@ -92,7 +92,7 @@ pageContext.setAttribute("name",name);
                     <li class="d-flex justify-content-between">
                       <strong>商品圖片：</strong>
                       <span><input type="file" name="purpic" id="purpic" size="45"
-			 value="<%= (purVO==null)? "" : purVO.getPurpic()%>" /></span>
+			 value="" /></span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>下架時間：</strong>
@@ -139,13 +139,13 @@ pageContext.setAttribute("name",name);
           <div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purname">代購商品名稱</label>
-              <input type="TEXT" name="purname" size="45"  class="form-control form-control-lg form-control-a" value="<%= (purVO==null)? "亞太限定樂高" : purVO.getPurname()%>" />
+              <input type="TEXT" name="purname" size="45"  class="form-control form-control-lg form-control-a" value="" />
             </div>
           </div>
           <div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purcontent">商品描述</label>
-              <textarea class="form-control rounded-0" name="purcontent" id="purcontent" rows="4" ><%= (purVO==null)? "僅限中國和部分亞太國家限定發售的合組「LEGO 80102 舞龍」(Dragon Dance)日本太回火熱搶購中" : purVO.getPurcontent()%></textarea>
+              <textarea class="form-control rounded-0" name="purcontent" id="purcontent" rows="4" ></textarea>
             </div>
           </div>
           <div class="col-md-12 col-lg-8">
@@ -161,38 +161,38 @@ pageContext.setAttribute("name",name);
           </div><div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="pururl">參考網址</label>
-             <input type="TEXT" name="pururl" size="45" class="form-control form-control-lg form-control-a" value="<%= (purVO==null)? "https://api.dropbuy.global/deeplink/recommendationdetail/8189" : purVO.getPururl()%>" />
+             <input type="TEXT" name="pururl" size="45" class="form-control form-control-lg form-control-a" value="" />
             </div>
           </div><div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purcountry">購買國家</label>
               <input type="TEXT" name="purcountry" size="45" class="form-control form-control-lg form-control-a"
-			 value="<%= (purVO==null)? "日本" : purVO.getPurcountry()%>" />
+			 value="" />
             </div>
           </div><div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purdelivery">收貨國家</label>
              <input type="TEXT" name="purdelivery" size="45" class="form-control form-control-lg form-control-a"
-			 value="<%= (purVO==null)? "臺灣" : purVO.getPurdelivery()%>" />
+			 value="" />
             </div>
           </div><div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purreprice">參考售價</label>
              <input type="TEXT" name="purreprice" size="45" class="form-control form-control-lg form-control-a"
-			 value="<%= (purVO==null)? "2885" : purVO.getPurreprice()%>" />
+			 value="" />
             </div>
           </div><div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purpricing">此商品定價</label>
               <input type="TEXT" name="purpricing" size="45"
-			 value="<%= (purVO==null)? "3000" : purVO.getPurpricing()%>" class="form-control form-control-lg form-control-a"/>
+			 value="" class="form-control form-control-lg form-control-a"/>
             </div>
           </div>
           <div class="col-md-12 col-lg-8">
             <div class="form-group">
               <label for="purstock">商品數量</label>
               <input type="TEXT" name="purstock" size="45"
-			 value="<%= (purVO==null)? "1" : purVO.getPurstock()%>" class="form-control form-control-lg form-control-a"/>
+			 value="" class="form-control form-control-lg form-control-a"/>
             </div>
           </div>
           
@@ -202,6 +202,8 @@ pageContext.setAttribute("name",name);
 			<input type="hidden" name="action" value="insert">
             <button type="submit" name="purstatus" value="1" class="btn btn-b">上架商品</button>
             <button type="submit" name="purstatus" value="0" class="btn btn-b">儲存</button>
+            <input type="hidden" name="action" value="insertver2">
+            <img src="<%=request.getContextPath()%>/frontend/pur/purpic/main.png" height="20" width="20" onClick="idwrite(this)">
           </div>
            </div>
               </div>
@@ -226,79 +228,6 @@ pageContext.setAttribute("name",name);
   </section>
   <!--/ Property Grid End /-->
 
-  <!--/ footer Star /-->
-<!--   <footer> -->
-<!--     <div class="container"> -->
-<!--       <div class="row"> -->
-<!--         <div class="col-md-12"> -->
-<!--           <nav class="nav-footer"> -->
-<!--             <ul class="list-inline"> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Home</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">About</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Property</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Blog</a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#">Contact</a> -->
-<!--               </li> -->
-<!--             </ul> -->
-<!--           </nav> -->
-<!--           <div class="socials-a"> -->
-<!--             <ul class="list-inline"> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-facebook" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-twitter" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-instagram" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-pinterest-p" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--               <li class="list-inline-item"> -->
-<!--                 <a href="#"> -->
-<!--                   <i class="fa fa-dribbble" aria-hidden="true"></i> -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--             </ul> -->
-<!--           </div> -->
-<!--           <div class="copyright-footer"> -->
-<!--             <p class="copyright color-text-a"> -->
-<!--               &copy; Copyright -->
-<!--               <span class="color-a">T-Venturer</span> All Rights Reserved. -->
-<!--             </p> -->
-<!--           </div> -->
-<!--           <div class="credits"> -->
-<!--            
-<!--               All the links in the footer should remain intact. -->
-<!--               You can delete the links only if you purchased the pro version. -->
-<!--               Licensing information: https://bootstrapmade.com/license/ -->
-<!--               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency -->
-<!--             --> -->
-<!--             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </footer> -->
-  <!--/ Footer End /-->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
@@ -366,7 +295,22 @@ function readURL(input){
 }
 
 </script>
+<script>
+function idwrite(name) {
+	  form1.purreceipt.value = "1";
+	  form1.purlimit.value="5";
+	  form1.purname.value="亞太限定樂高";
+	  form1.purcontent.value="僅限中國和部分亞太國家限定發售的合組「LEGO 80102 舞龍」(Dragon Dance)日本太回火熱搶購中";
+	  form1.pursort.value = "4";
+	  form1.pururl.value="https://api.dropbuy.global/deeplink/recommendationdetail/8189";
+	  form1.purcountry.value="日本";
+	  form1.purdelivery.value="臺灣";
+	  form1.purreprice.value="2885";
+	  form1.purpricing.value="3000";
+	  form1.purstock.value="1";
 
+	 }
+</script>
 <script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({//下架時間

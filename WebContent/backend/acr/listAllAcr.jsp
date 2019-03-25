@@ -33,10 +33,6 @@ pageContext.setAttribute("list",list);
           <h1><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;會員儲值紀錄</h1>
           <p>此處可搜尋前台會員的所有交易紀錄</p>
         </div>
-        <ul class="app-breadcrumb breadcrumb side">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item active"><a href="#">會員儲值紀錄</a></li>
-        </ul>
       </div>
       <div class="row">
         <div class="col-md-12">

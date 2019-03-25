@@ -314,7 +314,7 @@ text-align: left;
 				 							<c:if test="${empty porVO.porselltime}">
 				 							
 											<button type="button" data-toggle="modal" data-target="#showbox${s.count}"  class='sellscore' value="${porVO.porsellscore}" data-data="${s.count}">評價買家</button>
-												<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
+												<FORM METHOD="post" name="form${s.count}" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
 												<div class="modal fade" id="showbox${s.count}" role="dialog">
 												<div class="modal-dialog">
 												<div class="modal-content">
@@ -360,6 +360,7 @@ text-align: left;
 												</div>
 												<div class="modal-footer"> 
 												<input type="submit" class="btn btn-default" value="評價買家">
+												<img src="<%=request.getContextPath()%>/frontend/pur/purpic/main.png" height="20" width="20" onClick="idwrite(this)">
 												</div>
 												</div>
 												</div>
@@ -370,7 +371,7 @@ text-align: left;
 			 							
 			 							<c:if test="${not empty porVO.porselltime}">
 			 								<button type="button" data-toggle="modal" data-target="#showbox${s.count}"  class='sellscore' value="${porVO.porsellscore}" data-data="${s.count}">更改評價</button>
-												<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
+												<FORM METHOD="post" name="form${s.count}" ACTION="<%=request.getContextPath()%>/frontend/por/por" style="margin-bottom: 0px;">
 												<div class="modal fade" id="showbox${s.count}" role="dialog">
 												<div class="modal-dialog">
 												<div class="modal-content">
@@ -416,6 +417,7 @@ text-align: left;
 												</div>
 												<div class="modal-footer"> 
 												<input type="submit" class="btn btn-default" value="更改評價">
+												<img src="<%=request.getContextPath()%>/frontend/pur/purpic/main.png" height="20" width="20" onClick="idwrite(this)">
 												</div>
 												</div>
 												</div>

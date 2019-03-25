@@ -158,7 +158,7 @@
                 </div>
               </div>
               <div class="property-description">
-<form class="form-a" METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/por/por">
+<form class="form-a" METHOD="post" name="form1" ACTION="<%=request.getContextPath()%>/frontend/por/por">
         <div class="row">
 <!--           <div class="col-md-12 col-lg-8"> -->
 <!--             <div class="form-group"> -->
@@ -211,7 +211,7 @@
           </div>
           <div class="col-md-12 col-lg-8">
             <div class="form-group">
-              <label for="city">聯絡電話</label>
+              <label for="portel">聯絡電話</label>
               <input type="text" name="portel" class="form-control form-control-lg form-control-a">
             </div>
           </div>
@@ -233,6 +233,7 @@
 			<input type="hidden" name="porlogistics" value="0">
 			<input type="hidden" name="action" value="insert">
             <button type="submit" class="btn btn-b">確認送出</button>
+           <img src="<%=request.getContextPath()%>/frontend/pur/purpic/main.png" height="20" width="20" onClick="idwrite(this)">
           </div>
            </div>
       </form>
@@ -262,6 +263,13 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
+  
+  <script>
+function idwrite(name) {
+	  form1.pormemname.value = "吳先生";
+	  form1.portel.value="0938690706";
+	 }
+</script>
  <script> 
 
 $(document).ready(function(){
