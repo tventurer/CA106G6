@@ -1,7 +1,7 @@
 package com.por.model;
 
 import java.util.List;
-
+ 
 public class PorService {
 	
 	private PorDAO_interface dao;

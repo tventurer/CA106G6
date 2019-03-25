@@ -9,7 +9,7 @@ PurVO purVO = (PurVO) request.getAttribute("purVO");
 String name =(String)session.getAttribute("memno");
 pageContext.setAttribute("name",name);
 %>
-
+ 
 <!-------------------------------- 引入標頭 ------------------------------------->
 
 <jsp:include page="/frontend/navbar.jsp" />

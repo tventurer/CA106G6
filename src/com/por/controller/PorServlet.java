@@ -20,7 +20,7 @@ import com.por.model.PorVO;
 import com.pur.model.PurService;
 import com.pur.model.PurVO;
 
-
+ 
 public class PorServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
