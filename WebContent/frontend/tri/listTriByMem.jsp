@@ -49,8 +49,7 @@
           <thead>
             <tr>
               <th scope="col"></th>
-              <th scope="col">行程編號</th>
-              <th scope="col">會員編號</th>
+              <th scope="col">會員帳號</th>
               <th scope="col">行程名稱</th>
               <th scope="col">開始日期</th>
               <th scope="col">結束日期</th>
@@ -72,8 +71,8 @@
    
           	<tr>
               <th scope="row"><%= count++ %></th>
-              <td>${triVO.trino}</td>
-              <td>${triVO.memno}</td>
+              <jsp:useBean id="memSvc" class="com.mem.model.MemService"/>
+              <td>${memSvc.getOneMem(triVO.memno).mememail}</td>
               <td>${triVO.triname}</td>
               <td>${triVO.tribegdate}</td>
               <td>${triVO.trienddate}</td>
@@ -118,6 +117,11 @@
       </div>
     </div>
 </section>
+<br>
+<br>
+<br>
+<jsp:include page="/frontend/footer.jsp"/>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="<%= request.getContextPath() %>/bootstrap/popper.min.js"></script>

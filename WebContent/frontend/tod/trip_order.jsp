@@ -102,6 +102,10 @@
     </div>
   </form>
   </section>
+  <br>
+  <br>
+  <br>
+  <jsp:include page="/frontend/footer.jsp"/>
   
   <!-- JavaScript Libraries -->
   <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>

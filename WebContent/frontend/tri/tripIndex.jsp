@@ -102,11 +102,13 @@ width: 600px;
         <div class="row justify-content-center">
             	<a href="build_trip2.jsp" class="btn btn-b">馬上體驗</a>
         </div>
+        <br>
+        <br>
         
     </div>
   </section>
 
-
+<jsp:include page="/frontend/footer.jsp"/>
   
   <!-- JavaScript Libraries -->
   <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>
