@@ -22,11 +22,11 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
-@WebServlet("/Json2Read")
-public class Json2Read extends HttpServlet {
+@WebServlet("/Json3Read")
+public class Json3Read extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	public Json2Read() {
+	public Json3Read() {
         super();
     }
 
