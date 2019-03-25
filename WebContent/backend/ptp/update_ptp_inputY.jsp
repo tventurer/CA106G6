@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.ptp.model.*"%>
 <%-- <%@ import java.sql.timestamp; %> --%>
 
@@ -11,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>套裝行程修改 - update_ptp_input.jsp</title>
+<title>套裝行程修改 - update_ptp_inputY.jsp</title>
 
 <style>
   table#table-1 {
@@ -82,10 +83,11 @@
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="pacno"
                     						 value="<%= ptpVO.getPacno()%>">
                   </div> 
+                  <fmt:formatDate var="ptpstart" type="both" value="${ptpVO.ptpstart}" pattern="yyyy-MM-dd HH:mm" />
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">出發時間:</label>
-                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpstart"
-						 value="<%= ptpVO.getPtpstart()%>" >
+                    <input class="form-control form-control-lg f_date1 " id="inputLarge" type="text" name="ptpstart"
+						 value=${ptpstart} >
                   </div> 
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">回程時間:</label>
@@ -128,11 +130,11 @@
                   </div>
                   
                   
-                  
+                   <fmt:formatDate var="ptptimelog" type="both" value="${ptpVO.ptptimelog}" pattern="yyyy-MM-dd HH:mm" />
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">上架時間:</label>
-                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptptimelog" 
-						 value="<%= ptpVO.getPtptimelog()%>">
+                    <input class="form-control form-control-lg f_date1" id="inputLarge" type="text" name="ptptimelog" 
+						 value=${ptptimelog}>
                   </div> 
 	
 <%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.pac.model.DeptService" /> --%>
@@ -173,7 +175,7 @@ $('.f_date1').datetimepicker({
    		theme: '',              //theme: 'dark',
    		timepicker:true,       //timepicker:true,
    		step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
-  		format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+  		format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',
    
    		//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
    		//startDate:	            '2017/07/10',  // 起始日

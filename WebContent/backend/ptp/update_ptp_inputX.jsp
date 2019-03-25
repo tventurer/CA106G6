@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>套裝行程修改 - update_ptp_input.jsp</title>
+<title>套裝行程修改 - update_ptp_inputX.jsp</title>
 
 <style>
   table#table-1 {
@@ -66,7 +66,7 @@
 	</ul>
 </c:if>
  <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="tile">
             <div class="tile-body">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" name="form1">
@@ -75,7 +75,7 @@
                     <label class="col-form-label col-form-label-lg" for="inputLarge"><font color=red><b>*</b></font>套裝出團內容編號:</label>
                     <label class="col-form-label col-form-label-lg" for="inputLarge"><%=ptpVO.getPtpno()%></label>
                     <input class="form-control form-control-lg" id="inputLarge" type="hidden" name="ptpno" 
-                    						 value="<%= (ptpVO==null)? "PTP000002" : ptpVO.getPtpno()%>">
+                    						 value="<%= (ptpVO==null)? "" : ptpVO.getPtpno()%>">
                   </div> 
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">套裝行程編號:</label>
@@ -84,7 +84,7 @@
                   </div> 
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">出發時間:</label>
-                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpstart"
+                    <input class="form-control form-control-lg f_date1" id="inputLarge" type="text" name="ptpstart"
 						 value="<%= ptpVO.getPtpstart()%>" >
                   </div> 
                   <div class="form-group">
@@ -113,8 +113,8 @@
                     						 value="<%= ptpVO.getPtpminmen()%>" />
                  
                   </div> <div class="form-group">
-                    <label class="col-form-label col-form-label-lg" for="inputLarge">團體人數上限:</label>
-                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpmaxmen"
+                    <label class="col-form-label col-form-label-lg " for="inputLarge">團體人數上限:</label>
+                    <input class="form-control form-control-lg " id="inputLarge" type="text" name="ptpmaxmen"
 						 value="<%= ptpVO.getPtpmaxmen()%>">
                   </div> 
                    <div class="form-group">
@@ -131,29 +131,16 @@
                   
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">上架時間:</label>
-                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptptimelog" 
+                    <input class="form-control form-control-lg f_date1" id="inputLarge" type="text" name="ptptimelog" 
 						 value="<%= ptpVO.getPtptimelog()%>">
                   </div> 
 	
-<%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.pac.model.DeptService" /> --%>
-<!-- 	<tr> -->
-<!-- 		<td>部門:<font color=red><b>*</b></font></td> -->
-<!-- 		<td><select size="1" name="deptno"> -->
-<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-<%-- 				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname} --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</select></td> -->
-<!-- 	</tr> -->
-
 </table>
 <br>
-<!-- <input type="hidden" name="action" value="update"> -->
-<%-- <input type="hidden" name="ptpno" value="<%=ptpVO.getPtpno()%>"> --%>
-<!-- <input type="submit" value="原廠送出修改"> -->
 <input type="hidden" name="action" value="updateX">
 <input type="hidden" name="ptpno" value="<%=ptpVO.getPtpno()%>">
 <input type="hidden" name="requestURL" value="<%=requestURL%>">
-<input type="submit" value="改版送出修改"></FORM>
+<input type="submit" value="送出修改"></FORM>
 </body>
 
 

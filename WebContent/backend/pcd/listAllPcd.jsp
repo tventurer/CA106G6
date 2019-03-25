@@ -99,7 +99,10 @@
 			<td>${pcdVO.pcdtripmen}</td> 
 			<td><fmt:formatDate value="${pcdVO.pcdordday}" pattern="yyyy-MM-dd"/></td>
 			<td>${pcdVO.pcdmoney}</td>
-			<td>${pcdVO.pcdstatus}</td>
+			<td><c:if test="${pcdVO.pcdstatus == 0}">未繳費</c:if>
+			<c:if test="${pcdVO.pcdstatus == 1}">已繳全額</c:if>
+			<c:if test="${pcdVO.pcdstatus == 2}">已繳訂金</c:if>
+			<c:if test="${pcdVO.pcdstatus == 3}">取消訂單</c:if></td>
 			<td>${pcdVO.pcdsecphone}</td>
 			<td>${pcdVO.pcdfamdata}</td>
 			<td>${pcdVO.pcdmark==null ? '' : pcdVO.pcdmark}</td>
@@ -118,10 +121,10 @@
 		</tr>
 	</c:forEach>
 </table>
-</div>
-</div>
-</div>
 <%@ include file="page2" %>
+</div>
+</div>
+</div>
 </main>
 </body>
 </html>

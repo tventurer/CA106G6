@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>套裝行程修改 - update_pac_input.jsp</title>
+<title>套裝行程修改 - @@update_pac_inputY.jsp</title>
 <script src="<%=request.getContextPath()%>/ckeditor4/ckeditor.js"></script>
 <style>
   table#table-1 {
@@ -121,20 +121,20 @@
 					CKEDITOR.replace( 'paccontent' );
 				  </script>
                 </div>
-               <div class="form-group row">
+                <div class="form-group row">
                   <label class="control-label col-md-3">行程特色圖1</label>
                   <div class="col-md-8">
-                    <input type="file" name="pactchar1" size="45"
-						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar1()%>" id="photo"/>
-						 <img id="preview" src="<%=request.getContextPath()%>/DBGifReader?pacVO.getPactchar1()"  width="100" height="100">
+                    <input type="file" name="pactchar1" id="pactchar1" size="45"
+			 value="<%= (pacVO==null)? "" : pacVO.getPactchar1()%>"/>
+						 <img id="preview1" src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=1"  alt="" width="100" height="auto">
                   </div>
                </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">行程特色圖2</label>
                   <div class="col-md-8">
-                    <input type="file" name="pactchar2" size="45"
-						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar2()%>" id="photo"/>
-						 <img id="preview" src="<%=request.getContextPath()%>/DBGifReader?pacVO.getPactchar2()"  width="100" height="100">
+                    <input type="file" name="pactchar2" id="pactchar2" size="45"
+						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar2()%>"/>
+						 <img id="preview2" src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=2"  alt=""  width="100" height="auto">
                   </div>
                </div>
                
@@ -165,6 +165,62 @@
 <%-- <input type="hidden" name="requestURL" value="<%=requestURL%>"> --%>
 <!-- <input type="submit" value="改版送出修改"></FORM> -->
   </main>
+  <script>
+
+$("#pactchar1").change(function(){
+
+  readURL(this);
+
+});
+
+
+
+function readURL(input){
+	
+  if(input.files && input.files[0]){
+
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+    	
+       $("#preview1").attr('src', e.target.result);
+       $("#preview1").removeAttr("style");
+    }
+
+    reader.readAsDataURL(input.files[0]);
+
+  }
+
+}
+
+
+$("#pactchar2").change(function(){
+
+	readURL2(this);
+
+	});
+	
+function readURL2(input){
+	
+	  if(input.files && input.files[0]){
+
+	    var reader = new FileReader();
+
+	    reader.onload = function (e) {
+	    	
+	       $("#preview2").attr('src', e.target.result);
+	       $("#preview2").removeAttr("style");
+	    }
+
+	    reader.readAsDataURL(input.files[0]);
+
+	  }
+
+	}
+
+
+
+</script>
 </body>
 
 </html>

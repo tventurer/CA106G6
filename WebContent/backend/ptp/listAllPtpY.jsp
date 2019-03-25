@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.ptp.model.*"%>
+<%@ page import="com.pac.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
@@ -11,6 +12,7 @@
     pageContext.setAttribute("listStart",listStart);
 %>
  
+<jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService" />
 
 <html>
 <head>
@@ -74,7 +76,7 @@
                   <tr>
 						<th>出發時間</th>
 						<th>套裝行程出團編號</th>
-						<th>套裝行程內容編號</th>
+						<th>行程名稱</th>
 						<th>回程時間</th>
 						<th>報名截止時間</th>
 						<th>行程異動公告</th>
@@ -93,7 +95,7 @@
 		<tr>
 			<td><fmt:formatDate value="${ptpVO.ptpstart}" pattern="yyyy-MM-dd HH:MM E"/></td>
 			<td>${ptpVO.ptpno}</td>
-			<td>${ptpVO.pacno}</td>
+			<td>${pacSvc.getOnePac(ptpVO.pacno).pacname}</td>
 			<td><fmt:formatDate value="${ptpVO.ptpend}" pattern="yyyy-MM-dd"/></td>
 			<td><fmt:formatDate value="${ptpVO.ptpsigndle}" pattern="yyyy-MM-dd"/></td>
 			<td>${ptpVO.ptpnotice}</td> 

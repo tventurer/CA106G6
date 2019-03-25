@@ -115,39 +115,39 @@ request.setAttribute("pacVO", pacVO);
   	
     			  <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">出發時間:</label><br>
-                    <input name="ptpstart" class="f_date1" size="50" type="TEXT" value="<%= (ptpVO == null)? ptpstart : ptpVO.getPtpstart()%>">
+                    <input name="ptpstart" class="form-control form-control-lg f_date4" type="TEXT" value="<%= (ptpVO == null)? "" : ptpVO.getPtpstart()%>">
                   </div>
                     <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">回程時間:</label>
-                    <input class="f_date2" id="f_date2" name="ptpend"  type="text"
-                    value="<%= (ptpVO == null)? ptpend : ptpVO.getPtpend()%>">
+                    <input class="form-control form-control-lg f_date2" id="f_date2" name="ptpend"  type="text"
+                    value="<%= (ptpVO == null)? "" : ptpVO.getPtpend()%>">
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">報名截止時間:</label>
                     <input name="ptpsigndle" class="form-control form-control-lg" id="inputLarge" type="text"
-                    value="<%= (ptpVO == null)? ptpsigndle : ptpVO.getPtpsigndle()%>" >
+                    value="<%= (ptpVO == null)? "" : ptpVO.getPtpsigndle()%>" >
                   </div>
                   <tr>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">更改公告</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpnotice" size="30"
-					 value="<%= (ptpVO==null)? "更改公告0" : ptpVO.getPtpnotice()%>">
+					 value="<%= (ptpVO==null)? "" : ptpVO.getPtpnotice()%>">
                   </div>
                   
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">剩餘空位:</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpvacancy" size="30"
-					 value="<%= (ptpVO==null)? "1" : ptpVO.getPtpvacancy()%>">
+					 value="<%= (ptpVO==null)? "" : ptpVO.getPtpvacancy()%>">
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">最低出團人數:</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpminmen" size="30"
-						 value="<%= (ptpVO==null)? "1" : ptpVO.getPtpminmen()%>">
+						 value="<%= (ptpVO==null)? "" : ptpVO.getPtpminmen()%>">
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">團體上限人數:</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpmaxmen" size="30"
-					 value="<%= (ptpVO==null)? "1" : ptpVO.getPtpmaxmen()%>">
+					 value="<%= (ptpVO==null)? "" : ptpVO.getPtpmaxmen()%>">
                   </div>
                   <div class="form-group">
                     <label for="exampleSelect1">出團狀態:</label>
@@ -203,7 +203,7 @@ $('#f_date1').datetimepicker({
    		theme: '',              //theme: 'dark',
    		timepicker:true,       //timepicker:true,
    		step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
-  		format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
+  		format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',
    
    		//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
    		//startDate:	            '2017/07/10',  // 起始日

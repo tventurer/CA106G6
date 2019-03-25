@@ -180,7 +180,7 @@ public class PtpServlet extends HttpServlet {
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("ptpVO", ptpVO); // 資料庫取出的empVO物件,存入req
 				String url = "/backend/ptp/update_ptp_inputX.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交backend/ptp/update_ptp_inputX.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理************************************/
@@ -594,6 +594,10 @@ if ("updateY".equals(action)) { // 來自update_emp_input.jsp的請求
 	} catch (IllegalArgumentException e) {
 		ptpend=new java.sql.Date(System.currentTimeMillis());
 		errorMsgs.add("請輸入回程日期!");
+	}
+	
+	if(!ptpstart.before(ptpend)) {
+		errorMsgs.add("出發日期不得晚於回程日期!");
 	}
 	
 	java.sql.Date ptpsigndle = null;

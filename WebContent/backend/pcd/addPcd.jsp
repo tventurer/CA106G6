@@ -74,12 +74,12 @@
 				  <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">出團內容編號:</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpno" size="30" 
-						 value="<%= (pcdVO==null)? "PTP000002" : pcdVO.getPtpno()%>">
+						 value="<%= (pcdVO==null)? "" : pcdVO.getPtpno()%>">
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">會員編號:</label>
                     <input class="form-control form-control-lg" name="memno" id="inputLarge" type="text"
-                    	value="<%= (pcdVO == null)? "MEM000001" : pcdVO.getMemno()%>" >
+                    	value="<%= (pcdVO == null)? "" : pcdVO.getMemno()%>" >
                   </div>
 	<%
   	java.sql.Date pcdordday = null;
@@ -93,17 +93,17 @@
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">參加人數:</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdtripmen" 
-						value="<%= (pcdVO == null)? 2 : pcdVO.getPcdtripmen()%>">
+						value="<%= (pcdVO == null)? "" : pcdVO.getPcdtripmen()%>">
                   </div>
 	
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">繳費金額:</label>
                     <input class="form-control form-control-lg" id="inputLarge" name="pcdmoney" size="30" 
-						value="<%= (pcdVO == null)? 8888 : pcdVO.getPcdmoney()%>"  type="text">
+						value="<%= (pcdVO == null)? "": pcdVO.getPcdmoney()%>"  type="text">
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">繳費日期:</label>
-                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdordday" 
+                    <input class="form-control form-control-lg f_date2" id="inputLarge "  type="text" name="pcdordday" 
 						value="<%= (pcdVO == null)? "" : pcdVO.getPcdordday()%>">
                   </div>
                   <div class="form-group">
@@ -119,17 +119,17 @@
                   </div><div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">次要聯絡人手機:</label>
                     <input class="form-control form-control-lg" required  name="pcdsecphone" id="inputLarge" pattern="^09\d\d\d\d\d\d\d\d$"
-                    type="text" value="<%= (pcdVO==null)? "0980888888" : pcdVO.getPcdsecphone()%>" >
+                    type="text" value="<%= (pcdVO==null)? "" : pcdVO.getPcdsecphone()%>" >
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">參團人員資料:</label>
                     <input class="form-control form-control-lg" name="pcdfamdata" id="inputLarge" type="text"
-                    	value="<%= (pcdVO==null)? "阿哩布達的資料" : pcdVO.getPcdfamdata()%>" >
+                    	value="<%= (pcdVO==null)? "" : pcdVO.getPcdfamdata()%>" >
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">需求備註</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdmark"
-                    	value="<%= (pcdVO==null)? "" : pcdVO.getPcdmark()%>" >
+                    	value="<%= (pcdVO==null)? "無" : pcdVO.getPcdmark()%>" >
                   </div>
 <input type="hidden" name="action" value="insertX">
 <input type="submit" value="送出新增"></FORM>
@@ -152,7 +152,7 @@
 
 <script>
 $.datetimepicker.setLocale('zh');
-$('.f_date').datetimepicker({
+$('.f_date2').datetimepicker({
    		theme: '',              //theme: 'dark',
    		timepicker:false,       //timepicker:true,
    		step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
