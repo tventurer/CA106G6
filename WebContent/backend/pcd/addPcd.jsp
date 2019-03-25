@@ -44,17 +44,8 @@
 </style>
 
 </head>
-<body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>套裝訂單內容新增 - addPcd.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
-
+<body class="app sidebar-mini rtl" >
+	<jsp:include page="/backend/backbar.jsp" />
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -64,77 +55,83 @@
 		</c:forEach>
 	</ul>
 </c:if>
+<main class="app-content">
+<div class="app-title">
+        <div>
+          <h1><i class="fa fa-edit"></i> 新增報名訂單</h1>
+          
+        </div>
+      </div>
+<div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <div class="tile-body">
+
+
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pcd/pcd" name="form1">
-<table>
-	<tr>
-		<td>出團內容編號:</td>
-		<td><input type="TEXT" name="ptpno" size="30" 
-			 value="<%= (pcdVO==null)? "PTP000002" : pcdVO.getPtpno()%>" /></td>
-	</tr>
-	<tr>
-		<td>出團行程名稱:</td>
-		<td><input type="TEXT" name="pacname" size="30" 
-			 value="秀出對應名稱" /></td>
-	</tr>
-		<tr>
-		<td>會員編號:</td>
-		<td><input type="TEXT" name="memno" size="30" 
-			value="<%= (pcdVO == null)? "MEM000001" : pcdVO.getMemno()%>"></td>
-	</tr>
-	
-		<tr>
-		<td>參加人數:</td>
-		<td><input type="TEXT" name="pcdtripmen" size="30" 
-			value="<%= (pcdVO == null)? 2 : pcdVO.getPcdtripmen()%>"></td>
-	</tr>
+				  
+				  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">出團內容編號:</label>
+                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="ptpno" size="30" 
+						 value="<%= (pcdVO==null)? "PTP000002" : pcdVO.getPtpno()%>">
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">會員編號:</label>
+                    <input class="form-control form-control-lg" name="memno" id="inputLarge" type="text"
+                    	value="<%= (pcdVO == null)? "MEM000001" : pcdVO.getMemno()%>" >
+                  </div>
 	<%
   	java.sql.Date pcdordday = null;
   		try {
   			pcdordday = pcdVO.getPcdordday();
    		} catch (Exception e) {
    			pcdordday = new java.sql.Date(System.currentTimeMillis());
+   			
    		}
   	%>
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">參加人數:</label>
+                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdtripmen" 
+						value="<%= (pcdVO == null)? 2 : pcdVO.getPcdtripmen()%>">
+                  </div>
 	
-	<tr>
-		<td>繳費日期:</td>
-		<td><input name="pcdordday" type="TEXT" class="f_date" value="<%= (pcdVO == null)? pcdordday : pcdVO.getPcdordday()%>"></td>
-	</tr>
-	<tr>
-		<td>繳費金額:</td>
-		<td><input type="TEXT" name="pcdmoney" size="30" 
-			value="<%= (pcdVO == null)? 8888 : pcdVO.getPcdmoney()%>"></td>
-	</tr>
-	<tr>
-		<td>繳費狀態:</td>
-		<td>
-			<select name="pcdstatus">
-				<option value=0>未繳費
-				<option value=1>繳清
-				<option value=2>已繳訂金
-				<option value=3>取消訂單
-			</select> 	
-	</tr>
-	<tr>
-		<td>次要聯絡人手機:</td>
-		<td><input type="TEXT" name="pcdsecphone" size="30"
-			 value="<%= (pcdVO==null)? "0980888888" : pcdVO.getPcdsecphone()%>" /></td>
-	</tr>
-	
-	<tr>
-		<td>參團人員資料:</td>
-		<td><input type="TEXT" name="pcdfamdata" size="30"
-			 value="<%= (pcdVO==null)? "阿哩布達的資料" : pcdVO.getPcdfamdata()%>" /></td>
-	</tr>
-	<tr>
-		<td>需求備註</td>
-		<td><input type="TEXT" name="pcdmark" size="30"
-			 value="<%= (pcdVO==null)? "我需要愛" : pcdVO.getPcdmark()%>" /></td>
-	</tr>
-</table>
-<br>
-<input type="hidden" name="action" value="insert">
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">繳費金額:</label>
+                    <input class="form-control form-control-lg" id="inputLarge" name="pcdmoney" size="30" 
+						value="<%= (pcdVO == null)? 8888 : pcdVO.getPcdmoney()%>"  type="text">
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">繳費日期:</label>
+                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdordday" 
+						value="<%= (pcdVO == null)? "" : pcdVO.getPcdordday()%>">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleSelect1">繳費狀態:</label>
+                    <select class="form-control" name="pcdstatus" id="exampleSelect1">
+                      <option value=0>未繳費</option>
+                      <option value=1>繳清</option>
+                      <option value=2>已繳訂金</option>
+                      <option value=3>取消訂單</option>
+                    </select>
+                  </div>
+                  
+                  </div><div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">次要聯絡人手機:</label>
+                    <input class="form-control form-control-lg" required  name="pcdsecphone" id="inputLarge" pattern="^09\d\d\d\d\d\d\d\d$"
+                    type="text" value="<%= (pcdVO==null)? "0980888888" : pcdVO.getPcdsecphone()%>" >
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">參團人員資料:</label>
+                    <input class="form-control form-control-lg" name="pcdfamdata" id="inputLarge" type="text"
+                    	value="<%= (pcdVO==null)? "阿哩布達的資料" : pcdVO.getPcdfamdata()%>" >
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">需求備註</label>
+                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdmark"
+                    	value="<%= (pcdVO==null)? "" : pcdVO.getPcdmark()%>" >
+                  </div>
+<input type="hidden" name="action" value="insertX">
 <input type="submit" value="送出新增"></FORM>
 </body>
 

@@ -1,56 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.ptp.model.*"%>
+<%@ page import="com.pac.model.*"%>
 
 <jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService" />
+<jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService" />
+<%
+List<PacVO> list = pacSvc.getAll();
+pageContext.setAttribute("list",list);
+List<PtpVO> listptp = ptpSvc.getAll();
+pageContext.setAttribute("listptp",listptp);
+%>
 
 <html>
-<head><title>所有部門 - listAllPacX.jsp</title>
-
-<style>
-  table#table-1 {
-	background-color: orange;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-</style>
-
+<head><title>所有行程細節 - listAllPacX.jsp</title>
 </head>
-<body>
-
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3>所有部門 - ListAllPacX.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/backend/pac/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
+<body class="app sidebar-mini rtl" >
+	<jsp:include page="/backend/backbar.jsp" />
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -61,48 +29,70 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<a href='addPacX.jsp'>新增</a>一個套裝行程 .
-<table>
-	<tr>
-		<th>行程編號</th>
-		<th>行程名稱</th>
-		<th>行程價格</th>
-		<th>修改</th>
-		<th>刪除<font color=red>(關聯測試與交易-小心)</font></th>
-		<th>查詢細節時間</th>
-	</tr>
-	
-	<c:forEach var="pacVO" items="${pacSvc.all}">
-		<tr ${(pacVO.pacno==param.pacno) ? 'bgcolor=#CCCCFF':''}><!--將修改的那一筆加入對比色-->
+
+<style>
+
+</style>
+<main class="app-content">
+	<div class="container-fluid">
+		<div class="row">
+		 <div class="col-6">
+			          <div class="tile">
+			            <h3 class="tile-title">行程總覽</h3>
+			            <table class="table table-hover table-bordered" >
+			              <thead style="background-color: white;">
+			                <tr>
+			                  <th>行程編號</th>
+			                  <th>行程名稱</th>
+			                  <th>行程價格</th>
+			                  <th>修改</th>
+							  <th>查詢細節時間</th>
+			                </tr>
+			              </thead>
+			              <tbody style="background-color: white;">
+			<%@ include file="page1" %>              
+		    <c:forEach var="pacVO" items="${pacSvc.all}"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<tr ${(pacVO.pacno==param.pacno) ? 'bgcolor=#CCCCFF':''}>
 			<td>${pacVO.pacno}</td>
 			<td>${pacVO.pacname}</td>
 			<td>${pacVO.pacprice}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" style="margin-bottom: 0px;">
-			    <input type="submit" value="修改"  > 
-			    <input type="hidden" name="pacno" value="${pacVO.pacno}">
-			    <input type="hidden" name="requestURL" value="/backend/ptp/listAllPacX.jsp">
-			    <input type="hidden" name="action" value="getOne_For_Update_Pac"></FORM>
+			           <td>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" style="margin-bottom: 0px;">
+			<input type="submit" value="修改"  > 
+			<input type="hidden" name="pacno" value="${pacVO.pacno}">
+			<input type="hidden" name="empno" value="${pacVO.empno}">
+			   <input type="hidden" name="requestURL" value="/backend/ptp/listAllPac.jsp">
+			   <input type="hidden" name="action" value="getOne_For_Update_Pac"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" style="margin-bottom: 0px;">
-			    <input type="submit" value="刪除" disabled="disabled">
-			    <input type="hidden" name="pacno" value="${pacVO.pacno}">
-			    <input type="hidden" name="action" value="delete_Pac"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" style="margin-bottom: 0px;">
-			    <input type="submit" value="送出查詢"> 
-			    <input type="hidden" name="pacno" value="${pacVO.pacno}">
+			 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" style="margin-bottom: 0px;">
+			<input type="submit" value="送出查詢"> 
+			<input type="hidden" name="pacno" value="${pacVO.pacno}">
+				<input type="hidden" name="triname" value="${pacVO.pacname}">
 			    <input type="hidden" name="action" value="listPtps_ByPacno_B"></FORM>
 			</td>
-		</tr>
-	</c:forEach>
-</table>
+			        </tr>
+			</c:forEach>
+			</tbody>
+			</table>
+			<%@ include file="page2" %>            
+			</div>
+		</div>       
+		                        
+			<div class="col-6">
+				 <%if (request.getAttribute("listPtps_ByPacno")!=null){%>
+					<jsp:include page="listPtps_ByPacno.jsp" />
+				 <%} %>  
+			</div> 
+		</div>
+	</div>                
+          
+                
+              
+</main>
 
-<%if (request.getAttribute("listPtps_ByPacno")!=null){%>
-       <jsp:include page="listPtps_ByPacno.jsp" />
-<%} %>
+
+
 
 </body>
 </html>

@@ -1,56 +1,44 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.pcd.model.*"%>
-
+<%@ page import="com.pac.model.*"%>
+<%@ page import="com.ptp.model.*"%>
+<jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService"/>
+<jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
+<jsp:useBean id="pcdSvc" scope="page" class="com.pcd.model.PcdService"/>
 <%
 PcdVO pcdVO = (PcdVO) request.getAttribute("pcdVO");
 pageContext.setAttribute("pcdVO", pcdVO);
+String memno=(String)session.getAttribute("memno");
+String ptpno = request.getParameter("ptpno");
+PtpVO ptpVO = ptpSvc.getOnePtp(ptpno);
+String pacno = ptpVO.getPacno();
+PacVO pacVO = pacSvc.getOnePac(pacno);
+request.setAttribute("ptpVO", ptpVO);
+request.setAttribute("pacVO", pacVO);
+request.setAttribute("pcdVO", pcdVO);
   
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>套裝行程新增 - addPcd.jsp</title>
+<title>會員報名訂單新增 - addPcd.jsp</title>
 
-<style>
-  table#table-1 {
-	background-color: LIGHTBLUE;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
+<style type="text/css">
   h4 {
     color: blue;
     display: inline;
   }
+  form>.ok{
+  	color:#008800;
+  }
 </style>
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
 
 </head>
 <body bgcolor='white'>
 <jsp:include page="/frontend/navbar.jsp"/>
-<section class="section-property section-t8">
-<h3>資料新增:</h3>
-
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -60,8 +48,19 @@ pageContext.setAttribute("pcdVO", pcdVO);
 		</c:forEach>
 	</ul>
 </c:if>
-
-
+<section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">${pacVO.pacname}</h1>
+            <span class="color-text-a">${pacVO.pacno}</span>
+          </div>
+        </div>
+  
+<span>
+          <img src="images/bar2.png" alt="">
+          </span><br>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pcd/pcd" name="form1">
 <table>
 	<tr>
@@ -70,8 +69,6 @@ pageContext.setAttribute("pcdVO", pcdVO);
 		<td><input type="hidden" name="ptpno" size="30" 
 			 value="<%= pcdVO.getPtpno()%>" /></td>
 	</tr>
-	<jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService"/>
-	<jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
 	<tr>
 		<td>出團行程名稱:</td>
 		<td>${pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacname}</td>
@@ -109,21 +106,19 @@ pageContext.setAttribute("pcdVO", pcdVO);
 	</tr>
 
 	<tr>
-		<td>繳費狀態:</td>
 		<td>
-			<select name="pcdstatus">
-				<option value=0>未繳費
-			</select> 	
+			<input type="hidden" name="pcdstatus" size="30"  value=0 /> 
+		</td>
 	</tr>
 	<tr>
 		<td>次要聯絡人手機:</td>
-		<td><input type="TEXT" name="pcdsecphone" size="30"
-			 value="<%= (pcdVO.getPcdsecphone() == null)? "":pcdVO.getPcdsecphone() %>"> </td>
+		<td><input type="TEXT" name="pcdsecphone" size="30" pattern="^09\d\d\d\d\d\d\d\d$"
+			 value="<%= (pcdVO.getPcdsecphone() == null)? "":pcdVO.getPcdsecphone() %>" required />	</td>
 	</tr>
 	
 	<tr>
 		<td>參團人員資料:</td>
-		<td><input type="TEXT" name="pcdfamdata" size="30"
+		<td><input type="TEXT" required name="pcdfamdata" size="30"
 			 value="<%= (pcdVO.getPcdfamdata() == null)? "": pcdVO.getPcdfamdata() %>"> </td>
 	</tr>
 	<tr>
@@ -132,11 +127,13 @@ pageContext.setAttribute("pcdVO", pcdVO);
 			 value="<%= (pcdVO.getPcdmark() == null)? "": pcdVO.getPcdmark() %>" /></td>
 	</tr>
 </table>
+
 	
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="hidden" name="memno" value="<%= pcdVO.getMemno()%>">
 <input type="hidden" name="ptpno" value="<%= pcdVO.getPtpno()%>">
+<%-- <input type="hidden" name="memmail" value="${mememail}"> --%>
 <input type="submit" value="送出新增"></FORM>
 </body>
 

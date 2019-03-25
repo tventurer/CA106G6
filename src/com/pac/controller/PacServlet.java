@@ -103,7 +103,7 @@ public class PacServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("pacVO", pacVO); // 資料庫取出的empVO物件,存入req
-				String url = "/backend/pac/update_pac_inputX.jsp";
+				String url = "/backend/pac/update_pac_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
 
@@ -332,7 +332,7 @@ public class PacServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pacVO", pacVO); // 資料庫update成功後,正確的的pacVO物件,存入req
-				String url = "/backend/pac/listOnePac.jsp";
+				String url = "/backend/pac/listAllPac.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOnePac.jsp
 				successView.forward(req, res);
 
@@ -807,7 +807,6 @@ public class PacServlet extends HttpServlet {
 					pacVO.setPacremark(pacremark);
 					pacVO.setPacstatus(pacstatus);
 				
-					System.out.println("13");
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("pacVO", pacVO); // 含有輸入格式錯誤的pacVO物件,也存入req
@@ -816,24 +815,20 @@ public class PacServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
-				System.out.println("14");
 				/***************************2.開始修改資料*****************************************/
 				PacService pacSvc = new PacService();
 				pacVO = pacSvc.updatePac(pacno,empno,pacname,paccountry,paccity,pactotalday,pacprice,pacdeposit,pacdiv
 						,paccontent,imgbyte1,imgbyte2,pacremark,pacstatus);
 				
-				System.out.println("15");
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				System.out.println(requestURL);
 				if(requestURL.equals("/backend/ptp/listPtps_ByPacno.jsp") || requestURL.equals("/backend/ptp/listAllPacX.jsp"))
 					req.setAttribute("listPtps_ByPacno",pacSvc.getPtpsByPacno(pacno)); // 資料庫取出的list物件,存入request
 				
-				System.out.println("16");            
 				String url = requestURL;
 				RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
 				successView.forward(req, res);
-				System.out.println("17");
 				
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
@@ -844,7 +839,6 @@ public class PacServlet extends HttpServlet {
 				failureView.forward(req, res);
 					
 				}
-				System.out.println("18");
 			}
 
 		 
@@ -860,6 +854,7 @@ public class PacServlet extends HttpServlet {
 				try {
 					/*************************** 1.接收請求參數 ****************************************/
 					String pacno = req.getParameter("pacno");
+					String triname = req.getParameter("triname");
 
 					/*************************** 2.開始查詢資料 ****************************************/
 					PacService pacSvc = new PacService();
@@ -867,7 +862,9 @@ public class PacServlet extends HttpServlet {
 
 					/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 					req.setAttribute("listPtps_ByPacno", set);    // 資料庫取出的list物件,存入request
-
+					req.setAttribute("triname", triname);
+					req.setAttribute("pacno", pacno);
+					
 					String url = null;
 					if ("listPtps_ByPacno_A".equals(action))
 						url = "/backend/ptp/listPtps_ByPacno.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp

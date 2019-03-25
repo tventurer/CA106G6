@@ -147,13 +147,10 @@
 
 </table>
 <br>
-<!-- <input type="hidden" name="action" value="update"> -->
-<%-- <input type="hidden" name="ptpno" value="<%=ptpVO.getPtpno()%>"> --%>
-<!-- <input type="submit" value="原廠送出修改"> -->
-<input type="hidden" name="action" value="updateX">
+<input type="hidden" name="action" value="updateY">
 <input type="hidden" name="ptpno" value="<%=ptpVO.getPtpno()%>">
 <input type="hidden" name="requestURL" value="<%=requestURL%>">
-<input type="submit" value="改版送出修改"></FORM>
+<input type="submit" value="修改"></FORM>
 </body>
 
 

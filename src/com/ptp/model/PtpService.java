@@ -69,6 +69,10 @@ public class PtpService {
 	public List<PtpVO> getAll() {
 		return dao.getAll();
 	}
+	public List<PtpVO> get_start_ptp() {
+		return dao.get_start_ptp();
+	}
+
 
 }
 

@@ -49,26 +49,15 @@
   	padding:5px 10px;border:1px solid #888888;border-radius:5px;
   }
 </style>
-
+<script src="<%=request.getContextPath()%>/ckeditor4/ckeditor.js"></script>
 </head>
 <body  class="app sidebar-mini rtl">
 <jsp:include page="/backend/backbar.jsp" />
-<h3>資料新增:</h3>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
 <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-edit"></i> 套裝行程列表</h1>
+          <h1><i class="fa fa-edit"></i> 新增套裝行程</h1>
           
         </div>
       </div>
@@ -84,7 +73,6 @@
       <div class="row">
         <div class="col-md-6">
           <div class="tile">
-            <h3 class="tile-title">新增套裝行程</h3>
             <div class="tile-body">
               <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" name="form1" enctype="multipart/form-data">
 				<div class="form-group">
@@ -130,9 +118,14 @@
 			   </div>
 			   <div class="form-group">
                   <label class="control-label">行程內容:</label>
-                  <textarea name="paccontent" class="form-control" rows="4" placeholder="ckEdit">"<%= (pacVO==null)? "內容" : pacVO.getPaccontent()%>"</textarea>
+                  <TEXTAREA name="paccontent" rows="10" cols="80">${param.paccontent}</textarea>
+                  <script>
+					CKEDITOR.replace( 'paccontent' );
+				  </script>
                 </div>
                
+               
+        
                <div class="form-group row">
                   <label class="control-label col-md-3">行程特色圖1</label>
                   <div class="col-md-8">
@@ -165,16 +158,9 @@
                   </div>
                 </div>
             <input type="hidden" name="action" value="insert">
+            
 			<input class="btn btn-primary" type="submit" value="送出新增"></FORM>
             </div>
-            
-            
-        
-       
     </main>
-
-
-
-
 </body>
 </html>

@@ -2,13 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.ptp.model.*"%>
+<%@ page import="com.pac.model.*"%>
 
 <jsp:useBean id="listPtps_ByPacno" scope="request" type="java.util.Set<PtpVO>" /> <!-- 於EL此行可省略 -->
 <jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService" />
 
-
 <html>
-<head><title>部門員工 - listPacs_ByPacno.jsp</title>
+<head><title>出團細節 - listPacs_ByPacno.jsp</title>
 
 <style>
   table#table-2 {
@@ -25,9 +25,7 @@
     color: blue;
     display: inline;
   }
-</style>
 
-<style>
   table {
 	width: 800px;
 	background-color: white;
@@ -41,19 +39,35 @@
     padding: 5px;
     text-align: center;
   }
+  .table-bordered {
+    border: 1px solid #dee2e6;
+    background-color: white;
+	}
+	
+	.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: #f8f9fa;
+}
 </style>
 
 </head>
-<body bgcolor='white'>
-
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-2">
-	<tr><td>
-		 <h3>部門員工 - listPtps_ByPacno.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/backend/ptp/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
+<body class="app sidebar-mini rtl">
+	<jsp:include page="/backend/backbar.jsp" />
+<%-- <% System.out.println(pacVO.getPacno()) ;%> --%>
+<!-- <table id="table-2"> -->
+<!-- 	<tr><td> -->
+<!-- 		 <h3> -->
+<%-- 		    	<font color='#99FF99'>${triname}</font>出團內容 - listPtps_ByPacno.jsp</h3> --%>
+<%-- 		 <h4><a href="../ptp/addPtp.jsp?pacno=${pacno}&pacname=${triname}"><img src="images/back1.gif" width="100" height="32" border="0">新增出團時間</a></h4> --%>
+<!-- 	</td></tr> -->
+<!-- </table> -->
+<div class="container-fluid">
+		<div class="row">
+		 <div class="col-6">
+			          <div class="tile">
+			            <h3 class="tile-title"><font color='#0066FF'>${triname}</font><br><h4><a href="../ptp/addPtp.jsp?pacno=${pacno}&pacname=${triname}"><img src="images/world.jpg" width="100" height="100" border="0">新增出團時間</a></h4></h3>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -64,11 +78,11 @@
 	</ul>
 </c:if>
 
-<table>
+<table class="table table-hover table-bordered" style="background-color: white;">
+	<thead style="background-color: white;">
 	<tr>
 		<th>價格</th>
 		<th>行程編號</th>
-		<th>行程名稱</th>
 		<th>起始日期</th>
 		<th>結束日期</th>
 		<th>截止日期</th>
@@ -78,10 +92,12 @@
 		<th>行程狀態</th>
 		<th>上架時間</th>
 		<th>修改</th>
-		<th>查詢</th>
+		<th>刪除</th>
 		
 	</tr>
-	
+	</thead>
+<%-- 	<%@ include file="page1" %> --%>
+	<tbody style="background-color: white;">
 	<c:forEach var="ptpVO" items="${listPtps_ByPacno}" >
 		<tr ${(ptpVO.ptpno==param.ptpno) ? 'bgcolor=#CCCCFF':''}><!--將修改的那一筆加入對比色-->
 			<td><c:forEach var="pacVO" items="${pacSvc.all}">
@@ -91,12 +107,6 @@
                 </c:forEach>
 			</td>
 			<td>${ptpVO.ptpno}</td>
-			<td><c:forEach var="pacVO" items="${pacSvc.all}">
-                    <c:if test="${ptpVO.pacno==pacVO.pacno}">
-	                   【<font color=orange>${pacVO.pacname}</font> - $${pacVO.pacprice}】
-                    </c:if>
-                </c:forEach>
-			</td>
 			<td><fmt:formatDate value="${ptpVO.ptpstart}" pattern="yyyy-MM-dd HH:MM E"/></td>
 			<td><fmt:formatDate value="${ptpVO.ptpend}" pattern="yyyy-MM-dd"/></td>
 			<td><fmt:formatDate value="${ptpVO.ptpsigndle}" pattern="yyyy-MM-dd"/></td>
@@ -127,11 +137,13 @@
 			</td>
 		</tr>
 	</c:forEach>
+	</tbody>
+<%-- 	<%@ include file="page2" %>       --%>
 </table>
 
-<br>本網頁的路徑:<br><b>
-   <font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
-   <font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b>
+<!-- <br>本網頁的路徑:<br><b> -->
+<%--    <font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br> --%>
+<%--    <font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b> --%>
 
 </body>
 </html>

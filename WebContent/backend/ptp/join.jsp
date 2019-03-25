@@ -43,20 +43,7 @@ request.setAttribute("pcdVO", pcdVO);
             <span class="color-text-a"><%=pacVO.getPacno() %></span>
           </div>
         </div>
-        <div class="col-md-12 col-lg-4">
-          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="index.html">Home</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a href="property-grid.html">Properties</a>
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-    </div>
+        
   </section>
   
   

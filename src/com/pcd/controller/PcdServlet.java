@@ -6,6 +6,8 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import com.pcd.model.*;
+import com.mem.model.MemService;
+import com.mem.model.MemVO;
 
 public class PcdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -267,7 +269,7 @@ public class PcdServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("pcdVO", pcdVO); // 資料庫update成功後,正確的的pcdVO物件,存入req
-				String url = "/backend/pcd/listOnePcd.jsp";
+				String url = "/backend/pcd/listAllPcd.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOnePcd.jsp
 				successView.forward(req, res);
 
@@ -418,7 +420,6 @@ public class PcdServlet extends HttpServlet {
 					try {
 						/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 						String ptpno =req.getParameter("ptpno");
-//						System.out.println("ptpno"+ptpno);
 						String ptpnoReg= "^[P][T][P]000\\d\\d\\d$";
 						if (ptpno == null || ptpno.trim().length() == 0) {
 							errorMsgs.add("行程內容編號: 請勿空白");
@@ -439,14 +440,6 @@ public class PcdServlet extends HttpServlet {
 						} else if(!memno.toUpperCase().trim().matches(memnoReg)) { //以下練習正則(規)表示式(regular-expression)
 							errorMsgs.add("會員編號: 只能是加上MEM接六碼數字");
 			            }
-						
-//						java.sql.Date pcdordday;
-//						try {
-//							pcdordday = java.sql.Date.valueOf(req.getParameter("pcdordday").trim());
-//						} catch (IllegalArgumentException e) {
-//							pcdordday=new java.sql.Date(System.currentTimeMillis());
-//						}
-						System.out.println("1");
 						PcdVO pcdVO = new PcdVO();
 						pcdVO.setPtpno(ptpno);
 						pcdVO.setPcdtripmen(pcdtripmen);
@@ -479,10 +472,13 @@ public class PcdServlet extends HttpServlet {
 				
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
-
+				
+				System.out.println("=====");
+				
 				try {
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 					String ptpno =req.getParameter("ptpno");
+					String memno =req.getParameter("memno");
 					int pcdtripmen = 0;
 					try {
 						pcdtripmen = new Integer(req.getParameter("pcdtripmen"));
@@ -493,15 +489,12 @@ public class PcdServlet extends HttpServlet {
 							errorMsgs.add("請填人數，人數不為0，至少是1");
 						}
 					}
-					String memno =req.getParameter("memno");
-
-//					java.sql.Date pcdordday = java.sql.Date.valueOf(req.getParameter("pcdordday"));
-					
 					java.sql.Date pcdordday;
 					try {
 						pcdordday = java.sql.Date.valueOf(req.getParameter("pcdordday").trim());
 					} catch (IllegalArgumentException e) {
 						pcdordday=new java.sql.Date(System.currentTimeMillis());
+						errorMsgs.add("請輸入繳費日期");
 					}
 					
 					Integer pcdmoney = 0;
@@ -532,9 +525,9 @@ public class PcdServlet extends HttpServlet {
 					
 					
 					PcdVO pcdVO = new PcdVO();
-//					pcdVO.setPtpno(ptpno);
-//					pcdVO.setMemno(memno);
-//					pcdVO.setPcdtripmen(pcdtripmen);
+					pcdVO.setPtpno(ptpno);
+					pcdVO.setMemno(memno);
+					pcdVO.setPcdtripmen(pcdtripmen);
 					pcdVO.setPcdordday(pcdordday);
 					pcdVO.setPcdmoney(pcdmoney);
 					pcdVO.setPcdstatus(pcdstatus);
@@ -545,7 +538,7 @@ public class PcdServlet extends HttpServlet {
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("pcdVO", pcdVO); // 含有輸入格式錯誤的pcdVO物件,也存入req
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/backend/pcd/join4.jsp");
+								.getRequestDispatcher("/backend/pcd/addPcd.jsp");
 						System.out.println("123");
 						failureView.forward(req, res);
 						return;
@@ -566,19 +559,20 @@ public class PcdServlet extends HttpServlet {
 					
 					/***************************其他可能的錯誤處理**********************************/
 				} catch (Exception e) {
+					e.printStackTrace();
 					errorMsgs.add(e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/pcd/join4.jsp");
+							.getRequestDispatcher("/backend/pcd/addPcd.jsp");
 					failureView.forward(req, res);
 				}
 			}
 		 			
 		 if ("insert".equals(action)) { // 來自addPcd.jsp的請求  
-				
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
-				String requestURL = req.getParameter("requestURL");
-//				try {
+//				String requestURL = req.getParameter("requestURL");
+				
+				try {
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 					String ptpno =req.getParameter("ptpno");
 					Integer pcdtripmen = 0;
@@ -593,13 +587,12 @@ public class PcdServlet extends HttpServlet {
 					}
 					String memno =req.getParameter("memno");
 
-					java.sql.Date pcdordday;
+					java.sql.Date pcdordday=null;
 					try {
 						pcdordday = java.sql.Date.valueOf(req.getParameter("pcdordday").trim());
 					} catch (IllegalArgumentException e) {
 						pcdordday=new java.sql.Date(System.currentTimeMillis());
-					}finally {
-						pcdordday=new java.sql.Date(System.currentTimeMillis());
+						errorMsgs.add("請輸入繳費日期");
 					}
 					
 					Integer pcdmoney = 0;
@@ -626,13 +619,13 @@ public class PcdServlet extends HttpServlet {
 					if (pcdfamdata == null || pcdfamdata.trim().length() == 0) {
 						errorMsgs.add("參團人資料請勿空白");
 					}	
-					String	 pcdmark =req.getParameter("pcdmark");
-					
+					String pcdmark =req.getParameter("pcdmark");
+//					String mememail   = req.getParameter(mememail); 
 					
 					PcdVO pcdVO = new PcdVO();
-//					pcdVO.setPtpno(ptpno);
-//					pcdVO.setMemno(memno);
-//					pcdVO.setPcdtripmen(pcdtripmen);
+					pcdVO.setPtpno(ptpno);
+					pcdVO.setMemno(memno);
+					pcdVO.setPcdtripmen(pcdtripmen);
 					pcdVO.setPcdordday(pcdordday);
 					pcdVO.setPcdmoney(pcdmoney);
 					pcdVO.setPcdstatus(pcdstatus);
@@ -640,11 +633,12 @@ public class PcdServlet extends HttpServlet {
 					pcdVO.setPcdfamdata(pcdfamdata);
 					pcdVO.setPcdmark(pcdmark);
 					
+					
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("pcdVO", pcdVO); // 含有輸入格式錯誤的pcdVO物件,也存入req
 						RequestDispatcher failureView = req
 								.getRequestDispatcher("/backend/pcd/join4.jsp");
-						System.out.println("123");
+						System.out.println("錯誤點1");
 						failureView.forward(req, res);
 						return;
 					} 
@@ -654,20 +648,33 @@ public class PcdServlet extends HttpServlet {
 					PcdService pcdSvc = new PcdService();
 					pcdVO = pcdSvc.addPcd(ptpno, memno, pcdtripmen,pcdordday,pcdmoney,
 							 pcdstatus, pcdsecphone, pcdfamdata, pcdmark);
-
+					
 					req.setAttribute("pcdVO", pcdVO);
+				      
+				      MemService memSvc = new MemService();
+				      MemVO memVO = memSvc.getOneMem(memno);
+				      String to = memVO.getMememail();
+				      String subject = "旅遊浪潮通知您報名成功";
+				      String messageText = memVO.getMemrealname() + " 您好  謝謝您參與這次的活動:" + "請於三日內繳交訂金，以維持您的權益!謝謝"; 
+				       
+				      MailService mailService = new MailService();
+				      mailService.sendMail(to, subject, messageText);
+
+					
+					
+					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
 					String url = "/backend/pcd/thanku.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllPcd.jsp
 					successView.forward(req, res);				
 					
 					/***************************其他可能的錯誤處理**********************************/
-//				} catch (Exception e) {
-//					errorMsgs.add(e.getMessage());
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/backend/pcd/join4.jsp");
-//					failureView.forward(req, res);
-//				}
+				} catch (Exception e) {
+					errorMsgs.add(e.getMessage());
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backend/pcd/join4.jsp");
+					failureView.forward(req, res);
+				}
 			}
 				
 			if ("delete".equals(action)) { // 來自listAllPcd.jsp
@@ -700,4 +707,13 @@ public class PcdServlet extends HttpServlet {
 			}
 	}
 	
-}		
+	     
+	   }
+
+
+
+
+	
+
+
+

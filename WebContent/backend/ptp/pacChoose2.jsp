@@ -46,32 +46,12 @@ pageContext.setAttribute("pacVO", pacVO);
             <span class="color-text-a"><%=pacVO.getPacno() %></span>
           </div>
         </div>
-        <div class="col-md-12 col-lg-4">
-          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="index.html">Home</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a href="property-grid.html">Properties</a>
-              </li>
-            </ol>
-          </nav>
+        
            <a href="join.jsp?ptpno=${ptpVO.ptpno}" class="link-a">
                     <span class="ion-ios-arrow-forward">
                       <img src="images/join.jpg" alt="">
                     </span>
                   </a>
-		
-		  
-<!--           <FORM METHOD="post" ACTION="join.jsp"> -->
-<!--           <input type="button" style="background-image:\CA106G6V0201\WebContent\backend\ptp\images/002.jpg;width:80px;height:25px;"> -->
-<%--           <input type="hidden" name="ptpno" value="<%=ptpVO.getPtpno()%>"> --%>
-<!--           <input type="hidden" name="action" value="joinTrip"> -->
-<!--           </FORM> -->
-		
-			
-			
         </div>
       </div>
     </div>

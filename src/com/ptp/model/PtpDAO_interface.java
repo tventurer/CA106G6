@@ -10,7 +10,7 @@ public interface PtpDAO_interface {
 	    public void delete(String ptpno);
 	    public PtpVO findByPrimaryKey(String ptpno);
 	    public List<PtpVO> getAll();
-
+	    public List<PtpVO> get_start_ptp();
 	}
 
 	

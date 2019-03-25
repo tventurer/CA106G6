@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>套裝行程修改 - update_pac_input.jsp</title>
-
+<script src="<%=request.getContextPath()%>/ckeditor4/ckeditor.js"></script>
 <style>
   table#table-1 {
 	background-color: Yellow;
@@ -49,17 +49,15 @@
 </style>
 
 </head>
-<body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>套裝行程修改 - update_pac_input.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
-
+<body  class="app sidebar-mini rtl">
+<jsp:include page="/backend/backbar.jsp" />
+<main class="app-content">
+      <div class="app-title">
+        <div>
+          <h1><i class="fa fa-edit"></i> 修改行程</h1>
+          
+        </div>
+      </div>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -69,110 +67,104 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" name="form1" enctype="multipart/form-data">
-<table>
-	<tr>
-		<td>套裝編號:<font color=red><b>*</b></font></td>
-		<td><%=pacVO.getPacno()%></td>
-	</tr>
-	<tr>
-		<td>管理員編號:<font color=red><b>*</b></font></td>
-		<td><%= pacVO.getEmpno()%></td>
-	</tr>
-	<tr>
-		<td>套裝名稱:</td>
-		<td><input type="TEXT" name="pacname" size="45"
-			 value="<%= pacVO.getPacname()%>" /></td>
-	</tr>
-	<tr>
-		<td>旅遊國家:</td>
-		<td><input type="TEXT" name="paccountry" size="45"
-			 value="<%= pacVO.getPaccountry()%>" /></td>
-	</tr>
-	<tr>
-		<td>旅遊城市:</td>
-		<td><input type="TEXT" name="paccity" size="45"
-			 value="<%= pacVO.getPaccity()%>" /></td>
-	</tr>
-	<tr>
-		<td>旅遊天數:</td>
-		<td><input type="TEXT" name="pactotalday" size="45"
-			 value="<%= pacVO.getPactotalday()%>" /></td>
-	</tr>
-	<tr>
-		<td>團費價格:</td>
-		<td><input type="TEXT" name="pacprice" size="45"
-			 value="<%= pacVO.getPacprice()%>" /></td>
-	</tr>
-	
-	<tr>
-		<td>預繳訂金:</td>
-		<td><input type="TEXT" name="pacdeposit" size="45"
-			 value="<%= pacVO.getPacdeposit()%>" /></td>
-	</tr>
-	<tr>
-		<td>特色標籤:</td>
-		<td><input type="TEXT" name="pacdiv" size="45"
-			 value="<%= pacVO.getPacdiv()%>" /></td>
-	</tr>
-	
-	<tr>
-		<td>行程內容:</td>
-		<td><input type="TEXT" name="paccontent" size="45"
-			 value="<%= pacVO.getPaccontent()%>" /></td>
-	</tr>
-	<tr>
-		<td>行程特色1:</td>
-		<td><img src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=1">
-		<input type="file" name="pactchar1" size="45" value="<%= pacVO.getPactchar1()%>" id="photo"/>
-			 <img id="preview" src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=1" style="display:none;" width="100" height="100">	
-			 </td>
-	</tr>
-	<tr>
-		<td>行程特色2:</td>
-		<td><img src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=2"><br>
-		<input type="file" name="pactchar2" size="45" value="<%= (pacVO==null)? pacVO.getPactchar2() : pacVO.getPactchar2()%>" id="photo"/>
-			<img id="preview" src="#" style="display:none;" width="100" height="100">	 
-		</td>
-	</tr>
-	
-	<tr>
-		<td>注意事項:</td>
-		<td>
-			<input type="TEXT" name="pacremark" size="45"
-				 value="<%= pacVO.getPacremark()%>" /></td>
-	</tr>
-	<tr>
-		<td>行程狀況:</td>
-		<td>
-			<select name="pacstatus">
-				<option value=0>可出團
-				<option value=1>不再出團
-			</select> 
-	</tr>
-
-<%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.pac.model.DeptService" /> --%>
-<!-- 	<tr> -->
-<!-- 		<td>部門:<font color=red><b>*</b></font></td> -->
-<!-- 		<td><select size="1" name="deptno"> -->
-<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-<%-- 				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname} --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</select></td> -->
-<!-- 	</tr> -->
-
-</table>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <div class="tile-body">
+              <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" name="form1" enctype="multipart/form-data">
+				<div class="form-group">
+                  <label class="control-label">行程名稱:</label>
+                  <input type="TEXT" name="pacname" size="45" 
+			 		value="<%= (pacVO==null)? "  好多名字" : pacVO.getPacname()%>" />
+                </div>
+                <div class="form-group">
+                  <label class="control-label">管理員編號:   <%= pacVO.getEmpno()%></label>
+                 
+                  <input type="hidden" name="empno" size="45"
+					 value="<%= pacVO.getEmpno()%>" />
+                </div>
+                <div class="form-group">
+                  <label class="control-label">旅遊國家:</label>
+                  <input type="TEXT" name="paccountry" size="45"
+						 value="<%= (pacVO==null)? "國家" : pacVO.getPaccountry()%>" />
+                </div>
+                <div class="form-group">
+                  <label class="control-label">旅遊城市:</label>
+                  <input type="TEXT" name="paccity" size="45"
+						 value="<%= (pacVO==null)?"城市" : pacVO.getPaccity()%>" />
+			   </div>
+                <div class="form-group">
+                  <label class="control-label">旅遊天數:</label>
+				  <input type="TEXT" name="pactotalday" size="45"
+			 			 value="<%= (pacVO==null)? "6" : pacVO.getPactotalday()%>" />
+			   </div>
+                <div class="form-group">
+                  <label class="control-label">團費價格:</label>
+				  <input type="TEXT" name="pacprice" size="45"
+			 			 value="<%= (pacVO==null)? "88000" : pacVO.getPacprice()%>" />
+			   </div>
+			   
+			    <div class="form-group">
+                  <label class="control-label">預繳訂金:</label>
+				  <input type="TEXT" name="pacdeposit" size="45"
+			 			 value="<%= (pacVO==null)? "6666" : pacVO.getPacdeposit()%>" />
+			   </div>
+			   <div class="form-group">
+                  <label class="control-label">特色標籤:</label>
+				  <input type="TEXT" name="pacdiv" size="45"
+			 			 value="<%= (pacVO==null)? "特色標籤" : pacVO.getPacdiv()%>" />
+			   </div>
+			   <div class="form-group">
+                  <label class="control-label">行程內容:</label>
+                  <TEXTAREA name="paccontent" rows="10" cols="80">${pacVO.paccontent}</textarea>
+                  <script>
+					CKEDITOR.replace( 'paccontent' );
+				  </script>
+                </div>
+               <div class="form-group row">
+                  <label class="control-label col-md-3">行程特色圖1</label>
+                  <div class="col-md-8">
+                    <input type="file" name="pactchar1" size="45"
+						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar1()%>" id="photo"/>
+						 <img id="preview" src="<%=request.getContextPath()%>/DBGifReader?pacVO.getPactchar1()"  width="100" height="100">
+                  </div>
+               </div>
+                <div class="form-group row">
+                  <label class="control-label col-md-3">行程特色圖2</label>
+                  <div class="col-md-8">
+                    <input type="file" name="pactchar2" size="45"
+						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar2()%>" id="photo"/>
+						 <img id="preview" src="<%=request.getContextPath()%>/DBGifReader?pacVO.getPactchar2()"  width="100" height="100">
+                  </div>
+               </div>
+               
+               <div class="form-group">
+                  <label class="control-label">注意事項:</label>
+                  <textarea name="pacremark" class="form-control" rows="4" placeholder="ckEdit"><%=(pacVO==null)?"注意事項": pacVO.getPacremark()%></textarea>
+                </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                 	    行程狀況:<select name="pacstatus">
+								<option value=0>可出團
+								<option value=1>不再出團
+					 		</select> 
+                    </label>
+                  </div>
+                </div>
+     </table>
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="pacno" value="<%=pacVO.getPacno()%>">
 <input type="hidden" name="empno" value="<%=pacVO.getEmpno()%>">
 <input type="submit" value="送出修改"></FORM>
+
 <!-- <input type="hidden" name="action" value="updateX"> -->
 <%-- <input type="hidden" name="pacno" value="<%=pacVO.getPacno()%>"> --%>
 <%-- <input type="hidden" name="empno" value="<%=pacVO.getEmpno()%>"> --%>
 <%-- <input type="hidden" name="requestURL" value="<%=requestURL%>"> --%>
 <!-- <input type="submit" value="改版送出修改"></FORM> -->
+  </main>
 </body>
 
 </html>

@@ -14,7 +14,6 @@
 <html>
 <head>
 <title>所有員工資料 - listAllPac.jsp</title>
-
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -46,19 +45,18 @@
     padding: 5px;
     text-align: center;
   }
+  h5, .h5 {
+    font-size: 1.09375rem;
+    text-align: right;
+}
 </style>
 
 </head>
-<body bgcolor='yellow'>
-
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-1">
-	<tr><td>
-		 <h3 align="center">所有套裝行程資訊 - listAllPac.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
+<body class="app sidebar-mini rtl" >
+<jsp:include page="/backend/backbar.jsp" />
+<main class="app-content">
+<div class="container-fluid">
+<div class="row">
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -69,10 +67,17 @@
 	</ul>
 </c:if>
 
-<table>
+
+
+<div class="row">
+<div class="col-md-12">
+<div class="tile">
+<div class="tile-body">
+<div class='head'><h5><a href='../ptp/listAllPacX.jsp'>回套裝總覽</a></h5>
+</div>
+<table class="table table-hover table-bordered">
 	<tr>
 		<th>套裝行程編號</th>
-		<th>管理員編號</th>
 		<th>行程名稱</th>
 		<th>旅遊國家</th>
 		<th>旅遊城市</th>
@@ -93,7 +98,6 @@
 <!-- 	begin 後面 跟page1  page2是分頁的東西	 -->
 		<tr>
 			<td>${pacVO.pacno}</td>
-			<td>${pacVO.empno}</td>
 			<td>${pacVO.pacname}</td>
 			<td>${pacVO.paccountry}</td>
 			<td>${pacVO.paccity}</td>
@@ -102,10 +106,13 @@
 			<td>${pacVO.pacdeposit}</td>
 			<td>${pacVO.pacdiv}</td>
 			<td>${pacVO.paccontent}</td>
-			<td><img src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=1"></td>
-			<td><img src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=2"></td>
+			<td><img width="150px" src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=1"></td>
+			<td><img width="150px" src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=2"></td>
 			<td>${pacVO.pacremark}</td>
-			<td>${pacVO.pacstatus}</td>
+			<td>
+			<c:if test="${pacVO.pacstatus == 0}">可出團</c:if>
+			<c:if test="${pcdVO.pcdstatus == 1}">不再出團</c:if>
+			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
@@ -121,7 +128,17 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2" %>
-
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>  
+<div class="row">
+ <div class="col-md-12">
+      <%@ include file="page2" %>
+</div>     
+</div>
+</main>
 </body>
 </html>
