@@ -21,7 +21,7 @@
 	
 	String porlogistics[] = { "待出貨" , "已出貨", "已領貨", "等待退換貨寄回", "寄出退換貨" ,"已收到退換貨"};
 	request.setAttribute("porlogistics", porlogistics);
-%>
+%> 
 <!-------------------------------- 引入標頭 ------------------------------------->
 
 <jsp:include page="/frontend/navbar.jsp" />

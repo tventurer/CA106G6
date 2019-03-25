@@ -15,7 +15,7 @@ pageContext.setAttribute("name",name);
 <jsp:include page="/frontend/navbar.jsp" />
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-
+ 
 
 
   <style>
