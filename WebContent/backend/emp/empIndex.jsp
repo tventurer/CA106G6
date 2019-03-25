@@ -129,7 +129,7 @@ EmpVO empVO = empSvc.getOneEmp(empno);
       			pointHighlightStroke: "rgba(151,187,205,1)",
       			data: [28, 48, 40, 19, 86]
       		}
-      	]
+      	] 
       };
       var pdata = [
       	{
