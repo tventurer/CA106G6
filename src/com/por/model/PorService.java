@@ -112,4 +112,10 @@ PorVO porVO = new PorVO();
 				
 				return porVO;
 	}
+	public Integer getSellScore(String buymemno) {
+		return dao.getSellScore(buymemno);
+	}
+    public Integer getBuyScore(String sellmemno) {
+    	return dao.getBuyScore(sellmemno);
+    }
 }

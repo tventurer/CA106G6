@@ -32,6 +32,12 @@ public class PorJNDIDAO implements PorDAO_interface{
 		}
 	}
 
+
+	private static final String GET_SELLAVG=
+			"SELECT AVG(PURCHASEORDER.PORBUYSCORE)AS SELLAVG FROM PURCHASEORDER JOIN PURCHASE ON PURCHASEORDER.PURID=PURCHASE.PURID WHERE purchaseorder.porbuytime IS NOT NULL AND PURCHASE.MEMNO=?";
+	private static final String GET_BUYLAVG=
+			"SELECT AVG(PORSELLSCORE)AS BUYAVG FROM PURCHASEORDER WHERE porbuytime IS NOT NULL AND MEMNO=?";
+
 	private static final String INSERT_STMT = 
 			"INSERT INTO PURCHASEORDER (PORID,PURID,MEMNO,PORMEMNAME,PORPRICE,PORTIME,PORADDRESS,PORTEL,PORSTATUS,PORSTATUSTIME,PORBUYSCORE,PORBUYCONTENT,PORSELLSCORE,PORSELLCONTENT,PORSUM,PORLOGISTICS,PORLOGTIME,PORQR) VALUES ('POR'||LPAD(to_char(PORID_SEQ.NEXTVAL),6,'0'), ?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)";
 		private static final String GET_ALL_STMT = 
@@ -653,5 +659,105 @@ public List<PorVO> getMemAllPor(String memno) {
 		}
 	}
 	return list;
+}
+
+@Override
+public Integer getSellScore(String buymemno) {
+	// TODO Auto-generated method stub
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	Integer SELLAVG=0;
+	try {
+
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_SELLAVG);
+		pstmt.setString(1, buymemno);
+		rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			// acrVO 也稱為 Domain objects
+			SELLAVG =rs.getInt("sellavg");
+		}
+		
+		// Handle any driver errors
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return SELLAVG;
+}
+
+@Override
+public Integer getBuyScore(String sellmemno) {
+	// TODO Auto-generated method stub
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	Integer BUYAVG=0;
+	try {
+
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_BUYLAVG);
+		pstmt.setString(1, sellmemno);
+		rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			// acrVO 也稱為 Domain objects
+			BUYAVG =rs.getInt("buyavg");
+		}
+		
+		// Handle any driver errors
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return BUYAVG;
 }
 }

@@ -17,9 +17,13 @@
 	  
 	PorService porSvc = new PorService(); 
 	
+	Integer purlimit = purVO.getPurlimit();
+	pageContext.setAttribute("purlimit",purlimit);
 	String sellmem = purVO.getMemno();
 	pageContext.setAttribute("sellmem",sellmem);
-	
+	String memid = purVO.getMemno();
+	Integer sellavg = porSvc.getSellScore(memid);
+	pageContext.setAttribute("sellavg",sellavg);
 	//有登入才會跑這裡顯示目前擁有的代幣
 	Object check = session.getAttribute("memno");
 	if(check != null){
@@ -28,6 +32,8 @@
 		pageContext.setAttribute("memno",memno);
 		List<AcrVO> Acrlist = acrSvc.getMemAll(memno);
 		pageContext.setAttribute("Acrlist",Acrlist);
+		Integer buyavg = porSvc.getBuyScore(memno);
+		pageContext.setAttribute("buyavg",buyavg);
 	}
 
 	
@@ -36,13 +42,17 @@
 
 <jsp:include page="/frontend/navbar.jsp" />
 
-
 <style>
 .owl-carousel .owl-item img{
 	width: auto;
     margin: auto;
 }
 </style>
+<script>
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip({html : true });
+	})
+  </script>
   <!--/ Nav End /-->
 
   <!--/ Intro Single star /-->
@@ -137,14 +147,13 @@
                   <ul class="list">
                     <li class="d-flex justify-content-between">
                       <strong>賣家會員：</strong>
-                      <span>
+                      <h3><span data-toggle="tooltip" data-placement="top" title="<h4 style='color: white;'>此賣家的<br>平均分數為：${sellavg}</h4>">
                       <%
-						String memid = purVO.getMemno();
                         MemService memSvc = new MemService();
                         MemVO memVO =memSvc.getOneMem(memid);
                         out.println(memVO.getMemrealname());
 					   %>
-				      </span>
+				      </span></h3>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>商品類別：</strong>
@@ -216,12 +225,21 @@
 		 
 		  <c:if test="${not empty memno}">
 			 <c:if test="${sellmem != memno}">
+			 <c:if test="${buyavg >= purlimit}">
+			 <div class="col-md-12"><h6>您的買家評分數：${buyavg}<br></h6></div>
 			 <div class="col-md-12">
 	   		 <input type="hidden" name="action" value="insert">
 	   		 <input type="hidden" name="memno" value="${memno}">
 	   		 <input type="hidden" name="purid" value="${purid}">
 	         <button type="submit" class="btn btn-a">購買</button>
 	         </div>
+			 </c:if>
+			 <c:if test="${buyavg < purlimit}">
+			 <div class="col-md-12"><h6>您的買家評分數：${buyavg}<br></h6></div>
+			 <div class="col-md-12">
+	   		 <h3>評價分數不夠，不得購買此商品</h3>
+	         </div>
+			 </c:if>
 			 </c:if>
 		  </c:if>
 		  
@@ -279,13 +297,13 @@
               <div class="row section-t3">
                 <div class="col-sm-12">
                   <div class="title-box-d">
-<!--                     <h4 class="title-d">購買評價限制</h4> -->
+                    <h4 class="title-d">購買評價限制</h4>
                   </div>
                 </div>
               </div>
               <div class="amenities-list color-text-a">
                 <ul class="list-a no-margin">
-<%--                   <p><i class="fa fa-user-times" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;購買者的購物評價<%=purVO.getPurlimit() %>以下不得購買</p> --%>
+                  <p><i class="fa fa-user-times" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;購買者的購物評價<%=purVO.getPurlimit() %>以下不得購買</p>
                 </ul>
               </div>
               <div class="amenities-list color-text-a">
