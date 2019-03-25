@@ -152,7 +152,7 @@ $(function () {
                       <%
                         MemService memSvc = new MemService();
                         MemVO memVO =memSvc.getOneMem(memid);
-                        out.println(memVO.getMemrealname());
+                        out.println(memVO.getMememail());
 					   %>
 				      </span></h3>
                     </li>
