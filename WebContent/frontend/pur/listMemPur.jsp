@@ -181,7 +181,7 @@ text-align: left;
 			     	</c:if>
 			     	<c:if test="${purVO.purstatus == 1 }">
 			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/pur/purListOne.jsp?purid=${purVO.purid}" style="margin-bottom: 0px;">
-			     	<input type="submit" value="查看祥情">
+			     	<input type="submit" value="查看詳情">
 			     	<input type="hidden" name="purid"  value="${purVO.purid}">
 			     	<input type="hidden" name="memno"  value="${name}">
 			     	<input type="hidden" name="action"	value="show_OnePur"></FORM>

@@ -116,7 +116,7 @@ pageContext.setAttribute("name",name);
                       <strong>評價限制：</strong>
                       <strong><select size="1" name="purlimit">
 						<%
-							for(int i = 1; i < 11; i++){
+							for(int i = 1; i < 6; i++){
 								out.print("<option value='" + i + "'>"+i+ "</option>");
 								}
 						%>
