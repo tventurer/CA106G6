@@ -79,6 +79,9 @@ public class PahAnService {
 	public List<PahAnVO> getAll(){
 		return dao.getAll();
 	}
+	public List<PahAnVO> getAllStatusOk(){
+		return dao.getAllStatusOk();
+	}
 	public List<PahAnVO> findByCountry(String pahcountry){
 		return dao.findByCountry(pahcountry);
 	}

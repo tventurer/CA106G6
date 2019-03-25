@@ -21,6 +21,7 @@ public interface PahAnDAO_interface {
 	public List<PahAnVO> findByPrice(Integer higher,Integer lower);
 	public List<PahAnVO> findByDate(Date firstDate,Date lateDate);
 	public List<PahAnVO> getAll();
+	public List<PahAnVO> getAllStatusOk();
 	
 	//取單一PK不同欄位圖片資料
 	public byte[] findImage1ByPK(String pahno);

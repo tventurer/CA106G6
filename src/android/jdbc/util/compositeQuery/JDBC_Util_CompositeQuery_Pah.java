@@ -56,6 +56,12 @@ public class JDBC_Util_CompositeQuery_Pah {
 				}
 			}
 		}
+		//增加pahstatus=0上架
+		if (whereCondition.length()==0) {
+			whereCondition.append(" where pahstatus=0 ");
+		}else {
+			whereCondition.append(" and pahstatus=0 ");
+		}
 		
 		return whereCondition.toString();
 	}

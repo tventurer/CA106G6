@@ -48,7 +48,7 @@ System.out.println("action = " + action);
 		//用請求參數action判斷要做的事情
 		if("getAllText".equals(action)) {
 			PahAnService pahAnSvc = new PahAnService();
-			List<PahAnVO> pahAnVO = pahAnSvc.getAll();
+			List<PahAnVO> pahAnVO = pahAnSvc.getAllStatusOk();
 			writeText(res, gson.toJson(pahAnVO));
 		}
 		else if("getOneImg1".equals(action)) {

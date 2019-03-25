@@ -44,6 +44,8 @@ public class PahAnDAO implements PahAnDAO_interface{
 	//取出文字資料SQL指令
 	private final static String GET_ALL =
 		"SELECT PAHNO,PAHNAME,PAHINTRO,PAHCONTENT,PAHPRICE,PAHCOUNTRY,PAHNUM,to_char(PAHSTDATE,'yyyy-mm-dd') PAHSTDATE, to_char(PAHENDDATE,'yyyy-mm-dd') PAHENDDATE, to_char(PAHDOWN,'yyyy-mm-dd HH:MM:SS') PAHDOWN,PAHSTATUS,EMPNO FROM PLANEHOTEL ORDER BY PAHNO";
+	private final static String GET_ALL_STATUSOK =
+			"SELECT PAHNO,PAHNAME,PAHINTRO,PAHCONTENT,PAHPRICE,PAHCOUNTRY,PAHNUM,to_char(PAHSTDATE,'yyyy-mm-dd') PAHSTDATE, to_char(PAHENDDATE,'yyyy-mm-dd') PAHENDDATE, to_char(PAHDOWN,'yyyy-mm-dd HH:MM:SS') PAHDOWN,PAHSTATUS,EMPNO FROM PLANEHOTEL WHERE PAHSTATUS=0 ORDER BY PAHNO";
 	
 	private final static String GET_ONE_COUNTRY =
 		"SELECT PAHNO,PAHNAME,PAHINTRO,PAHCONTENT,PAHPRICE,PAHCOUNTRY,PAHNUM,to_char(PAHSTDATE,'yyyy-mm-dd') PAHSTDATE, to_char(PAHENDDATE,'yyyy-mm-dd') PAHENDDATE, to_char(PAHDOWN,'yyyy-mm-dd HH:MM:SS') PAHDOWN,PAHSTATUS,EMPNO FROM PLANEHOTEL WHERE PAHCOUNTRY=?";
@@ -759,5 +761,72 @@ public class PahAnDAO implements PahAnDAO_interface{
 				}
 			}
 		}
+	}
+	
+	@Override
+	public List<PahAnVO> getAllStatusOk() {
+		
+		List<PahAnVO> list = new ArrayList<PahAnVO>();
+		PahAnVO pahAnVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STATUSOK);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				pahAnVO = new PahAnVO();
+				pahAnVO.setPahno(rs.getString("PAHNO"));
+				pahAnVO.setPahname(rs.getString("PAHNAME"));
+				pahAnVO.setPahintro(rs.getString("PAHINTRO"));
+				pahAnVO.setPahcontent(rs.getString("PAHCONTENT"));
+				pahAnVO.setPahprice(rs.getDouble("PAHPRICE"));
+				pahAnVO.setPahcountry(rs.getString("PAHCOUNTRY"));
+				pahAnVO.setPahnum(rs.getInt("PAHNUM"));
+				pahAnVO.setPahstdate(rs.getDate("PAHSTDATE"));
+				pahAnVO.setPahenddate(rs.getDate("PAHENDDATE"));
+				pahAnVO.setPahdown(rs.getTimestamp("PAHDOWN"));
+				pahAnVO.setPahstatus(rs.getInt("PAHSTATUS"));
+//				pahAnVO.setPahpc1(rs.getBytes("PAHPC1"));
+//				pahAnVO.setPahpc2(rs.getBytes("PAHPC2"));
+//				pahAnVO.setPahpc3(rs.getBytes("PAHPC3"));
+//				pahAnVO.setPahpc4(rs.getBytes("PAHPC4"));
+//				pahAnVO.setPahpc5(rs.getBytes("PAHPC5"));
+				pahAnVO.setEmpno(rs.getString("EMPNO"));
+				list.add(pahAnVO);		
+			}
+			
+		}catch(SQLException e) {
+			throw new RuntimeException("A database error occured. "
+					+ e.getMessage());
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();	
+				}catch(SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();	
+				}catch(SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();	
+				}catch(SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 }
