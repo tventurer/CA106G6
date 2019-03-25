@@ -40,7 +40,7 @@
                 <tr>
                   <th></th>
                   <th>行程編號</th>
-                  <th>會員編號</th>
+                  <th>會員帳號</th>
                   <th>行程名稱</th>
                   <th>開始日期</th>
                   <th>結束日期</th>
@@ -61,7 +61,8 @@
                 <tr>
                   <td><%= count++ %></th>
 	              <td>${triVO.trino}</td>
-	              <td>${triVO.memno}</td>
+	              <jsp:useBean id="memSvc" class="com.mem.model.MemService"/>
+	              <td>${memSvc.getOneMem(triVO.memno).mememail}</td>
 	              <td>${triVO.triname}</td>
 	              <td>${triVO.tribegdate}</td>
 	              <td>${triVO.trienddate}</td>
