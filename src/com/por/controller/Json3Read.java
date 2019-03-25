@@ -24,7 +24,7 @@ import com.google.gson.Gson;
 
 @WebServlet("/Json3Read")
 public class Json3Read extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
        
 	public Json3Read() {
         super();

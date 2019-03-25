@@ -269,7 +269,7 @@ $(document).ready(function(){
 	$("#twCityName").change(function(){
 		$.ajax({
 			 type: "POST",
-			 url: "<%=request.getContextPath()%>/Json2Read",
+			 url: "<%=request.getContextPath()%>/Json3Read",
 			 data: {"action":"twCityName",
 				 	"twCityName":$('#twCityName option:selected').val()},
 			 dataType: "json",
@@ -290,7 +290,7 @@ $(document).ready(function(){
 	$("#CityAreaName").change(function(){
 		$.ajax({
 			 type: "POST",
-			 url: "<%=request.getContextPath()%>/Json2Read",
+			 url: "<%=request.getContextPath()%>/Json3Read",
 			 data: {"action":"CityAreaName",
 				 	"twCityName":$('#twCityName option:selected').val(),
 				 	"CityAreaName":$('#CityAreaName option:selected').val()},

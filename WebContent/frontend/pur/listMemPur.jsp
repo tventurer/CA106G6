@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.por.model.*"%>
 <%@ page import="com.pur.model.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <%
 	String name=(String)session.getAttribute("memno");
 	PurService purSvc = new PurService();
@@ -142,6 +143,11 @@ text-align: left;
 				</thead>
 
 				<tbody>
+				<c:if test="${fn:length(Purlist) == 0}">
+					<tr>
+					<td  colspan="12"><br><h5>您尚無任何商品 ~ <a href="<%=request.getContextPath()%>/frontend/pur/addOnePur.jsp">來去新增商品 ~ </a></h5><br></td>
+					</tr>
+				</c:if>
 				<c:forEach var="purVO" items="${Purlist}" varStatus="s">
 					<tr>
 					<td>${s.count}</td>

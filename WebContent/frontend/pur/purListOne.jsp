@@ -103,16 +103,17 @@ $(function () {
     		<script type="text/javascript">
     		window.addEventListener("load", function(event) {
     		var check="${message}";
-    		if(check=="請登入會員"){
-    			var r = confirm("請登入會員，前往登入~!");
-				if(r == true){
-					window.location = '<%=request.getContextPath()%>/memlogin.jsp';
+			var memno = "${sessionScope.memno}";
+    		if( memno.length == 0){
+				$('#login').modal('show');
 				}else{
-					window.history.go(-1); 
+					$('#login').modal('hide');
+					if(check=="檢舉原因不得為空白"){
+
+			    		alert("檢舉原因不得為空白");
+		    		}
 				}
-    		}else if(check=="檢舉原因不得為空白"){
-    			alert("檢舉原因不得為空白");
-    		}
+	    		
     		});
     		</script>
     		</c:forEach>
@@ -245,7 +246,7 @@ $(function () {
 		  
 		   <c:if test="${empty memno}">
 		   	 <div class="col-md-12">
-	         <input type="button" class="btn btn-a" onclick="location.href='<%=request.getContextPath()%>/memlogin.jsp' " value="購買" >
+	         <input type="button" data-toggle="modal" class="btn btn-a" data-target="#login" value="購買" >
 	         </div>
 		   </c:if>
 		 
