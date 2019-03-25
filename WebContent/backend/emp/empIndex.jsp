@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.emp.model.*"%>
 <%@ page import="com.mem.model.*"%>
-<%@ page import="com.spo.model.*"%>
+<%@ page import="com.tod.model.*"%>
 <%@ page import="com.pah.model.*"%>
 <%@ page import="com.ptp.model.*"%>
 <%@ page import="java.util.*"%>
@@ -62,14 +62,12 @@ EmpVO empVO = empSvc.getOneEmp(empno);
           <div class="widget-small info coloured-icon"><i class="icon fa fa-thumbs-o-up fa-3x"></i>
             <div class="info">
             <%
-            	SpoService spoSvc = new SpoService();
-            	List<SpoVO> SpoListAll = spoSvc.getAll();
-            	Integer SpoAll = SpoListAll.size();//景點數
-            	List<String> SpoListAllCity = spoSvc.getAllCity();
-            	Integer SpoAllCity = SpoListAllCity.size();
+            TodService todSvc = new TodService();
+        	List<TodVO> Todlist = todSvc.getAll();
+        	Integer todnember = Todlist.size();
             %>
               <h4>景點</h4>
-              <p><b><%=SpoAllCity %>個城市，共<%=SpoAll %>個景點</b></p>
+              <p><b><%=todnember %>筆自由行訂單</b></p>
             </div>
           </div>
         </div>
@@ -101,7 +99,9 @@ EmpVO empVO = empSvc.getOneEmp(empno);
         </div>
       </div>
       <div class="row">
-        
+        <div class="col-12">
+        	<img src="<%=request.getContextPath()%>/style/b/bgr.jpg" style="width:100%">
+        </div>
       </div>
     </main>
     
