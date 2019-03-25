@@ -107,7 +107,7 @@ width: 600px;
         
     </div>
   </section>
-
+ 
 <jsp:include page="/frontend/footer.jsp"/>
   
   <!-- JavaScript Libraries -->

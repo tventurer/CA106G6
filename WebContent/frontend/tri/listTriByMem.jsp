@@ -118,7 +118,7 @@
     </div>
 </section>
 <br>
-<br>
+<br> 
 <br>
 <jsp:include page="/frontend/footer.jsp"/>
 

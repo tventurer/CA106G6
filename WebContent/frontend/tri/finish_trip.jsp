@@ -42,7 +42,7 @@
 <br>
 <br>
 <jsp:include page="/frontend/footer.jsp"/>
-
+ 
 </body>
 
   <!-- JavaScript Libraries -->
