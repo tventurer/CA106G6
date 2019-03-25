@@ -208,6 +208,14 @@
     <url-pattern>/frontend/tde/GetClassAjax</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GetSpoContentAjax</servlet-name>
+    <servlet-class>com.tde.controller.GetSpoContentAjax</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetSpoContentAjax</servlet-name>
+    <url-pattern>/frontend/tde/GetSpoContentAjax</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>TriServlet</servlet-name>
     <servlet-class>com.tri.controller.TriServlet</servlet-class>
   </servlet>

@@ -62,6 +62,22 @@ background: rgb(219,219,219);
 width: 33px;
 height: 35px;
 }
+#collapse{
+width: 590px;
+height: 550px;
+position: absolute;
+right: -400px;
+z-index: 999;
+background-color: white;
+display: none;
+border: solid 1px grey;
+overflow-y: auto;
+overflow-x: hidden;
+}
+#spopic{
+width: 150px;
+height: 150px;
+}
 
 </style>
 <!-- this is for autocomplete -->
@@ -73,6 +89,7 @@ height: 35px;
 
 
 <section class="section-property section-t8">
+	<jsp:include page="/frontend/tde/spoInfo.jsp"/>
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-6" style="padding-left: 0px; margin:15px">
@@ -111,6 +128,7 @@ height: 35px;
 			</div>
 		</div>
 	</div>
+
 	<jsp:include page="/frontend/tde/modal.jsp"/>
 	<div class="container-fluid">
 		<div class="row">
@@ -734,6 +752,14 @@ function makeTdeVO(e){
                                             		 		});
                                             	 		}
                                             	   });
+                                             	 	
+                                             	 	//避免事件蔓延
+                                             	 	$('.startTime').on('click',function(e){
+                                             	 		e.stopPropagation();
+                                             	 	});
+                                             	 	$('.finishTime').on('click',function(e){
+                                             	 		e.stopPropagation();
+                                             	 	});
                                                     
                                                 }
 
@@ -1026,6 +1052,14 @@ function addFoodMarker(){
                                       	 		}
                                       	   });
                                        	 	
+                                       		//避免事件蔓延
+                                     	 	$('.startTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
+                                     	 	$('.finishTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
+                                       	 	
                                           }
 
                                       }else{
@@ -1312,6 +1346,14 @@ function addMuseumMarker(){
                                       		 		});
                                       	 		}
                                       	   });
+                                       	 	
+                                       		//避免事件蔓延
+                                     	 	$('.startTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
+                                     	 	$('.finishTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
                                        	 	
                                           }
 
@@ -1602,6 +1644,14 @@ function addNightMarker(){
                                       	 		}
                                       	   });
                                        	 	
+                                       		//避免事件蔓延
+                                     	 	$('.startTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
+                                     	 	$('.finishTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
+                                       	 	
                                           }
 
                                       }else{
@@ -1891,6 +1941,14 @@ function addHotelMarker(){
                                       	 		}
                                       	   });
                                        	 	
+                                       		//避免事件蔓延
+                                     	 	$('.startTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
+                                     	 	$('.finishTime').on('click',function(e){
+                                     	 		e.stopPropagation();
+                                     	 	});
+                                       	 	
                                           }
 
                                       }else{
@@ -1970,6 +2028,9 @@ function addHotelMarker(){
 <script>
 		//Ajax處理刪除事件(依新增事件結果傳回的行程表取得行程順序)  
 		function delSpot(e){
+				
+				//避免事件蔓延
+				e.stopPropagation();
 			    
 			  	var xhr = new XMLHttpRequest();
 					var size = tripList[index-1].length;
@@ -2382,6 +2443,67 @@ function addHotelMarker(){
 	</script>
 	<script src='js/jquery.circliful.min.js'></script>
 	<script src="js/jquery-ui.js" ></script>
+	
+	<script type="text/javascript">
+	
+	$('#tripList').on('click', 'li', function(e){
+		var sponame = e.currentTarget.childNodes[2].innerText;
+		
+		$.ajax({
+			 type: "POST",
+			 url: "<%= request.getContextPath() %>/frontend/tde/GetSpoContentAjax",
+			 data: {"sponame": sponame},
+			 dataType: "json",
+			 async: true,
+			 success: function (data){
+				console.log(data);
+				var spoVO = JSON.parse(data[0]);
+				debugger
+				$('#place').text(spoVO.sponame);
+				//確認資料庫是否有圖
+				if(data[1] == null){
+					$('#checkPic').attr('style','display:none');
+					debugger
+				} else{
+					$('#spopic').attr('src','data:image/jpg;base64,' + data[1]);
+					$('#checkPic').attr('style','display:block');
+					debugger
+				}
+				debugger
+				
+				//確認資料庫是否有介紹
+				if(typeof(spoVO.spocontent) == "undefined"){
+					$('#rating').attr('style','display:none');
+					$('#checkContent').attr('style','display:none');
+				} else{
+					var rating = spoVO.spocontent.substring(0,3);
+					$('#rating').text(rating);
+					$('#rating').attr('style','display:block');
+					if(spoVO.spocontent.length > 10){
+						$('#content').text(spoVO.spocontent.substring(3,spoVO.spocontent.length-1));
+						$('#checkContent').attr('style','display:block');
+					} else{
+						$('#checkContent').attr('style','display:none');
+					}
+				}
+				
+				$('#addr').text(spoVO.spoaddr);
+				debugger
+				
+		     },
+           error: function(){alert("AJAX發生錯誤")}
+       })
+		
+		$('#collapse').animate({right:'15px'}, 800);
+		$('#collapse').attr('style','display:block');
+
+	});
+	
+	$('.ion-ios-close').on('click', function(){
+		$('#collapse').attr('style','display:none');
+	});
+	
+	</script>
 </body>
 
 </html>
