@@ -215,6 +215,11 @@
 		else
 			return false;
 	}
+  
+  $("#login").on("hidden.bs.modal", function() {
+	  	debugger
+	  	$('.modal-backdrop').remove();
+	  	});
 </script>
 </body>
 </html>
