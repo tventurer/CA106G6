@@ -13,25 +13,14 @@
 <meta charset="utf-8">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-	
-<!-- Optional JavaScript -->
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/bootstrap/css/bootstrap.min.css">
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery-3.3.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
+<script src="<%= request.getContextPath() %>/bootstrap/popper.min.js"></script>
+<script src="<%= request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="timepicki/css/timepicki.css">
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/datetimepicker/jquery.datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="jquery-timepicker/jquery.timepicker.css">
 <title>行程規劃</title>
 <style>
 /* Always set the map height explicitly to define the size of the div
@@ -69,20 +58,16 @@ margin:5px 0 5px 0;
 border-radius: 4px;
 background: rgb(219,219,219);
 }
-
-.xdsoft_datetimepicker .xdsoft_datepicker {
-      width:  300px;   /* width:  300px; */
-}
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-      height: 151px;   /* height:  151px; */
+.liImg{
+width: 33px;
+height: 35px;
 }
 
 </style>
 <!-- this is for autocomplete -->
-<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<link href="js/jquery-ui.css" rel="Stylesheet"></link>
 
 </head>
-<jsp:include page="/frontend/navbar.jsp"/>
 <body>
 
 
@@ -95,11 +80,6 @@ background: rgb(219,219,219);
 
 				<form>
 
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="checkbox" name="spoclass"
-							id="all" value="all" onchange="addAllMarker()"> <label
-							class="form-check-label" for="all">顯示全部</label>
-					</div>
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="checkbox" name="spoclass"
 							id="spot" value="景點" onchange="addSpotMarker()"> <label
@@ -126,7 +106,7 @@ background: rgb(219,219,219);
 							class="form-check-label" for="hotel">飯店</label>
 					</div>
 <!-- 	=============	<input type="button" class="btn btn-primary" id="save" value="儲存行程" style="position: absolute; right: -40%; top: -50%"> -->
-						<input type="button" class="btn btn-primary" data-toggle="modal" data-target="#tripResult" id="tResult" value="查看行程規劃結果" style="position: absolute; right: -40%; top: -50%">
+						<input type="button" class="btn btn-success" data-toggle="modal" data-target="#tripResult" id="tResult" value="查看行程規劃結果" style="position: absolute; right: -40%; top: -50%">
 				</form>
 			</div>
 		</div>
@@ -148,7 +128,7 @@ background: rgb(219,219,219);
 			<div class="col-2" style="padding-left:0px; ">
 				<ul class="list-group">
 				  <li class="list-group-item">
-				  	<input type="text" class="form-control" name="tribegdate" id="tribegdate" value="${triVO.tribegdate}" onchange="changeDate()" style="border: 0px; width: 150px; height: 20px">
+				  	<div id="tribegdate" style="border: 0px; width: 150px; height: 20px">${triVO.tribegdate}</div>
 				  	<input type="text" class="form-control" name="cityname" value="${city}" style="border: 0px; width: 150px; height: 20px"  id="changeCity">
 				  </li>
 				  <div id="tripList"></div>
@@ -157,8 +137,7 @@ background: rgb(219,219,219);
 		</div>
 	</div>
 </section>
-	<script src="timepicki/js/timepicki.js"></script>
-	<script src="<%= request.getContextPath() %>/datetimepicker/jquery.datetimepicker.full.js"></script>
+
 	<div id="map"></div>
 
 	<!-- 付費的 -->
@@ -202,7 +181,19 @@ double[] latlong = AddrToLatLong.getLatLong(city);
 					        			lng = parseFloat(latlng[1])
 					        			debugger
 					        			map.panTo({ lat: lat, lng: lng });
-										map.setZoom(13);
+										map.setZoom(14);
+										
+										//景點種類checkbox清空
+										$("#spot").prop("checked", false);
+										addSpotMarker();  //關閉marker
+										$("#food").prop("checked", false);
+										addFoodMarker();
+										$("#museum").prop("checked", false);
+										addMuseumMarker();
+										$("#night").prop("checked", false);
+										addNightMarker();
+										$("#hotel").prop("checked", false);
+										addHotelMarker();
 					        		} else{
 					        			alert(xhr.status);
 					        		}
@@ -287,34 +278,18 @@ function makeTdeVO(e){
 			d = "0" + d;
 		}
 		debugger
-		$("#tribegdate").val( y + "-" + m + "-" + d);
-		if(day != "D1"){
-			$("#tribegdate").off("mousedown");
-		} else{
-			$(function(){
-				 $('#tribegdate').datetimepicker({
-				  format:'Y-m-d',
-				  onShow:function(){
-				   this.setOptions({
-					   minDate: '-1970-01-01'			    
-				   })
-				  },
-				  timepicker:false
-				 });
-			});
-			debugger
-		}
+		$("#tribegdate").text( y + "-" + m + "-" + d);
 		
 		var xhr = new XMLHttpRequest();
 		xhr.onload = function(){
 			if(xhr.readyState == 4){
 				if(xhr.status == 200){
 					debugger
+					//欲前往的城市沒有已規劃的內容,顯示空地圖
 					if(xhr.responseText == "null"){
 						map.panTo({ lat: lat, lng: lng });
 						map.setZoom(13);
 						debugger
-						$("#all").prop("checked", false);
 						$("#spot").prop("checked", false);
 						addSpotMarker();  //關閉marker
 						$("#food").prop("checked", false);
@@ -326,22 +301,92 @@ function makeTdeVO(e){
 						$("#hotel").prop("checked", false);
 						addHotelMarker();
 						debugger
+						//行程表清空
 						$("#tripList li").remove();
+						//路線清空
 						drcDisplay.set("directions", null);
+						//路線marker清空
 						for(var i=0; i < newMarker.length; i++){
 							  newMarker[i].setMap(null);
 				              newMarker[i] = null;
 				              debugger
 				          }
-				    	  newMarker = [];
-
+				    	 newMarker = [];
+					
+				    //欲前往的城市有已規劃的內容(先清空)
 					} else{
+						//路線清空
+						drcDisplay.set("directions", null);
 						debugger
+						//行程表清空
 						$("#tripList li").remove();
+						//路線marker清空
+						for(var i=0; i < newMarker.length; i++){
+							  newMarker[i].setMap(null);
+				              newMarker[i] = null;
+				              debugger
+				          }
+				    	newMarker = [];
 						getTripList();
 						if(tripList[index-1].length > 1){
                         	direction();
                         }
+						//景點種類checkbox清空
+						$("#spot").prop("checked", false);
+						$("#food").prop("checked", false);
+						$("#museum").prop("checked", false);
+						$("#night").prop("checked", false);
+						$("#hotel").prop("checked", false);
+						//取得該天第一個點的城市並設定給城市的input text及city變數,並呼叫每個種類ajax使checkbox跳轉到只屬於城市
+						//取得前先移除marker
+						for(var i=0; i < spotMarkers.length; i++){
+			                  spotMarkers[i].setMap(null);
+			              }
+						for(var i=0; i < foodMarkers.length; i++){
+			                  foodMarkers[i].setMap(null);
+			              }
+						for(var i=0; i < museumMarkers.length; i++){
+			                  museumMarkers[i].setMap(null);
+			              }
+						for(var i=0; i < nightMarkers.length; i++){
+			                  nightMarkers[i].setMap(null);
+			              }
+						for(var i=0; i < hotelMarkers.length; i++){
+			                  hotelMarkers[i].setMap(null);
+			              }
+						
+						if(tripList[index-1].length != 0){
+							$('#changeCity').val(tripList[index-1][0].spocity);
+							city = tripList[index-1][0].spocity;
+							
+							//呼叫ajax算出城市緯經度
+							$.ajax({
+								 type: "POST",
+								 url: "<%= request.getContextPath() %>/frontend/tde/ChangeCityAjax",
+								 data: {"action": "getLatLong", "city": city},
+								 async: true,
+								 success: function (data){
+									console.log("data:" + data);
+									var latlng = data.split("/");
+					        		lat = parseFloat(latlng[0]);
+					        		lng = parseFloat(latlng[1])
+					        		debugger
+					        		//若當天只有一個景點須靠自己跳轉地圖(無法透過direction)
+					        		if(tripList[index-1].length == 1){
+					        			map.panTo({ lat: lat, lng: lng });
+										map.setZoom(14);
+					        		}
+							     },
+					            error: function(){alert("AJAX發生錯誤")}
+					        })
+							
+							addSpotMarker();
+							addFoodMarker();
+							addMuseumMarker();
+							addNightMarker();
+							addHotelMarker();
+							debugger
+						}
 					}
 				}else{
 					alert(xhr.status);
@@ -349,7 +394,7 @@ function makeTdeVO(e){
 			} 
 		}
 		
-		var tdestart = $(".startTime").serialize();  //tdestart=01%3A00&tdestart=20%3A59
+		var tdestart = $(".startTime").serialize();  //"tdestart=09%3A00&tdestart=09%3A30&tdestart=10%3A00"
 		var tdefinish = $(".finishTime").serialize();
 		
 		var tdestart_clean = encodeURIComponent(tdestart);
@@ -377,7 +422,6 @@ function makeTdeVO(e){
 					{
 						sponame:"<%= tripList.get(i).getSponame() %>",
 						spoclass:"<%= tripList.get(i).getSpoclass() %>",
-						spocon:"<%= tripList.get(i).getSpocon() %>",
 						spocity:"<%= tripList.get(i).getSpocity() %>",
 						spolat:"<%= tripList.get(i).getSpolat() %>",
 						spolong:"<%= tripList.get(i).getSpolong() %>",
@@ -393,7 +437,7 @@ function makeTdeVO(e){
       function initMap() {
         var position = { lat: <%= latlong[0] %>, lng: <%= latlong[1] %> };
         map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 13,
+          zoom: 14,
           center: position,
           clickableIcons: false
         });
@@ -432,6 +476,16 @@ function makeTdeVO(e){
     	    };
     		
     		debugger
+    		
+    		//繪製路線前先刪除全部舊marker(避免疊加層)
+    		for(var i=0; i < newMarker.length; i++){
+				  newMarker[i].setMap(null);
+	              newMarker[i] = null;
+	              debugger
+	          }
+	    	newMarker = [];
+	    	
+	    	debugger
 
     	    // 繪製路線
     	    drcSvc.route(request, function (result, status) {
@@ -446,7 +500,9 @@ function makeTdeVO(e){
     	                newMarker[i] = new google.maps.Marker({
     	                position: { lat: tripList[index-1][i].spolat, lng: tripList[index-1][i].spolong },
     	                map: map,
-    	                label: { text: (i+1) + '', color: "#fff" }
+    	                zIndex: 999,
+//     	                label: { text: (i+1) + '', color: "#fff" }
+    	                icon: "image/" + (i+1) + ".png"
     	                });
     	                debugger
     	            }
@@ -455,35 +511,6 @@ function makeTdeVO(e){
     	            console.log(status);
     	        }
     	    });
-      }
-      
-      // Adds all marker to the map.
-      var allMarkers = new Array();
-      function addAllMarker() {
-    	  
-    	  if($("#all").prop("checked")){
-    		  	$("#spot").prop("checked", true);
-				addSpotMarker();
-				$("#food").prop("checked", true);
-				addFoodMarker();
-				$("#museum").prop("checked", true);
-				addMuseumMarker();
-				$("#night").prop("checked", true);
-				addNightMarker();
-				$("#hotel").prop("checked", true);
-				addHotelMarker();
-      	   }else{
-      		 	$("#spot").prop("checked", false);
-				addSpotMarker();
-				$("#food").prop("checked", false);
-				addFoodMarker();
-				$("#museum").prop("checked", false);
-				addMuseumMarker();
-				$("#night").prop("checked", false);
-				addNightMarker();
-				$("#hotel").prop("checked", false);
-				addHotelMarker();
-      	   }
       }
 
 </script>
@@ -511,7 +538,7 @@ function makeTdeVO(e){
                     spoList = data;
                     debugger
                     var position = new Array();
-                    var iWindow = new Array();
+                    var siWindow = new Array();
                     var content = new Array();
                     
                     debugger
@@ -531,15 +558,15 @@ function makeTdeVO(e){
                         	var k = this;
                         	var num = marker.indexOf(this);
                         	
-                        	if(iWindow[num])
-                          		iWindow[num].close();
+                        	if(siWindow[num])
+                          		siWindow[num].close();
                         	
                         	debugger
                             //建立info window物件,在content中傳入closeTimeout變數作為下一層infowindow clearTimeout使用
                             content[num] = "<div id='mouseEventSpot" +num+ "'><h8>" + spoList[num].sponame +
                              "&nbsp;&nbsp;&nbsp;</h8><a href='javascript:void(0)' id='addSpot" +num+ "'><img src='image/add.png'></a></div>" + 
-                             "<script>var smTimeout=new Array(); smTimeout[" +num+ "]=" + smTimeout[num] + "var siTimeout=new Array(); siTimeout=[" +num+ "]=" + siTimeout[num];
-                            iWindow[num] = new google.maps.InfoWindow({
+                             "<script>var smTimeout=new Array(); smTimeout[" +num+ "]=" + smTimeout[num] + "var siTimeout=new Array(); siTimeout=[" +num+ "]=" + siTimeout[num] + "&lt;/script&gt;";
+                            siWindow[num] = new google.maps.InfoWindow({
                                 content: content[num],
                                 maxWidth: 500 
                              });
@@ -549,15 +576,22 @@ function makeTdeVO(e){
                             clearTimeout(smTimeout[num]);  //要先clearTimeout(避免marker滑出滑入時被setTimeout關閉)
                             debugger
                             if(!isOpen){
-                            	iWindow[num].open(map, this);
+                            	siWindow[num].open(map, this);
                             	isOpen = true;
                             }
-                            google.maps.event.addListener(iWindow[num], 'domready', function() {
+                            google.maps.event.addListener(siWindow[num], 'domready', function() {
                                 document.getElementById("addSpot" +num).addEventListener("click", function(){
 
                                     //Ajax處理新增行程
                                     var xhr = new XMLHttpRequest();
-                                    var pos = this.id.charAt(this.id.length-1);
+                                    var pos;
+                                	if(this.id.length < 9){
+                                		pos = this.id.charAt(this.id.length-1);
+                                	} else if(this.id.length == 9){
+                                		pos = this.id.substring(7, 9);
+                                	} else{
+                                		pos = this.id.substring(7, 10);
+                                	}
                                     xhr.onload = function(){
                                         if( xhr.readyState == 4 ){
                                             if(xhr.status == 200){
@@ -571,7 +605,7 @@ function makeTdeVO(e){
                                                     }
                                                     tripList[index-1].push(spot);
 
-                                                    $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/place.png"></li>');
+                                                    $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/place.png">&nbsp;</li>');
                                                     
                                                     console.log("spot:"+ spot.sponame);
                                                     
@@ -590,13 +624,14 @@ function makeTdeVO(e){
                                                     $("#tripList li:last").append('<div class="form-group row">'
                                                             + '<label class="col-sm-5 col-form-label" style="padding-left:0px">起始時間</label>'
                                                             + '<div class="col-sm-7" style="padding:0px">'
-                                                            + "<input id='timepicker' class='form-control startTime time_element' type='text' name='tdestart' onchange='setMinHour()' style='width:114px; font-size:10px' value='" + sValue + "'></div>"
+                                                            + "<input id='timepicker' class='form-control startTime time_element' type='text' name='tdestart' style='width:114px; font-size:10px' value='" + sValue + "'></div>"
                                                             + '<label class="col-sm-5 col-form-label" style="padding-left:0px">終止時間</label>'
                                                             + '<div class="col-sm-7" style="padding:0px">'
-                                                            + "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' onchange='setMinHour()' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
+                                                            + "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
                                                             + '</div></div>');
-                                                    
-                                                    $(".time_element").timepicki();
+                                                    //自動scroll到最下方
+                                                    var $div = $('#tripList');
+                                                    $div.scrollTop($div[0].scrollHeight);
                                                     $("#delSpot" +pos).on("click", delSpot);
                                                     
                                                     debugger
@@ -604,6 +639,93 @@ function makeTdeVO(e){
                                                     	direction();
                                                     }
                                                     debugger
+                                                  
+                                                  //每次觸發先判斷前方是否有finishTime
+
+                                            	 	var n = $('.startTime').length-1;
+                                            	 	debugger
+                                            	 	var min = $('.finishTime:eq(' + (n-1) +')').val();
+                                            	 	if($('.finishTime:eq(' + (n-1) +')').val() != ""){
+					                                	$('.startTime').timepicker({
+														    'minTime': min,
+														    'timeFormat': 'H:i'
+														});
+					                                	$('.finishTime').timepicker({
+														    'minTime': min,
+														    'timeFormat': 'H:i'
+														});
+					                                	debugger
+                                					} else{
+                                						$('.time_element').timepicker({'timeFormat': 'H:i'});
+                                						debugger
+                                					}
+                                            	 	
+                                              	  $('.startTime').on('change',function(e){
+                                            	 		var startTimeArr = new Array();
+                                            	 		for(var i=0; i<$('.startTime').length; i++){
+                                            	 			startTimeArr[i] = $('.startTime')[i];
+                                            	 		}
+                                            	 		debugger
+                                            	 		//找出是第幾個startTime
+                                            	 		var n = startTimeArr.indexOf(e.target);
+                                            	 		debugger
+                                            	 		//先移除對應的finishTime
+                                            	 		$('.finishTime:eq(' + n +')').timepicker('remove');	
+                                            	 		var min = $('.startTime:eq(' + n +')').val();
+                                            	 		debugger
+                                            	 		//設定對應的finishTime限制
+                                            	 		$('.finishTime:eq(' + n +')').timepicker({
+                                            	 	    	'minTime': min,
+                                            	 	    	'timeFormat': 'H:i'
+                                            	 		});
+                                            	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                            	 		for(var i=$('.startTime').length-1; i>n; i--){
+                                            	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                            	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                            	 			$('.startTime:eq(' + i +')').timepicker({
+                                            		 	    	'minTime': min,
+                                            		 	    	'timeFormat': 'H:i'
+                                            		 		});
+                                            	 			$('.finishTime:eq(' + i +')').timepicker({
+                                            		 	    	'minTime': min,
+                                            		 	    	'timeFormat': 'H:i'
+                                            		 		});
+                                            	 		}
+                                            	   });
+                                             	 	
+                                             	 	$('.finishTime').on('change',function(e){
+                                            	 		var finishTimeArr = new Array();
+                                            	 		for(var i=0; i<$('.finishTime').length; i++){
+                                            	 			finishTimeArr[i] = $('.finishTime')[i];
+                                            	 		}
+                                            	 		debugger
+                                            	 		//找出是第幾個finishTime
+                                            	 		var n = finishTimeArr.indexOf(e.target);
+                                            	 		debugger
+                                            	 		//先移除下一個startTime
+                                            	 		$('.startTime:eq(' + (n+1) +')').timepicker('remove');	
+                                            	 		var min = $('.finishTime:eq(' + n +')').val();
+                                            	 		debugger
+                                            	 		//設定下一個startTime限制
+                                            	 		$('.startTime:eq(' + (n+1) +')').timepicker({
+                                            	 	    	'minTime': min,
+                                            	 	    	'timeFormat': 'H:i'
+                                            	 		});
+                                            	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                            	 		for(var i=$('.finishTime').length-1; i>(n+1); i--){
+                                            	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                            	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                            	 			$('.startTime:eq(' + i +')').timepicker({
+                                            		 	    	'minTime': min,
+                                            		 	    	'timeFormat': 'H:i'
+                                            		 		});
+                                            	 			$('.finishTime:eq(' + i +')').timepicker({
+                                            		 	    	'minTime': min,
+                                            		 	    	'timeFormat': 'H:i'
+                                            		 		});
+                                            	 		}
+                                            	   });
+                                                    
                                                 }
 
                                             }else{
@@ -618,34 +740,48 @@ function makeTdeVO(e){
                                 });
                                 
                                 document.getElementById("mouseEventSpot" +num).addEventListener("mouseover", function(){
-                                    var pos = this.id.charAt(this.id.length-1);
+                                	var pos;
+                                	if(this.id.length < 16){
+                                		pos = this.id.charAt(this.id.length-1);
+                                	} else if(this.id.length == 16){
+                                		pos = this.id.substring(14, 16);
+                                	} else{
+                                		pos = this.id.substring(14, 17);
+                                	}
                                 	debugger
                                     clearTimeout(siTimeout[pos]); //要先clearTimeout(避免infoWindow滑出滑入時被setTimeout關閉)
                                     clearTimeout(smTimeout[pos]); //清除marker的關閉infoWindow setTimeout
                                 });
 
                                 document.getElementById("mouseEventSpot" +num).addEventListener("mouseout", function(){
-                                    var pos = this.id.charAt(this.id.length-1);
-                                	debugger
+                                	var pos;
+                                	if(this.id.length < 16){
+                                		pos = this.id.charAt(this.id.length-1);
+                                	} else if(this.id.length == 16){
+                                		pos = this.id.substring(14, 16);
+                                	} else{
+                                		pos = this.id.substring(14, 17);
+                                	}
+                                    debugger
+                                    if(typeof(siWindow[pos]) != "undefined"){
                                     siTimeout[pos] = setTimeout(function(){
                                     	debugger
-                                    	iWindow[pos].close();
-                                    	iWindow[pos] = '';
+                                    	siWindow[pos].close();
                                     	isOpen = false;
                                     	}, 300);
+                                    }
                                 });
+                                	
                             });
                         });
                         
                         marker[i].addListener('mouseout', function(){
                             var pos = marker.indexOf(this);
                             debugger
-                            isOpen = false;
-                            if(iWindow[pos]){
-                        		smTimeout[pos] = setTimeout(function(){
-                        		iWindow[pos].close();
+                        	smTimeout[pos] = setTimeout(function(){
+                        		siWindow[pos].close();
+                        		isOpen = false;
                         		}, 300);
-                            }
                         });
                         
                         
@@ -660,19 +796,6 @@ function makeTdeVO(e){
               }
         }
     }
-      
-//       function setMinHour(){
-//     	  $('.startTime').timepicki();
-//     	  var len = ($(".startTime").length-1);
-//           var minHourStr = $(".startTime:eq(" + len +")").val().substring(0,2);//09:36 PM
-//           var minHour = parseInt(minHourStr);
-//           console.log($('.startTime'))
-//           console.log($(".finishTime"))
-//           console.log('======'+minHour)
-//           debugger
-//           $(".finishTime").timepicki({min_hour_value: minHour});
-//     	  	debugger
-//       }
       
 </script>      
 
@@ -726,7 +849,7 @@ function addFoodMarker(){
                       //建立info window物件,在content中傳入closeTimeout變數作為下一層infowindow clearTimeout使用
                       content[num] = "<div id='mouseEventFood" +num+ "'><h8>" + foodList[num].sponame +
                        "&nbsp;&nbsp;&nbsp;</h8><a href='javascript:void(0)' id='addFood" +num+ "'><img src='image/add.png'></a></div>" + 
-                       "<script>var fmTimeout=new Array(); fmTimeout[" +num+ "]=" + fmTimeout[num] + "var fiTimeout=new Array(); fiTimeout=[" +num+ "]=" + fiTimeout[num];
+                       "<script>var fmTimeout=new Array(); fmTimeout[" +num+ "]=" + fmTimeout[num] + "var fiTimeout=new Array(); fiTimeout=[" +num+ "]=" + fiTimeout[num] + "&lt;/script&gt;";
                       iWindow[num] = new google.maps.InfoWindow({
                           content: content[num],
                           maxWidth: 500 
@@ -745,7 +868,14 @@ function addFoodMarker(){
 
                               //Ajax處理新增行程
                               var xhr = new XMLHttpRequest();
-                              var pos = this.id.charAt(this.id.length-1);
+                              var pos;
+                          	  if(this.id.length < 9){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	  } else if(this.id.length == 9){
+                          		pos = this.id.substring(7, 9);
+                          	  } else{
+                          		pos = this.id.substring(7, 10);
+                          	  }
                               xhr.onload = function(){
                                   if( xhr.readyState == 4 ){
                                       if(xhr.status == 200){
@@ -759,7 +889,7 @@ function addFoodMarker(){
                                               }
                                               tripList[index-1].push(food);
 
-                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/ice-cream.png"></li>');
+                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/ice-cream.png">&nbsp;</li>');
                                               
                                               console.log("food:"+ food.sponame);
                                               
@@ -783,7 +913,9 @@ function addFoodMarker(){
                                                       + '<div class="col-sm-7" style="padding:0px">'
                                                       + "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
                                                       + '</div></div>');
-                                              $(".time_element").timepicki();
+                                              //自動scroll到最下方
+                                              var $div = $('#tripList');
+                                              $div.scrollTop($div[0].scrollHeight);
                                               $("#delFood" +pos).on("click", delSpot);
                                               
                                               debugger
@@ -791,6 +923,93 @@ function addFoodMarker(){
                                               	direction();
                                               }
                                               debugger
+                                              
+                                              //每次觸發先判斷前方是否有finishTime
+
+                                      	 	var n = $('.startTime').length-1;
+                                      	 	debugger
+                                      	 	var min = $('.finishTime:eq(' + (n-1) +')').val();
+                                      	 	if($('.finishTime:eq(' + (n-1) +')').val() != ""){
+				                                	$('.startTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	$('.finishTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	debugger
+                          					} else{
+                          						$('.time_element').timepicker({'timeFormat': 'H:i'});
+                          						debugger
+                          					}
+                                      	 	
+                                        	  $('.startTime').on('change',function(e){
+                                      	 		var startTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.startTime').length; i++){
+                                      	 			startTimeArr[i] = $('.startTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個startTime
+                                      	 		var n = startTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除對應的finishTime
+                                      	 		$('.finishTime:eq(' + n +')').timepicker('remove');	
+                                      	 		var min = $('.startTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定對應的finishTime限制
+                                      	 		$('.finishTime:eq(' + n +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.startTime').length-1; i>n; i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
+                                       	 	$('.finishTime').on('change',function(e){
+                                      	 		var finishTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.finishTime').length; i++){
+                                      	 			finishTimeArr[i] = $('.finishTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個finishTime
+                                      	 		var n = finishTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除下一個startTime
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker('remove');	
+                                      	 		var min = $('.finishTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定下一個startTime限制
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.finishTime').length-1; i>(n+1); i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
                                           }
 
                                       }else{
@@ -805,19 +1024,32 @@ function addFoodMarker(){
                           });
                           
                           document.getElementById("mouseEventFood" +num).addEventListener("mouseover", function(){
-                              var pos = this.id.charAt(this.id.length-1);
-                          	debugger
+                        	  var pos;
+                          	if(this.id.length < 16){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 16){
+                          		pos = this.id.substring(14, 16);
+                          	} else{
+                          		pos = this.id.substring(14, 17);
+                          	}
                               clearTimeout(fiTimeout[pos]); //要先clearTimeout(避免infoWindow滑出滑入時被setTimeout關閉)
                               clearTimeout(fmTimeout[pos]); //清除marker的關閉infoWindow setTimeout
                           });
 
                           document.getElementById("mouseEventFood" +num).addEventListener("mouseout", function(){
-                              var pos = this.id.charAt(this.id.length-1);
-                          	debugger
+                        	  var pos;
+                          	if(this.id.length < 16){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 16){
+                          		pos = this.id.substring(14, 16);
+                          	} else{
+                          		pos = this.id.substring(14, 17);
+                          	}
                               fiTimeout[pos] = setTimeout(function(){
                               	debugger
-                              	iWindow[pos].close();
-                              	iWindow[pos] = '';
+                              if(typeof(iWindow[pos]) != "undefined"){
+                              		iWindow[pos].close();
+                              }
                               	isOpen = false;
                               }, 300);
                           });
@@ -826,14 +1058,11 @@ function addFoodMarker(){
                   
                   foodMark[i].addListener('mouseout', function(){
                       var pos = foodMark.indexOf(this);
-                      console.log("foodMark[pos]:" + iWindow[pos])
                       debugger
                       isOpen = false;
-                      	if(iWindow[pos]){
-	                  		fmTimeout[pos] = setTimeout(function(){
-	                  			iWindow[pos].close();
-	                  		}, 300);
-                      	}
+                  		fmTimeout[pos] = setTimeout(function(){
+                  			iWindow[pos].close();
+                  		}, 300);
                   });
                   
                   
@@ -900,7 +1129,7 @@ function addMuseumMarker(){
                       //建立info window物件,在content中傳入closeTimeout變數作為下一層infowindow clearTimeout使用
                       content[num] = "<div id='mouseEventMuseum" +num+ "'><h8>" + museumList[num].sponame +
                        "&nbsp;&nbsp;&nbsp;</h8><a href='javascript:void(0)' id='addMuseum" +num+ "'><img src='image/add.png'></a></div>" + 
-                       "<script>var mmTimeout=new Array(); mmTimeout[" +num+ "]=" + mmTimeout[num] + "var miTimeout=new Array(); miTimeout=[" +num+ "]=" + miTimeout[num];
+                       "<script>var mmTimeout=new Array(); mmTimeout[" +num+ "]=" + mmTimeout[num] + "var miTimeout=new Array(); miTimeout=[" +num+ "]=" + miTimeout[num] + "&lt;/script&gt;";
                       iWindow[num] = new google.maps.InfoWindow({
                           content: content[num],
                           maxWidth: 500 
@@ -919,7 +1148,14 @@ function addMuseumMarker(){
 
                               //Ajax處理新增行程
                               var xhr = new XMLHttpRequest();
-                              var pos = this.id.charAt(this.id.length-1);
+                              var pos;
+                          	  if(this.id.length < 11){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	  } else if(this.id.length == 11){
+                          		pos = this.id.substring(9, 11);
+                          	  } else{
+                          		pos = this.id.substring(9, 12);
+                          	  }
                               xhr.onload = function(){
                                   if( xhr.readyState == 4 ){
                                       if(xhr.status == 200){
@@ -933,7 +1169,7 @@ function addMuseumMarker(){
                                               }
                                               tripList[index-1].push(museum);
 
-                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/museum.png"></li>');
+                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/museum.png">&nbsp;</li>');
                                               
                                               console.log("museum:"+ museum.sponame);
                                               
@@ -957,7 +1193,9 @@ function addMuseumMarker(){
                                                       + '<div class="col-sm-7" style="padding:0px">'
                                                       + "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
                                                       + '</div></div>');
-                                              $(".time_element").timepicki({min_hour_value: 4});
+                                              //自動scroll到最下方
+                                              var $div = $('#tripList');
+                                              $div.scrollTop($div[0].scrollHeight);
                                               $("#delMuseum" +pos).on("click", delSpot);
                                               
                                               debugger
@@ -965,6 +1203,93 @@ function addMuseumMarker(){
                                               	direction();
                                               }
                                               debugger
+                                              
+                                              //每次觸發先判斷前方是否有finishTime
+
+                                      	 	var n = $('.startTime').length-1;
+                                      	 	debugger
+                                      	 	var min = $('.finishTime:eq(' + (n-1) +')').val();
+                                      	 	if($('.finishTime:eq(' + (n-1) +')').val() != ""){
+				                                	$('.startTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	$('.finishTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	debugger
+                          					} else{
+                          						$('.time_element').timepicker({'timeFormat': 'H:i'});
+                          						debugger
+                          					}
+                                      	 	
+                                        	  $('.startTime').on('change',function(e){
+                                      	 		var startTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.startTime').length; i++){
+                                      	 			startTimeArr[i] = $('.startTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個startTime
+                                      	 		var n = startTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除對應的finishTime
+                                      	 		$('.finishTime:eq(' + n +')').timepicker('remove');	
+                                      	 		var min = $('.startTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定對應的finishTime限制
+                                      	 		$('.finishTime:eq(' + n +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.startTime').length-1; i>n; i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
+                                       	 	$('.finishTime').on('change',function(e){
+                                      	 		var finishTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.finishTime').length; i++){
+                                      	 			finishTimeArr[i] = $('.finishTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個finishTime
+                                      	 		var n = finishTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除下一個startTime
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker('remove');	
+                                      	 		var min = $('.finishTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定下一個startTime限制
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.finishTime').length-1; i>(n+1); i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
                                           }
 
                                       }else{
@@ -979,19 +1304,34 @@ function addMuseumMarker(){
                           });
                           
                           document.getElementById("mouseEventMuseum" +num).addEventListener("mouseover", function(){
-                              var pos = this.id.charAt(this.id.length-1);
+                        	  var pos;
+                          	if(this.id.length < 18){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 18){
+                          		pos = this.id.substring(16, 18);
+                          	} else{
+                          		pos = this.id.substring(16, 19);
+                          	}
                           	debugger
                               clearTimeout(miTimeout[pos]); //要先clearTimeout(避免infoWindow滑出滑入時被setTimeout關閉)
                               clearTimeout(mmTimeout[pos]); //清除marker的關閉infoWindow setTimeout
                           });
 
                           document.getElementById("mouseEventMuseum" +num).addEventListener("mouseout", function(){
-                              var pos = this.id.charAt(this.id.length-1);
+                        	  var pos;
+                          	if(this.id.length < 18){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 18){
+                          		pos = this.id.substring(16, 18);
+                          	} else{
+                          		pos = this.id.substring(16, 19);
+                          	}
                           	debugger
                               miTimeout[pos] = setTimeout(function(){
                               	debugger
-                              	iWindow[pos].close();
-                              	iWindow[pos] = '';
+                              if(typeof(iWindow[pos]) != "undefined"){
+                              		iWindow[pos].close();
+                              }
                               	isOpen = false;
                               	}, 300);
                           });
@@ -1000,14 +1340,11 @@ function addMuseumMarker(){
                   
                   museumMark[i].addListener('mouseout', function(){
                       var pos = museumMark.indexOf(this);
-                      console.log("museumMark[pos]:" + iWindow[pos])
                       debugger
-                      isOpen = false;
-                      if(iWindow[pos]){
-	                  		mmTimeout[pos] = setTimeout(function(){
-	                  		iWindow[pos].close();
-	                  		}, 300);
-                      }
+                  	mmTimeout[pos] = setTimeout(function(){
+                  		iWindow[pos].close();
+                  		isOpen = false;
+                  		}, 300);
                   });
                   
                   
@@ -1074,7 +1411,7 @@ function addNightMarker(){
                       //建立info window物件,在content中傳入closeTimeout變數作為下一層infowindow clearTimeout使用
                       content[num] = "<div id='mouseEventNight" +num+ "'><h8>" + nightList[num].sponame +
                        "&nbsp;&nbsp;&nbsp;</h8><a href='javascript:void(0)' id='addNight" +num+ "'><img src='image/add.png'></a></div>" + 
-                       "<script>var nmTimeout=new Array(); nmTimeout[" +num+ "]=" + nmTimeout[num] + "var niTimeout=new Array(); niTimeout=[" +num+ "]=" + niTimeout[num];
+                       "<script>var nmTimeout=new Array(); nmTimeout[" +num+ "]=" + nmTimeout[num] + "var niTimeout=new Array(); niTimeout=[" +num+ "]=" + niTimeout[num] + "&lt;/script&gt;";
                       iWindow[num] = new google.maps.InfoWindow({
                           content: content[num],
                           maxWidth: 500 
@@ -1093,7 +1430,14 @@ function addNightMarker(){
 
                               //Ajax處理新增行程
                               var xhr = new XMLHttpRequest();
-                              var pos = this.id.charAt(this.id.length-1);
+                              var pos;
+                          	  if(this.id.length < 10){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	  } else if(this.id.length == 10){
+                          		pos = this.id.substring(8, 10);
+                          	  } else{
+                          		pos = this.id.substring(8, 11);
+                          	  }
                               xhr.onload = function(){
                                   if( xhr.readyState == 4 ){
                                       if(xhr.status == 200){
@@ -1107,7 +1451,7 @@ function addNightMarker(){
                                               }
                                               tripList[index-1].push(night);
 
-                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/beer.png"></li>');
+                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/beer.png">&nbsp;</li>');
                                               
                                               console.log("night:"+ night.sponame);
                                               
@@ -1131,7 +1475,9 @@ function addNightMarker(){
                                                       + '<div class="col-sm-7" style="padding:0px">'
                                                       + "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
                                                       + '</div></div>');
-                                              $(".time_element").timepicki();
+                                              //自動scroll到最下方
+                                              var $div = $('#tripList');
+                                              $div.scrollTop($div[0].scrollHeight);
                                               $("#delNight" +pos).on("click", delSpot);
                                               
                                               debugger
@@ -1139,6 +1485,93 @@ function addNightMarker(){
                                               	direction();
                                               }
                                               debugger
+                                              
+                                              //每次觸發先判斷前方是否有finishTime
+
+                                      	 	var n = $('.startTime').length-1;
+                                      	 	debugger
+                                      	 	var min = $('.finishTime:eq(' + (n-1) +')').val();
+                                      	 	if($('.finishTime:eq(' + (n-1) +')').val() != ""){
+				                                	$('.startTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	$('.finishTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	debugger
+                          					} else{
+                          						$('.time_element').timepicker({'timeFormat': 'H:i'});
+                          						debugger
+                          					}
+                                      	 	
+                                        	  $('.startTime').on('change',function(e){
+                                      	 		var startTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.startTime').length; i++){
+                                      	 			startTimeArr[i] = $('.startTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個startTime
+                                      	 		var n = startTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除對應的finishTime
+                                      	 		$('.finishTime:eq(' + n +')').timepicker('remove');	
+                                      	 		var min = $('.startTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定對應的finishTime限制
+                                      	 		$('.finishTime:eq(' + n +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.startTime').length-1; i>n; i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
+                                       	 	$('.finishTime').on('change',function(e){
+                                      	 		var finishTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.finishTime').length; i++){
+                                      	 			finishTimeArr[i] = $('.finishTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個finishTime
+                                      	 		var n = finishTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除下一個startTime
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker('remove');	
+                                      	 		var min = $('.finishTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定下一個startTime限制
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.finishTime').length-1; i>(n+1); i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
                                           }
 
                                       }else{
@@ -1153,19 +1586,34 @@ function addNightMarker(){
                           });
                           
                           document.getElementById("mouseEventNight" +num).addEventListener("mouseover", function(){
-                              var pos = this.id.charAt(this.id.length-1);
+                        	  var pos;
+                          	if(this.id.length < 17){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 17){
+                          		pos = this.id.substring(15, 17);
+                          	} else{
+                          		pos = this.id.substring(15, 18);
+                          	}
                           	debugger
                               clearTimeout(niTimeout[pos]); //要先clearTimeout(避免infoWindow滑出滑入時被setTimeout關閉)
                               clearTimeout(nmTimeout[pos]); //清除marker的關閉infoWindow setTimeout
                           });
 
                           document.getElementById("mouseEventNight" +num).addEventListener("mouseout", function(){
-                              var pos = this.id.charAt(this.id.length-1);
+                        	  var pos;
+                          	if(this.id.length < 17){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 17){
+                          		pos = this.id.substring(15, 17);
+                          	} else{
+                          		pos = this.id.substring(15, 18);
+                          	}
                           	debugger
                               niTimeout[pos] = setTimeout(function(){
                               	debugger
+                              if(typeof(iWindow[pos]) != "undefined"){
                               	iWindow[pos].close();
-                              	iWindow[pos] = '';
+                              }
                               	isOpen = false;
                               	}, 300);
                           });
@@ -1174,14 +1622,11 @@ function addNightMarker(){
                   
                   nightMark[i].addListener('mouseout', function(){
                       var pos = nightMark.indexOf(this);
-                      console.log("nightMark[pos]:" + iWindow[pos])
                       debugger
-                      isOpen = false;
-                      if(iWindow[pos]){
-                  		nmTimeout[pos] = setTimeout(function(){
+                  	nmTimeout[pos] = setTimeout(function(){
                   		iWindow[pos].close();
+                  		isOpen = false;
                   		}, 300);
-                      }
                   });
                   
                   
@@ -1248,7 +1693,7 @@ function addHotelMarker(){
                       //建立info window物件,在content中傳入closeTimeout變數作為下一層infowindow clearTimeout使用
                       content[num] = "<div id='mouseEventHotel" +num+ "'><h8>" + hotelList[num].sponame +
                        "&nbsp;&nbsp;&nbsp;</h8><a href='javascript:void(0)' id='addHotel" +num+ "'><img src='image/add.png'></a></div>" + 
-                       "<script>var hmTimeout=new Array(); hmTimeout[" +num+ "]=" + hmTimeout[num] + "var hiTimeout=new Array(); hiTimeout=[" +num+ "]=" + hiTimeout[num];
+                       "<script>var hmTimeout=new Array(); hmTimeout[" +num+ "]=" + hmTimeout[num] + "var hiTimeout=new Array(); hiTimeout=[" +num+ "]=" + hiTimeout[num] + "&lt;/script&gt;";
                       iWindow[num] = new google.maps.InfoWindow({
                           content: content[num],
                           maxWidth: 500 
@@ -1267,7 +1712,14 @@ function addHotelMarker(){
 
                               //Ajax處理新增行程
                               var xhr = new XMLHttpRequest();
-                              var pos = this.id.charAt(this.id.length-1);
+                              var pos;
+                          	  if(this.id.length < 10){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	  } else if(this.id.length == 10){
+                          		pos = this.id.substring(8, 10);
+                          	  } else{
+                          		pos = this.id.substring(8, 11);
+                          	  }
                               xhr.onload = function(){
                                   if( xhr.readyState == 4 ){
                                       if(xhr.status == 200){
@@ -1281,7 +1733,7 @@ function addHotelMarker(){
                                               }
                                               tripList[index-1].push(hotel);
 
-                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/hotel.png"></li>');
+                                              $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/hotel.png">&nbsp;</li>');
                                               
                                               console.log("hotel:"+ hotel.sponame);
                                               
@@ -1305,7 +1757,9 @@ function addHotelMarker(){
                                                       + '<div class="col-sm-7" style="padding:0px">'
                                                       + "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
                                                       + '</div></div>');
-                                              $(".time_element").timepicki();
+                                              //自動scroll到最下方
+                                              var $div = $('#tripList');
+                                              $div.scrollTop($div[0].scrollHeight);
                                               $("#delHotel" +pos).on("click", delSpot);
                                               
                                               debugger
@@ -1313,6 +1767,93 @@ function addHotelMarker(){
                                               	direction();
                                               }
                                               debugger
+                                              
+                                              //每次觸發先判斷前方是否有finishTime
+
+                                      	 	var n = $('.startTime').length-1;
+                                      	 	debugger
+                                      	 	var min = $('.finishTime:eq(' + (n-1) +')').val();
+                                      	 	if($('.finishTime:eq(' + (n-1) +')').val() != ""){
+				                                	$('.startTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	$('.finishTime').timepicker({
+													    'minTime': min,
+													    'timeFormat': 'H:i'
+													});
+				                                	debugger
+                          					} else{
+                          						$('.time_element').timepicker({'timeFormat': 'H:i'});
+                          						debugger
+                          					}
+                                      	 	
+                                        	  $('.startTime').on('change',function(e){
+                                      	 		var startTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.startTime').length; i++){
+                                      	 			startTimeArr[i] = $('.startTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個startTime
+                                      	 		var n = startTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除對應的finishTime
+                                      	 		$('.finishTime:eq(' + n +')').timepicker('remove');	
+                                      	 		var min = $('.startTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定對應的finishTime限制
+                                      	 		$('.finishTime:eq(' + n +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.startTime').length-1; i>n; i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
+                                       	 	$('.finishTime').on('change',function(e){
+                                      	 		var finishTimeArr = new Array();
+                                      	 		for(var i=0; i<$('.finishTime').length; i++){
+                                      	 			finishTimeArr[i] = $('.finishTime')[i];
+                                      	 		}
+                                      	 		debugger
+                                      	 		//找出是第幾個finishTime
+                                      	 		var n = finishTimeArr.indexOf(e.target);
+                                      	 		debugger
+                                      	 		//先移除下一個startTime
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker('remove');	
+                                      	 		var min = $('.finishTime:eq(' + n +')').val();
+                                      	 		debugger
+                                      	 		//設定下一個startTime限制
+                                      	 		$('.startTime:eq(' + (n+1) +')').timepicker({
+                                      	 	    	'minTime': min,
+                                      	 	    	'timeFormat': 'H:i'
+                                      	 		});
+                                      	 		//再移除下面全部的startTime及finishTime,並設定限制
+                                      	 		for(var i=$('.finishTime').length-1; i>(n+1); i--){
+                                      	 			$('.startTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+                                      	 			$('.startTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 			$('.finishTime:eq(' + i +')').timepicker({
+                                      		 	    	'minTime': min,
+                                      		 	    	'timeFormat': 'H:i'
+                                      		 		});
+                                      	 		}
+                                      	   });
+                                       	 	
                                           }
 
                                       }else{
@@ -1327,19 +1868,34 @@ function addHotelMarker(){
                           });
                           
                           document.getElementById("mouseEventHotel" +num).addEventListener("mouseover", function(){
-                              var pos = this.id.charAt(this.id.length-1);
+                        	  var pos;
+                          	if(this.id.length < 17){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 17){
+                          		pos = this.id.substring(15, 17);
+                          	} else{
+                          		pos = this.id.substring(15, 18);
+                          	}
                           	debugger
                               clearTimeout(hiTimeout[pos]); //要先clearTimeout(避免infoWindow滑出滑入時被setTimeout關閉)
                               clearTimeout(hmTimeout[pos]); //清除marker的關閉infoWindow setTimeout
                           });
 
                           document.getElementById("mouseEventHotel" +num).addEventListener("mouseout", function(){
-                              var pos = this.id.charAt(this.id.length-1);
+                        	  var pos;
+                          	if(this.id.length < 17){
+                          		pos = this.id.charAt(this.id.length-1);
+                          	} else if(this.id.length == 17){
+                          		pos = this.id.substring(15, 17);
+                          	} else{
+                          		pos = this.id.substring(15, 18);
+                          	}
                           	debugger
                               hiTimeout[pos] = setTimeout(function(){
                               	debugger
+                              if(typeof(iWindow[pos]) != "undefined"){
                               	iWindow[pos].close();
-                              	iWindow[pos] = '';
+                              }
                               	isOpen = false;
                               	}, 300);
                           });
@@ -1348,14 +1904,11 @@ function addHotelMarker(){
                   
                   hotelMark[i].addListener('mouseout', function(){
                       var pos = hotelMark.indexOf(this);
-                      console.log("hotelMark[pos]:" + iWindow[pos])
                       debugger
-                      isOpen = false;
-                      if(iWindow[pos]){
-                  		hmTimeout[pos] = setTimeout(function(){
+                  	hmTimeout[pos] = setTimeout(function(){
                   		iWindow[pos].close();
+                  		isOpen = false;
                   		}, 300);
-                      }
                   });
                   
                   
@@ -1395,10 +1948,38 @@ function addHotelMarker(){
 								$("#tripList li:eq(" + seq + ")").remove();
 								debugger
 								
+								
+								//每次觸發先判斷前方是否有finishTime
+
+                        	 	var min = $('.finishTime:eq(' + (seq-1) +')').val();
+                        	 	if($('.finishTime:eq(' + (seq-1) +')').val() != ""){
+                                	
+                        	 		$('.startTime:eq(' + seq +')').timepicker('remove');
+                        	 		$('.finishTime:eq(' + seq +')').timepicker('remove');
+                        	 		
+                        	 		$('.startTime:eq(' + seq +')').timepicker({
+									    'minTime': min,
+									    'timeFormat': 'H:i'
+									});
+                                	$('.finishTime:eq(' + seq +')').timepicker({
+									    'minTime': min,
+									    'timeFormat': 'H:i'
+									});
+                                	debugger
+            					}
+								
+								
+								
                                 if(tripList[index-1].length > 1){
                                 	direction();
                                 } else{
                                 	drcDisplay.set("directions", null);
+        							for(var i=0; i < newMarker.length; i++){
+      								  newMarker[i].setMap(null);
+      					              newMarker[i] = null;
+      					              debugger
+      					          }
+      					    		 newMarker = [];
                                 }
 								
 								
@@ -1437,24 +2018,19 @@ function addHotelMarker(){
     			  console.log("tripList[index-1].length:"+ tripList[index-1].length);
                   switch(tripList[index-1][i].spoclass){
                       case "景點":
-                      	  $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/place.png"></li>');
-//                       	  $("#spot").prop("checked", true);
+                      	  $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/place.png">&nbsp;</li>');
                           break;
                       case "美食":
-                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/ice-cream.png"></li>');
-//                           $("#food").prop("checked", true);
+                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/ice-cream.png">&nbsp;</li>');
                           break;
                       case "博物館":
-                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/museum.png"></li>');
-//                           $("#museum").prop("checked", true);
+                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/museum.png">&nbsp;</li>');
                           break;
                       case "夜生活":
-                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/beer.png"></li>');
-//                           $("#night").prop("checked", true);
+                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/beer.png">&nbsp;</li>');
                           break;
                       case "飯店":
-                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img src="image/hotel.png"></li>');
-//                           $("#hotel").prop("checked", true);
+                          $("#tripList").append('<li class="list-group-item list-group-item-action"><img class="liImg" src="image/hotel.png">&nbsp;</li>');
                           break;
                   }
                   console.log("tripList[index-1][i].tdestart:"+ tripList[index-1][i].tdestart);
@@ -1481,24 +2057,98 @@ function addHotelMarker(){
 					+ "<input id='timepicker' class='form-control finishTime time_element' type='text' name='tdefinish' style='width:114px; font-size:10px' value='" + fValue + "'></div>"
 					+ '</div></div>');
 				  debugger
-		   	 		$(".time_element").timepicki();
-				  debugger
+				  
+				//每次觸發先判斷前方是否有finishTime
+
+          	 	var n = $('.startTime').length-1;
+          	 	debugger
+          	 	var min = $('.finishTime:eq(' + (n-1) +')').val();
+          	 	if($('.finishTime:eq(' + (n-1) +')').val() != ""){
+                  	$('.startTime').timepicker({
+						    'minTime': min,
+						    'timeFormat': 'H:i'
+						});
+                  	$('.finishTime').timepicker({
+						    'minTime': min,
+						    'timeFormat': 'H:i'
+						});
+                  	debugger
+					} else{
+						$('.time_element').timepicker({'timeFormat': 'H:i'});
+						debugger
+					}
+				  
+				//時間限制處理
+              	  $('.startTime').on('change',function(e){
+            	 		var startTimeArr = new Array();
+            	 		for(var i=0; i<$('.startTime').length; i++){
+            	 			startTimeArr[i] = $('.startTime')[i];
+            	 		}
+            	 		debugger
+            	 		//找出是第幾個startTime
+            	 		var n = startTimeArr.indexOf(e.target);
+            	 		debugger
+            	 		//先移除對應的finishTime
+            	 		$('.finishTime:eq(' + n +')').timepicker('remove');	
+            	 		var min = $('.startTime:eq(' + n +')').val();
+            	 		debugger
+            	 		//設定對應的finishTime限制
+            	 		$('.finishTime:eq(' + n +')').timepicker({
+            	 	    	'minTime': min,
+            	 	    	'timeFormat': 'H:i'
+            	 		});
+            	 		//再移除下面全部的startTime及finishTime,並設定限制
+            	 		for(var i=$('.startTime').length-1; i>n; i--){
+            	 			$('.startTime:eq(' + i +')').timepicker('remove');
+            	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+            	 			$('.startTime:eq(' + i +')').timepicker({
+            		 	    	'minTime': min,
+            		 	    	'timeFormat': 'H:i'
+            		 		});
+            	 			$('.finishTime:eq(' + i +')').timepicker({
+            		 	    	'minTime': min,
+            		 	    	'timeFormat': 'H:i'
+            		 		});
+            	 		}
+            	   });
+             	 	
+             	 	$('.finishTime').on('change load',function(e){
+            	 		var finishTimeArr = new Array();
+            	 		for(var i=0; i<$('.finishTime').length; i++){
+            	 			finishTimeArr[i] = $('.finishTime')[i];
+            	 		}
+            	 		debugger
+            	 		//找出是第幾個finishTime
+            	 		var n = finishTimeArr.indexOf(e.target);
+            	 		debugger
+            	 		//先移除下一個startTime
+            	 		$('.startTime:eq(' + (n+1) +')').timepicker('remove');	
+            	 		var min = $('.finishTime:eq(' + n +')').val();
+            	 		debugger
+            	 		//設定下一個startTime限制
+            	 		$('.startTime:eq(' + (n+1) +')').timepicker({
+            	 	    	'minTime': min,
+            	 	    	'timeFormat': 'H:i'
+            	 		});
+            	 		//再移除下面全部的startTime及finishTime,並設定限制
+            	 		for(var i=$('.finishTime').length-1; i>(n+1); i--){
+            	 			$('.startTime:eq(' + i +')').timepicker('remove');
+            	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+            	 			$('.startTime:eq(' + i +')').timepicker({
+            		 	    	'minTime': min,
+            		 	    	'timeFormat': 'H:i'
+            		 		});
+            	 			$('.finishTime:eq(' + i +')').timepicker({
+            		 	    	'minTime': min,
+            		 	    	'timeFormat': 'H:i'
+            		 		});
+            	 		}
+            	   });
+				  
+				  
+				  
+				  
               }
-//         	   if($("#spot").prop("checked") == true){
-//         		   addSpotMarker();
-//         	   }
-//         	   if($("#food").prop("checked") == true){
-//         		   addFoodMarker();
-//         	   }
-//         	   if($("#museum").prop("checked") == true){
-//         		   addMuseumMarker();
-//         	   }
-//         	   if($("#night").prop("checked") == true){
-//         		   addNightMarker();
-//         	   }
-//         	   if($("#hotel").prop("checked") == true){
-//         		   addHotelMarker();
-//         	   }
         	   makeSeq();
            }
     		  
@@ -1520,9 +2170,45 @@ function addHotelMarker(){
         						debugger
         						if(typeof(tripList[index-1]) != "undefined"){
                         			debugger
-                        			tripList[index-1].splice(seq, 1);
+                        			tripList[index-1].splice(seq, 1);  //從陣列中移除
                         		}
-        						$("#tripList li:eq(" + seq + ")").remove();
+        						$("#tripList li:eq(" + seq + ")").remove();  //從行程表中移除
+        						
+        						
+        						//每次觸發先判斷前方是否有finishTime
+
+                        	 	var min = $('.finishTime:eq(' + (seq-1) +')').val();
+                        	 	if($('.finishTime:eq(' + (seq-1) +')').val() != ""){
+                                	
+                        	 		$('.startTime:eq(' + seq +')').timepicker('remove');
+                        	 		$('.finishTime:eq(' + seq +')').timepicker('remove');
+                        	 		
+                        	 		$('.startTime:eq(' + seq +')').timepicker({
+									    'minTime': min,
+									    'timeFormat': 'H:i'
+									});
+                                	$('.finishTime:eq(' + seq +')').timepicker({
+									    'minTime': min,
+									    'timeFormat': 'H:i'
+									});
+                                	debugger
+            					}
+        						
+        						
+        						
+        						//當天行程大於1才繪製路線
+        						if(tripList[index-1].length > 1){
+                                	direction();
+                                }else {
+        							drcDisplay.set("directions", null);
+        							for(var i=0; i < newMarker.length; i++){
+        								  newMarker[i].setMap(null);
+        					              newMarker[i] = null;
+        					              debugger
+        					          }
+        					    	 newMarker = [];
+                                }
+        						
         					} else{
         						alert(xhr.status);
         					}
@@ -1534,7 +2220,6 @@ function addHotelMarker(){
         		});
     	   }
     	   
-
       google.maps.event.addDomListener(window, 'load', initMap);
     </script>
     
@@ -1567,44 +2252,83 @@ function addHotelMarker(){
     
     
 	
-	<!-- 時間css&javascript -->
-	<script src="timepicki/js/timepicki.js"></script>
+	<!-- 時間javascript初始化(主要為重載入使用 -->
+	<script src="jquery-timepicker/jquery.timepicker.min.js"></script>
 	<script>
  	 	$(this).load(function(){
-   	 		$(".time_element").timepicki({min_hour_value: 4});
+ 	 		$('.time_element').timepicker({'timeFormat': 'H:i'});
  	 	});
+ 	 	
+ 	 	
+ 	 	$('.startTime').on('change load',function(e){
+	 		var startTimeArr = new Array();
+	 		for(var i=0; i<$('.startTime').length; i++){
+	 			startTimeArr[i] = $('.startTime')[i];
+	 		}
+	 		debugger
+	 		//找出是第幾個startTime
+	 		var n = startTimeArr.indexOf(e.target);
+	 		debugger
+	 		//先移除對應的finishTime
+	 		$('.finishTime:eq(' + n +')').timepicker('remove');	
+	 		var min = $('.startTime:eq(' + n +')').val();
+	 		debugger
+	 		//設定對應的finishTime限制
+	 		$('.finishTime:eq(' + n +')').timepicker({
+	 	    	'minTime': min,
+	 	    	'timeFormat': 'H:i'
+	 		});
+	 		//再移除下面全部的startTime及finishTime,並設定限制
+	 		for(var i=$('.startTime').length-1; i>n; i--){
+	 			$('.startTime:eq(' + i +')').timepicker('remove');
+	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+	 			$('.startTime:eq(' + i +')').timepicker({
+		 	    	'minTime': min,
+		 	    	'timeFormat': 'H:i'
+		 		});
+	 			$('.finishTime:eq(' + i +')').timepicker({
+		 	    	'minTime': min,
+		 	    	'timeFormat': 'H:i'
+		 		});
+	 		}
+	   });
+ 	 	
+ 	 	$('.finishTime').on('change',function(e){
+	 		var finishTimeArr = new Array();
+	 		for(var i=0; i<$('.finishTime').length; i++){
+	 			finishTimeArr[i] = $('.finishTime')[i];
+	 		}
+	 		debugger
+	 		//找出是第幾個finishTime
+	 		var n = finishTimeArr.indexOf(e.target);
+	 		debugger
+	 		//先移除下一個startTime
+	 		$('.startTime:eq(' + (n+1) +')').timepicker('remove');	
+	 		var min = $('.finishTime:eq(' + n +')').val();
+	 		debugger
+	 		//設定下一個startTime限制
+	 		$('.startTime:eq(' + (n+1) +')').timepicker({
+	 	    	'minTime': min,
+	 	    	'timeFormat': 'H:i'
+	 		});
+	 		//再移除下面全部的startTime及finishTime,並設定限制
+	 		for(var i=$('.finishTime').length-1; i>(n+1); i--){
+	 			$('.startTime:eq(' + i +')').timepicker('remove');
+	 			$('.finishTime:eq(' + i +')').timepicker('remove');
+	 			$('.startTime:eq(' + i +')').timepicker({
+		 	    	'minTime': min,
+		 	    	'timeFormat': 'H:i'
+		 		});
+	 			$('.finishTime:eq(' + i +')').timepicker({
+		 	    	'minTime': min,
+		 	    	'timeFormat': 'H:i'
+		 		});
+	 		}
+	   });
+ 	 	
+ 	 	
 	</script>
-	<script>
-		$.datetimepicker.setLocale('zh'); // kr ko ja en
-		$(function(){
-			 $('#tribegdate').datetimepicker({
-			  format:'Y-m-d',
-			  onShow:function(){
-			   this.setOptions({
-				   minDate: '-1970-01-01'			    
-			   })
-			  },
-			  timepicker:false
-			 });
-			 
-			 
-			 
-// 			 $('#tripList').on('click', '.startTime', function(){
-// 				 console.log($(this))
-// 				 console.log(555)
-// 				  $('.startTime').timepicki();
-// 		    	  var len = ($(".startTime").length-1);
-// 		          var minHourStr = $(".startTime:eq(" + len +")").val().substring(0,2);//09:36 PM
-// 		          var minHour = parseInt(minHourStr);
-// 		          console.log($('.startTime'))
-// 		          console.log($(".finishTime"))
-// 		          console.log('======'+minHour)
-// 		          debugger
-// 		          $(".finishTime").timepicki({min_hour_value: minHour});
-// 		    	  	debugger
-// 			 })
-		});
-	</script>
+
 	<script>
 		$("#dayUl").on("click", ".add", function(){
 			var newDay = $("#cloneDay").clone();
@@ -1615,8 +2339,8 @@ function addHotelMarker(){
 			$(".day").off().on("click", makeTdeVO);
 		});
 	</script>
-	<script src='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/js/jquery.circliful.min.js'></script>
-	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+	<script src='js/jquery.circliful.min.js'></script>
+	<script src="js/jquery-ui.js" ></script>
 </body>
 
 </html>

@@ -195,58 +195,13 @@
 		         });
 			});
 	    	
-			$('#register_text_mem_acc').on('keyup', function(){
-				if( $('#register_text_mem_acc').val().trim().length == 0){
-					$('#register_text_mem_acc_answer').text('會員帳號: 請勿空白.');
-					//register_text_mem_acc_flag = false;
-				}else{
-					$('#register_text_mem_acc_answer').text('');
-					var register_text_mem_acc = $(this).val();
-				}
-				var register_text_mem_acc = $(this).val();
- 				
-					_debounce(function(){
-						
-						return getRegister_text_mem_acc(register_text_mem_acc, register_text_mem_acc_flag_G); 
-					}, 500);
-					
-
-			});
-		
-			
-			$('#register_text_mem_pw').on('keyup', function(){
-				if($('#register_text_mem_pw').val().trim().length == 0){
-					$('#register_text_mem_pw_answer').text('會員密碼: 請勿空白');
-
-				}else{
-					$('#register_text_mem_pw_answer').text('');
-					
-				}
-				var register_text_mem_pw = $(this).val();
-				_debounce(function(){
-					
-					return getRegister_text_mem_pw(register_text_mem_pw, register_text_mem_pw_flag_G); 
-				}, 500);
-			});
-			
-			
-			$('#register_text_mem_email').on('keyup', function(){
-				if($('#register_text_mem_email').val().trim().length == 0 ){
-					$('#register_text_mem_email_answer').text('會員電子信箱: 請勿空白');
-					
-				}else{
-					$('#register_text_mem_email_answer').text('');
-					
-				}
-				var register_text_mem_email = $(this).val();
-				_debounce(function(){ 
-					
-					return getRegister_text_mem_email(register_text_mem_email, register_text_mem_email_flag_G); 
-				}, 500);
-			});
-			datas.map(function(data){
-		        $('#register_text_mem_addr').append('<option value="'+ data.value +'">' + data.title + '</option>');
-		    });
+	    	function allowUser(){
+	    		var memno = "${sessionScope.memno}";
+	    		if( memno.length != 0)
+	    			return true;
+	    		else
+	    			return false;
+	    	}
 			 
 		});
 </script>

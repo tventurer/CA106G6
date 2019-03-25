@@ -11,7 +11,7 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 		
-		<div class="col-md-7 offset-md-1 col-lg-7 offset-lg-1">
+		<div class="col-md-4 offset-md-1 col-lg-4 offset-lg-1">
           <div class="title-box-d">
             <h3><br></h3>
           </div>
@@ -19,7 +19,7 @@
             <ul class="list-comments">
               <li>
                 <div class="comment-avatar">
-                  <img src="<%= request.getContextPath() %>/style/f/img/author-2.jpg" alt="">
+                  <img src="<%= request.getContextPath() %>/style/f/img/like.png" alt="">
                 </div>
                 <div class="comment-details">
                   <h4 class="comment-author">恭喜您完成付款!</h4>

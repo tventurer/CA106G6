@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.not.model.NotService;
 import com.tod.model.TodService;
 import com.tod.model.TodVO;
 import com.tri.model.TriService;
@@ -44,13 +45,6 @@ public class TodServlet extends HttpServlet {
 				if(pdtName.length == 0 || pdtName[0].trim().length() == 0) {
 					errorMsgs.put("pdtPrice", "請至少輸入一項商品價格!");
 				}
-				
-//				Integer todquo = null;
-//				try {
-//					todquo = Integer.parseInt(req.getParameter("todquo").trim());
-//				} catch(NumberFormatException ne) {
-//					errorMsgs.put("todquo", "輸入的報價格式有誤!");
-//				}
 				
 				Date todddl = null;
 				try {
@@ -100,8 +94,17 @@ public class TodServlet extends HttpServlet {
 				TriVO triVO = triSvc.getOneTri(trino);
 				triSvc.updateTri(triVO.getTriname(), triVO.getTribegdate(), triVO.getTrienddate(), triVO.getTripeonum(), 2, null, trino);
 				
+				//通知設定
+				NotService notSvc = new NotService();
+				notSvc.addNot(req.getParameter("memno"), "業務員已對您的行程提供相關報價,趕緊查看!");
+				
 				//3.執行成功,進行轉交
-				RequestDispatcher success = req.getRequestDispatcher("/backend/tri/listAllTri.jsp?whichPage=" + whichPage);
+				String url = "/backend/tri/listAllTri.jsp?whichPage=" + whichPage;
+				if("todstat".equals(req.getParameter("come"))) {
+					url = "/backend/tod/listAllTod.jsp";
+				}
+				System.out.println("url:" + url);
+				RequestDispatcher success = req.getRequestDispatcher(url);
 				success.forward(req, res);
 				
 			} catch(Exception e) {

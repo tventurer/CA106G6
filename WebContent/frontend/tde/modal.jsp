@@ -1,38 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>EstateAgency Bootstrap Template</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
-
-  <!-- Favicons -->
-  <link href="<%= request.getContextPath() %>/style/f/img/favicon.png" rel="icon">
-  <link href="<%= request.getContextPath() %>/style/f/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
-  <!-- Libraries CSS Files -->
-  <link href="<%= request.getContextPath() %>/style/f/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/style/f/lib/animate/animate.min.css" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/style/f/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/style/f/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-  <!-- Main Stylesheet File -->
-  <link href="<%= request.getContextPath() %>/style/f/css/style.css" rel="stylesheet">
 
 <style>
 
 .modal-dialog{
     overflow-y: initial;
 }
-.modal-body{
-    height: 10px;
+#content{
+    height: 670px;
+    width: 550px;
     overflow-y: auto;
+}
+.greenArrow{
+	width: 75px;
+	height: 75px;
 }
 
 </style>
@@ -44,39 +28,64 @@
   <div class="click-closed"></div>
 
 <!-- Modal -->
-<div class="modal fade" id="tripResult" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<div class="modal fade" id="tripResult" tabindex="-1" role="dialog" aria-labelledby="ModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
+    <div class="modal-content" id="content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+        <h5 class="modal-title" id="ModalScrollableTitle">我的行程</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-       
-       
-  <section class="section-about">
-    <div class="container">
-      <div class="row" id="clone" style="display:none">
-        <div class="col-md-12" style="padding-top: 2rem;">
-          <div class="row justify-content-center">
-            <div class="col-lg-3">
-              <img src="image/place.png">
-            </div>
-            <div class="col-lg-8">
-              <div class="title-box-d" style="margin-bottom: 0px;">
-                <h3 class="title-d"></h3>
-              </div>
-              <h5 class="color-text-a" style="margin-bottom: 0px; margin-left: 5px"></h5>
-            </div>
-            </div>          
-          </div>
-        </div>
-      </div>
-  </section>
   
-  <script>
+  <div class="container-fluid">
+	<div class="row justify-content-center">
+		
+		<div class="col-md-4 offset-md-1 col-lg-4 offset-lg-1" id="clone" style="display:none">
+          <div class="title-box-d">
+          	<h2 class="title-single"></h2>
+          </div>
+          <div class="box-comments">
+            <ul class="list-comments">
+              <li>
+                <div class="comment-avatar">
+                  <img class="spoclass" src="<%= request.getContextPath() %>/style/f/img/author-2.jpg">
+                </div>
+                <div class="comment-details">
+                  <h4 class="comment-author"></h4>
+
+                  <div class="timeForStart" style="display:inline"></div><div class="timeForEnd" style="display:inline"></div>
+
+                </div>
+              </li>
+             </ul>
+            </div>
+            <center><img class="greenArrow"></center>
+           </div>
+           
+      </div>
+	</div>
+  
+
+       
+       
+      </div>
+      <div class="modal-footer" id="footer">
+        <form method="post" name="form" action="<%= request.getContextPath() %>/frontend/tde/tde">
+        	<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+        	<input type="hidden" name="action" value="submit">
+        </form>
+        	<button id="submitTrip" class="btn btn-success">送出行程</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+</body>
+<jsp:include page="/frontend/tde/navbarForMap.jsp"/>
+<script>
   
   	$("#tripResult").on("hidden.bs.modal", function() {
 	  	debugger
@@ -93,24 +102,36 @@
   				var newSpot = $("#clone").clone();
   				newSpot.attr("style", "display:''");
   				newSpot.attr("class", "newSpot");
-  				newSpot.find("h3").html(tripList[i][j].sponame);
-  				newSpot.find("h5").html(tripList[i][j].tdestart + "<br>" + tripList[i][j].tdefinish);
+  				//天數只印第一次
+  				if(j === 0){
+  					newSpot.find("h2").html("第" + (i+1) + "天");
+  				}
+  				//箭頭不印最後一次
+  				if(j != (tripList[i].length-1)){
+  					newSpot.find(".greenArrow").attr("src", "image/arrow_down.png");
+  				} else{
+  					newSpot.find(".greenArrow").attr("style", "display:none");
+  				}
+  				
+  				newSpot.find("h4").html(tripList[i][j].sponame);
+  				newSpot.find(".timeForStart").html("起始時間:" + tripList[i][j].tdestart + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+  				newSpot.find(".timeForEnd").html("終止時間:" + tripList[i][j].tdefinish);
   				debugger
   				switch(tripList[i][j].spoclass){
                 case "景點":
-                	newSpot.find("img").attr("src", "image/place.png");
+                	newSpot.find(".spoclass").attr("src", "image/place.png");
                     break;
                 case "美食":
-                	newSpot.find("img").attr("src", "image/ice-cream.png");
+                	newSpot.find(".spoclass").attr("src", "image/ice-cream.png");
                     break;
                 case "博物館":
-                	newSpot.find("img").attr("src", "image/museum.png");
+                	newSpot.find(".spoclass").attr("src", "image/museum.png");
                     break;
                 case "夜生活":
-                	newSpot.find("img").attr("src", "image/beer.png");
+                	newSpot.find(".spoclass").attr("src", "image/beer.png");
                     break;
                 case "飯店":
-                	newSpot.find("img").attr("src", "image/hotel.png");
+                	newSpot.find(".spoclass").attr("src", "image/hotel.png");
                     break;
             }
   				
@@ -119,33 +140,19 @@
   		}
   		}	
   	}
-  </script>
-       
-       
-      </div>
-      <div class="modal-footer" id="footer">
-        <form method="post" action="<%= request.getContextPath() %>/frontend/tde/tde">
-        	<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-        	<input type="hidden" name="action" value="submit">
-        	<button type="submit" class="btn btn-primary">送出行程</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
- 
-  <!-- JavaScript Libraries -->
-  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery.min.js"></script>
-  <script src="<%= request.getContextPath() %>/style/f/lib/jquery/jquery-migrate.min.js"></script>
-  <script src="<%= request.getContextPath() %>/style/f/lib/popper/popper.min.js"></script>
-  <script src="<%= request.getContextPath() %>/style/f/lib/easing/easing.min.js"></script>
-  <script src="<%= request.getContextPath() %>/style/f/lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="<%= request.getContextPath() %>/style/f/lib/scrollreveal/scrollreveal.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="<%= request.getContextPath() %>/style/f/contactform/contactform.js"></script>
+  	
+  	$('#submitTrip').click(function(){
+  		$('.modal-backdrop').remove();
+  		if(!allowUser()){
+  			$('.modal-backdrop').remove();
+  			$("#tripResult").modal('hide');
+  			$('.modal-backdrop').remove();
+  			$('#login').modal('show');
+  			return;
+  		} else{
+  			document.form.submit();
+  		}
+  	});
+</script>
 
-  <!-- Template Main Javascript File -->
-  <script src="<%= request.getContextPath() %>/style/f/js/main.js"></script>
-
-</body>
 </html>

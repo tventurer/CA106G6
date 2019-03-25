@@ -41,7 +41,7 @@
                   <th></th>
                   <th>訂單編號</th>
                   <th>會員編號</th>
-                  <th>行程編號</th>
+                  <th>行程名稱</th>
                   <th>管理員編號</th>
                   <th>報價總金額</th>
                   <th>繳付截止日</th>
@@ -64,7 +64,8 @@
                   <td><%= count++ %></th>
 	              <td>${todVO.todno}</td>
 	              <td>${todVO.memno}</td>
-	              <td>${todVO.trino}</td>
+	              <jsp:useBean id="triSvc" class="com.tri.model.TriService" />
+	              <td>${triSvc.getOneTri(todVO.trino).triname}</td>
 	              <td>${todVO.empno}</td>
 	              <td>${todVO.todquo}</td>
 	              <td>${todVO.todddl}</td>

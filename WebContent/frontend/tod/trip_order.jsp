@@ -15,10 +15,13 @@
 <section class="intro-single">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-lg-8">
+        <div class="col-md-9 col-lg-7">
           <div class="title-single-box">
             <h1 class="title-single">我的行程訂單</h1>
           </div>
+        </div>
+        <div class="col-md-3">
+            <h5 class="title-single">報價有效日期:${todVO.todddl}</h5>
         </div>
       </div>
     </div>

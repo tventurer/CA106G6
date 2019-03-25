@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,8 +61,12 @@ color: red;
                   <td>第${tdeList.tdedate.substring(1,2)}天</td>
 	              <td>${tdeList.tdeseq}</td>
 	              <td>${spoSvc.getOneSpo(tdeList.spono).sponame}</td>
-	              <td>${tdeList.tdestart}</td>
-	              <td>${tdeList.tdefinish}</td>
+	              <td>
+	              <fmt:formatDate type="both" value="${tdeList.tdestart}" pattern="yyyy-MM-dd HH:mm" />
+	              </td>
+	              <td>
+	              <fmt:formatDate type="both" value="${tdeList.tdefinish}" pattern="yyyy-MM-dd HH:mm" />
+	              </td>
                 </tr>
                 
                 </c:forEach>
@@ -129,6 +134,7 @@ color: red;
                 </div>
             </div>
             <div class="tile-footer">
+              <input type="hidden" name="come" value="${param.come}">
               <input type="hidden" name="memno" value="${param.memno}">
               <input type="hidden" name="trino" value="${param.trino}">
               <input type="hidden" name="whichPage" value="${param.whichPage}">

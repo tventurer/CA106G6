@@ -35,11 +35,11 @@ public class SpoCrawler {
 		int num = 0;
 		int count = 0;
 
-		List<String> citys = new SpoCrawler().getTaiwanCitys();
+//		List<String> citys = new SpoCrawler().getTaiwanCitys();
 
 		// 第一層迴圈鄉鎮市區名稱
-		for (String city : citys) {
-
+//		for (String city : citys) {
+		String city = "臺北市中正區";
 			try {
 				double[] latlng = AddrToLatLong.getLatLong(city);
 
@@ -60,15 +60,15 @@ public class SpoCrawler {
 
 						if (i == 0 || i == 4) {
 							googleUrl.append("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=")
-									.append(latlng[0]).append(",").append(latlng[1]).append("&radius=6000&name=")
+									.append(latlng[0]).append(",").append(latlng[1]).append("&radius=3000&name=")
 									.append(urlName)
-									.append("&language=zh-TW&key=AIzaSyABawQwdYJlRvccVhRttjo_3319LoFCUEo")
+									.append("&language=zh-TW&key=AIzaSyAis10MVvjqPN4k00QTn4y_eScYdWxGF1k")
 									.append(next_page_token.toString());
 						} else {
 							googleUrl.append("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=")
-									.append(latlng[0]).append(",").append(latlng[1]).append("&radius=6000&types=")
+									.append(latlng[0]).append(",").append(latlng[1]).append("&radius=3000&types=")
 									.append(urlName)
-									.append("&language=zh-TW&key=AIzaSyABawQwdYJlRvccVhRttjo_3319LoFCUEo")
+									.append("&language=zh-TW&key=AIzaSyAis10MVvjqPN4k00QTn4y_eScYdWxGF1k")
 									.append(next_page_token.toString());
 						}
 
@@ -114,7 +114,7 @@ public class SpoCrawler {
 										String picRf = obj.getJSONArray("photos").getJSONObject(0)
 												.getString("photo_reference");
 										picUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
-												+ picRf + "&key=AIzaSyABawQwdYJlRvccVhRttjo_3319LoFCUEo";
+												+ picRf + "&key=AIzaSyAis10MVvjqPN4k00QTn4y_eScYdWxGF1k";
 										
 										b = new SpoCrawler().getPicBytes(picUrl);
 									}
@@ -188,7 +188,7 @@ public class SpoCrawler {
 
 			System.out.println("==============end==============");
 
-		}
+//		}
 
 	}
 
@@ -253,7 +253,7 @@ public class SpoCrawler {
 		try {
 			String name_clean = URLEncoder.encode(addrName, "UTF-8");
 			String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + name_clean
-					+ "&language=zh-TW&key=AIzaSyAYmC8oUYc9DGAZn8hqZKakFeclhAbTRSI";
+					+ "&language=zh-TW&key=AIzaSyAis10MVvjqPN4k00QTn4y_eScYdWxGF1k";
 
 			URL myUrl = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) myUrl.openConnection();
