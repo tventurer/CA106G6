@@ -9,7 +9,7 @@
 .modal-dialog{
     overflow-y: initial;
 }
-.modal-content{
+#content{
     height: 670px;
     width: 550px;
     overflow-y: auto;
@@ -30,7 +30,7 @@
 <!-- Modal -->
 <div class="modal fade" id="tripResult" tabindex="-1" role="dialog" aria-labelledby="ModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
+    <div class="modal-content" id="content">
       <div class="modal-header">
         <h5 class="modal-title" id="ModalScrollableTitle">我的行程</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -72,18 +72,19 @@
        
       </div>
       <div class="modal-footer" id="footer">
-        <form method="post" action="<%= request.getContextPath() %>/frontend/tde/tde">
+        <form method="post" name="form" action="<%= request.getContextPath() %>/frontend/tde/tde">
         	<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
         	<input type="hidden" name="action" value="submit">
-        	<button type="submit" class="btn btn-success">送出行程</button>
         </form>
+        	<button id="submitTrip" class="btn btn-success">送出行程</button>
+        
       </div>
     </div>
   </div>
 </div>
  
 </body>
-
+<jsp:include page="/frontend/navbar.jsp"/>
 <script>
   
   	$("#tripResult").on("hidden.bs.modal", function() {
@@ -139,6 +140,16 @@
   		}
   		}	
   	}
+  	
+  	$('#submitTrip').click(function(){
+  		if(!allowUser()){
+  			$("#tripResult").modal('hide');
+  			$('#login').modal('show');
+  			return;
+  		} else{
+  			document.form.submit();
+  		}
+  	});
 </script>
 
 </html>

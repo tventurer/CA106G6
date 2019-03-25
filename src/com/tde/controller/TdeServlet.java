@@ -332,6 +332,10 @@ public class TdeServlet extends HttpServlet {
 			TriVO triVO = (TriVO)session.getAttribute("triVO");
 			
 			triVO.setTristat(1);
+			//取得會員no
+			triVO.setMemno((String)session.getAttribute("memno"));
+			
+			System.out.println("================memno:" + triVO.getMemno());
 			
 			//計算使用者最後規劃的天數存入triVO
 			Date tribegdate = triVO.getTribegdate();

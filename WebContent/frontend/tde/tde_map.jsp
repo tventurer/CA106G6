@@ -68,7 +68,6 @@ height: 35px;
 <link href="js/jquery-ui.css" rel="Stylesheet"></link>
 
 </head>
-<jsp:include page="/frontend/navbar.jsp"/>
 <body>
 
 
@@ -138,6 +137,7 @@ height: 35px;
 		</div>
 	</div>
 </section>
+
 	<div id="map"></div>
 
 	<!-- 付費的 -->

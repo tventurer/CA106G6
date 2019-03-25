@@ -30,7 +30,6 @@
     <url-pattern>/frontend/pho/order.jsp</url-pattern>
     <url-pattern>/frontend/pho/listorder.jsp</url-pattern>
     <url-pattern>/frontend/tri/listTriByMem.jsp</url-pattern>
-    <url-pattern>/frontend/tri/build_trip2.jsp</url-pattern>
     <url-pattern>/frontend/pur/listMemPur.jsp</url-pattern>
     <url-pattern>/frontend/pur/addOnePur.jsp</url-pattern>
     <url-pattern>/frontend/por/listSellPor.jsp</url-pattern>
