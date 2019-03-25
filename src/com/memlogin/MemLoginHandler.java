@@ -2,6 +2,7 @@ package com.memlogin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,10 +32,22 @@ public class MemLoginHandler extends HttpServlet {
 			String password = req.getParameter("password").trim();
 		
 			MemService memSvc = new MemService();
-			MemVO vo = memSvc.getEmailForLogin(mememail);			
+			List<MemVO> list = memSvc.getAll();
+			boolean isUserValid = false;
+			MemVO vo = null;
 			
+			try {
+				for (MemVO memvo : list) {
+					if (memvo.getMememail().toLowerCase().equals(mememail) && memvo.getMempwd().equals(password)) {
+						isUserValid = true;
+						vo = memvo;
+					}
+				}
+			} catch (Exception ignored) {
+				isUserValid = false;
+			}
 			
-			if (!isUserValid(password, vo)) {
+			if (!isUserValid) {
 				out.print("{}");
 				return;
 			}
