@@ -67,7 +67,7 @@
                   <div class="intro-body">
                     <h1 class="intro-title mb-4">
                       <span class="color-b">An apple </span>  a day
-                      <br> keep the doctor away</h1>
+                      <br> keeps the doctor away</h1>
                     <p class="intro-subtitle intro-price">
                       <a href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp"><span class="price-a">tax free</span></a>
                     </p>
@@ -312,53 +312,28 @@
           <nav class="nav-footer">
             <ul class="list-inline">
               <li class="list-inline-item">
-                <p href="#">Home</p>
+                <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
               </li>
               <li class="list-inline-item">
-                <p href="#">About</p>
+                <a href="<%=request.getContextPath()%>/frontend/pur/purIndex.jsp">代購商品</a>
               </li>
               <li class="list-inline-item">
-                <p href="#">Property</p>
+                <a href="<%=request.getContextPath()%>/pah/pahcontrol?action=listPahBySelect">機加酒</a>
               </li>
               <li class="list-inline-item">
-                <p href="#">Blog</p>
+                <a href="<%= request.getContextPath() %>/frontend/tri/tripIndex.jsp">自由行</a>
               </li>
               <li class="list-inline-item">
-                <p href="#">Contact</p>
+                <a href="<%= request.getContextPath() %>/backend/ptp/pacHead.jsp">套裝行程</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="<%= request.getContextPath() %>/frontend/pos/AllPost.jsp">旅人文章</a>
               </li>
             </ul>
           </nav>
-          <div class="socials-a">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <p href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </p>
-              </li>
-              <li class="list-inline-item">
-                <p href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </p>
-              </li>
-              <li class="list-inline-item">
-                <p href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </p>
-              </li>
-              <li class="list-inline-item">
-                <p href="#">
-                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                </p>
-              </li>
-              <li class="list-inline-item">
-                <p href="#">
-                  <i class="fa fa-dribbble" aria-hidden="true"></i>
-                </p>
-              </li>
-            </ul>
-          </div>
           <div class="copyright-footer">
             <p class="copyright color-text-a">
+              &copy; CA106G6_TVenturer<br><br>
               &copy; Copyright
               <span class="color-a">EstateAgency</span> All Rights Reserved.
             </p>
