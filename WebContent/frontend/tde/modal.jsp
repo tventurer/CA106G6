@@ -84,7 +84,7 @@
 </div>
  
 </body>
-<jsp:include page="/frontend/navbar.jsp"/>
+<jsp:include page="/frontend/tde/navbarForMap.jsp"/>
 <script>
   
   	$("#tripResult").on("hidden.bs.modal", function() {
@@ -142,8 +142,11 @@
   	}
   	
   	$('#submitTrip').click(function(){
+  		$('.modal-backdrop').remove();
   		if(!allowUser()){
+  			$('.modal-backdrop').remove();
   			$("#tripResult").modal('hide');
+  			$('.modal-backdrop').remove();
   			$('#login').modal('show');
   			return;
   		} else{

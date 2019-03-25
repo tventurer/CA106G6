@@ -32,7 +32,7 @@ public class TriDAO implements TriDAO_interface{
 	private static final String DELETE_STMT = "DELETE FROM TRIP WHERE TRINO=?";
 	private static final String FINDBYPK_STMT = "SELECT * FROM TRIP WHERE TRINO=?";
 	private static final String FINDBYTRINAME_STMT = "SELECT * FROM TRIP WHERE TRINAME=?";
-	private static final String FINDBYMEMNO_STMT = "SELECT * FROM TRIP WHERE MEMNO=?";
+	private static final String FINDBYMEMNO_STMT = "SELECT * FROM TRIP WHERE MEMNO=? ORDER BY TRINO";
 	private static final String FINDBYTRISTAT_STMT = "SELECT * FROM TRIP WHERE TRISTAT=? ORDER BY TRINO";
 	private static final String GETALL_STMT = "SELECT * FROM TRIP";
 	
