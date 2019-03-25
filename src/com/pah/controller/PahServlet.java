@@ -213,11 +213,7 @@ public class PahServlet extends HttpServlet {
 					pahdown = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入下架時間");
 				}
-				//驗證下架日期早於出發日期
-				java.sql.Date down = java.sql.Date.valueOf(spf.format(pahdown));
-				if(pahstdate.before(down)) {
-					errorMsgs.add("下架時間必須早於出發時間");
-				}
+				
 				//驗證出發日期早於回程日期
 				if(pahenddate.before(pahstdate)) {
 					errorMsgs.add("出發時間必須早於回程時間");
@@ -452,11 +448,7 @@ public class PahServlet extends HttpServlet {
 					pahdown = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入下架時間");
 				}
-				//驗證下架日期早於出發日期
-				java.sql.Date down = java.sql.Date.valueOf(spf.format(pahdown));
-				if(pahstdate.before(down)) {
-					errorMsgs.add("下架時間必須早於出發時間");
-				}
+				
 				//驗證出發日期早於回程日期
 				if(pahenddate.before(pahstdate)) {
 					errorMsgs.add("出發時間必須早於回程時間");

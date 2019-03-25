@@ -77,43 +77,42 @@
               <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pac/pac" name="form1" enctype="multipart/form-data">
 				<div class="form-group">
                   <label class="control-label">行程名稱:</label>
-                  <input type="TEXT" name="pacname" size="45" 
+                  <input class="form-control form-control-lg" id="inputLarge" type="TEXT" name="pacname" 
 			 		value="<%= (pacVO==null)? "  好多名字" : pacVO.getPacname()%>" />
                 </div>
                 <div class="form-group">
-                  <label class="control-label">管理員編號:</label>
-                  <input type="TEXT" name="empno" size="45"
+                  <input class="form-control form-control-lg" id="inputLarge" type="hidden" name="empno" 
 			 value="<%= (pacVO==null)? "EMP000001" : pacVO.getEmpno()%>" />
                 </div>
                 <div class="form-group">
                   <label class="control-label">旅遊國家:</label>
-                  <input type="TEXT" name="paccountry" size="45"
+                  <input type="TEXT" class="form-control form-control-lg" id="inputLarge" name="paccountry" 
 						 value="<%= (pacVO==null)? "國家" : pacVO.getPaccountry()%>" />
                 </div>
                 <div class="form-group">
                   <label class="control-label">旅遊城市:</label>
-                  <input type="TEXT" name="paccity" size="45"
+                  <input type="TEXT" name="paccity" class="form-control form-control-lg" id="inputLarge"
 						 value="<%= (pacVO==null)?"城市" : pacVO.getPaccity()%>" />
 			   </div>
                 <div class="form-group">
                   <label class="control-label">旅遊天數:</label>
-				  <input type="TEXT" name="pactotalday" size="45"
+				  <input type="TEXT" name="pactotalday"  class="form-control form-control-lg" id="inputLarge"
 			 			 value="<%= (pacVO==null)? "6" : pacVO.getPactotalday()%>" />
 			   </div>
                 <div class="form-group">
                   <label class="control-label">團費價格:</label>
-				  <input type="TEXT" name="pacprice" size="45"
+				  <input type="TEXT" name="pacprice"  class="form-control form-control-lg" id="inputLarge"
 			 			 value="<%= (pacVO==null)? "88000" : pacVO.getPacprice()%>" />
 			   </div>
 			   
 			    <div class="form-group">
                   <label class="control-label">預繳訂金:</label>
-				  <input type="TEXT" name="pacdeposit" size="45"
+				  <input type="TEXT" name="pacdeposit"  class="form-control form-control-lg" id="inputLarge"
 			 			 value="<%= (pacVO==null)? "6666" : pacVO.getPacdeposit()%>" />
 			   </div>
 			   <div class="form-group">
                   <label class="control-label">特色標籤:</label>
-				  <input type="TEXT" name="pacdiv" size="45"
+				  <input type="TEXT" name="pacdiv" class="form-control form-control-lg" id="inputLarge"
 			 			 value="<%= (pacVO==null)? "特色標籤" : pacVO.getPacdiv()%>" />
 			   </div>
 			   <div class="form-group">
@@ -129,17 +128,17 @@
                <div class="form-group row">
                   <label class="control-label col-md-3">行程特色圖1</label>
                   <div class="col-md-8">
-                    <input type="file" name="pactchar1" size="45"
-						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar1()%>" id="photo"/>
-						 <img id="preview" src="<%=request.getContextPath()%>/DBGifReader?pacVO.getPactchar1()"  width="100" height="100">
+                    <input type="file" name="pactchar1" id="pactchar1" size="45"
+			 value="<%= (pacVO==null)? "" : pacVO.getPactchar1()%>"/>
+						 <img id="preview1" src="#"  alt="" width="100" height="auto" style="display:none">
                   </div>
                </div>
                 <div class="form-group row">
                   <label class="control-label col-md-3">行程特色圖2</label>
                   <div class="col-md-8">
-                    <input type="file" name="pactchar2" size="45"
-						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar2()%>" id="photo"/>
-						 <img id="preview" src="<%=request.getContextPath()%>/DBGifReader?pacVO.getPactchar2()"  width="100" height="100">
+                    <input type="file" name="pactchar2" id="pactchar2" size="45"
+						 value="<%= (pacVO==null)?"請選擇圖片": pacVO.getPactchar2()%>"/>
+						 <img id="preview2" src="#"  alt=""  width="100" height="auto" style="display:none">
                   </div>
                </div>
                
@@ -162,5 +161,61 @@
 			<input class="btn btn-primary" type="submit" value="送出新增"></FORM>
             </div>
     </main>
+<script>
+
+$("#pactchar1").change(function(){
+
+  readURL(this);
+
+});
+
+
+
+function readURL(input){
+	
+  if(input.files && input.files[0]){
+
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+    	
+       $("#preview1").attr('src', e.target.result);
+       $("#preview1").removeAttr("style");
+    }
+
+    reader.readAsDataURL(input.files[0]);
+
+  }
+
+}
+
+
+$("#pactchar2").change(function(){
+
+	readURL2(this);
+
+	});
+	
+function readURL2(input){
+	
+	  if(input.files && input.files[0]){
+
+	    var reader = new FileReader();
+
+	    reader.onload = function (e) {
+	    	
+	       $("#preview2").attr('src', e.target.result);
+	       $("#preview2").removeAttr("style");
+	    }
+
+	    reader.readAsDataURL(input.files[0]);
+
+	  }
+
+	}
+
+
+
+</script>
 </body>
 </html>

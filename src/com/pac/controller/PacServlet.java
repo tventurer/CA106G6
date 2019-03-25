@@ -9,14 +9,34 @@ import javax.servlet.http.*;
 
 import com.pac.model.*;
 import com.ptp.model.*;
+import com.pur.model.PurService;
+import com.pur.model.PurVO;
 
 @MultipartConfig
 public class PacServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		doPost(req, res);
-	}
+		req.setCharacterEncoding("utf-8");
+		res.setContentType("image/gif");
+		ServletOutputStream out = res.getOutputStream();
+	
+		String pacno =req.getParameter("pacno");
+		PacService pacSvc = new PacService();
+		PacVO pacVO=(PacVO) pacSvc.getOnePac(pacno);
+		System.out.println(pacno);
+		
+		byte[] pic1 =pacVO.getPactchar1();
+		if(pic1 !=null) {
+			out.write(pic1);
+		}
+		
+		byte[] pic2 =pacVO.getPactchar2();
+		if(pic2 !=null) {
+			out.write(pic2);
+		}
+	doPost(req, res);
+}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -245,10 +265,7 @@ public class PacServlet extends HttpServlet {
 				String paccontent = req.getParameter("paccontent");
 				if (paccontent == null || paccontent.trim().length() == 0) {
 					errorMsgs.add("行程內容: 請勿空白");
-				} else if(paccontent.trim().length()>120) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("行程內容: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到120之間");
-	            }
-								
+				} 		
 				Part pactchar1=req.getPart("pactchar1");
 				byte[] imgbyte1=new byte[pactchar1.getInputStream().available()];;
 //				System.out.println(pactchar1.getSize());測試用
@@ -676,7 +693,7 @@ public class PacServlet extends HttpServlet {
 				req.setAttribute("errorMsgs", errorMsgs);
 				
 				String requestURL = req.getParameter("requestURL"); // 送出修改的來源網頁路徑: 可能為【/emp/listAllEmp.jsp】 或  【/dept/listEmps_ByDeptno.jsp】 或 【 /dept/listAllDept.jsp】 或 【 /emp/listEmps_ByCompositeQuery.jsp】
-				System.out.println(requestURL);
+				System.out.println("requestURL   Test0925"+requestURL);
 				
 				try {
 					/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
