@@ -553,7 +553,7 @@ public class PhoServlet extends HttpServlet {
 				
 				//發出通知
 				NotService nos = new NotService();
-				nos.addNot(phovo.getMemno(), "您的訂單已審核");
+				nos.addNot(phovo.getMemno(), "您的機加酒訂單退貨已審核");
 				
 				
 				req.setAttribute("phovo", pos.getOnePho(phono));
@@ -606,7 +606,7 @@ public class PhoServlet extends HttpServlet {
 
 					//發出通知
 					NotService nos = new NotService();
-					nos.addNot(phs.getOnePho(Orderno[i]).getMemno(), "您的訂單商品已寄出");
+					nos.addNot(phs.getOnePho(Orderno[i]).getMemno(), "您的機加酒商品已寄出");
 					
 				}
 				

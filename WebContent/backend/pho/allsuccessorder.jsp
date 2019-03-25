@@ -67,36 +67,7 @@
                 </thead>
                 <tbody>
                 	<c:forEach var="phoVO" items="${sucessOrderList}" varStatus="s">
-                		<c:forEach var="neworder" items="${orderno}">
-<!-------------------------最新成功訂單 --------------------------->
-	                		<c:if test="${neworder == phoVO.phono}">
-								<tr class="table-success">
-									<td>${phoVO.phono}</td>
-									<td>${phoVO.phoowner}</td>
-									<td>${phoVO.phophone}</td> 
-									<td>${phoVO.phomail}</td>
-									<td>${phoVO.phostdate}</td>
-									<c:if test="${phoVO.phostatus==0}">
-										<td>商品未送出</td>
-									</c:if>
-									<c:if test="${phoVO.phostatus==1}">
-										<td>商品已寄出</td>
-									</c:if>
-									<c:if test="${phoVO.phostatus==2}">
-										<td>退貨審核中</td>
-									</c:if>
-									<c:if test="${phoVO.phostatus==3}">
-										<td>已退貨</td>
-									</c:if>
-									<c:if test="${phoVO.phostatus==4}">
-										<td>退貨失敗</td>
-									</c:if>
-									<td>${phoVO.phototal}</td>
-								</tr>							
-							</c:if>   
-							
-<!-----------------------------	舊有成功訂單 -->
-							<c:if test="${neworder != phoVO.phono}">							
+                	
 								<tr>
 									<td>${phoVO.phono}</td>
 									<td>${phoVO.phoowner}</td>
@@ -119,9 +90,8 @@
 										<td>退貨失敗</td>
 									</c:if>
 									<td>${phoVO.phototal}</td>
-								</tr> 
-							</c:if>            		
-                		</c:forEach>
+								</tr>							
+							
 					</c:forEach>  
                 </tbody>
               </table>
