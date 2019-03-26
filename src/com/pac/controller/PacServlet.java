@@ -861,21 +861,24 @@ public class PacServlet extends HttpServlet {
 					/*************************** 1.接收請求參數 ****************************************/
 					String pacno = req.getParameter("pacno");
 					String triname = req.getParameter("triname");
-
+					String whichPage = req.getParameter("whichPage");
+					
 					/*************************** 2.開始查詢資料 ****************************************/
 					PacService pacSvc = new PacService();
 					Set<PtpVO> set = pacSvc.getPtpsByPacno(pacno);
 
 					/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-					req.setAttribute("listPtps_ByPacno", set);    // 資料庫取出的list物件,存入request
+					HttpSession session = req.getSession();
+					session.setAttribute("listPtps_ByPacno", set);    // 資料庫取出的list物件,存入request
 					req.setAttribute("triname", triname);
 					req.setAttribute("pacno", pacno);
+					req.setAttribute("whichPage", whichPage);
 					
 					String url = null;
 					if ("listPtps_ByPacno_A".equals(action))
 						url = "/backend/ptp/listPtps_ByPacno.jsp";        // 成功轉交 dept/listEmps_ByDeptno.jsp
 					else if ("listPtps_ByPacno_B".equals(action))
-						url = "/backend/ptp/listAllPacX.jsp";              // 成功轉交 dept/listAllDept.jsp
+						url = "/backend/ptp/listAllPacX.jsp?whichPage="+whichPage;              // 成功轉交 dept/listAllDept.jsp
 
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);

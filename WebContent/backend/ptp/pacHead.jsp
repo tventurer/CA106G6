@@ -9,7 +9,7 @@
 <jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
 
 <%
-PtpVO ptpVO = ptpSvc.getOnePtp("PTP000009");
+PtpVO ptpVO = ptpSvc.getOnePtp("PTP000001");
 String pacno = ptpVO.getPacno();
 PacVO pacVO = pacSvc.getOnePac(pacno);
 List<PacVO> listpac = pacSvc.getAll();
@@ -130,6 +130,6 @@ pageContext.setAttribute("listptp", listptp);
   <script src="<%=request.getContextPath()%>/style/f/js/main.js"></script>
   
 
-
+<jsp:include page="/frontend/footer.jsp"/>
 </body>
 </html>

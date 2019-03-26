@@ -123,7 +123,7 @@ request.setAttribute("pacVO", pacVO);
                   </div>
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">報名截止時間:</label>
-                    <input name="ptpsigndle" class="form-control form-control-lg" id="inputLarge" type="text"
+                    <input name="ptpsigndle" class="form-control form-control-lg f_date2" id="inputLarge" type="text"
                     value="<%= (ptpVO == null)? "" : ptpVO.getPtpsigndle()%>" >
                   </div>
                   <tr>

@@ -12,6 +12,11 @@ List<PacVO> list = pacSvc.getAll();
 pageContext.setAttribute("list",list);
 List<PtpVO> listptp = ptpSvc.getAll();
 pageContext.setAttribute("listptp",listptp);
+
+String queryString = request.getParameter("whichPage");
+if (queryString == null) {
+	session.removeAttribute("listPtps_ByPacno");
+}
 %>
 
 <html>
@@ -69,7 +74,8 @@ pageContext.setAttribute("listptp",listptp);
 			<input type="submit" value="送出查詢"> 
 			<input type="hidden" name="pacno" value="${pacVO.pacno}">
 				<input type="hidden" name="triname" value="${pacVO.pacname}">
-			    <input type="hidden" name="action" value="listPtps_ByPacno_B"></FORM>
+				<input type="hidden" name="whichPage" value="<%=whichPage%>">
+ 			    <input type="hidden" name="action" value="listPtps_ByPacno_B"></FORM>
 			</td>
 			        </tr>
 			</c:forEach>
@@ -80,7 +86,7 @@ pageContext.setAttribute("listptp",listptp);
 		</div>       
 		                        
 			<div class="col-6">
-				 <%if (request.getAttribute("listPtps_ByPacno")!=null){%>
+				 <%if (session.getAttribute("listPtps_ByPacno")!=null){%>
 					<jsp:include page="listPtps_ByPacno.jsp" />
 				 <%} %>  
 			</div> 

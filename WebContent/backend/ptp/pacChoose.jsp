@@ -114,6 +114,8 @@ String errorInfo = (String)request.getAttribute("loginError");
               .filter(vo -> vo.getPacno().equals(pacVO.getPacno()))
               .collect(java.util.stream.Collectors.toList());
   request.setAttribute("newlist", newlist);
+  boolean isEmpty = (newlist.size() == 0) ? true : false;
+  request.setAttribute("isEmpty", isEmpty);
 %>
 	
 	<c:forEach var="ptpVO" items="${newlist}" >
@@ -148,13 +150,16 @@ String errorInfo = (String)request.getAttribute("loginError");
 			    <input type="hidden" name="action"	   value="joinPtp1"></FORM>
 			</td>
 			</c:if>
-			<c:if test="${ptpVO.pacno!=pacVO.pacno}">
-				<tr><td><h4>無出團資訊</h4></tr></tr>
-			</c:if>
+			
 			</c:forEach>
-			<h4>無出團資訊</h4></tr>
+			<c:if test="${isEmpty}">
+				<tr><td><h4>暫無出團資訊</h4></td></tr>
+			</c:if>
 			
 </table>
+</div>
+</div>
+</section>
         
   <!-- JavaScript Libraries -->
   <script src="<%=request.getContextPath()%>/style/f/lib/jquery/jquery.min.js"></script>
@@ -169,6 +174,10 @@ String errorInfo = (String)request.getAttribute("loginError");
 
   <!-- Template Main Javascript File -->
   <script src="<%=request.getContextPath()%>/style/f/js/main.js"></script>
+ 
 
+
+
+<jsp:include page="/frontend/footer.jsp"/>
 </body>
 </html>

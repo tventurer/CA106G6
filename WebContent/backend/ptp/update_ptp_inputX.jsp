@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>套裝行程修改 - update_ptp_inputX.jsp</title>
+<title>出團細節修改 - update_ptp_inputX.jsp</title>
 
 <style>
   table#table-1 {
@@ -56,6 +56,11 @@
           
         </div>
       </div>
+
+ <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="tile">
+            <div class="tile-body">
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -65,10 +70,6 @@
 		</c:forEach>
 	</ul>
 </c:if>
- <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="tile">
-            <div class="tile-body">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" name="form1">
 <table>
 	 <div class="form-group">

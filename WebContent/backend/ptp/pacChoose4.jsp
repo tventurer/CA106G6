@@ -263,5 +263,6 @@
   <!-- Template Main Javascript File -->
   <script src="<%=request.getContextPath()%>/style/f/js/main.js"></script>
 
+<jsp:include page="/frontend/footer.jsp"/>
 </body>
 </html>

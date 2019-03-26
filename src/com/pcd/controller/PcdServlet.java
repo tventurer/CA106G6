@@ -511,7 +511,7 @@ public class PcdServlet extends HttpServlet {
 					try {
 						pcdstatus = new Integer(req.getParameter("pcdstatus"));
 					} catch (Exception e) {
-						errorMsgs.add("套裝狀態不合格式");
+						errorMsgs.add("訂單狀態不合格式");
 					}
 					String pcdsecphone = req.getParameter("pcdsecphone");
 					if (pcdsecphone == null || pcdsecphone.trim().length() == 0) {

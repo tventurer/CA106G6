@@ -540,9 +540,7 @@ if ("updateX".equals(action)) { // 來自update_emp_input.jsp的請求
 			System.out.println("16");            
 			String url = requestURL;
 System.out.println("-----------------------------------url="+url);	
-			RequestDispatcher successView = req.getRequestDispatcher(url);   // 修改成功後,轉交回送出修改的來源網頁
-			successView.forward(req, res);
-			System.out.println("17");
+			res.sendRedirect(requestURL);
 			
 			/***************************其他可能的錯誤處理*************************************/
 		} catch (Exception e) {

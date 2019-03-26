@@ -4,7 +4,8 @@
 <%@ page import="com.ptp.model.*"%>
 <%@ page import="com.pac.model.*"%>
 
-<jsp:useBean id="listPtps_ByPacno" scope="request" type="java.util.Set<PtpVO>" /> <!-- 於EL此行可省略 -->
+
+<jsp:useBean id="listPtps_ByPacno" scope="session" type="java.util.Set<PtpVO>" /> <!-- 於EL此行可省略 -->
 <jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService" />
 
 <html>
@@ -125,8 +126,8 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" style="margin-bottom: 0px;">
 			    <input type="submit" value="修改"> 
 			    <input type="hidden" name="ptpno"      value="${ptpVO.ptpno}">
-			    <input type="hidden" name="requestURL" value="/backend/ptp/listAllPacX.jsp"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
-			    <input type="hidden" name="action"	   value="getOne_For_UpdateX"></FORM>
+			    <input type="hidden" name="requestURL" value="<%=request.getContextPath()%>/backend/ptp/listAllPacX.jsp?whichPage=${whichPage}"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
+				<input type="hidden" name="action"	   value="getOne_For_UpdateX"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" style="margin-bottom: 0px;">

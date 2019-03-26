@@ -183,14 +183,15 @@ mso-fareast-font-family:新細明體;mso-font-kerning:0pt"><o:p></o:p></span></p
    </tr>
   </tbody></table>
   </td>
-  <td>
-                                    <td height="10px">
-                                    </td>
-  </td>
-  
  </tr>
 </section>
 
+</tbody>
+</table>
+</section>
+
+
 <br>
+<jsp:include page="/frontend/footer.jsp" />
 </body>
 </html>

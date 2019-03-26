@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>套裝行程修改 - update_ptp_inputY.jsp</title>
+<title>出團細節修改 - @@@@!!!!update_ptp_inputY.jsp</title>
 
 <style>
   table#table-1 {
@@ -66,8 +66,8 @@
 		</c:forEach>
 	</ul>
 </c:if>
- <div class="row">
-        <div class="col-md-6">
+ <div class="row justify-content-center">
+        <div class="col-md-8">
           <div class="tile">
             <div class="tile-body">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" name="form1">
@@ -83,16 +83,15 @@
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="pacno"
                     						 value="<%= ptpVO.getPacno()%>">
                   </div> 
-                  <fmt:formatDate var="ptpstart" type="both" value="${ptpVO.ptpstart}" pattern="yyyy-MM-dd HH:mm" />
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">出發時間:</label>
                     <input class="form-control form-control-lg f_date1 " id="inputLarge" type="text" name="ptpstart"
-						 value=${ptpstart} >
+						 value="<%= ptpVO.getPtpstart() %>" >
                   </div> 
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">回程時間:</label>
                     <input class="form-control form-control-lg f_date2" id="inputLarge" type="text" name="ptpend"  
-						 value="<%= (ptpVO==null)? "PTP000002" : ptpVO.getPtpend()%>">
+						 value="<%= (ptpVO==null)? "" : ptpVO.getPtpend()%>">
                   </div> 
                   
                   <div class="form-group">
@@ -128,13 +127,11 @@
                       <option value=3>保證出團</option>
                     </select>
                   </div>
-                  
-                  
-                   <fmt:formatDate var="ptptimelog" type="both" value="${ptpVO.ptptimelog}" pattern="yyyy-MM-dd HH:mm" />
+                   
                   <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">上架時間:</label>
                     <input class="form-control form-control-lg f_date1" id="inputLarge" type="text" name="ptptimelog" 
-						 value=${ptptimelog}>
+						 value="<%=ptpVO.getPtpstart() %>">
                   </div> 
 	
 <%-- 	<jsp:useBean id="deptSvc" scope="page" class="com.pac.model.DeptService" /> --%>
@@ -175,7 +172,7 @@ $('.f_date1').datetimepicker({
    		theme: '',              //theme: 'dark',
    		timepicker:true,       //timepicker:true,
    		step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
-  		format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',
+  		format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
    
    		//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
    		//startDate:	            '2017/07/10',  // 起始日

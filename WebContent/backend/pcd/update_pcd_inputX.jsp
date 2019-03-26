@@ -40,6 +40,14 @@
 					</div>
 				</div>
 			</section>
+			<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 <div class="row justify-content-center">
         <div class="col-md-8">
           <div class="tile">
@@ -92,6 +100,8 @@
                   <div class="form-group">
                     <label for="exampleSelect1">繳費狀態:</label>
                     <span><%= pcdVO.getPcdstatus()%> </span>
+                    <input class="form-control form-control-lg" id="inputLarge" type="hidden" name="pcdstatus"
+					 	value="<%= pcdVO.getPcdstatus()%>" />
                   </div>
                   
 	<div class="form-group">
@@ -110,11 +120,6 @@
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdmark"
 					 	 value="<%= (pcdVO.getPcdmark()==null) ? "無" : pcdVO.getPcdmark()%>" />
                  <br>
-
-
-
-
-
 
 
 <br>
@@ -145,7 +150,7 @@
 $.datetimepicker.setLocale('zh');
 $('.f_date1').datetimepicker({
    		theme: 'pink',              //theme: 'dark',
-   		timepicker:false,       //timepicker:true,
+   		timepicker:true,       //timepicker:true,
    		step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
   		format:'Y-m-d',         //format:'Y-m-d H:i:s',
    
