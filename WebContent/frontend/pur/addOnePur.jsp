@@ -228,7 +228,7 @@ pageContext.setAttribute("name",name);
   </section>
   <!--/ Property Grid End /-->
 
-
+<jsp:include page="/frontend/footer.jsp" />
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
 

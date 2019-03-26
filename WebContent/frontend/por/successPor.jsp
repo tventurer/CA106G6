@@ -82,7 +82,7 @@ pageContext.setAttribute("Acrlist",Acrlist);
     </div>
   </section>
   <!--/ Agents Grid End /-->
-
+<jsp:include page="/frontend/footer.jsp" />
 
   <!--/ Footer End /-->
 

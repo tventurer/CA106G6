@@ -34,7 +34,7 @@ public class AcrDAO implements AcrDAO_interface{
 				"select sum(ACRPRICE) as tatolacr from accountrecord where memno=?";
 		
 		private static final String GET_MEMALL_STMT = 
-				"SELECT * FROM ACCOUNTRECORD where MEMNO=? order by ACRTIME";
+				"SELECT * FROM ACCOUNTRECORD where MEMNO=? order by ACRTIME DESC";
 		
 		//尋找會員時間區間的儲值
 		private static final String GET_MEMTIME_STMT = 
