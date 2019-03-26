@@ -31,7 +31,7 @@
   <script src='<%=request.getContextPath()%>/bootstrap/sweetAlert/sweetalert.min.js'></script>
 
 </head>
-<body <c:if test="${sessionScopememno != null}">onload="connect();" onunload="disconnect();" </c:if> >
+<body <c:if test="${sessionScope.memno != null}">onload="connect();" onunload="disconnect();" </c:if> >
 
   <!--/ Nav Star /-->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
