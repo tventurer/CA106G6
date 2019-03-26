@@ -85,10 +85,8 @@
 		<th>行程價格</th>
 		<th>預繳訂金</th>
 		<th>特色標籤</th>
-		<th>行程內容</th>
 		<th>行程特色1</th>
 		<th>行程特色2</th>
-		<th>注意事項</th>
 		<th>套裝狀態</th>
 		<th>修改</th>
 		<th>刪除</th>
@@ -105,10 +103,8 @@
 			<td>${pacVO.pacprice}</td> 
 			<td>${pacVO.pacdeposit}</td>
 			<td>${pacVO.pacdiv}</td>
-			<td>${pacVO.paccontent}</td>
 			<td><img width="150px" src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=1"></td>
 			<td><img width="150px" src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=2"></td>
-			<td>${pacVO.pacremark}</td>
 			<td>
 			<c:if test="${pacVO.pacstatus == 0}">可出團</c:if>
 			<c:if test="${pcdVO.pcdstatus == 1}">不再出團</c:if>

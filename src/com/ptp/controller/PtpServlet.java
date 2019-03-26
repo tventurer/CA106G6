@@ -519,7 +519,7 @@ if ("updateX".equals(action)) { // 來自update_emp_input.jsp的請求
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("ptpVO", ptpVO); // 含有輸入格式錯誤的ptpVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/ptp/update_ptp_input.jsp");
+						.getRequestDispatcher("/backend/ptp/update_ptp_inputX.jsp");
 				failureView.forward(req, res);
 				return; //程式中斷
 			}
@@ -547,7 +547,7 @@ System.out.println("-----------------------------------url="+url);
 			e.printStackTrace();
 			errorMsgs.add("修改資料失敗:"+e.getMessage());
 			RequestDispatcher failureView = req
-					.getRequestDispatcher("/backend/ptp/update_ptp_input.jsp");
+					.getRequestDispatcher("/backend/ptp/update_ptp_inputX.jsp");
 			failureView.forward(req, res);
 				
 			}
