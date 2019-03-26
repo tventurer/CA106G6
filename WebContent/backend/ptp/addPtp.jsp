@@ -60,8 +60,7 @@ request.setAttribute("pacVO", pacVO);
 <main class="app-content">
 <div class="app-title">
         <div>
-          <h1><i class="fa fa-edit"></i> 新增套裝行程</h1>
-          
+          <h1><i class="fa fa-edit"></i> 新增出團時間</h1>
         </div>
       </div>
       
@@ -75,8 +74,8 @@ request.setAttribute("pacVO", pacVO);
 	</ul>
 </c:if>
 
-<div class="row">
-        <div class="col-md-6">
+<div class="row justify-content-center">
+        <div class="col-md-8">
           <div class="tile">
             <div class="tile-body">
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" name="form1">

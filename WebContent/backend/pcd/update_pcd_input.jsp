@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>訂單修改 - update_pcd_input.jsp</title>
+<title>訂單修改 -update_pcd_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -63,7 +63,10 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+<div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="tile">
+            <div class="tile-body">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pcd/pcd" name="form1">
  				  <div class="form-group">
                     <label class="col-form-label col-form-label-lg" for="inputLarge">套裝訂單編號:<td><font color=red><b>*</b></font></label>
@@ -137,11 +140,15 @@
                     <label class="col-form-label col-form-label-lg" for="inputLarge">需求備註:</label>
                     <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdmark"
 					 	 value="<%= (pcdVO.getPcdmark()==null) ? "無" : pcdVO.getPcdmark()%>" />
+                 <br>
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="pcdno" value="<%=pcdVO.getPcdno()%>">
+						<input type="submit" value="送出修改"></FORM>
                   </div>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="pcdno" value="<%=pcdVO.getPcdno()%>">
-<input type="submit" value="送出修改"></FORM>
+                  </div>
+                   </div>
+                    </div>
+
 </body>
 
 

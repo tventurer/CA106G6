@@ -105,7 +105,7 @@ public class PtpServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/ptp/select_page.jsp");
+							.getRequestDispatcher("/backend/ptp/ptphead.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -121,7 +121,7 @@ public class PtpServlet extends HttpServlet {
 								
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/ptp/select_page.jsp");
+							.getRequestDispatcher("/backend/ptp/ptphead.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -133,7 +133,7 @@ public class PtpServlet extends HttpServlet {
 				PtpService ptpSvc = new PtpService();
 				PtpVO ptpVO = ptpSvc.getOnePtp(ptpno);
 				if (ptpVO == null) {
-					errorMsgs.add("查無資料");
+					errorMsgs.add("無出團資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -145,7 +145,7 @@ public class PtpServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("ptpVO", ptpVO); // 資料庫取出的ptpVO物件,存入req
-				String url = "/backend/ptp/pacChoose2.jsp";
+				String url = "/backend/ptp/pacChoose4.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOnePtp.jsp
 				successView.forward(req, res);
 
@@ -731,6 +731,10 @@ if ("updateY".equals(action)) { // 來自update_emp_input.jsp的請求
 						ptpend=new java.sql.Date(System.currentTimeMillis());
 						errorMsgs.add("請輸入回程日期!");
 					}
+					if(ptpend.before(ptpstart)) {
+						errorMsgs.add("回程日期不得小於出發時間!");
+					}
+					
 					
 					java.sql.Date ptpsigndle = null;
 					try {

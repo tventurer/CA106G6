@@ -70,7 +70,9 @@
 		</c:forEach>
 	</ul>
 </c:if>
-      <div class="row">
+
+
+      <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="tile">
             <div class="tile-body">
@@ -78,42 +80,42 @@
 				<div class="form-group">
                   <label class="control-label">行程名稱:</label>
                   <input class="form-control form-control-lg" id="inputLarge" type="TEXT" name="pacname" 
-			 		value="<%= (pacVO==null)? "  好多名字" : pacVO.getPacname()%>" />
+			 		value="<%= (pacVO==null)? "" : pacVO.getPacname()%>" />
                 </div>
                 <div class="form-group">
                   <input class="form-control form-control-lg" id="inputLarge" type="hidden" name="empno" 
-			 value="<%= (pacVO==null)? "EMP000001" : pacVO.getEmpno()%>" />
+			 		value="<%= (pacVO==null)? "EMP000001" : pacVO.getEmpno()%>" />
                 </div>
                 <div class="form-group">
                   <label class="control-label">旅遊國家:</label>
                   <input type="TEXT" class="form-control form-control-lg" id="inputLarge" name="paccountry" 
-						 value="<%= (pacVO==null)? "國家" : pacVO.getPaccountry()%>" />
+						 value="<%= (pacVO==null)? "" : pacVO.getPaccountry()%>" />
                 </div>
                 <div class="form-group">
                   <label class="control-label">旅遊城市:</label>
                   <input type="TEXT" name="paccity" class="form-control form-control-lg" id="inputLarge"
-						 value="<%= (pacVO==null)?"城市" : pacVO.getPaccity()%>" />
+						 value="<%= (pacVO==null)? "" : pacVO.getPaccity()%>" />
 			   </div>
                 <div class="form-group">
                   <label class="control-label">旅遊天數:</label>
 				  <input type="TEXT" name="pactotalday"  class="form-control form-control-lg" id="inputLarge"
-			 			 value="<%= (pacVO==null)? "6" : pacVO.getPactotalday()%>" />
+			 			 value="<%= (pacVO==null)? "" : pacVO.getPactotalday()%>" />
 			   </div>
                 <div class="form-group">
                   <label class="control-label">團費價格:</label>
 				  <input type="TEXT" name="pacprice"  class="form-control form-control-lg" id="inputLarge"
-			 			 value="<%= (pacVO==null)? "88000" : pacVO.getPacprice()%>" />
+			 			 value="<%= (pacVO==null)? "" : pacVO.getPacprice()%>" />
 			   </div>
 			   
 			    <div class="form-group">
                   <label class="control-label">預繳訂金:</label>
 				  <input type="TEXT" name="pacdeposit"  class="form-control form-control-lg" id="inputLarge"
-			 			 value="<%= (pacVO==null)? "6666" : pacVO.getPacdeposit()%>" />
+			 			 value="<%= (pacVO==null)? "" : pacVO.getPacdeposit()%>" />
 			   </div>
 			   <div class="form-group">
                   <label class="control-label">特色標籤:</label>
 				  <input type="TEXT" name="pacdiv" class="form-control form-control-lg" id="inputLarge"
-			 			 value="<%= (pacVO==null)? "特色標籤" : pacVO.getPacdiv()%>" />
+			 			 value="<%= (pacVO==null)? "" : pacVO.getPacdiv()%>" />
 			   </div>
 			   <div class="form-group">
                   <label class="control-label">行程內容:</label>
@@ -144,7 +146,10 @@
                
                <div class="form-group">
                   <label class="control-label">注意事項:</label>
-                  <textarea name="pacremark" class="form-control" rows="4" placeholder="ckEdit"><%=(pacVO==null)?"注意事項": pacVO.getPacremark()%></textarea>
+               <TEXTAREA name="pacremark" rows="10" cols="80"><%=(pacVO==null)?"": pacVO.getPacremark()%></textarea>
+                <script>
+					CKEDITOR.replace( 'pacremark' );
+				  </script>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
