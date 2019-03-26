@@ -2246,8 +2246,15 @@ function addHotelMarker(){
             		 		});
             	 		}
             	   });
-				  
-				  
+             	 	
+             	 	
+             	 	//避免事件蔓延
+             	 	$('.startTime').on('click',function(e){
+             	 		e.stopPropagation();
+             	 	});
+             	 	$('.finishTime').on('click',function(e){
+             	 		e.stopPropagation();
+             	 	});
 				  
 				  
               }
@@ -2432,7 +2439,7 @@ function addHotelMarker(){
 	 		}
 	   });
  	 	
- 	 	
+ 	  	
 	</script>
 
 	<script>
@@ -2452,6 +2459,12 @@ function addHotelMarker(){
 	
 	$('#tripList').on('click', 'li', function(e){
 		var sponame = e.currentTarget.childNodes[2].innerText;
+		
+		if(typeof(sponame) == "undefined"){
+			sponame = e.currentTarget.childNodes[2].data.trim();
+		}
+		
+		debugger
 		
 		$.ajax({
 			 type: "POST",

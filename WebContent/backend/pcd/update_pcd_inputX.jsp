@@ -1,149 +1,132 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.*"%>
 <%@ page import="com.pcd.model.*"%>
-
 <%
-  PcdVO pcdVO = (PcdVO) request.getAttribute("pcdVO"); //EmpServlet.java (Concroller) ¦s¤JreqªºpcdVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºpcdVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºpcdVOª«¥ó)
+  PcdVO pcdVO = (PcdVO) request.getAttribute("pcdVO"); //EmpServlet.java (Concroller) å­˜å…¥reqçš„pcdVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„pcdVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„pcdVOç‰©ä»¶)
   pageContext.setAttribute("pcdVO", pcdVO);
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>®M¸Ë¦æµ{­×§ï - update_pcd_input.jsp</title>
+<title>å¥—è£è¡Œç¨‹ä¿®æ”¹ - update_pcd_input.jsp</title>
 
-<style>
-  table#table-1 {
-	background-color: Yellow;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
 
 </head>
-<body bgcolor='white'>
+<body>
+<jsp:include page="/frontend/navbar.jsp"/>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>·|­û­q³æ­×§ï - update_pcd_inputX.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
-	</td></tr>
-</table>
 
-<h3>¸ê®Æ­×§ï:</h3>
+<h3>è³‡æ–™ä¿®æ”¹:</h3>
 
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
 		</c:forEach>
 	</ul>
 </c:if>
-
+<section class="intro-single">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-lg-8">
+					<div class="title-single-box">
+						<h1 class="title-single">ä¿®æ”¹è¨‚å–®</h1>
+					</div>
+				</div>
+			</section>
+<div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="tile">
+            <div class="tile-body">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pcd/pcd" name="form1">
-<table>
-	<tr>
-		<td>®M¸Ë­q³æ½s¸¹:<font color=red><b>*</b></font></td>
-		<td><%=pcdVO.getPcdno()%></td>
-	</tr>	
-	<tr>
-		<td>¥X¹Î¤º®e½s¸¹:</td>
-		<td><%= pcdVO.getPtpno() %></td>
-		<td><input type="hidden" name="ptpno" size="30" 
-			 value="<%= pcdVO.getPtpno()%>" /></td>
-	</tr>
-	<jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService"/>
-	<jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
-	<tr>
-		<td>¥X¹Î¦æµ{¦WºÙ:</td>
-		<td>${pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacname}</td>
-	</tr>
-	<tr>
-		<td>·|­û½s¸¹:</td>
-		<td><%= pcdVO.getMemno()%></td>
-		<td><input type="hidden" name="memno" size="30"
-			 value="<%= pcdVO.getMemno()%>" /></td>
-	</tr>
-	<tr>
-		<td>°Ñ¥[¤H¼Æ:</td>
-		<td>${pcdVO.pcdtripmen}</td>
-		<td><input type="hidden" name="pcdtripmen" size="30"
-			 value="<%= (pcdVO.getPcdtripmen() == null)? "":pcdVO.getPcdtripmen() %>"></td>
-	</tr>
-	<tr>
-		<td>Ãº¶O¤é´Á:</td>
-		<td><%= pcdVO.getPcdordday()%></td>
-		<td><input type="hidden" name="pcdordday" class="f_date1" size="30"
-			 value="<%= pcdVO.getPcdordday()%>" /><br>
-		<h6><font color=blue>
-		<b>¬°«O»ÙÅv¯q¡A½Ğ©ó­q©Ğ«á2¤é¤º¶×¤J­qª÷¡A¹O´ÁÃº¯Ç®¤¤£«O¯d¡A¤£¥t¦æ³qª¾</b></font></h6>
-		</td>
-			 
-	</tr>
+ 				  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">å¥—è£è¨‚å–®ç·¨è™Ÿ:<td><font color=red><b>*</b></font></label>
+                    <label><%=pcdVO.getPcdno()%></label>
+                  </div> 
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">å‡ºåœ˜å…§å®¹ç·¨è™Ÿ:</label>
+                    <span><%= pcdVO.getPtpno()%></span>
+                    <input class="form-control form-control-lg" name="ptpno" id="inputLarge" type="hidden" value="<%= pcdVO.getPtpno()%>">
+                  </div> 
+                  <jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
+				  <jsp:useBean id="pcdSvc" scope="page" class="com.pcd.model.PcdService"/>
+				  <jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService"/>
+                  <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">å‡ºåœ˜è¡Œç¨‹åç¨±:</label>
+                    <label><font color=blue>${pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacname}</font></label>
+                  </div> 
+                  
+                 
+				  <div class="form-group">
+                    <input class="form-control form-control-lg" id="inputLarge" type="hidden" name="memno"
+					 	value="<%= pcdVO.getMemno()%>">
+                  </div>
+                   <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">åƒåŠ äººæ•¸:</label>
+                    <span><%= pcdVO.getPcdtripmen()%></span>
+                    <input class="form-control form-control-lg" id="inputLarge" type="hidden" name="pcdtripmen"
+					 	value="<%= pcdVO.getPcdtripmen()%>">
+                  </div>
 	
-	<tr>
-		<td>Ãº¶Oª÷ÃB:</td>
-		<td>${pcdVO.pcdtripmen*pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacprice}</td>
-		<td><input type="hidden" name="pcdmoney" size="30"
-			 value="${pcdVO.pcdtripmen*pacSvc.getOnePac(ptpSvc.getOnePtp(pcdVO.ptpno).pacno).pacprice}" /></td>
-	</tr>
-	<tr>
-		<td>Ãº¶Oª¬ºA:</td>
-		<td>
-			<select name="pcdstatus">
-				<option value=0>¥¼Ãº¶O
-			</select> 
-	</tr>
-	<tr>
-		<td>¦¸­nÁpµ¸¤H¤â¾÷:</td>
-		<td><%= pcdVO.getPcdsecphone()%></td>
-		<td><input type="hidden" name="pcdsecphone" size="30"
-			 value="<%= pcdVO.getPcdsecphone()%>" /></td>
-	</tr>
+	 <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">ç¹³è²»æ—¥æœŸ:</label>
+                    <span><%= pcdVO.getPcdordday()%></span>
+                    <input class="form-control form-control-lg f_date1" id="inputLarge" type="hidden" name="pcdordday"
+					 	 value="<%= pcdVO.getPcdordday()%>" />
+                  </div>
 	
-	<tr>
-		<td>°Ñ¹Î¤H­û¸ê®Æ:</td>
-		<td><input type="TEXT" name="pcdfamdata" size="30"
-			 value="<%= pcdVO.getPcdfamdata()%>" /></td>
-	</tr>
-	<tr>
-		<td>»İ¨D³Æµù:</td>
-		<td><input type="TEXT" name="pcdmark" size="30"
-			 value="<%= (pcdVO.getPcdmark()==null) ? "" : pcdVO.getPcdmark()%>" /></td>
-	</tr>
-</table>
+	 <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">ç¹³è²»é‡‘é¡:</label>
+                    <span><%= pcdVO.getPcdmoney()%></span>
+                    <input class="form-control form-control-lg" id="inputLarge" type="hidden" name="pcdmoney"
+					 	value="<%= pcdVO.getPcdmoney()%>">
+                  </div>
+	
+	     
+                  <div class="form-group">
+                    <label for="exampleSelect1">ç¹³è²»ç‹€æ…‹:</label>
+                    <span><%= pcdVO.getPcdstatus()%> </span>
+                  </div>
+                  
+	<div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">æ¬¡è¦è¯çµ¡äººæ‰‹æ©Ÿ:</label>
+                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdsecphone"
+					 	pattern="^09\d\d\d\d\d\d\d\d$"  value="<%= pcdVO.getPcdsecphone()%>" />
+                  </div>
+      <div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">åƒåœ˜äººå“¡è³‡æ–™:</label>
+                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdfamdata"
+					 	value="<%= pcdVO.getPcdfamdata()%>" />
+                  </div>            
+	
+	<div class="form-group">
+                    <label class="col-form-label col-form-label-lg" for="inputLarge">éœ€æ±‚å‚™è¨»:</label>
+                    <input class="form-control form-control-lg" id="inputLarge" type="text" name="pcdmark"
+					 	 value="<%= (pcdVO.getPcdmark()==null) ? "ç„¡" : pcdVO.getPcdmark()%>" />
+                 <br>
+
+
+
+
+
+
+
 <br>
 <input type="hidden" name="action" value="updateX">
 <input type="hidden" name="pcdno" value="<%=pcdVO.getPcdno()%>">
-<input type="submit" value="°e¥X­×§ï"></FORM>
-</body>
+<input type="submit" value="é€å‡ºä¿®æ”¹"></FORM>
+</div></div></div></div>
 
+
+
+</body>
+</div>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -163,13 +146,13 @@ $.datetimepicker.setLocale('zh');
 $('.f_date1').datetimepicker({
    		theme: 'pink',              //theme: 'dark',
    		timepicker:false,       //timepicker:true,
-   		step: 60,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
+   		step: 60,                //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
   		format:'Y-m-d',         //format:'Y-m-d H:i:s',
    
-   		//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-   		//startDate:	            '2017/07/10',  // °_©l¤é
-   		//minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-  		//maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
+   		//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // å»é™¤ç‰¹å®šä¸å«
+   		//startDate:	            '2017/07/10',  // èµ·å§‹æ—¥
+   		//minDate:               '-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+  		//maxDate:               '+1970-01-01'  // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å¾Œ
 });
 
 

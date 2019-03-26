@@ -63,11 +63,11 @@
 <%-- 		 <h4><a href="../ptp/addPtp.jsp?pacno=${pacno}&pacname=${triname}"><img src="images/back1.gif" width="100" height="32" border="0">新增出團時間</a></h4> --%>
 <!-- 	</td></tr> -->
 <!-- </table> -->
-<div class="container-fluid">
-		<div class="row">
-		 <div class="col-6">
-			          <div class="tile">
-			            <h3 class="tile-title"><font color='#0066FF'>${triname}</font><br><h4><a href="../ptp/addPtp.jsp?pacno=${pacno}&pacname=${triname}"><img src="images/world.jpg" width="100" height="100" border="0">新增出團時間</a></h4></h3>
+<div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="tile">
+            <h3 class="tile-title"><font color='#0066FF'>${triname}</font><br></h3>
+			<h4><a href="../ptp/addPtp.jsp?pacno=${pacno}&pacname=${triname}"><img src="images/world.jpg" width="100" height="100" border="0">新增出團時間</a></h4>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -79,7 +79,7 @@
 </c:if>
 
 <table class="table table-hover table-bordered" style="background-color: white;">
-	<thead style="background-color: white;">
+	<thead>
 	<tr>
 		<th>價格</th>
 		<th>行程編號</th>

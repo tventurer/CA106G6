@@ -65,8 +65,8 @@
 		</c:forEach>
 	</ul>
 </c:if>
- <div class="row">
-        <div class="col-md-12">
+ <div class="row justify-content-center">
+        <div class="col-md-8">
           <div class="tile">
             <div class="tile-body">
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/ptp/ptp" name="form1">

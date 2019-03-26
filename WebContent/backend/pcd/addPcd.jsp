@@ -62,13 +62,10 @@
           
         </div>
       </div>
-<div class="row">
+<div class="row justify-content-center">
         <div class="col-md-6">
           <div class="tile">
             <div class="tile-body">
-
-
-
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/pcd/pcd" name="form1">
 				  
 				  <div class="form-group">
@@ -133,6 +130,8 @@
                   </div>
 <input type="hidden" name="action" value="insertX">
 <input type="submit" value="送出新增"></FORM>
+</div></div></div>
+</main>
 </body>
 
 

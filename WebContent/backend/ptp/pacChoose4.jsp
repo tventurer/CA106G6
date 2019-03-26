@@ -8,18 +8,18 @@
 <jsp:useBean id="ptpSvc" scope="page" class="com.ptp.model.PtpService"/>
 <jsp:useBean id="pacSvc" scope="page" class="com.pac.model.PacService"/>
 
-<%-- <%-- <% --%> --%>
-<!-- // String ptpno = request.getParameter("ptpno"); -->
-<!-- // PtpVO ptpVO = ptpSvc.getOnePtp(ptpno); -->
-<!-- // String pacno = ptpVO.getPacno(); -->
-<!-- // PacVO pacVO = pacSvc.getOnePac(pacno); -->
-<!-- // List<PacVO> list = pacSvc.getAll(); -->
-<!-- // pageContext.setAttribute("list",list); -->
-<!-- // List<PtpVO> listptp = ptpSvc.getAll(); -->
-<!-- // pageContext.setAttribute("ptpVO", ptpVO); -->
-<!-- // pageContext.setAttribute("pacVO", pacVO); -->
-<!-- // pageContext.setAttribute("listptp", listptp); -->
-<%-- <%-- %> --%> --%>
+<% 
+ String ptpno = request.getParameter("ptpno");
+ PtpVO ptpVO = ptpSvc.getOnePtp(ptpno);
+ String pacno = ptpVO.getPacno();
+ PacVO pacVO = pacSvc.getOnePac(pacno);
+ List<PacVO> list = pacSvc.getAll();
+ pageContext.setAttribute("list",list);
+ List<PtpVO> listptp = ptpSvc.getAll();
+ pageContext.setAttribute("ptpVO", ptpVO);
+ pageContext.setAttribute("pacVO", pacVO);
+ pageContext.setAttribute("listptp", listptp);
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,455 +28,240 @@
   <style>
   .carousel-item-b img{
       max-width:600px;
-      height:700px; 
+      height:400px; 
       
   }
 </style>
+
 </head>
 
 <body>
-
-  
-  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
-    <div class="container">
-      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
-        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <a class="navbar-brand text-brand" href="index.html">Estate<span class="color-b">Agency</span></a>
-      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
-        data-target="#navbarTogglerDemo01" aria-expanded="false">
-        <span class="fa fa-search" aria-hidden="true"></span>
-      </button>
-      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="property-grid.html">Property</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="blog-grid.html">Blog</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Pages
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="property-single.html">Property Single</a>
-              <a class="dropdown-item active" href="blog-single.html">Blog Single</a>
-              <a class="dropdown-item" href="agents-grid.html">Agents Grid</a>
-              <a class="dropdown-item" href="agent-single.html">Agent Single</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
-      </div>
-      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
-        data-target="#navbarTogglerDemo01" aria-expanded="false">
-        <span class="fa fa-search" aria-hidden="true"></span>
-      </button>
-    </div>
-  </nav>
-  <!--/ Nav End /-->
-
+<jsp:include page="/frontend/navbar.jsp"/>
   <!--/ Intro Single star /-->
   <section class="intro-single">
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">Book Cover Deisgn</h1>
-            <span class="color-text-a">News Single.</span>
+            <h1 class="title-single"><%=pacVO.getPacname()%></h1>
+            <span class="color-text-a"><%=pacVO.getPacno() %></span>
           </div>
         </div>
-        <div class="col-md-12 col-lg-4">
-          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Book Cover Deisgn
-              </li>
-            </ol>
-          </nav>
+        		<a href="join.jsp?ptpno=${ptpVO.ptpno}" class="link-a">
+                    <span class="ion-ios-arrow-forward">
+                      <img src="images/join.jpg" alt="">
+                    </span>
+                  </a>
         </div>
       </div>
-    </div>
   </section>
   <!--/ Intro Single End /-->
 
-  <!--/ News Single Star /-->
+ 
   <section class="news-single nav-arrow-b">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
           <div class="news-img-box">
-            <img src="img/slide-3.jpg" alt="" class="img-fluid">
+            <img src="<%=request.getContextPath()%>/DBGifReader?pacno=<%=pacVO.getPacno()%>&photo=1" alt="" class="img-fluid">
           </div>
         </div>
-        <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-          <div class="post-information">
-            <ul class="list-inline text-center color-a">
-              <li class="list-inline-item mr-2">
-                <strong>Author: </strong>
-                <span class="color-text-a">Morgan Jimenez</span>
-              </li>
-              <li class="list-inline-item mr-2">
-                <strong>Category: </strong>
-                <span class="color-text-a">Travel</span>
-              </li>
-              <li class="list-inline-item">
-                <strong>Date: </strong>
-                <span class="color-text-a">19 Apr. 2017</span>
-              </li>
-            </ul>
-          </div>
+         <div class="row justify-content-between">
+            <div class="col-md-5 col-lg-4">
+              <div class="property-price d-flex justify-content-center foo">
+                <div class="card-header-c d-flex">
+                  <div class="card-box-ico">
+                    <span class="ion-money">NT</span>
+                  </div>
+                  <div class="card-title-c align-self-center">
+                    <h2 class="title-c"><%=pacVO.getPacprice()%></h2>
+                  </div>
+                </div>
+              </div>
+             <div class="property-summary">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="title-box-d section-t4">
+                      <h3 class="title-d">出發資訊</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="summary-list">
+                  <ul class="list">
+                    <li class="d-flex justify-content-between">
+                      <strong>出發日期:</strong>
+                      <span><fmt:formatDate value="<%=ptpVO.getPtpstart() %>" pattern="yyyy-MM-dd HH:mm"/></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>抵達日期:</strong>
+                      <span><%=ptpVO.getPtpend() %></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>旅遊國家:</strong>
+                      <span><%=pacVO.getPaccountry()%></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>旅遊城市:</strong>
+                      <span><%=pacVO.getPaccity()%></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>最少成行:</strong>
+                      <span><%=ptpVO.getPtpminmen()%> 人
+                      </span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>可報名人數:</strong>
+                      <span><%=ptpVO.getPtpvacancy()%></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>訂金:</strong>
+                      <span><%=pacVO.getPacdeposit()%></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>備註:</strong>
+                      <span>   </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div> 
+            <div class="col-md-7 col-lg-7 section-md-t3">
+              <div class="row" style="line-height:15px;">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                  <span><br><br></span>
+                    <h3 class="title-d">您可參考</h3><br>
+                  </div>
+                   <a href="https://www.cwb.gov.tw/V7/index.htm"><img src="images/h003.png" alt=""></a><a href="https://rate.bot.com.tw/xrt?Lang=zh-TW"><img src="images/h004.png" alt=""></a>
+                    <a href="javascript:window.print()" _fcksavedurl="javascript:window.print()"><img src="images/h005.png"></a></span><span>
+                </div>
+              </div>
+              <div class="row section-t3">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+						<h4 class="title-d">${pacVO.pacdiv}	</h4>			  
+				  </div>
+                </div>
+              </div>
           <div class="post-content color-text-a">
-            <p class="post-intro">
-              Sed porttitor lectus nibh. Lorem ipsum dolor sit amet, consectetur
-              <strong>adipiscing</strong> elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-              Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-            </p>
-            <p>
-              Proin eget tortor risus. Donec sollicitudin molestie malesuada. Cras ultricies ligula sed magna dictum
-              porta. Pellentesque
-              in ipsum id orci porta dapibus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-              dui. Lorem ipsum dolor sit amet.
-            </p>
-            <p>
-              Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis ac
-              lectus. Curabitur
-              non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus. Curabitur non
-              nulla sit amet nisl tempus convallis quis ac lectus. Donec rutrum congue leo eget malesuada.
-              Quisque velit nisi.
-            </p>
-            <blockquote class="blockquote">
-              <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-              <footer class="blockquote-footer">
-                <strong>Albert Vargas</strong>
-                <cite title="Source Title">Author</cite>
-              </footer>
-            </blockquote>
-            <p>
-              Donec rutrum congue leo eget malesuada. Curabitur aliquet quam id dui posuere blandit. Vivamus suscipit
-              tortor eget felis
-              porttitor volutpat. Quisque velit nisi, pretium ut lacinia in, elementum id enim.
-            </p>
-          </div>
-          <div class="post-footer">
-            <div class="post-share">
-              <span>Share: </span>
-              <ul class="list-inline socials">
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                  </a>
-                </li>
-              </ul>
+            <div>
+            	<img src="<%=request.getContextPath()%>/DBGifReader?pacno=<%=pacVO.getPacno()%>&photo=2" alt="" class="img-fluid">
             </div>
-          </div>
-        </div>
-        <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
-          <div class="title-box-d">
-            <h3 class="title-d">Comments (4)</h3>
-          </div>
-          <div class="box-comments">
-            <ul class="list-comments">
-              <li>
-                <div class="comment-avatar">
-                  <img src="img/author-2.jpg" alt="">
-                </div>
-                <div class="comment-details">
-                  <h4 class="comment-author">Emma Stone</h4>
-                  <span>18 Sep 2017</span>
-                  <p class="comment-description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                    ipsam temporibus maiores
-                    quae natus libero optio, at qui beatae ducimus placeat debitis voluptates amet corporis.
-                  </p>
-                  <a href="3">Reply</a>
-                </div>
-              </li>
-              <li class="comment-children">
-                <div class="comment-avatar">
-                  <img src="img/author-1.jpg" alt="">
-                </div>
-                <div class="comment-details">
-                  <h4 class="comment-author">Oliver Colmenares</h4>
-                  <span>18 Sep 2017</span>
-                  <p class="comment-description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                    ipsam temporibus maiores
-                    quae.
-                  </p>
-                  <a href="3">Reply</a>
-                </div>
-              </li>
-              <li>
-                <div class="comment-avatar">
-                  <img src="img/author-2.jpg" alt="">
-                </div>
-                <div class="comment-details">
-                  <h4 class="comment-author">Emma Stone</h4>
-                  <span>18 Sep 2017</span>
-                  <p class="comment-description">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                    ipsam temporibus maiores
-                    quae natus libero optio.
-                  </p>
-                  <a href="3">Reply</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="form-comments">
-            <div class="title-box-d">
-              <h3 class="title-d"> Leave a Reply</h3>
-            </div>
-            <form class="form-a">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <div class="form-group">
-                    <label for="inputName">Enter name</label>
-                    <input type="text" class="form-control form-control-lg form-control-a" id="inputName" placeholder="Name *"
-                      required>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <div class="form-group">
-                    <label for="inputEmail1">Enter email</label>
-                    <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1"
-                      placeholder="Email *" required>
-                  </div>
-                </div>
-                <div class="col-md-12 mb-3">
-                  <div class="form-group">
-                    <label for="inputUrl">Enter website</label>
-                    <input type="url" class="form-control form-control-lg form-control-a" id="inputUrl" placeholder="Website">
-                  </div>
-                </div>
-                <div class="col-md-12 mb-3">
-                  <div class="form-group">
-                    <label for="textMessage">Enter message</label>
-                    <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45"
-                      rows="8" required></textarea>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-a">Send Message</button>
+        
+      </div>
+      
+      </div>
+      </div>
+      </div>
+      <a name="content"></a>
+      <div class="container">
+			<div class="row">
+			<div class="col-md-12">
+			<div class="tile">
+			<h3 class="tile-title"><img src="images/bgbar001.png" alt=""></h3> 
+			 <div class="row section-t3">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+						<a name="content"></a>${pacVO.paccontent}				  
+				  </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--/ News Single End /-->
-
-  <!--/ footer Star /-->
-  <section class="section-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12 col-md-4">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">EstateAgency</h3>
-            </div>
-            <div class="w-body-a">
-              <p class="w-text-a color-text-a">
-                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
-                sed aute irure.
-              </p>
-            </div>
-            <div class="w-footer-a">
-              <ul class="list-unstyled">
-                <li class="color-a">
-                  <span class="color-text-a">Phone .</span> contact@example.com</li>
-                <li class="color-a">
-                  <span class="color-text-a">Email .</span> +54 356 945234</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">The Company</h3>
-            </div>
-            <div class="w-body-a">
-              <div class="w-body-a">
-                <ul class="list-unstyled">
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Site Map</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Legal</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Agent Admin</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Careers</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Affiliate</a>
-                  </li>
-                  <li class="item-list-a">
-                    <i class="fa fa-angle-right"></i> <a href="#">Privacy Policy</a>
-                  </li>
-                </ul>
+              <div class="row section-t3">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h3 class="title-d">行程注意事項</h3>
+                  </div>
+                </div>
               </div>
+              <div class="amenities-list color-text-a">
+              <%=pacVO.getPacremark()%>
+              </div>
+              <span><a href="#content"><img src="images/h002.png" alt=""></a><a href="join.jsp?ptpno=${ptpVO.ptpno}" class="link-a"><img src="images/h001.png"></a></span>
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
-          <div class="widget-a">
-            <div class="w-header-a">
-              <h3 class="w-title-a text-brand">International sites</h3>
-            </div>
-            <div class="w-body-a">
-              <ul class="list-unstyled">
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Venezuela</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">China</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Hong Kong</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Argentina</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Singapore</a>
-                </li>
-                <li class="item-list-a">
-                  <i class="fa fa-angle-right"></i> <a href="#">Philippines</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <footer>
-    <div class="container">
-      <div class="row">
         <div class="col-md-12">
-          <nav class="nav-footer">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">About</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Property</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Blog</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Contact</a>
-              </li>
-            </ul>
-          </nav>
-          <div class="socials-a">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-dribbble" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
+          <div class="row section-t3">
+            <div class="col-sm-12">
+              <div class="title-box-d">
+                <h3 class="title-d">猜你喜歡</h3>  
+              </div>
+            </div>
           </div>
-          <div class="copyright-footer">
-            <p class="copyright color-text-a">
-              &copy; Copyright
-              <span class="color-a">EstateAgency</span> All Rights Reserved.
-            </p>
-          </div>
-          <div class="credits">
-            <!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
-            -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      <div id="property-carousel" class="owl-carousel owl-theme">
+      
+      <c:forEach var="pacVO" items="${list}">
+      <c:choose>
+      <c:when test="${pacVO.pacstatus == 0}">
+       <div class="carousel-item-b">
+          <div class="card-box-a card-shadow">
+          
+            <div class="img-box-a">
+              <img src="<%=request.getContextPath()%>/DBGifReader?pacno=${pacVO.pacno}&photo=1" alt="" class="img-a img-fluid">
+            </div>
+            
+            <div class="card-overlay">
+              <div class="card-overlay-a-content">
+                <div class="card-header-a">
+             
+                  <h2 class="card-title-a">
+                
+                    <a  href="pacChoose.jsp?pacno=${pacVO.pacno}&ptpno=PTP000009">${pacVO.pacname}</a>
+                  </h2>
+                </div>
+                
+                <div class="card-body-a">
+                  <div class="price-box d-flex">
+                    <span class="price-a"> $ ${pacVO.pacprice}起</span>
+                  </div>
+                  <a href="pacChoose.jsp?pacno=${pacVO.pacno}&ptpno=PTP000009" class="link-a">觀看詳情
+                    <span class="ion-ios-arrow-forward"></span>
+                  </a>
+                </div>
+                
+                <div class="card-footer-a">
+                <ul class="card-info d-flex justify-content-around">
+                <li>
+                <h4 class="card-info-title">出發日期</h4>
+                <span>剩餘空位</span>
+                </li>
+                <c:forEach var="ptpVO" items="${listptp}">
+                	<c:choose>
+                <c:when test="${ptpVO.pacno == pacVO.pacno}">
+                    <li>
+                      <h4 class="card-info-title"><fmt:formatDate value="${ptpVO.ptpstart}" pattern="MM/dd"/></h4>
+                      <span>${ptpVO.ptpvacancy}</span>
+                    </li>
+                </c:when>
+  				    </c:choose>
+    				</c:forEach>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+         </c:when>
+      </c:choose>
+      </c:forEach>
     </div>
-  </footer>
-  <!--/ Footer End /-->
-
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-  <div id="preloader"></div>
-
+  </section>
+</section>
+<!--/ Property Single End /-->
+  
   <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/popper/popper.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/lib/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/lib/popper/popper.min.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/lib/easing/easing.min.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/lib/scrollreveal/scrollreveal.min.js"></script>
   <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/contactform/contactform.js"></script>
 
   <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
+  <script src="<%=request.getContextPath()%>/style/f/js/main.js"></script>
 
 </body>
 </html>

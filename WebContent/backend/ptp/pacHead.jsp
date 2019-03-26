@@ -22,11 +22,11 @@ pageContext.setAttribute("listptp", listptp);
 <head>
   <title><%=pacVO.getPacname()%></title>
   <style>
-  carousel-item-b img{
-      max-width:600px;
-      height:700px; 
-      
-  }
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    height: 500px;
+}
 </style>
 </head>
 

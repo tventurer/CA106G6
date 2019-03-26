@@ -254,13 +254,11 @@ public class PacServlet extends HttpServlet {
 					}
 				}
 				
+				
 				String pacdiv = req.getParameter("pacdiv");
-				String pacdivReg = "^[(\u4e00-\u9fa5)+、?\\,\\~\\，\\-\\.(a-zA-Z0-9_)]{2,120}$";
 				if (pacdiv == null || pacdiv.trim().length() == 0) {
 					errorMsgs.add("特色標籤: 請勿空白");
-				} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到120之間");
-	            }
+				} 
 				
 				String paccontent = req.getParameter("paccontent");
 				if (paccontent == null || paccontent.trim().length() == 0) {
@@ -427,12 +425,9 @@ public class PacServlet extends HttpServlet {
 				}
 				
 				String pacdiv = req.getParameter("pacdiv");
-				String pacdivReg = "^[(\\u4e00-\\u9fa5)\\\\,\\\\~\\\\，\\\\-\\\\.(a-zA-Z0-9_)]{2,120}$";
 				if (pacdiv == null || pacdiv.trim().length() == 0) {
 					errorMsgs.add("特色標籤: 請勿空白");
-				} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到20之間");
-	            }
+				} 
 				
 				String paccontent = req.getParameter("paccontent");
 				if (paccontent == null || paccontent.trim().length() == 0) {
@@ -590,12 +585,9 @@ public class PacServlet extends HttpServlet {
 					}
 					
 					String pacdiv = req.getParameter("pacdiv");
-					String pacdivReg = "^[(\\u4e00-\\u9fa5)\\\\,\\\\~\\\\，\\\\-\\\\.(a-zA-Z0-9_)]{2,120}$";
 					if (pacdiv == null || pacdiv.trim().length() == 0) {
 						errorMsgs.add("特色標籤: 請勿空白");
-					} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
-						errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到20之間");
-		            }
+					} 
 					
 					String paccontent = req.getParameter("paccontent");
 					if (paccontent == null || paccontent.trim().length() == 0) {
@@ -768,12 +760,9 @@ public class PacServlet extends HttpServlet {
 					}
 					
 					String pacdiv = req.getParameter("pacdiv");
-					String pacdivReg = "^[(\u4e00-\u9fa5)+,?\\,\\~\\，\\-\\.(a-zA-Z0-9_)]{2,120}$";
 					if (pacdiv == null || pacdiv.trim().length() == 0) {
 						errorMsgs.add("特色標籤: 請勿空白");
-					} else if(!pacdiv.trim().matches(pacdivReg)) { //以下練習正則(規)表示式(regular-expression)
-						errorMsgs.add("特色標籤: 只能是中、英文字母、數字和標點符號、, 且長度必需在2到120之間");
-		            }
+					} 
 					
 					String paccontent = req.getParameter("paccontent");
 									
