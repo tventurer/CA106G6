@@ -6,15 +6,6 @@
 <%@ page import="com.bpt.model.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.util.stream.*"%>
-<%
-  PosService posSvc = new PosService();
-  String tagno = request.getParameter("tagno");
-  request.setAttribute("tagno", tagno);
-  List<PosVO> list = posSvc.getAll().stream()
-		  .filter(vo -> vo.getTagno().equals(tagno))
-		  .collect(Collectors.toList());
-  request.setAttribute("list", list);
-%>
 <jsp:useBean id="memSvc" class="com.mem.model.MemService" scope="page"/>
 <jsp:useBean id="bptSvc" class="com.bpt.model.BptService" scope="page"/>
 <!DOCTYPE html>
@@ -78,13 +69,34 @@
   <section class="news-grid grid">
     <div class="container">
       <div class="row">
-      
+ <%
+  PosService posSvc = new PosService();
+  String tagno = request.getParameter("tagno");
+  request.setAttribute("tagno", tagno);
+  List<PosVO> list = posSvc.getAll().stream()
+		  .filter(vo -> vo.getTagno().equals(tagno))
+		  .collect(Collectors.toList());
+  request.setAttribute("list", list);
+  Map<PosVO, String> map = new HashMap<PosVO, String>();
+  request.setAttribute("map", map);
+  
+  for (PosVO vo : list) {
+	  String temp = vo.getPoscontent();
+	  int startwith = temp.indexOf("data:image/");
+	  int endwith = startwith >= 0 ? temp.indexOf('"', startwith + 1) : -1;
+	  
+	  if (startwith >= 0) {
+		  String img = temp.substring(startwith, endwith);
+		  map.put(vo, img);
+	  }
+  }
+%>    
         <c:forEach var="posVO" items="${list}">
       
         <div class="col-md-4">
           <div class="card-box-b card-shadow news-box">
             <div class="img-box-b">
-              <img src="<%=request.getContextPath()%>/style/f/img/post-1.jpg" alt="" class="img-b img-fluid">
+              <img src='${map.get(posVO) != null? map.get(posVO) : "img/post-1.jpg"}' alt="" class="img-b img-fluid">
             </div>
             <div class="card-overlay">
               <div class="card-header-b">
@@ -109,6 +121,7 @@
       </div>
     </div>
   </section>
+  <jsp:include page="/frontend/navbar.jsp" />
   <!--/ News Grid End /-->
 </body>
 </html>

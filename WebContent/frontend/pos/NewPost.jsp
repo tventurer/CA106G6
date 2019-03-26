@@ -84,6 +84,6 @@
   </div>
 </section>
 
- 
+ <jsp:include page="/frontend/navbar.jsp" />
 </body>
 </html>

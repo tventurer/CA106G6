@@ -91,43 +91,36 @@
                 
                 <div class="row">
                   
+               
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
-                      <input type="password" name="mempwd" class="form-control form-control-lg form-control-a" placeholder="你的密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
+                    <p>你的email</p>
+                      <input name="mememail" type="email" class="form-control form-control-lg form-control-a" value="${memVO.mememail}" data-rule="email" data-msg="email格式不符">
                       <div class="validation"></div>
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
-                      <input type="password"  class="form-control form-control-lg form-control-a" placeholder="請再次輸入密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
-                      <div class="validation"></div>
+                      <p>姓名</p>
+                      <input type="text" name="memrealname" class="form-control form-control-lg form-control-a" value="${memVO.memrealname}">
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
-                      <input name="mememail" type="email" class="form-control form-control-lg form-control-a" placeholder="${memVO.mememail}" data-rule="email" data-msg="email格式不符">
-                      <div class="validation"></div>
+                      <p>英文姓名</p>
+                      <input type="text" name="memengname" class="form-control form-control-lg form-control-a" value="${memVO.memengname}">
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
-                      <input type="text" name="memrealname" class="form-control form-control-lg form-control-a" placeholder="${memVO.memrealname}">
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <input type="text" name="memengname" class="form-control form-control-lg form-control-a" placeholder="${memVO.memengname}">
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <input type="text" name="memphone" class="form-control form-control-lg form-control-a" placeholder="${memVO.memphone}">
+                      <p>連絡電話</p>
+                      <input type="text" name="memphone" class="form-control form-control-lg form-control-a" value="${memVO.memphone}">
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
                       <p>出生年月日</p>
-                      <input type="text" name="membirth" class="form-control form-control-lg form-control-a" placeholder="${memVO.membirth}" id="f_date1">
+                      <input type="text" name="membirth" class="form-control form-control-lg form-control-a" value="${memVO.membirth}" id="f_date1">
                     </div>
                   </div>
   <div class="container">
@@ -157,7 +150,7 @@
 		</div>
 	</div>
 	<div class="row">
-		 <input id="addressTotal" name="memaddr" type="text" size="50" placeholder="${memVO.memaddr}">   
+		 <input id="addressTotal" name="memaddr" type="text" size="50" value="${memVO.memaddr}">   
 	</div>
 
 	</div>
@@ -178,7 +171,7 @@
     </div>
   </section>
   <!--/ Contact End /-->
-
+<jsp:include page="/frontend/navbar.jsp" />
 </body>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
