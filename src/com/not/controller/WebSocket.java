@@ -52,6 +52,20 @@ private static final Map<String, Session> map = Collections.synchronizedMap(new 
 	@OnClose
 	public void onClose(Session userSession, CloseReason reason) {
 		allSessions.remove(userSession);
+		String memno = null;
+		Set<String> keySet = map.keySet();
+		for (String s : keySet) {
+			if (map.get(s).equals(userSession)) {
+				memno = s;
+			}
+			
+		}
+		
+		if (memno != null) {
+			map.remove(memno);
+		}
+		
+		
 		System.out.println(userSession.getId() + ": Disconnected: " + Integer.toString(reason.getCloseCode().getCode()));
 	}
 }

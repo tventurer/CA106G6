@@ -86,7 +86,7 @@
         <div class="col-sm-12 section-t8">
           <div class="row">
             <div class="col-md-7">
-              <form action="<%=request.getContextPath()%>/backend/mem/mem" method="post">
+              <form action="<%=request.getContextPath()%>/backend/mem/mem" method="post" name="form1">
                 
                 <div class="row">
                   <div class="col-md-12 mb-3">
@@ -103,7 +103,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
-                      <input type="password"  class="form-control form-control-lg form-control-a" placeholder="請再次輸入密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
+                      <input type="password" name="password" class="form-control form-control-lg form-control-a" placeholder="請再次輸入密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
                       <div class="validation"></div>
                     </div>
                   </div>
@@ -169,6 +169,7 @@
                     <input type="hidden" name="action" value="signup">
                     <input type="hidden" name="membankacc" value="">
                     <button type="submit" class="btn btn-a">註冊會員</button>
+                    <img src="<%=request.getContextPath()%>/frontend/pur/purpic/main.png" height="20" width="20" onClick="idwrite(this)">
                   </div>
                 </div>
               </form>
@@ -180,7 +181,7 @@
     </div>
   </section>
   <!--/ Contact End /-->
-
+<jsp:include page="/frontend/footer.jsp" />
 </body>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
@@ -269,6 +270,21 @@
         //              return [true, ""];
         //      }});
         
+</script>
+
+<script>
+function idwrite(name) {
+	  form1.memacc.value = "TIBAME";
+	  form1.mempwd.value="123456";
+	  form1.password.value="123456";
+	  form1.mememail.value="gasbomb@gmail.com";
+	  form1.memrealname.value = "大衛海鮮";
+	  form1.memengname.value="Davie Seafood";
+	  form1.memphone.value="0912345678";
+	  form1.membirth.value="1990-01-01";
+	  form1.memaddr.value="桃園市中壢區中大路300號";
+
+	 }
 </script>
 
 <script> 
