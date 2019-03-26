@@ -71,6 +71,14 @@
                       <strong>信箱驗證狀態</strong>
                       <br><span class="color-text-a">${memVO.mememailvalid == 1 ? "email驗證通過" : "尚未通過email驗證"}</span>
                     </p>
+                    <c:if test="${memVO.mememailvalid == 0}">
+                   	<form action="<%=request.getContextPath()%>/EmailValidator" method="post">
+	         	      <input type="hidden" name="action" value="ask_validation_email">
+	         	      
+		              <button type="submit" class="btn">申請驗證信</button>
+		              
+	                </form>
+                    </c:if>
                     <p>
                       <strong>我的姓名</strong>
                       <br><span class="color-text-a">${memVO.memrealname}</span>

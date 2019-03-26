@@ -77,7 +77,7 @@ public class EmailValidator extends HttpServlet {
 
 		String validationLink = req.getPathInfo();
 		if (!pendingList.containsValue(validationLink)) {
-			req.setAttribute("errorMsg", "連結無效!!!");
+			req.setAttribute("errorMsg", "認證信連結無效");
 			RequestDispatcher failureView = req.getRequestDispatcher("/backend/mem/ValidationFailed.jsp");
 			failureView.forward(req, res);
 			return;
