@@ -78,6 +78,7 @@
 		              <button type="submit" class="btn">申請驗證信</button>
 		              
 	                </form>
+	                <br>
                     </c:if>
                     <p>
                       <strong>我的姓名</strong>
