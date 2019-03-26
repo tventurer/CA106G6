@@ -93,7 +93,7 @@
           <li>
           <c:if test="${memacc != null}">
             <button class="nav-link" id="btn_logout" data-toggle="modal" data-target="#logout" ${memno == null ? "style='display:none'" : '' } style="border: none; background-color:white;">登出</button>
-            <%@ include file="/frontend/not/notification.file" %>
+<%--             <%@ include file="/frontend/not/notification.file" %> --%>
           </c:if>
           <c:if test="${memacc == null}">
             <button class="nav-link" id="btn_logout" data-toggle="modal" data-target="#logout" ${memno == null ? "style='display:none'" : '' } style="border: none; background-color:white;">登出</button>

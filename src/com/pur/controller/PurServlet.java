@@ -85,7 +85,6 @@ public class PurServlet extends HttpServlet{
 			req.setCharacterEncoding("utf-8");
 			res.setContentType("image/gif");
 			ServletOutputStream out = res.getOutputStream();
-		
 			String purid =req.getParameter("purid");
 			
 			PurService purSvc = new PurService();
@@ -93,9 +92,14 @@ public class PurServlet extends HttpServlet{
 			System.out.println(purid);
 			
 			byte[] pic =purVO.getPurpic();
+			try {
 			if(pic !=null) {
 				out.write(pic);
 			}
+			} catch (Exception e) {
+				
+			}
+			
 		doPost(req, res);
 	}
 
@@ -605,7 +609,6 @@ public class PurServlet extends HttpServlet{
 					
 					/***************************其他可能的錯誤處理**********************************/
 				} catch (Exception e) {
-					errorMsgs.add("Else Error:"+e.getMessage());
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/frontend/pur/addOnePur.jsp");
 					failureView.forward(req, res);
