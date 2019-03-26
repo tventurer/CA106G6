@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class AddrToLatLong {
 
 	public static double[] getLatLong(String addr) throws Exception {
-		
+		 
 		String encodeAddr = URLEncoder.encode(addr, "UTF-8");//AIzaSyCJDWHf2nJvG1HGWjhDSz95Gv8E0h_ZFp0
 		String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + encodeAddr + "&key=AIzaSyCJDWHf2nJvG1HGWjhDSz95Gv8E0h_ZFp0";//key
 		URL myURL = new URL(url);

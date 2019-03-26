@@ -2439,7 +2439,7 @@ function addHotelMarker(){
 	 		}
 	   });
  	 	
- 	 	
+ 	  	
 	</script>
 
 	<script>
