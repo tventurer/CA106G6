@@ -8,7 +8,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>EstateAgency Bootstrap Template</title>
+  <title>所有文章列表</title>
   <jsp:include page="/frontend/navbar.jsp" />
   <!-- Favicons -->
   <link href="<%=request.getContextPath()%>/style/f/img/favicon.png" rel="icon">

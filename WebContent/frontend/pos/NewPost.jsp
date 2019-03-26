@@ -7,7 +7,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>${posVO.postitle}</title>
+  <title>發表新文章</title>
   <jsp:include page="/frontend/navbar.jsp" />
   <jsp:useBean id="bptSvc" class="com.bpt.model.BptService" scope="page"/>
   <!-- Favicons -->

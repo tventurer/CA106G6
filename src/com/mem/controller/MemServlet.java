@@ -332,7 +332,7 @@ public class MemServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher("/frontend/mem/MyPage.jsp?memno=" + memno);
 				successView.forward(req, res);
 			} catch (Exception e) {
-				e.printStackTrace();
+				errorMsgs.forEach((k, v) -> System.out.println(k + v));
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = 
 						req.getRequestDispatcher("/frontend/mem/memupdate.jsp");
