@@ -114,7 +114,7 @@
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
                       <p>連絡電話</p>
-                      <input type="text" name="memphone" class="form-control form-control-lg form-control-a" value="${memVO.memphone}">
+                      <input type="text" name="memphone" class="form-control form-control-lg form-control-a" value="0${memVO.memphone}">
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
