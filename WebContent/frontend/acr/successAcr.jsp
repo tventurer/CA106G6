@@ -77,7 +77,7 @@ pageContext.setAttribute("Acrlist",Acrlist);
   </section>
   <!--/ Agents Grid End /-->
 
-
+<jsp:include page="/frontend/footer.jsp" />
   <!--/ Footer End /-->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

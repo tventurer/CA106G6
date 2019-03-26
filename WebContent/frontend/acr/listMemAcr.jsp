@@ -15,7 +15,7 @@
 	pageContext.setAttribute("Acrlist",Acrlist);
 	int Acr_num = Acrlist.size();
 	pageContext.setAttribute("Acr_num",Acr_num);
-%>
+%> 
 
 <!-------------------------------- 引入標頭 ------------------------------------->
 
@@ -68,7 +68,6 @@ text-align: left;
 			<div class="col-md-12">
 			<div class="tile">
 			
-			<c:if test="${Acr_num != 0 }">
 			<h3 class="tile-title">代幣儲值紀錄</h3>
 			<h4 style="text-align: right;"><span class="color-text-a"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/frontend/acr/addOneAcr.jsp">我要儲值</a></span></h4>
 			<table class="table table-hover">
@@ -88,7 +87,8 @@ text-align: left;
 						<td  colspan="10"><br><h5>您尚無任何交易儲值紀錄~ <a href="<%=request.getContextPath()%>/frontend/acr/addOneAcr.jsp">馬上儲值去~ </a></h5><br></td>
 					</tr>
 				</c:if>
-				<c:forEach var="acrVO" items="${Acrlist}" varStatus="s">
+				<%@ include file="page1.file" %>
+				<c:forEach var="acrVO" items="${Acrlist}" varStatus="s" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					<tr>
 					<td>${s.count}</td>
 					<td>${acrVO.acrid}</td>
@@ -105,16 +105,18 @@ text-align: left;
 				</c:forEach>
 				</tbody>
 			</table>
-			</c:if>
 			</div>
 			</div>
 			</div>
+	 <!--頁碼-->
+    <%@ include file="page2.file" %>
+     <!--頁碼-->
 		</div>
 	</section>
 	<!--/ Agents Grid End /-->
 	<br>
 
-
+<jsp:include page="/frontend/footer.jsp" />
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 	<div id="preloader"></div>
 

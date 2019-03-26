@@ -174,7 +174,7 @@ text-align: left;
 					<td>
 					<c:if test="${purVO.purstatus !=1 }">
 			  		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/pur/purToPurListOne.jsp?purid=${purVO.purid}" style="margin-bottom: 0px;">
-			     	<input type="submit" value="查看祥情">
+			     	<input type="submit" value="查看詳情">
 			     	<input type="hidden" name="purid"  value="${purVO.purid}">
 			     	<input type="hidden" name="memno"  value="${name}">
 			     	<input type="hidden" name="action"	value="show_OnePur"></FORM>
@@ -235,59 +235,7 @@ text-align: left;
 	<!--/ Agents Grid End /-->
 	<br>
 
-	<!--/ footer Star /-->
-<!-- 	<footer> -->
-<!-- 		<div class="container"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-md-12"> -->
-<!-- 					<nav class="nav-footer"> -->
-<!-- 						<ul class="list-inline"> -->
-<!-- 							<li class="list-inline-item"><a href="#">Home</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">About</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Property</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Blog</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#">Contact</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</nav> -->
-<!-- 					<div class="socials-a"> -->
-<!-- 						<ul class="list-inline"> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-facebook" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-twitter" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-instagram" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-pinterest-p" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 							<li class="list-inline-item"><a href="#"> <i -->
-<!-- 									class="fa fa-dribbble" aria-hidden="true"></i> -->
-<!-- 							</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 					<div class="copyright-footer"> -->
-<!-- 						<p class="copyright color-text-a"> -->
-<!-- 							&copy; Copyright <span class="color-a">T-Venturer</span> All -->
-<!-- 							Rights Reserved. -->
-<!-- 						</p> -->
-<!-- 					</div> -->
-<!-- 					<div class="credits"> -->
-<!-- 						
-<!--               All the links in the footer should remain intact. -->
-<!--               You can delete the links only if you purchased the pro version. -->
-<!--               Licensing information: https://bootstrapmade.com/license/ -->
-<!--               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency -->
-<!--             --> -->
-<!-- 						Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</footer> -->
-	<!--/ Footer End /-->
+<jsp:include page="/frontend/footer.jsp" />
 
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 	<div id="preloader"></div>
