@@ -16,7 +16,7 @@
   }
 %>
 
-<%=isMemberLogin? "<button type='button' onclick='loadnotification();' data-toggle='modal' data-target='#notification'>你有<span id='howmanyunread'>" + unreadedNotfication + "</span>個未讀通知</button>" : ""%>
+<%=isMemberLogin? "<button type='button' style='border:0; background-color:#FFFFFF;' class='nav-link' onclick='loadnotification();' data-toggle='modal' data-target='#notification'>你有<span id='howmanyunread'>" + unreadedNotfication + "</span>個未讀通知</button>" : ""%>
 <script>
     var MyPoint = "<%=request.getContextPath()%>/frontend/not/${memno}";
     var host = window.location.host;

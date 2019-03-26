@@ -146,22 +146,19 @@ public class PosServlet extends HttpServlet {
 		if ("delete".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			String url = req.getParameter("url");
 			
 			try {
 				String posno = req.getParameter("posno").toUpperCase();
 				
+				
 				PosService posSvc = new PosService();
 				posSvc.deletePos(posno);
 				
-				String url = "/backend/pos/listAllPos.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				
+				res.sendRedirect(url);
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗: " + e.getMessage());
-				RequestDispatcher failureView = 
-						req.getRequestDispatcher("/backend/pos/addPos.jsp");
-				failureView.forward(req, res);
+				res.sendRedirect(url);
 			}
 		}
 		

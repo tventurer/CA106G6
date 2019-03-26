@@ -101,39 +101,9 @@
     </div>
     
   </section>
+  
+  <jsp:include page="/frontend/footer.jsp" />
   <!--/ Agent Single End /-->
-	
-		
-		<tr ${(memVO.memno)}>
-			<td>${memVO.memno}</td>
-			<th>${memVO.memacc}</th>
-			<th>${memVO.mememail}</th>
-			<th>${memVO.mememailvalid == 1 ? "email驗證通過" : "尚未通過email驗證"}</th>
-			<th>${memVO.memrealname}</th>
-			<th>${memVO.memengname}</th>
-			<th>${memVO.memphone}</th>
-			<th>${memVO.membirth}</th>
-			<th>${memVO.memaddr}</th>
-			<th>${memVO.memidno}</th>
-			<th>${memVO.membankacc}</th>
-			<c:if test="${memno == memVO.memno}">
-			  <td>
-			    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/mem/mem" style="margin-bottom: 0px;">
-			       <input type="submit" value="修改">
-			       <input type="hidden" name="memno"  value="${memVO.memno}">
-			       <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
-			       <input type="hidden" name="action"	value="getOne_For_Update"></FORM><br>
-			       <a href="<%=request.getContextPath()%>/frontend/pos/ListByMemno.jsp?memno=${memVO.memno}">查看所有貼文</a><br><br>
-                   <a href="<%=request.getContextPath()%>/frontend/mpm/mpm?action=list_my_pm">查看私人訊息</a>
-			  </td>
-			</c:if>
-			<c:if test="${memno == memVO.memno}">
-              <form action="<%=request.getContextPath()%>/EmailValidator" method="post">
-	          <input type="hidden" name="action" value="ask_validation_email">
-		      <input type="submit" value="申請驗證信">
-	          </form>
-			</c:if>
-		</tr>
-</table>
+
 </body>
 </html>

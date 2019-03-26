@@ -36,7 +36,7 @@ public class MemServlet extends HttpServlet {
 		if ("signup".equals(action)) {
 			Map<String,String> errorMsgs = new HashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-		
+			
 			try {
 				MemService memSvc = new MemService();
 				List<MemVO> list = memSvc.getAll();
@@ -125,7 +125,7 @@ public class MemServlet extends HttpServlet {
 					return;
 				}
 				
-				memSvc.addMem(memacc, PwdEncoder.encode(mempwd), mememail, 0, memrealname, memengname, memphone, membirth, memaddr, memidno, membankacc);
+				memSvc.addMem(memacc, mempwd, mememail, 0, memrealname, memengname, memphone, membirth, memaddr, memidno, membankacc);
 				MemVO vo = memSvc.getMemaccForLogin(memacc);
 				
 				HttpSession session = req.getSession();
@@ -148,6 +148,7 @@ public class MemServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			} catch (Exception e) {
+				e.printStackTrace();
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = 
 						req.getRequestDispatcher("/frontend/mem/memsignup.jsp");
@@ -247,24 +248,16 @@ public class MemServlet extends HttpServlet {
 		if ("update".equals(action)) {
 			Map<String, String> errorMsgs = new HashMap<String, String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String requestURL = req.getParameter("requestURL");
-			String forwardURL = req.getParameter("forwardURL");
 			
 			try {
 				String memno = req.getParameter("memno");
+				
+				MemService memSvc = new MemService();
+				MemVO vo = memSvc.getOneMem(memno);
+				
 				String memacc = req.getParameter("memacc");
 				
-				String mempwd = req.getParameter("mempwd");
-				String mempwdReg = "[a-zA-Z0-9]+";
-				if (mempwd == null || mempwd.trim().length() == 0) {
-					errorMsgs.put("mempwd", "會員密碼: 請勿空白");
-				} else if (mempwd.trim().length() < 4 || mempwd.trim().length() > 20) {
-					errorMsgs.put("mempwd", "會員密碼: 密碼長度必須是4-20個字元");
-				} 
-				if (!mempwd.trim().matches(mempwdReg)) {
-					String condition = errorMsgs.get("mempwd") == null? "" : errorMsgs.get("mempwd"); 
-					errorMsgs.put("mempwd", condition + "會員密碼: 只能使用英文與阿拉伯數字(a-z, A-Z, 0-9)");
-				}
+				String mempwd = vo.getMempwd();
 				
 				String mememail = req.getParameter("mememail");
 				String mememailReg = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
@@ -274,7 +267,7 @@ public class MemServlet extends HttpServlet {
 					errorMsgs.put("mememail", "會員信箱: 請輸入正確的email");
 				}
 				
-				Integer mememailvalid = Integer.parseInt(req.getParameter("mememailvalid").trim());
+				Integer mememailvalid = 0;
 				
 				String memrealname = req.getParameter("memrealname");
 				if (memrealname == null || memrealname.trim().length() == 0) {
@@ -309,7 +302,7 @@ public class MemServlet extends HttpServlet {
 					}
 				}
 				
-				String membankacc = req.getParameter("membankacc").trim();
+				String membankacc = "";
 				
 				MemVO memVO = new MemVO();
 				memVO.setMemno(memno);
@@ -326,22 +319,23 @@ public class MemServlet extends HttpServlet {
 				memVO.setMembankacc(membankacc);
 				
 				if (!errorMsgs.isEmpty()) {
+					errorMsgs.forEach((k, v) -> System.out.println(k + v));
 					req.setAttribute("memVO", memVO);
 					RequestDispatcher failureView = 
-							req.getRequestDispatcher(forwardURL);
+							req.getRequestDispatcher("/frontend/mem/memupdate.jsp?memno=" + memno);
 					failureView.forward(req, res);
 					return;
 				}
 				
-				MemService memSvc = new MemService();
-				memVO = memSvc.updateMem(memno, memacc, PwdEncoder.encode(mempwd), mememail, mememailvalid, memrealname, memengname, memphone, membirth, memaddr, memidno, membankacc);
+				memVO = memSvc.updateMem(memno, memacc, mempwd, mememail, mememailvalid, memrealname, memengname, memphone, membirth, memaddr, memidno, membankacc);
 				
-				RequestDispatcher successView = req.getRequestDispatcher(requestURL);
+				RequestDispatcher successView = req.getRequestDispatcher("/frontend/mem/MyPage.jsp?memno=" + memno);
 				successView.forward(req, res);
 			} catch (Exception e) {
+				e.printStackTrace();
 				errorMsgs.put("Exception", e.getMessage());
 				RequestDispatcher failureView = 
-						req.getRequestDispatcher(forwardURL);
+						req.getRequestDispatcher("/frontend/mem/memupdate.jsp");
 				failureView.forward(req, res);
 			}
 		}

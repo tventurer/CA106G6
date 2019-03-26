@@ -77,11 +77,6 @@
   <section class="news-single nav-arrow-b">
     <div class="container">
       <div class="row">
-        <div class="col-sm-12">
-          <div class="news-img-box">
-            <img src="<%=request.getContextPath()%>/style/f/img/slide-3.jpg" alt="" class="img-fluid">
-          </div>
-        </div>
         <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
           <div class="post-information">
             <ul class="list-inline text-center color-a">
@@ -160,6 +155,7 @@
     </div>
     </div>
   </section>
+  <jsp:include page="/frontend/footer.jsp" />
   <!--/ News Single End /-->
 </body>
 </html>

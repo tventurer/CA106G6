@@ -2,11 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.pos.model.*"%>
-<%
-  PosService posSvc = new PosService();
-  List<PosVO> list = posSvc.getAll();
-  request.setAttribute("list", list);
-%>
 <jsp:useBean id="memSvc" scope="page" class="com.mem.model.MemService" /> 
 <jsp:useBean id="bptSvc" scope="page" class="com.bpt.model.BptService" />
 <!DOCTYPE html>
@@ -71,13 +66,45 @@
   <section class="news-grid grid">
     <div class="container">
       <div class="row">
-      
+
+<%
+  PosService posSvc = new PosService();
+  List<PosVO> list = posSvc.getAll();
+  request.setAttribute("list", list);
+  Map<PosVO, String> map = new HashMap<PosVO, String>();
+  request.setAttribute("map", map);
+  
+  for (PosVO vo : list) {
+	  String temp = vo.getPoscontent();
+	  boolean foundBase64 = false;
+	  int startwith = temp.indexOf("data:image/");
+	  int endwith = startwith >= 0 ? temp.indexOf('"', startwith + 1) : -1;
+	  
+	  if (startwith >= 0 && endwith >= 0) {
+		  String img = temp.substring(startwith, endwith);
+		  map.put(vo, img);
+		  foundBase64 = true;
+	  }
+	  
+	  if (foundBase64) {
+		  break;
+	  }
+	  
+	  startwith = temp.indexOf("src=\"") + 5;
+	  endwith = startwith >= 0 ? temp.indexOf('"', startwith + 1) : -1;
+	  
+	  if (startwith >= 0 && endwith >= 0) {
+		  String img = temp.substring(startwith, endwith);
+		  map.put(vo, img);
+	  }
+  }
+%>
         <c:forEach var="posVO" items="${list}">
       
         <div class="col-md-4">
           <div class="card-box-b card-shadow news-box">
             <div class="img-box-b">
-              <img src="<%=request.getContextPath()%>/style/f/img/post-1.jpg" alt="" class="img-b img-fluid">
+              <img src='${map.get(posVO) != null? map.get(posVO) : "img/post-1.jpg"}' alt="" class="img-b img-fluid">
             </div>
             <div class="card-overlay">
               <div class="card-header-b">
@@ -102,6 +129,7 @@
       </div>
     </div>
   </section>
+  <jsp:include page="/frontend/footer.jsp" />
   <!--/ News Grid End /-->
 </body>
 </html>
