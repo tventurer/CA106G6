@@ -91,35 +91,41 @@
                 <div class="row">
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
+                    <p>帳號</p>
                       <input type="text" name="memacc" class="form-control form-control-lg form-control-a" placeholder="你的帳號" data-rule="minlen:4" data-msg="帳號不得少於四個字元">
                       <div class="validation"></div>
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
+                    <p>密碼</p>
                       <input type="password" name="mempwd" class="form-control form-control-lg form-control-a" placeholder="你的密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
                       <div class="validation"></div>
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
+                    <p>再次確認密碼</p>
                       <input type="password" name="password" class="form-control form-control-lg form-control-a" placeholder="請再次輸入密碼" data-rule="minlen:4" data-msg="密碼不得少於四個字元">
                       <div class="validation"></div>
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
+                    <p>你的email</p>
                       <input name="mememail" type="email" class="form-control form-control-lg form-control-a" placeholder="你的email" data-rule="email" data-msg="email格式不符">
                       <div class="validation"></div>
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
+                    <p>你的姓名</p>
                       <input type="text" name="memrealname" class="form-control form-control-lg form-control-a" placeholder="請輸入真實姓名">
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <div class="form-group">
+                    <p>你的英文名字</p>
                       <input type="text" name="memengname" class="form-control form-control-lg form-control-a" placeholder="請輸入英文姓名">
                     </div>
                   </div>

@@ -82,10 +82,24 @@
   
   for (PosVO vo : list) {
 	  String temp = vo.getPoscontent();
+	  boolean foundBase64 = false;
 	  int startwith = temp.indexOf("data:image/");
 	  int endwith = startwith >= 0 ? temp.indexOf('"', startwith + 1) : -1;
 	  
-	  if (startwith >= 0) {
+	  if (startwith >= 0 && endwith >= 0) {
+		  String img = temp.substring(startwith, endwith);
+		  map.put(vo, img);
+		  foundBase64 = true;
+	  }
+	  
+	  if (foundBase64) {
+		  break;
+	  }
+	  
+	  startwith = temp.indexOf("src=\"") + 5;
+	  endwith = startwith >= 0 ? temp.indexOf('"', startwith + 1) : -1;
+	  
+	  if (startwith >= 0 && endwith >= 0) {
 		  String img = temp.substring(startwith, endwith);
 		  map.put(vo, img);
 	  }
