@@ -31,7 +31,7 @@
   <script src='<%=request.getContextPath()%>/bootstrap/sweetAlert/sweetalert.min.js'></script>
 
 </head>
-<body onload="connect();" onunload="disconnect();">
+<body <c:if test="${sessionScopememno != null}">onload="connect();" onunload="disconnect();" </c:if> >
 
   <!--/ Nav Star /-->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
@@ -86,14 +86,19 @@
             </li>
             </c:if>
             <c:if test="${memacc != null}">
-            <li class="nav-item">
-            	<a class="nav-link" id="register" href="<%=request.getContextPath()%>/frontend/mem/memsignup.jsp" style="display:none">註冊</a>
-            </li>
+            
+            <jsp:useBean id="memSvc" class="com.mem.model.MemService" scope="page"/>
+
+          	<li class="nav-item">
+            	${memSvc.getOneMem(sessionScope.memno).memacc}你好<br>
+<%--             	<%@ include file="/frontend/not/notification.file" %> --%>
+          	</li>
+            
             </c:if>
           <li>
           <c:if test="${memacc != null}">
             <button class="nav-link" id="btn_logout" data-toggle="modal" data-target="#logout" ${memno == null ? "style='display:none'" : '' } style="border: none; background-color:white;">登出</button>
-            <%@ include file="/frontend/not/notification.file" %>
+<%--             <%@ include file="/frontend/not/notification.file" %> --%>
           </c:if>
           <c:if test="${memacc == null}">
             <button class="nav-link" id="btn_logout" data-toggle="modal" data-target="#logout" ${memno == null ? "style='display:none'" : '' } style="border: none; background-color:white;">登出</button>
