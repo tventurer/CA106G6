@@ -2256,7 +2256,11 @@ function addHotelMarker(){
     		  
     	   function makeSeq(){
     			$(".seq").on("click",function(e){
-        			var xhr = new XMLHttpRequest();
+        			
+    				//避免事件蔓延
+    				e.stopPropagation();
+    				
+    				var xhr = new XMLHttpRequest();
         			var obj = $(".seq");
         			var size = $(".seq").length;
         			var seq;

@@ -29,11 +29,11 @@ public class TodDAO implements TodDAO_interface{
 	private static final String DELETE_STMT = "DELETE FROM TRIPORDER WHERE TODNO=?";
 	private static final String FINDBYPK_STMT = "SELECT * FROM TRIPORDER WHERE TODNO=?";
 	private static final String FINDBYTRINO_STMT = "SELECT * FROM TRIPORDER WHERE TRINO=?";
-	private static final String GETALL_STMT = "SELECT * FROM TRIPORDER";
+	private static final String GETALL_STMT = "SELECT * FROM TRIPORDER ORDER BY TODNO";
 	
 	//購買用sql指令
 	private static final String TODBUY_STMT = "UPDATE TRIPORDER SET TODOWNER=?, TODPHONE=?, TODMAIL=?, TODPURCHASE=? WHERE TODNO=?";
-	private static final String FINDBYTODSTAT_STMT = "SELECT * FROM TRIPORDER WHERE TODSTAT=?";
+	private static final String FINDBYTODSTAT_STMT = "SELECT * FROM TRIPORDER WHERE TODSTAT=? ORDER BY TODNO";
 	private static final String FINDPURCONTENT_STMT = "SELECT * FROM TRIPORDER WHERE TODNO=?";
 	
 	@Override
