@@ -81,7 +81,7 @@
                     </p>
                     <p>
                       <strong>我的電話</strong>
-                      <br><span class="color-text-a">${memVO.memphone}</span>
+                      <br><span class="color-text-a">0${memVO.memphone}</span>
                     </p>
                     <p>
                       <strong>我的生日</strong>
