@@ -200,7 +200,7 @@
 	
 
 
-
+<!-------------------------------- 引入購物車 ------------------------------------->
 
 <div id="service" style="position: fixed;top: 85%;left: 92%;">
 	<form method="post" action="<%=request.getContextPath()%>/pah/shoppingcontrol">
@@ -211,6 +211,13 @@
 	</form>
 </div>
 	<%@ include file="listbootcart" %>
+	
+
+
+<!-------------------------------- 引入尾巴 ------------------------------------->
+
+<jsp:include page="/frontend/footer.jsp" />  
+
 
 
 </body>
