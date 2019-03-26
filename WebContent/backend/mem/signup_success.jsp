@@ -38,6 +38,6 @@
     </div>
   </section>
   <!--/ Intro Single End /-->
-<jsp:include page="/frontend/navbar.jsp" />
+<jsp:include page="/frontend/footer.jsp" />
 </body>
 </html>

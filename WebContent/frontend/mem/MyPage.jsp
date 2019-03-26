@@ -102,7 +102,7 @@
     
   </section>
   
-  <jsp:include page="/frontend/navbar.jsp" />
+  <jsp:include page="/frontend/footer.jsp" />
   <!--/ Agent Single End /-->
 
 </body>

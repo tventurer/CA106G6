@@ -171,7 +171,7 @@
     </div>
   </section>
   <!--/ Contact End /-->
-<jsp:include page="/frontend/navbar.jsp" />
+<jsp:include page="/frontend/footer.jsp" />
 </body>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->

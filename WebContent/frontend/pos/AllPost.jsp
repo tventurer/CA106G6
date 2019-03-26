@@ -129,7 +129,7 @@
       </div>
     </div>
   </section>
-  <jsp:include page="/frontend/navbar.jsp" />
+  <jsp:include page="/frontend/footer.jsp" />
   <!--/ News Grid End /-->
 </body>
 </html>
