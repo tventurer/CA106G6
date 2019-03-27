@@ -107,7 +107,7 @@ pageContext.setAttribute("name",name);
 								out.print("<option value='" + x + "'>"+x+"</option>");
 							}
 						}
-						%>  
+						%>   
 					</select></strong>
                     </li>
                   </ul>

@@ -295,7 +295,7 @@ function readURL(input){
 }
 
 </script>
-<script>
+<script> 
 function idwrite(name) { 
 	  form1.purreceipt.value = "1";
 	  form1.purlimit.value="0";
