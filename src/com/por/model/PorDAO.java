@@ -63,10 +63,10 @@ public class PorDAO implements PorDAO_interface{
 					"UPDATE PURCHASEORDER set PURID=? , MEMNO=? ,PORMEMNAME=? ,PORPRICE=? ,PORADDRESS=? ,PORTEL=? ,PORSTATUS=? ,PORBUYSCORE=? ,PORBUYCONTENT=? ,PORSELLSCORE=? ,PORSELLCONTENT=? ,PORSUM=? ,PORLOGISTICS=? ,PORQR=?  where PORID = ?";
 				
 				private static final String GET_PUR_ALLPOR = 
-						"select * from purchaseorder where purid=?";
+						"select * from purchaseorder where purid=? ";
 				
 				private static final String GET_MEMALLPOR = 
-						"select * from purchaseorder where memno=?";
+						"select * from purchaseorder where memno=? ";
 		
 		@Override
 		public void insert(PorVO porVO) {

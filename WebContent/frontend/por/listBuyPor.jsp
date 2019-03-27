@@ -9,6 +9,9 @@
 String name =(String)session.getAttribute("memno");
 	PurService purSvc = new PurService();
 	pageContext.setAttribute("name",name);
+	
+	String poridcheck = request.getParameter("poridcheck");
+	pageContext.setAttribute("poridcheck",poridcheck);
 
 	PorService porSvc = new PorService();
 	List<PorVO> Porlist = porSvc.getMemAllPor(name);
@@ -125,6 +128,8 @@ text-align: left;
 	<section class="agents-grid grid">
 		<div class="container">
 			<div class="row">
+
+
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<c:forEach var="message" items="${errorMsgs}">
@@ -167,7 +172,7 @@ text-align: left;
 								</tr>
 							</c:if>
 								<c:forEach var="porVO" items="${Porlist}" varStatus="s">
-									<tr>
+									<tr id="${porVO.porid}">
 										<td>${s.count}</td>
 										<td>${porVO.porid}</td>
 										<td><img
@@ -621,7 +626,14 @@ text-align: left;
 
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 	<div id="preloader"></div>
+<c:if test="${poridcheck != null}">
+<script type="text/javascript">
+var check="${poridcheck}";
+document.getElementById(check).style.backgroundColor ="#28a74575";
 
+	$('#"${poridcheck}"').css({ color: "#ff0011", background: "blue" });
+</script> 
+</c:if>
 </body>
 	<script>
 	$(document).ready(function(){
@@ -696,4 +708,6 @@ text-align: left;
 		  $('.success-box div.text-message').html("<input type='hidden' name='porbuyscore' class='porbuyscore'  value='"+msg+"' >");
 		}
 	</script>
+	<!-- 顯示該訂單 -->
+
 </html>

@@ -603,9 +603,8 @@ public class PurServlet extends HttpServlet{
 					purVO = purSvc.addPur(memno, purname, purcontent, pursort, pururl, purcountry, purdelivery, purreprice, purpricing, purobtained, purreceipt, purstatus, purpic,purextime, purstock, pursell, purlimit);
 					
 					/***************************3.新增完成，準備轉交(Send the Success view)***********/
-					String url = "/frontend/pur/listMemPur.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllPur.jsp
-					successView.forward(req, res);				
+					String url = req.getContextPath()+"/frontend/pur/listMemPur.jsp";
+					res.sendRedirect(url); 			
 					
 					/***************************其他可能的錯誤處理**********************************/
 				} catch (Exception e) {

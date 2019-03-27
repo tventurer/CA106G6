@@ -342,9 +342,19 @@ public class PorServlet extends HttpServlet{
 					
 					
 					if(porstatus==6) {
+						MemVO memVO =memSvc.getOneMem(sellmemno);
+						String memname = memVO.getMemrealname();
+						String mpmtitle = "賣家"+memname+"已審核通過您的換貨申請";
+						String sorString = "申請成功之訂單"+"<br>"+"<a href='"+req.getContextPath()+"/frontend/por/listBuyPor.jsp?poridcheck="+porid+"'>訂單連結</a>";
+						mpmSvc.addMpm(sellmemno, buymemno, mpmtitle, sorString);
 						porSvc.updatePorlogistics(3, porid);
 					}
 					if(porstatus==3) {
+						MemVO memVO =memSvc.getOneMem(sellmemno);
+						String memname = memVO.getMemrealname();
+						String mpmtitle = "賣家"+memname+"已審核通過您的退貨申請";
+						String sorString = "申請成功之訂單"+"<br>"+"<a href='"+req.getContextPath()+"/frontend/por/listBuyPor.jsp?poridcheck="+porid+"'>訂單連結</a>";
+						mpmSvc.addMpm(sellmemno, buymemno, mpmtitle, sorString);
 						porSvc.updatePorlogistics(3, porid);
 					}
 					/***************************2.開始查詢資料****************************************/
@@ -457,6 +467,30 @@ public class PorServlet extends HttpServlet{
 
 				try {
 					/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+
+					Integer porprice = new Integer(req.getParameter("porprice").trim());
+					
+					Integer acrtotal = 0;
+					acrtotal = new Integer(req.getParameter("acrtotal").trim());
+					if (acrtotal == 0 || acrtotal == null) {
+						acrtotal=0;
+						errorMsgs.add("無您的存款數字");
+					}
+					
+					acrtotal=acrtotal-porprice;
+					if(acrtotal<0) {
+						errorMsgs.add("請儲值");
+						
+					}
+					
+					if (!errorMsgs.isEmpty()) {
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/frontend/por/addOnePor.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+					
+					
 					String memno = req.getParameter("memno").trim();
 					String memnoReg = "MEM+[0-9][0-9][0-9][0-9][0-9][0-9]";
 					if (memno == null || memno.trim().length() == 0) {
@@ -474,7 +508,7 @@ public class PorServlet extends HttpServlet{
 						errorMsgs.add("此商品已無存貨，請重新選擇");
 					}
 					
-					Integer porprice = new Integer(req.getParameter("porprice").trim());
+					
 					
 					String poraddress = req.getParameter("poraddress").trim();
 					if (poraddress == null || poraddress.trim().length() == 0) {
@@ -507,18 +541,6 @@ public class PorServlet extends HttpServlet{
 					String purname = req.getParameter("purname").trim();
 					String acrend = "購買代購商品："+purname;
 					
-					Integer acrtotal = 0;
-					acrtotal = new Integer(req.getParameter("acrtotal").trim());
-					if (acrtotal == 0 || acrtotal == null) {
-						acrtotal=0;
-						errorMsgs.add("無您的存款數字");
-					}
-					
-					acrtotal=acrtotal-porprice;
-					if(acrtotal<0) {
-						errorMsgs.add("請儲值");
-						
-					}
 					
 					PurService purSvc = new PurService();
 					PurVO purVO = purSvc.findByPrimaryKey(purid);
@@ -552,13 +574,7 @@ public class PorServlet extends HttpServlet{
 					porVO.setPorqr(porqr);
 
 					// Send the use back to the form, if there were errors
-					if (!errorMsgs.isEmpty()) {
-						req.setAttribute("porVO", porVO); // 含有輸入格是錯誤的PorVO物件，也存入req
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/frontend/por/addOnePor.jsp");
-						failureView.forward(req, res);
-						return;
-					}
+					
 					
 					/******************************2.開始新增資料***************************************/
 					
