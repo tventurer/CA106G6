@@ -101,9 +101,9 @@
 <script>
 
 $("#magic").click(function(){
-	$("#todowner").val("香蕉");
+	$("#todowner").val("大衛海鮮");
 	$("#todphone").val("0911123123");
-	$("#todmail").val("bochen9368@gmail.com");
+	$("#todmail").val("gasbomb@gmail.com");
 });
 
 </script>
