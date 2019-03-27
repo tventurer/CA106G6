@@ -296,7 +296,7 @@ function readURL(input){
 
 </script>
 <script>
-function idwrite(name) {
+function idwrite(name) { 
 	  form1.purreceipt.value = "1";
 	  form1.purlimit.value="0";
 	  form1.purname.value="亞太限定樂高";
