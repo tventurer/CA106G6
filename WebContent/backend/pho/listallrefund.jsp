@@ -209,7 +209,7 @@
 <script>
   	
 	function socket(e){
-	 	document.open("/CA106G6/backend/sme/message2.jsp?empno=" + e, "" ,"height=680,width=850,left=50,top=40,resizable=yes,scrollbars=yes");
+	 	document.open("<%=request.getContextPath()%>/backend/sme/message2.jsp?empno=" + e, "" ,"height=680,width=850,left=50,top=40,resizable=yes,scrollbars=yes");
 	}
 	
 </script>

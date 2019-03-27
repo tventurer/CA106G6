@@ -144,9 +144,9 @@ $("#magic").click(function(){
 })
 
 function buildInfo(){
-	$("#phoowner").val("香蕉");
+	$("#phoowner").val("大衛海鮮");
 	$("#phophone").val("0987878787");
-	$("#phomail").val("bochen9368@gmail.com");
+	$("#phomail").val("gasbomb@gmail.com");
 }
 
 </script>
