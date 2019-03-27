@@ -303,10 +303,10 @@ function idwrite(name) {
 	  form1.purcontent.value="僅限中國和部分亞太國家限定發售的合組「LEGO 80102 舞龍」(Dragon Dance)日本太回火熱搶購中";
 	  form1.pursort.value = "4";
 	  form1.pururl.value="https://api.dropbuy.global/deeplink/recommendationdetail/8189";
-	  form1.purcountry.value="日本";
+	  form1.purcountry.value="法國";
 	  form1.purdelivery.value="臺灣";
 	  form1.purreprice.value="2885";
-	  form1.purpricing.value="3000";
+	  form1.purpricing.value="20000";
 	  form1.purstock.value="1";
 
 	 }
@@ -318,7 +318,7 @@ function idwrite(name) {
 	       timepicker:true,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
-		   value: '<%=purobtained%>', 
+		   value: '2019-05-28 00:11:24', 
 		   // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
