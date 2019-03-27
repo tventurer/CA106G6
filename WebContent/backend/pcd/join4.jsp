@@ -139,11 +139,11 @@ form>.ok {
 					<%-- <input type="hidden" name="memmail" value="${mememail}"> --%>
 					<input type="submit" value="送出新增" id="button">
 				</FORM>
-<!-- <!-- <script> --> -->
+<!-- <script> -->
 <!-- // $("#button").click(){ -->
 <!-- // 	    alert("報名成功，寄信給您"); -->
 <!-- // } -->
-<!-- <!-- </script> --> -->
+<!-- <!-- </script> -->
 			</div>
 		</div>
 	</section>
