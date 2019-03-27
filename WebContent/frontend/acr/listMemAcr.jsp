@@ -11,7 +11,7 @@
 	
 	Integer total = acrSvc.getMemacrtotal(name);
 	pageContext.setAttribute("total",total);
-	List<AcrVO> Acrlist = acrSvc.getMemAll(name);
+	List<AcrVO> Acrlist = acrSvc.getMemAllShow(name);
 	pageContext.setAttribute("Acrlist",Acrlist);
 	int Acr_num = Acrlist.size();
 	pageContext.setAttribute("Acr_num",Acr_num);

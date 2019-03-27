@@ -50,6 +50,9 @@ public class AcrService {
 	public List<AcrVO> getMemAll(String memno){
 		return dao.getMemAll(memno);
 	}
+	public List<AcrVO> getMemAllShow(String memno){
+		return dao.getMemAllShow(memno);
+	}
 	public Integer getMemacrtotal(String memno) {
 		return dao.getMemacrtotal(memno);
 	}

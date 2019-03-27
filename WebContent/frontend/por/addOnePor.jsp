@@ -60,7 +60,6 @@
             <span class="color-text-a">資料填妥，即可下訂 ~ 祝您購物愉快 !</span><br>
             <%-- 錯誤表列(最後更改) --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 		<script>

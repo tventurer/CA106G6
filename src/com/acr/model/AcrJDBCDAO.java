@@ -36,6 +36,9 @@ public class AcrJDBCDAO implements AcrDAO_interface{
 				"select sum(ACRPRICE) as totalacr from accountrecord where memno=?";
 		
 		private static final String GET_MEMALL_STMT = 
+				"SELECT * FROM ACCOUNTRECORD where MEMNO=? order by ACRTIME";
+		
+		private static final String GET_MEMALL_STMT_SHOW = 
 				"SELECT * FROM ACCOUNTRECORD where MEMNO=? order by ACRTIME DESC";
 		//尋找會員時間區間的儲值
 		private static final String GET_MEMTIME_STMT = 
@@ -409,6 +412,67 @@ public class AcrJDBCDAO implements AcrDAO_interface{
 				pstmt.setTimestamp(2, atime);
 				pstmt.setTimestamp(3, btime);
 
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// acrVO 也稱為 Domain objects
+					acrVO = new AcrVO();
+					acrVO.setAcrid(rs.getString("acrid"));
+					acrVO.setMemno(rs.getString("memno"));
+					acrVO.setAcrtime(rs.getTimestamp("acrtime"));
+					acrVO.setAcrprice(rs.getInt("acrprice"));
+					acrVO.setAcrsource(rs.getInt("acrsource"));
+					acrVO.setAcrend(rs.getString("acrend"));
+					acrVO.setAcrtotal(rs.getInt("acrtotal"));
+					list.add(acrVO); // Store the row in the list
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
+		@Override
+		public List<AcrVO> getMemAllShow(String memno) {
+			// TODO Auto-generated method stub
+			List<AcrVO> list = new ArrayList<AcrVO>();
+			AcrVO acrVO = null;
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_MEMALL_STMT_SHOW);
+				pstmt.setString(1, memno);
+				
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
