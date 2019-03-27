@@ -398,7 +398,7 @@ public class PorServlet extends HttpServlet{
 					String memno = new String(req.getParameter("memno").trim());
 					
 					if(checklogistics != porlogistics) {
-						
+						 
 					
 					/***************************2.開始查詢資料****************************************/
 					porSvc.updatePorlogistics(porlogistics, porid);

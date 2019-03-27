@@ -617,7 +617,7 @@ text-align: left;
 						</table>
 					</div>
 				</div>
-			</div>
+			</div> 
 		</div>
 	</section>
 	<!--/ Agents Grid End /-->

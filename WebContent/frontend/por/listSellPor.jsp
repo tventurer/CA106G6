@@ -109,7 +109,7 @@
 										<td>
 										<c:if test="${Por_num > 0 }">
 										<c:forEach var="porVO" items="${Porlist1}" varStatus="a">
-										<c:choose>
+										<c:choose> 
 										<c:when test="${a.last}">
 											<fmt:formatDate value="${porVO.portime}"  timeStyle="short" type="both"/>
 										</c:when>
