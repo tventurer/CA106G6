@@ -298,7 +298,7 @@ function readURL(input){
 <script>
 function idwrite(name) {
 	  form1.purreceipt.value = "1";
-	  form1.purlimit.value="5";
+	  form1.purlimit.value="0";
 	  form1.purname.value="亞太限定樂高";
 	  form1.purcontent.value="僅限中國和部分亞太國家限定發售的合組「LEGO 80102 舞龍」(Dragon Dance)日本太回火熱搶購中";
 	  form1.pursort.value = "4";
