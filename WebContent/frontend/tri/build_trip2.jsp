@@ -96,14 +96,34 @@ if(errorMsgs != null){
 <%}}%>
 
 <%
-//城市轉經緯度
+//城市轉經緯度(寫死提升效能)
 SpoService spoSvc = new SpoService();
 List<String> citys = spoSvc.getAllCity();
 List<double[]> latlngs = new ArrayList<double[]>();
-for(String city: citys){
-	double[] latlng = AddrToLatLong.getLatLong(city);
-	latlngs.add(latlng);
-}
+// for(String city: citys){
+// 	double[] latlng = AddrToLatLong.getLatLong(city);
+latlngs.add(new double[]{25.1276033, 121.7391833});	//基隆市
+latlngs.add(new double[]{25.0329694, 121.5654177}); //台北市
+latlngs.add(new double[]{25.0169826, 121.4627868}); //新北市
+latlngs.add(new double[]{24.9936281, 121.3009798}); //桃園市
+latlngs.add(new double[]{24.1477358, 120.6736482}); //台中市
+latlngs.add(new double[]{23.4800751, 120.4491113}); //嘉義市
+latlngs.add(new double[]{24.8138287, 120.9674798}); //新竹市
+latlngs.add(new double[]{24.7021073, 121.7377502}); //宜蘭縣
+latlngs.add(new double[]{23.4518428, 120.2554615}); //嘉義縣
+latlngs.add(new double[]{23.9871589, 121.6015714}); //花蓮縣
+latlngs.add(new double[]{24.0517963, 120.5161352}); //彰化縣
+latlngs.add(new double[]{24.8387226, 121.0177246}); //新竹縣
+latlngs.add(new double[]{24.560159, 120.8214265}); //苗栗縣
+latlngs.add(new double[]{23.9609981, 120.9718638}); //南投縣
+latlngs.add(new double[]{22.9997281, 120.2270277}); //台南市
+latlngs.add(new double[]{22.7972447, 121.0713702}); //台東縣
+latlngs.add(new double[]{23.7092033, 120.4313373}); //雲林縣
+latlngs.add(new double[]{22.6272784, 120.3014353}); //高雄市
+latlngs.add(new double[]{22.5519759, 120.5487597}); //屏東縣
+latlngs.add(new double[]{24.3487792, 118.3285644}); //金門縣
+latlngs.add(new double[]{26.160243, 119.9516652}); //連江縣
+latlngs.add(new double[]{23.571486, 119.579161}); //澎湖縣
 %>
 
 var position = { lat: 23.632519 , lng: 119.005576 };
