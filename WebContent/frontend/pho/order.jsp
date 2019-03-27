@@ -54,7 +54,7 @@
       <div class="row">      
         <div class="col-12">
 			<font style="color:red">${errorMsg}</font>
-			<form action="<%=request.getContextPath()%>/pho/phocontrol" method="post">
+			<form action="<%=request.getContextPath()%>/pho/phocontrol" name="formbc" method="post">
 			
 <!-- 					輸入姓名、手機 -->
 				<div class="form-row">
@@ -91,7 +91,7 @@
    				
    				<font style="color:red">${carderrorMsgs}</font>
    				<br><br><br>
-				<input type="submit" class="btn btn-b" value="確認購買">
+				<input id="submitTrip" type="button" class="btn btn-b" value="確認購買">
 				<input type="hidden" name="action" value="insert">
 				<input type="hidden" name="memno" value="${memno}">
 			</form>
@@ -105,6 +105,7 @@
       </div>	
     </div>
   </section>
+  
   <!-----------------------------------/ 訂單結束 /----------------------------------->
 	
 
@@ -116,14 +117,24 @@
 </body>
 
 
-<script
-	src="<%=request.getContextPath()%>/bootstrap/js/bootstrap.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script
-	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>	
 	
-<script>  
+<script> 
+
+$('#submitTrip').click(function(){
+	$('#login').modal('hide');
+	$('.modal-backdrop').remove();
+	debugger
+	if(!allowUser()){
+		$('#login').modal('show');
+		return;
+	} else{
+		document.formbc.submit();
+	}
+});
+
+
+
+
 	function next(obj) {  
 	    if (obj.value.length == obj.maxLength) {  
 	        do {  

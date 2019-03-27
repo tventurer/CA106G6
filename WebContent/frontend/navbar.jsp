@@ -229,15 +229,17 @@
 		         });
 			});
 	    	
-	    	function allowUser(){
-	    		var memno = "${sessionScope.memno}";
-	    		if( memno.length != 0)
-	    			return true;
-	    		else
-	    			return false;
-	    	}
+	    	
 			 
 		});
+  
+  function allowUser(){
+		var memno = "${sessionScope.memno}";
+		if( memno.length != 0)
+			return true;
+		else
+			return false;
+	}
 </script>
 </body>
 </html>
