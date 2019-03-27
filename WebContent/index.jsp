@@ -224,15 +224,19 @@
             <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
+                  <center>
                   <h3 class="title-d">
-                    <p class="link-two">套裝行程即將上架</p>
+                    <p class="link-two">Next Trip</p>
                   </h3>
+                  </center>
                 </div>
               </div>
               <div class="card-body-d"> 
-                <p class="content-d color-text-a">
-                  	詳情請洽套裝行程
-                </p>
+                <center>
+                <h3 class="title-d">
+                    <p class="link-two">Village</p>
+                </h3>
+                </center>
                 <div class="info-agents color-a">
                 </div>
               </div>
@@ -251,15 +255,19 @@
             <div class="card-overlay card-overlay-hover">
                <div class="card-header-d">
                 <div class="card-title-d align-self-center">
+                  <center>
                   <h3 class="title-d">
-                    <p class="link-two">套裝行程即將上架</p>
+                    <p class="link-two">Next Trip</p>
                   </h3>
+                  </center>
                 </div>
               </div>
               <div class="card-body-d"> 
-                <p class="content-d color-text-a">
-                  	詳情請洽套裝行程
-                </p>
+                <center>
+                  <h3 class="title-d">
+                    <p class="link-two">City</p>
+                  </h3>
+                  </center>
                 <div class="info-agents color-a">
                 </div>
               </div>
@@ -278,15 +286,19 @@
             <div class="card-overlay card-overlay-hover">
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
+                  <center>
                   <h3 class="title-d">
-                    <p class="link-two">套裝行程即將上架</p>
+                    <p class="link-two">Next Trip</p>
                   </h3>
+                  </center>
                 </div>
               </div>
               <div class="card-body-d"> 
-                <p class="content-d color-text-a">
-                  	詳情請洽套裝行程
-                </p>
+                <center>
+                  <h3 class="title-d">
+                    <p class="link-two">historical</p>
+                  </h3>
+                  </center>
                 <div class="info-agents color-a">
                 </div>
               </div>
