@@ -74,13 +74,7 @@ color: red;
 <body>
 
 <div id="map"></div>
-
-	<!-- 付費的 -->
 		    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJDWHf2nJvG1HGWjhDSz95Gv8E0h_ZFp0"></script>
-	<!-- 非付費的    -->
-
-<!-- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYmC8oUYc9DGAZn8hqZKakFeclhAbTRSI"></script> -->
-
 </body>
 
 <script>
