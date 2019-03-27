@@ -30,7 +30,7 @@
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">${memrealname}你好!您已經成功註冊</h1>
+            <h1 class="title-single">${memrealname}你好!您已經成功註冊，請記得到會員首頁完成信箱驗證</h1>
             <span class="color-text-a">3秒後回到首頁</span>
           </div>
         </div>

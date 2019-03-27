@@ -33,12 +33,12 @@
 
 				<div class="form-row">
 					<div class="form-group col-7">
-						聯絡人姓名<input type="text" class="form-control" name="todowner" 
+						聯絡人姓名<input type="text" class="form-control" id="todowner" name="todowner" 
 									value="${param.todowner}">
     					<font style="color:red">${errorMsgs.todowner}</font>
     				</div>
     				<div class="form-group col-7">
-						聯絡手機<input type="tel" class="form-control" name="todphone"
+						聯絡手機<input type="tel" class="form-control" id="todphone" name="todphone"
 									value="${param.todphone}">
     					<font style="color:red">${errorMsgs.todphone}</font>
     				</div>
@@ -46,7 +46,7 @@
 
    				<div class="form-row">
 					<div class="form-group col-7">
-						E-mail<input type="email" class="form-control" name="todmail"
+						E-mail<input type="email" class="form-control" id="todmail" name="todmail"
 									value="${param.todmail}">
     					<font style="color:red">${errorMsgs.todmail}</font>
     				</div>
@@ -71,11 +71,8 @@
 				<input type="submit" class="btn btn-b" value="確認購買">
 			</form>
 			<br>
-<%-- 			<form action="<%=request.getContextPath()%>/pho/phocontrol" method="post"> --%>
-<!-- 				<input type="submit" class="btn btn-b" value="神奇小按鈕"> -->
-<!-- 				<input type="hidden" name="action" value="buildOrder"> -->
-<!-- 			</form> -->
-			
+				
+				<input id="magic" type="submit" class="btn btn-b" value="神奇小按鈕">
 			
  		</div>
       </div>	
@@ -99,6 +96,16 @@
 	    }         
 	}  
 	document.forms[0].N1.focus();  
+</script>
+
+<script>
+
+$("#magic").click(function(){
+	$("#todowner").val("香蕉");
+	$("#todphone").val("0911123123");
+	$("#todmail").val("bochen9368@gmail.com");
+});
+
 </script>
  
 </html>
