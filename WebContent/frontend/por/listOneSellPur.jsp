@@ -15,6 +15,10 @@ String name =(String)session.getAttribute("memno");
 	pageContext.setAttribute("Porlist", Porlist);
 	int Por_num = Porlist.size();
 	
+	String poridcheck = request.getParameter("poridcheck");
+	pageContext.setAttribute("poridcheck",poridcheck);
+
+	
 	
 	PurService purSvc = new PurService();
 	PurVO OnePur = purSvc.getOnePur(purid);
@@ -156,7 +160,7 @@ text-align: left;
 								</tr>
 							</c:if>
 								<c:forEach var="porVO" items="${Porlist}" varStatus="s">
-									<tr>
+									<tr id="${porVO.porid}">
 										<td>${s.count}</td>
 										<td>${porVO.porid}</td>
 										
@@ -449,7 +453,14 @@ text-align: left;
 
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 	<div id="preloader"></div>
-	
+	<c:if test="${poridcheck != null}">
+<script type="text/javascript">
+var check="${poridcheck}";
+document.getElementById(check).style.backgroundColor ="#28a74575";
+
+	$('#"${poridcheck}"').css({ color: "#ff0011", background: "blue" });
+</script> 
+</c:if>
 	<script>
 	$(document).ready(function(){
 		var elements = document.getElementsByClassName('sellscore');
