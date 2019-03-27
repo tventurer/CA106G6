@@ -550,6 +550,16 @@ public class PorServlet extends HttpServlet{
 					if(purstock == pursell) {
 						purSvc.updatePurstatus(2, purid);
 						purSvc.updatePurSell(pursell, purid);
+						String tomemno = purVO.getMemno();
+						MpmService mpmSvc = new MpmService();
+						String mpmtitle = "您的商品已滿單，順利下架";
+						String sorString = "商品已售完請趕快處理此商品的所有訂單"+"<br>"+"<a href='"+req.getContextPath()+"/frontend/por/listOneSellPur.jsp?memno="+tomemno+"&purid="+purid+"'>商品編號："+purid+"的所有訂單</a>";
+						
+						mpmSvc.addMpm(memno, tomemno, mpmtitle, sorString);
+//						您有一筆新的訂單MEMNO買家
+//						查看新訂單
+					}else if(purstock > pursell){
+						
 					}else if(purstock < pursell){
 						errorMsgs.add("Hello~!你超賣了，這裡有蟲，請盡速處理");
 					}
