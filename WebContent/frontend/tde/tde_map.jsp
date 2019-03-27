@@ -159,7 +159,7 @@ height: 150px;
 	<div id="map"></div>
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJDWHf2nJvG1HGWjhDSz95Gv8E0h_ZFp0"></script>
-	
+	 
 <script>
 
 <% 
