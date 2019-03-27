@@ -93,7 +93,7 @@
           <jsp:useBean id="memSvc" class="com.mem.model.MemService" scope="page"/>
 
           <li class="nav-item">
-            	${memSvc.getOneMem(sessionScope.memno).memacc}你好<br>
+            	${memSvc.getOneMem(sessionScope.memno).memrealname}你好<br>
             	<%@ include file="/frontend/not/notification.file" %>
           </li>
           
