@@ -173,6 +173,7 @@ request.setAttribute("pacVO", pacVO);
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
+<input onclick="buildInfo()" id="magic" type="image" src="<%=request.getContextPath()%>/backend/ptp/images/world.jpg" width="50" height="50" />
 </div>
 </div>
 </div>
@@ -181,8 +182,23 @@ request.setAttribute("pacVO", pacVO);
 
 </body>
 
+<script>
 
+$("#magic").click(function(){
+	buildInfo();
+})
 
+function buildInfo(){
+	$("*[name='ptpstart']").val("2019-04-30 06:30:00");
+	$("*[name='ptpend']").val("2019-05-01");
+	$("*[name='ptpsigndle']").val("2019-04-20");
+	$("*[name='ptpnotice']").val("無改變");
+	$("*[name='ptpvacancy']").val("10");
+	$("*[name='ptpminmen']").val("15");
+	$("*[name='ptpmaxmen']").val("30");
+	
+}
+</script>
 
 <style>
   .xdsoft_datetimepicker .xdsoft_datepicker {

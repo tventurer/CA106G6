@@ -165,6 +165,7 @@
             
 			<input class="btn btn-primary" type="submit" value="送出新增"></FORM>
             </div>
+            <input id="magic" type="submit" class="btn btn-b" value="偷懶一下">
     </main>
 <script>
 
@@ -222,5 +223,24 @@ function readURL2(input){
 
 
 </script>
+
+<script>
+
+$("#magic").click(function(){
+	buildInfo();
+})
+
+function buildInfo(){
+	$("*[name='pacname']").val("武陵農場二日遊");
+	$("*[name='paccountry']").val("中華民國");
+	$("*[name='paccity']").val("台中");
+	$("*[name='pactotalday']").val("2");
+	$("*[name='pacprice']").val("5100");
+	$("*[name='pacdeposit']").val("3100");
+	$("*[name='pacdiv']").val("＊帶您一步步造訪「桃花源」，詩人陶淵明的桃花源記，描繪的就是這樣偶然遇上的心情。＊春花爭妍，滿山櫻、梅、桃、梨花開，落花在大地做畫，處處是淡香花毯。＊夏日清風，山區正值溫帶水果梨子、蘋果、水蜜桃的收獲季，暑氣不侵的清涼勝地。＊秋夜聞楓，楓葉紅似火，在樹下駐足涼生醉，蒼鬱的變葉高山植物，點綴武陵。＊冬雪如玉，遠方高山峰頭靄靄白雪，也是雲海山嵐的季節，彷彿置身北國大地");
+}
+
+</script>
+
 </body>
 </html>
