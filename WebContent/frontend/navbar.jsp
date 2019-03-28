@@ -36,6 +36,13 @@
   <!--/ Nav Star /-->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container">
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    
       <a class="navbar-brand text-brand" href="<%= request.getContextPath() %>/index.jsp">T<span class="color-b">-Venturer</span></a>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
@@ -170,7 +177,6 @@
 
   <!-- Template Main Javascript File -->
   <script src="<%= request.getContextPath() %>/style/f/js/main.js"></script>
-  
   <script>
   function loadnotification() {
 	  $('#notification_body').load('<%=request.getContextPath()%>/frontend/not/AllMyNot.jsp');

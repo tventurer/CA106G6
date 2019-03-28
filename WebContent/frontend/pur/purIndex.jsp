@@ -19,7 +19,7 @@
 <!-------------------------------- 引入標頭 ------------------------------------->
 
 <jsp:include page="/frontend/navbar.jsp" />
-
+ <title>代購商品</title>
   <style>
   .img-fluid{
   height:280px;

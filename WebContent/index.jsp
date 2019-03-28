@@ -324,7 +324,7 @@
   <script src="style/f/lib/jquery/jquery-migrate.min.js"></script>
   <script src="style/f/lib/popper/popper.min.js"></script>
   <script src="style/f/lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="style/f/lib/easing/easing.min.js"></script>
+<!--   <script src="style/f/lib/easing/easing.min.js"></script> -->
   <script src="style/f/lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="style/f/lib/scrollreveal/scrollreveal.min.js"></script>
   <!-- Contact Form JavaScript File -->

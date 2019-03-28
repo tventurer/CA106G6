@@ -201,7 +201,7 @@ text-align: left;
 					<c:if test="${purVO.purstatus == 2 }">
 						已下架
 					</c:if>
-					<c:if test="${purVO.purstatus == 3 }">
+					<c:if test="${purVO.purstatus == 8 }">
 						已遭檢舉
 					</c:if>
 					</td>
@@ -220,7 +220,7 @@ text-align: left;
 					<c:if test="${purVO.purstatus == 2 }">
 						此商品已下架
 					</c:if>
-					<c:if test="${purVO.purstatus == 3 }">
+					<c:if test="${purVO.purstatus == 8 }">
 						已遭檢舉下架
 					</c:if>
 					</td>
